@@ -21,11 +21,6 @@ import usocket
 
 # TODO import flipflapflop
 
-HOST = "0.0.0.0"
-PORT = 8123
-WIDTH = 4   # display.width
-HEIGHT = 3  # display.height
-
 
 class DisplayServer:
     def __init__(self, width, height):
@@ -75,4 +70,4 @@ class DisplayServer:
 
 if __name__ == "__main__":
     ds = DisplayServer(28, 16)
-    ds.start(HOST, PORT)
+    ds.start("0.0.0.0", 8123)
