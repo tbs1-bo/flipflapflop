@@ -3,3 +3,6 @@
 
 # Backup files
 *~
+
+# folder with micropython interpreter.
+micropython/
