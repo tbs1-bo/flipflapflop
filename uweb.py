@@ -11,6 +11,9 @@ to make a T on a 4x3 display of this form
 
 the following request has to be sent to the server: 111101100110.
 
+If the request just contains the string SIZE, the server will respond with the
+dimensions of the display (width x height).
+
 """
 
 # http://docs.micropython.org/en/latest/esp8266/library/usocket.html
@@ -39,31 +42,32 @@ class DisplayServer:
 
         while True:
             # waiting for connection
-            s, cl = sock.accept()
-            print("connection made", s)
-            buf = s.recv(self.width*self.height)
+            remote_sock, cl = sock.accept()
+            print("connection made", remote_sock)
+            buf = remote_sock.recv(self.width*self.height)
             print("received", len(buf), "bytes")
-            s.close()
 
             try:
-                self.handle_request(buf)
+                self.handle_request(buf, remote_sock)
             except Exception as e:
                 print("ERROR", e)
-                del buf
-            del buf
+            finally:
+                remote_sock.close()
 
-    def handle_request(self, bytes_):
-        if len(bytes_) != self.width * self.height:
-            print("Error: Wrong dimension of request")
+    def handle_request(self, bytes_, remote_sock):
+        s = str(bytes_, "ascii")
+
+        # answer with display dimension if desired
+        if "size" in s.lower():
+            resp = str(self.width) + "x" + str(self.height)
+            remote_sock.send(bytes(resp, "ascii"))
             return
 
         print("Visualizing")
         for i, b in enumerate(bytes_):
             if i % self.width == 0:
                 print()
-
             print("1" if b == ord("1") else "0", end="")
-
         print()
 
         # TODO flipflapflop.show(bytes)
