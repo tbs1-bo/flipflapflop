@@ -14,6 +14,9 @@ the following request has to be sent to the server: 111101100110.
 If the request just contains the string SIZE, the server will respond with the
 dimensions of the display (width x height).
 
+To test this class the unix port of micropython can be used. It can be found
+here in the github repo of micropython
+https://github.com/micropython/micropython
 """
 
 # http://docs.micropython.org/en/latest/esp8266/library/usocket.html
