@@ -1,3 +1,4 @@
+# http://docs.micropython.org/en/latest/esp8266/library/machine.I2C.html
 from machine import I2C
 
 
@@ -31,7 +32,6 @@ class Portexpander:
 
     def __init__(self, i2c_address, sda, scl):
         self.i2c_address = i2c_address
-        # http://docs.micropython.org/en/latest/esp8266/library/machine.I2C.html
         self.smbus = I2C(scl=scl, sda=sda)
         # configure default registers
         self._regs = {'conf': {'A': 0x00, 'B': 0x01},
