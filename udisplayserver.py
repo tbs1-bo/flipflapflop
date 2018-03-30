@@ -1,6 +1,6 @@
 # uweb.py
 """
-Webserver for micropython. It will listen on a specified port for
+TCP-Server for micropython that listens on a specified port for
 TCP-Connections. Every request sent to the server has to be a string of 0s
 and 1s each specifying a dot to be turned on or off respectively. For instance,
 to make a T on a 4x3 display of this form
