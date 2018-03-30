@@ -96,6 +96,18 @@ class DisplayServer:
 
 
 if __name__ == "__main__":
-    ds = DisplayServer(flipdotdisplay.FlipDotDisplay(),
-                       display_cooldown_time=5)
+    # TODO Dummy needed as long as flipdotdisplay is not runnable with upython
+    class Dummy:
+        def __init__(self, **args):
+            self.width = 4
+            self.height = 3
+        def px(self, *args):
+            pass
+        def show(self, *args):
+            pass
+
+    #display = Dummy()
+    display = flipdotdisplay.FlipDotDisplay()
+    ds = DisplayServer(display,
+                       display_cooldown_time=1)
     ds.start("0.0.0.0", 8123)
