@@ -1,7 +1,7 @@
 import time
 import smbus
 
-
+# TODO add upython version
 class Portexpander:
     """
     A Portexpander using up to 16 IO-Pins organised in 2 Banks A und B. Each
