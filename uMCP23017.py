@@ -1,4 +1,12 @@
-# http://docs.micropython.org/en/latest/esp8266/library/machine.I2C.html
+"""
+This version of the MCP23017 Portexpander is a port for micropython and can
+be used on an ESP8266 or similar platforms.
+
+It uses the I²C protocol. The micropython API for I²C is described here
+http://docs.micropython.org/en/latest/esp8266/library/machine.I2C.html
+
+"""
+
 from machine import I2C
 
 
