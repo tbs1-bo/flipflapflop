@@ -36,7 +36,7 @@ class FlipDotDisplay:
     def __init__(self, address = 0x21, enable = 14, width=4*28, height=16, pwm = [15, 18, 23, 24]):
         #self.pwmfrequency = float(input("PWM Frequency in Hz: "))
         #self.pwmdc = float(input("PWM duty cycle in %: "))
-        self.pwmfrequency = 10000
+        self.pwmfrequency = 1000
         self.pwmdc = 30
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(enable, GPIO.OUT)
@@ -54,9 +54,12 @@ class FlipDotDisplay:
         self.bigfont = Font('clR6x12.bdf', 6, 12)
         self.smallfont = Font('4x6.bdf', 4, 6)
         self.buffer = []
+        self.oldbuffer = []
         for x in range(width):
-            spalte = [False]*height
-            self.buffer.append(spalte)
+            col = [False]*height
+            oldcol = [True]*height
+            self.buffer.append(col)
+            self.oldbuffer.append(oldcol)
 
     def px(self, x, y, val):
         """
@@ -87,9 +90,10 @@ class FlipDotDisplay:
                 else:
                     print(".", end="")
 
-    def show(self):
+    def show(self, fullbuffer = False):
         """
         show the buffer on flip dot display
+        set the fullbuffer-flag to show whole buffer on the display and not only the changes
         """
         #self.printbuffer()
         for x in range(self.width):
@@ -98,7 +102,9 @@ class FlipDotDisplay:
                 self.pwm[modulnummer].start(self.pwmdc)
                 #print("starte", modulnummer)
             for y in range(self.height):
-                self.flipdot(x, y, self.buffer[x][y])
+                if (self.buffer[x][y] != self.oldbuffer[x][y] or fullbuffer):
+                    self.flipdot(x, y, self.buffer[x][y])
+                    self.oldbuffer[x][y] = self.buffer[x][y]
             if (x+1) % 28 == 0:
                 self.pwm[modulnummer].stop()
                 #print("stoppe", modulnummer)
@@ -109,10 +115,10 @@ class FlipDotDisplay:
         make the display yellow, wait, make the display black, wait
         """
         self.clear(True)
-        self.show()
+        self.show(True)
         time.sleep(delay)
         self.clear(False)
-        self.show()
+        self.show(True)
         time.sleep(delay)
 
 
@@ -146,14 +152,13 @@ class FlipDotDisplay:
                     self.px(x, y, val)
 
 
-    def scrolltext(self, text, font, step):
-        running = True
+    def scrolltext(self, text, font, step, top=1, delay=0.1):
         self.clear()
         spaces = max((self.width // font.width) - len(text), 0) + 1
         text = text + ' '*spaces
         text = text*2
         x = 0
-        y = 0
+        y = top
         while True:
             self.text(text, font, (x, y))
             self.show()
@@ -161,18 +166,39 @@ class FlipDotDisplay:
                 x = 0
             else:
                 x = x-step
+            time.sleep(delay)
+
+    def movingdot(self):
+        """
+        experimental
+        """
+        self.clear()
+        #self.px(0, 0, True)
+        for y in range(self.height):
+            #self.show(True)
+            if y%2 == 0:
+                xlist = list(range(self.width))
+            else:
+                xlist = list(range(self.width)[::-1])
+            for x in xlist:
+                self.px(x, y, True)
+                time.sleep(0.03)
+                self.show()
+                time.sleep(0.03)
+                self.px(x, y, False)
+                time.sleep(0.03)
+                self.show()       
 
 def main():
     fd = FlipDotDisplay(0x21, 14, 28, 13, [15])
     try:
-        fd.toggle(0.1) # "clean" the display
-        #fd.scrolltext("HELLO WORLD", fd.smallfont, 3)
+        fd.toggle(0.3) # "clean" the display
+        #fd.scrolltext("Test123", fd.bigfont, 1, 0)
         fd.text("HELLO", fd.smallfont, (4, 1))
         fd.text("WORLD!", fd.smallfont, (2, 7))
         while(True):
-            fd.show()
+            fd.show(True)
             time.sleep(5)   # refresh display every 5 seconds
-
         GPIO.cleanup()
     except KeyboardInterrupt:
         GPIO.cleanup()
