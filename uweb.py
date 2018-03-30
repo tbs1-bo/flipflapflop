@@ -11,24 +11,30 @@ to make a T on a 4x3 display of this form
 
 the following request has to be sent to the server: 111101100110.
 
-If the request just contains the string SIZE, the server will respond with the
+A simple command client like nc can send this request to 'server' listening
+on port 8123:
+
+$ echo 111101100110 | nc server 8123
+
+If the request just contains the string 'SIZE', the server will respond with the
 dimensions of the display (width x height).
 
 To test this class the unix port of micropython can be used. It can be found
-here in the github repo of micropython
+in the github repo of micropython
 https://github.com/micropython/micropython
 """
 
 # http://docs.micropython.org/en/latest/esp8266/library/usocket.html
 import usocket
+import flipflapflop
 
-# TODO import flipflapflop
 
-
+# TODO only send to display every X seconds
 class DisplayServer:
-    def __init__(self, width, height):
+    def __init__(self, width, height, display):
         self.width = width
         self.height = height
+        self.display = display
 
     def start(self, host, port):
         print("Starting server for dimension", self.width, "x", self.height)
@@ -42,8 +48,8 @@ class DisplayServer:
             # waiting for connection
             remote_sock, cl = sock.accept()
             print("connection made", remote_sock)
-            buf = remote_sock.recv(self.width*self.height)
-            print("received", len(buf), "bytes")
+            buf = remote_sock.recv(self.width * self.height)
+            print("received", len(buf), "bytes", buf[:20])
 
             try:
                 self.handle_request(buf, remote_sock)
@@ -52,25 +58,27 @@ class DisplayServer:
             finally:
                 remote_sock.close()
 
-    def handle_request(self, bytes_, remote_sock):
-        s = str(bytes_, "ascii")
+    def handle_request(self, payload, remote_sock):
+        s = str(payload, "ascii")
 
         # answer with display dimension if desired
         if "size" in s.lower():
             resp = str(self.width) + "x" + str(self.height)
             remote_sock.send(bytes(resp, "ascii"))
-            return
 
-        print("Visualizing")
-        for i, b in enumerate(bytes_):
-            if i % self.width == 0:
+        # draw pixels if enough bytes have been sent
+        elif len(payload) >= self.width * self.height:
+            for y in range(self.height):
+                for x in range(self.width):
+                    val = chr(payload[y * self.width+ x])
+                    if val in ("0", "1"):
+                        print(val, end="")
+                        self.display.px(x, y, val == "1")
                 print()
-            print("1" if b == ord("1") else "0", end="")
-        print()
 
-        # TODO flipflapflop.show(bytes)
+            self.display.show()
 
 
 if __name__ == "__main__":
-    ds = DisplayServer(28, 16)
+    ds = DisplayServer(4, 3, flipflapflop.FlipDisplay())
     ds.start("0.0.0.0", 8123)
