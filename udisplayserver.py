@@ -1,9 +1,10 @@
 # uweb.py
 """
 TCP-Server for micropython that listens on a specified port for
-TCP-Connections. Every request sent to the server has to be a string of 0s
-and 1s each specifying a dot to be turned on or off respectively. For instance,
-to make a T on a 4x3 display of this form
+TCP-Connections. Every request sent to the server has to be the string 'size'
+or a string of 0s and 1s each specifying a dot to be turned on or off
+respectively. For instance, to display the letter 'T' on a 4x3 display of this
+form
 
     1111
     0110
@@ -14,17 +15,16 @@ the following request has to be sent to the server: 111101100110.
 A simple command client like nc can send this request to 'server' listening
 on port 8123:
 
-$ echo 111101100110 | nc server 8123
+   $ echo 111101100110 | nc server 8123
 
 There is a cooldown time for requests that update the display. Many Requests
 in a short time will therefore be ignored.
 
-If the request just contains the string 'SIZE' (ignoring case), the server
+If the request contains the string 'SIZE' (ignoring case), the server
 will respond with the dimensions of the display (width x height).
 
-To test this class the unix port of micropython can be used. It can be found
-in the github repo of micropython
-https://github.com/micropython/micropython
+The unix port of micropython can be used to test this class . It can be found
+in the github repo of micropython https://github.com/micropython/micropython
 """
 
 # http://docs.micropython.org/en/latest/esp8266/library/usocket.html
