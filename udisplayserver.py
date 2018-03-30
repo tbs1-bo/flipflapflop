@@ -1,4 +1,3 @@
-# uweb.py
 """
 TCP-Server for micropython that listens on a specified port for
 TCP-Connections. Every request sent to the server has to be the string 'size'
