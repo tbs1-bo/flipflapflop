@@ -69,7 +69,6 @@ class Portexpander:
     def input(self, bankab, pin):
         assert bankab in ['A', 'B']
         assert pin in range(8)
-        reg = self._regs['input'][bankab]
         reg_value = self.read_value(bankab)
         return (reg_value & 2**pin) == 2**pin
 
