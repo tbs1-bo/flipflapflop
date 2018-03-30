@@ -30,13 +30,13 @@ https://github.com/micropython/micropython
 # http://docs.micropython.org/en/latest/esp8266/library/usocket.html
 import usocket
 import utime
-import flipflapflop
+import flipdotdisplay
 
 
 class DisplayServer:
-    def __init__(self, width, height, display, display_cooldown_time=1):
-        self.width = width
-        self.height = height
+    def __init__(self, display, display_cooldown_time=1):
+        self.width = display.width
+        self.height = display.height
         self.display = display
         self.last_display_update = utime.time()
         self.display_cooldown_time = display_cooldown_time
@@ -90,6 +90,6 @@ class DisplayServer:
 
 
 if __name__ == "__main__":
-    ds = DisplayServer(4, 3, flipflapflop.FlipDisplay(),
+    ds = DisplayServer(flipdotdisplay.FlipDotDisplay(),
                        display_cooldown_time=5)
     ds.start("0.0.0.0", 8123)
