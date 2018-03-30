@@ -16,8 +16,11 @@ on port 8123:
 
 $ echo 111101100110 | nc server 8123
 
-If the request just contains the string 'SIZE', the server will respond with the
-dimensions of the display (width x height).
+There is a cooldown time for requests that update the display. Many Requests
+in a short time will therefore be ignored.
+
+If the request just contains the string 'SIZE' (ignoring case), the server
+will respond with the dimensions of the display (width x height).
 
 To test this class the unix port of micropython can be used. It can be found
 in the github repo of micropython
@@ -26,15 +29,17 @@ https://github.com/micropython/micropython
 
 # http://docs.micropython.org/en/latest/esp8266/library/usocket.html
 import usocket
+import utime
 import flipflapflop
 
 
-# TODO only send to display every X seconds
 class DisplayServer:
-    def __init__(self, width, height, display):
+    def __init__(self, width, height, display, display_cooldown_time=1):
         self.width = width
         self.height = height
         self.display = display
+        self.last_display_update = utime.time()
+        self.display_cooldown_time = display_cooldown_time
 
     def start(self, host, port):
         print("Starting server for dimension", self.width, "x", self.height)
@@ -68,17 +73,23 @@ class DisplayServer:
 
         # draw pixels if enough bytes have been sent
         elif len(payload) >= self.width * self.height:
-            for y in range(self.height):
-                for x in range(self.width):
-                    val = chr(payload[y * self.width+ x])
-                    if val in ("0", "1"):
-                        print(val, end="")
-                        self.display.px(x, y, val == "1")
-                print()
+            since_last_update = utime.time() - self.last_display_update
+            if since_last_update < self.display_cooldown_time:
+                print("too many requests")
+            else:
+                for y in range(self.height):
+                    for x in range(self.width):
+                        val = chr(payload[y * self.width+ x])
+                        if val in ("0", "1"):
+                            print(val, end="")
+                            self.display.px(x, y, val == "1")
+                    print()
 
-            self.display.show()
+                self.display.show()
+                self.last_display_update = utime.time()
 
 
 if __name__ == "__main__":
-    ds = DisplayServer(4, 3, flipflapflop.FlipDisplay())
+    ds = DisplayServer(4, 3, flipflapflop.FlipDisplay(),
+                       display_cooldown_time=5)
     ds.start("0.0.0.0", 8123)
