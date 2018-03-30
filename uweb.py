@@ -68,25 +68,31 @@ class DisplayServer:
 
         # answer with display dimension if desired
         if "size" in s.lower():
-            resp = str(self.width) + "x" + str(self.height)
-            remote_sock.send(bytes(resp, "ascii"))
+            self._handle_dimension_request(remote_sock)
 
         # draw pixels if enough bytes have been sent
         elif len(payload) >= self.width * self.height:
-            since_last_update = utime.time() - self.last_display_update
-            if since_last_update < self.display_cooldown_time:
-                print("too many requests")
-            else:
-                for y in range(self.height):
-                    for x in range(self.width):
-                        val = chr(payload[y * self.width+ x])
-                        if val in ("0", "1"):
-                            print(val, end="")
-                            self.display.px(x, y, val == "1")
-                    print()
+            self._handle_display_update_request(payload)
 
-                self.display.show()
-                self.last_display_update = utime.time()
+    def _handle_dimension_request(self, remote_sock):
+        resp = str(self.width) + "x" + str(self.height)
+        remote_sock.send(bytes(resp, "ascii"))
+
+    def _handle_display_update_request(self, payload):
+        since_last_update = utime.time() - self.last_display_update
+        if since_last_update < self.display_cooldown_time:
+            print("too many requests")
+        else:
+            for y in range(self.height):
+                for x in range(self.width):
+                    val = chr(payload[y * self.width + x])
+                    if val in ("0", "1"):
+                        print(val, end="")
+                        self.display.px(x, y, val == "1")
+                print()
+
+            self.display.show()
+            self.last_display_update = utime.time()
 
 
 if __name__ == "__main__":
