@@ -57,7 +57,8 @@ class DisplayServer:
             print("received", len(buf), "bytes", buf[:20])
 
             try:
-                self.handle_request(buf, remote_sock)
+                ans = self.handle_request(buf, remote_sock)
+                remote_sock.send(bytes(ans, "ascii"))
             except Exception as e:
                 print("ERROR", e)
             finally:
@@ -68,20 +69,23 @@ class DisplayServer:
 
         # answer with display dimension if desired
         if "size" in s.lower():
-            self._handle_dimension_request(remote_sock)
+            return self._handle_dimension_request(remote_sock)
 
         # draw pixels if enough bytes have been sent
         elif len(payload) >= self.width * self.height:
-            self._handle_display_update_request(payload)
+            return self._handle_display_update_request(payload, remote_sock)
+
+        else:
+            return "unknown request type"
 
     def _handle_dimension_request(self, remote_sock):
-        resp = str(self.width) + "x" + str(self.height)
-        remote_sock.send(bytes(resp, "ascii"))
+        resp = "SIZE " + str(self.width) + "x" + str(self.height)
+        return resp
 
-    def _handle_display_update_request(self, payload):
+    def _handle_display_update_request(self, payload, remote_sock):
         since_last_update = utime.time() - self.last_display_update
         if since_last_update < self.display_cooldown_time:
-            print("too many requests")
+            return "too many requests"
         else:
             for y in range(self.height):
                 for x in range(self.width):
@@ -89,10 +93,13 @@ class DisplayServer:
                     if val in ("0", "1"):
                         print(val, end="")
                         self.display.px(x, y, val == "1")
+                    else:
+                        return "bad payload:" + val
                 print()
 
             self.display.show()
             self.last_display_update = utime.time()
+            return "OK"
 
 
 if __name__ == "__main__":
