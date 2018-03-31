@@ -2,6 +2,36 @@ import RPi.GPIO as GPIO
 import MCP23017
 import time
 
+"""
+TODO Anpassen für den ESP8266
+http://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/pins.html
+http://docs.micropython.org/en/latest/esp8266/library/machine.Pin.html
+
+Aufrufe auf RPi.GPIO müssen umgelenkt werden an die Äquivalente aus dem ESP.
+
+Pin Deklaration:
+
+    import machine
+    pin = machine.Pin(0, machine.Pin.IN, machine.Pin.PULL_UP)
+    
+Pin auslesen oder setzen
+    
+    val = pin.value()    
+    pin.value(1)
+    
+http://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/pwm.html
+
+einen PWM-Pin deklarieren
+
+    pin0 = machine.Pin(0)
+    pwm0 = machine.PWM(pin0, freq=1000)
+    pwm0.duty(512)  # zwischen 0 und 1023    
+    # aus
+    pwm0.deinit()
+
+
+"""
+
 class Font():
     """
     read a .bdf font file
