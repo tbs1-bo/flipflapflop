@@ -84,7 +84,7 @@ class DisplayServer:
     def _handle_display_update_request(self, payload, remote_sock):
         since_last_update = utime.time() - self.last_display_update
         if since_last_update < self.display_cooldown_time:
-            return "too many requests"
+            return "Cooling down. Too many requests."
         else:
             for y in range(self.height):
                 for x in range(self.width):
