@@ -69,7 +69,7 @@ class FlipDotDisplay:
             GPIO.setup(m, GPIO.OUT)
         self.width = width
         self.height = height
-        self.pulsewidth = 0.0003
+        self.pulsewidth = 0.0001
         self.module = module
         self.ioexp = MCP23017.Portexpander(address, 1)
         self.ioexp.config_inout('A', 0b00000000)
@@ -94,14 +94,23 @@ class FlipDotDisplay:
         assert 0 <= y <= self.height
         self.buffer[x][y] = val
 
-
-    def clear(self, invert = False):
-        """
-        make all pixel in the buffer black or yellow
-        """
-        for x in range(self.width):
-            for y in range(self.height):
-                self.px(x, y, invert)
+    def flipdot(self, x, y, val):
+        mod = x // 28                   # module number
+        col = x % 28                    # column of current module
+        a = (y//7<<3) + y%7 + 1         # address of row (y) -> bank A of I/O-Expander
+        b = (col//7<<3) + col%7 + 1     # address of column  -> bank B of I/O-Expander
+        if(val):
+            a = a + 0b10000000
+            self.ioexp.write_value('A', a)
+            self.ioexp.write_value('B', b)
+        else:
+            a = a + 0b01100000
+            self.ioexp.write_value('A', a)
+            self.ioexp.write_value('B', b)
+        GPIO.output(self.module[mod], GPIO.HIGH)    # create a short pulse to enable module
+        time.sleep(self.pulsewidth)
+        self.ioexp.write_value('A', 0x00)
+        GPIO.output(self.module[mod], GPIO.LOW)
 
     def printbuffer(self):
         """
@@ -127,103 +136,24 @@ class FlipDotDisplay:
                     self.flipdot(x, y, self.buffer[x][y])
                     self.oldbuffer[x][y] = self.buffer[x][y]
 
-    def toggle(self, delay=1):
+    def show2(self):
         """
-        make the display yellow, wait, make the display black, wait
+        maybe a bit faster than show(True)
         """
-        self.clear(True)
-        self.show(True)
-        time.sleep(delay)
-        self.clear(False)
-        self.show(True)
-        time.sleep(delay)
-
-
-    def flipdot(self, x, y, val):
-        mod = x // 28                   # module number
-        col = x % 28                    # column of current module
-        a = (y//7<<3) + y%7 + 1         # address of row (y) -> bank A of I/O-Expander
-        b = (col//7<<3) + col%7 + 1     # address of column  -> bank B of I/O-Expander
-        if(val):
-            a = a + 0b10000000
-            self.ioexp.write_value('A', a)
+        for x in range(self.width):
+            mod = x // 28
+            col = x % 28
+            b = (col//7<<3) + col%7 + 1
             self.ioexp.write_value('B', b)
-        else:
-            a = a + 0b01100000
-            self.ioexp.write_value('A', a)
-            self.ioexp.write_value('B', b)
-        GPIO.output(self.module[mod], GPIO.HIGH)    # create a short pulse to enable module
-        time.sleep(self.pulsewidth)
-        self.ioexp.write_value('A', 0x00)
-        GPIO.output(self.module[mod], GPIO.LOW)
+            for y in range(self.height):
+                a = (y//7<<3) + y%7 + 1
+                if self.buffer[x][y]:
+                    a = a + 0b10000000
+                else:
+                    a = a + 0b01100000
+                self.ioexp.write_value('A', a)
+                GPIO.output(self.module[mod], GPIO.HIGH)
+                time.sleep(self.pulsewidth)
+                #self.ioexp.write_value('A', 0x00)
+                GPIO.output(self.module[mod], GPIO.LOW)
 
-    def text(self, text, font, pos = (0,0)):
-        """
-        write a text on position (x, y) (upper left dot)
-        """
-        for l_index in range(len(text)):
-            letter = font.letter(text[l_index])
-            y1 = pos[1]
-            y2 = y1 + font.height
-            x1 = pos[0] + l_index*font.width
-            x2 = x1 + font.width
-            for x in range(max(x1, 0), min(x2, self.width)):
-                for y in range(max(y1, 0), min(y2, self.height)):
-                    col = font.width-(x2-x)
-                    val = (letter[y-pos[1]] & (0x80>>(col))) == (0x80>>(col))
-                    self.px(x, y, val)
-
-
-    def scrolltext(self, text, font, step=1, top=0, delay=0.001):
-        """
-        scroll the text like a ticker
-        """
-        self.clear()
-        spaces = max((self.width // font.width) - len(text), 0) + 1
-        text = text + ' '*spaces
-        text = text*2
-        x = 0
-        y = top
-        while True:
-            self.text(text, font, (x, y))
-            self.show()
-            if(abs(x) + step >= (len(text)//2) * font.width):
-                x = 0
-            else:
-                x = x-step
-            time.sleep(delay)
-
-    def movingdot(self):
-        """
-        just for fun
-        """
-        self.clear()
-        for y in range(self.height):
-            if y%2 == 0:
-                xlist = list(range(self.width))
-            else:
-                xlist = list(range(self.width)[::-1])
-            for x in xlist:
-                self.px(x, y, True)
-                time.sleep(0.01)
-                self.show()
-                #self.px(x, y, False)
-
-def main():
-    fd = FlipDotDisplay(0x20, 28, 13, [18])
-    try:
-        fd.toggle(0.3) # "clean" the display, flip and flop all the dots
-        fd.movingdot()
-        fd.scrolltext("flip, flap, flop!", fd.bigfont)
-        #fd.text("HELLO", fd.smallfont, (4, 1))
-        #fd.text("WORLD!", fd.smallfont, (2, 7))
-        while(True):
-            fd.show(True)
-            time.sleep(5)   # refresh display every 5 seconds
-        GPIO.cleanup()
-    except KeyboardInterrupt:
-        GPIO.cleanup()
-        print("flip flap flop")
-
-if __name__ == "__main__":
-    main()
