@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import flipdotdisplay as FDD
+from flipdotfont import Font
 import time
 
 class Flipflapflop:
@@ -86,6 +87,8 @@ class Flipflapflop:
 
 
 def main():
+    bigfont = Font('clR6x12.bdf', 6, 12)
+    smallfont = Font('4x6.bdf', 4, 6)
     fdd = FDD.FlipDotDisplay(0x20, 28, 13, [18])
     fff = Flipflapflop(fdd)
     try:
@@ -93,13 +96,13 @@ def main():
         time.sleep(1)
         fff.toggle2(0.5)
         time.sleep(1)
-        fff.text("HELLO", fdd.smallfont, (4, 1))
+        fff.text("HELLO", smallfont, (4, 1))
         time.sleep(0.5)
-        fff.text("WORLD!", fdd.smallfont, (2, 7))
+        fff.text("WORLD!", smallfont, (2, 7))
         time.sleep(0.5)
         fff.movingdot()
         time.sleep(0.5)
-        fff.scrolltext("flip, flap, flop!", fdd.bigfont)
+        fff.scrolltext("flip, flap, flop!", bigfont)
         while(True):
             #fff.toggle(0.3)
             fdd.show(True)
