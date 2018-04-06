@@ -13,7 +13,7 @@ import network
 #webrepl.start()
 gc.collect()
 
-SSID = "esp8266"
+SSID = "flipdotdisplay"
 PASSWORD = "micropythoN"
 # Currently setting password does not work
 # sticking to the default password micropythoN
