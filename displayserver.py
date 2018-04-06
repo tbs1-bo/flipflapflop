@@ -1,9 +1,9 @@
 """
 TCP-Server for micropython that listens on a specified port for
-TCP-Connections. Every request sent to the server has to be the string 'size'
-or a string of 0s and 1s each specifying a dot to be turned on or off
-respectively. For instance, to display the letter 'T' on a 4x3 display of this
-form
+TCP-Connections. Every request sent to the server has to be one of the special
+commands described later on or a string of 0s and 1s each specifying a dot to
+be turned on or off respectively. For instance, to display the letter 'T'
+on a 4x3 display of this form
 
     1111
     0110
@@ -11,20 +11,19 @@ form
 
 the following request has to be sent to the server: 111101100110.
 
-A simple command client like nc can send this request to 'server' listening
+A simple command line client like nc can send this request to 'server' listening
 on port 8123:
 
    $ echo 111101100110 | nc server 8123
 
 There is a cooldown time for requests that update the display. Many Requests
-in a short time will therefore be ignored.
+in a short time will therefore be ignored. If the request contains the
+string 'COOLDOWN' (ignoring case), the server will respond with the cooldown
+time of the display - i.e. the time to wait between screen updates.
 
 If the request contains the string 'SIZE' (ignoring case), the server
 will respond with the dimensions of the display (width x height).
 
-If the request contains the string 'COOLDOWN' (ignoring case), the server will
-respond with the cooldown time of the display - i.e. the time to wait between
-screen updates.
 """
 
 import socket
