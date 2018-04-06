@@ -6,3 +6,4 @@
 
 # folder with micropython interpreter.
 micropython/
+__pycache__/
