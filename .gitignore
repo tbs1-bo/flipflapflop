@@ -7,3 +7,4 @@
 # folder with micropython interpreter.
 micropython/
 __pycache__/
+venv/
