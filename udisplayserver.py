@@ -29,7 +29,7 @@ in the github repo of micropython https://github.com/micropython/micropython
 # http://docs.micropython.org/en/latest/esp8266/library/usocket.html
 import usocket
 import utime
-import flipdotdisplay
+import uflipdotdisplay as flipdotdisplay
 
 
 class DisplayServer:
