@@ -35,11 +35,11 @@ einen PWM-Pin deklarieren
 
 
 class FlipDotDisplay:
-    def __init__(self, address = 0x20, width=28, height=13, module=[18], sda=2, scl=0):
+    def __init__(self, address = 0x20, width=28, height=13, module=[14,12,13,15,5], sda=2, scl=0):
         self.pins = {}
-        for m in module:
+        for i, m in enumerate(module):
             pin = machine.Pin(0, machine.Pin.OUT) # , machine.Pin.PULL_UP)
-            self.pins[m] = pin
+            self.pins[i] = pin
             # GPIO.setup(m, GPIO.OUT)
         self.width = width
         self.height = height
