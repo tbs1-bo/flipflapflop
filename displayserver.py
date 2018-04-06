@@ -41,25 +41,23 @@ class DisplayServer:
 
     def start(self, host, port):
         print("Starting server for dimension", self.width, "x", self.height)
-        sock = socket.socket()
         addr = (host, port)
-        sock.bind(addr)
-        print("Listening on", host, "at port", port)
-        sock.listen(10)
+        with socket.socket() as sock:
+            sock.bind(addr)
+            print("Listening on", host, "at port", port)
+            sock.listen(10)
 
-        while True:
-            # waiting for connection
-            remote_sock, cl = sock.accept()
-            buf = remote_sock.recv(self.width * self.height)
-            print("received", len(buf), "bytes")
+            while True:
+                # waiting for connection
+                remote_sock, cl = sock.accept()
+                buf = remote_sock.recv(self.width * self.height)
+                print("received", len(buf), "bytes")
 
-            try:
-                ans = self.handle_request(buf)
-                remote_sock.send(bytes(ans, "ascii"))
-            except Exception as e:
-                print("ERROR", e)
-            finally:
-                remote_sock.close()
+                try:
+                    ans = self.handle_request(buf)
+                    remote_sock.send(bytes(ans, "ascii"))
+                except Exception as e:
+                    print("ERROR", e)
 
     def handle_request(self, payload):
         s = str(payload, "ascii")
@@ -68,8 +66,7 @@ class DisplayServer:
         if s.lower().startswith("size"):
             return "SIZE {w}x{h}".format(w=self.width, h=self.height)
         elif s.lower().startswith("cooldown"):
-            return "cooldown time in seconds: {}".format(
-                self.display_cooldown_time)
+            return "cooldown time: " + str(self.display_cooldown_time)
 
         # draw pixels if enough bytes have been sent
         elif len(payload) >= self.width * self.height:
