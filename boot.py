@@ -8,6 +8,8 @@
 import gc
 import time
 import network
+import udisplayserver
+
 
 #import webrepl
 #webrepl.start()
@@ -26,3 +28,4 @@ ap = network.WLAN(network.AP_IF)
 ap.active(True)
 ap.config(essid=SSID)  # , password=PASSWORD)
 
+udisplayserver.main()
