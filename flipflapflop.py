@@ -1,5 +1,6 @@
-import RPi.GPIO as GPIO
-import flipdotdisplay as FDD
+#import RPi.GPIO as GPIO
+#import flipdotdisplay as FDD
+import uflipdotdisplay as FDD
 from flipdotfont import Font
 import time
 
@@ -108,7 +109,7 @@ def main():
             fdd.show(True)
             time.sleep(5)   # refresh display every 5 seconds
     except KeyboardInterrupt:
-        GPIO.cleanup()
+        #GPIO.cleanup()
         print("flip, flap, flop\n")
 
 if __name__ == "__main__":
