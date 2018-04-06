@@ -104,7 +104,7 @@ class DisplayServer:
 def main():
     display = flipdotdisplay.FlipDotDisplay()
     ds = DisplayServer(display,
-                       display_cooldown_time=1)
+                       display_cooldown_time=0.0001)
     ds.start("0.0.0.0", 8123)
 
 
