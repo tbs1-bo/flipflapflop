@@ -50,12 +50,12 @@ class Portexpander:
     def config_inout(self, bankab, value):
         assert bankab in ['A', 'B']
         reg = self._regs['conf'][bankab]
-        self.smbus.writeto_mem(self.i2c_address, reg, bytes(value))
+        self.smbus.writeto_mem(self.i2c_address, reg, bytearray([value]))
 
     def write_value(self, bankab, value):
         assert bankab in ['A', 'B']
         reg = self._regs['output'][bankab]
-        self.smbus.writeto_mem(self.i2c_address, reg, bytes(value))
+        self.smbus.writeto_mem(self.i2c_address, reg, bytearray([value]))
 
     def read_value(self, bankab):
         assert bankab in ['A', 'B']
