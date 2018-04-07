@@ -48,6 +48,24 @@ class PlasmaDemo(DemoBase):
         return v > 0.3
 
 
+class RotatingPlasmaDemo(DemoBase):
+    """Rotating Plasma"""
+    def __init__(self, flipdotdisplay):
+        super().__init__(flipdotdisplay)
+        self.current = time.time()
+
+    def prepare(self):
+        self.current = time.time()
+
+    def handle_px(self, x, y):
+        v = math.sin(1*(0.5*x*math.sin(self.current/2) +
+                        0.5*y*math.cos(self.current/3)) + self.current)
+        # -1 < sin() < +1
+        # therfore correct the value and bring into range [0, 1]
+        v = (v+1.0) / 2.0
+        return v > 0.5
+
+
 class SwirlDemo(DemoBase):
     """Rotating Swirl"""
     def __init__(self, flipdotdisplay):
@@ -126,7 +144,8 @@ def get_display(width=28, height=13):
 
 def main():
     fdd = get_display(width=28, height=13)
-    demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd)]
+    demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
+             RotatingPlasmaDemo(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
     num = int(input(">"))
     print("Running demo. CTRL-C to abort.")
