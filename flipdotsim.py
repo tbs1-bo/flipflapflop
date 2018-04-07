@@ -27,7 +27,6 @@ class FlipDotSim:
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((self.width*20, self.height*20))
-        self.background = pygame.Surface(self.screen.get_size()).convert()
         self.y = pygame.image.load('y.jpg').convert()
         self.b = pygame.image.load('b.jpg').convert()
         self.bigfont = Font('clR6x12.bdf', 6, 12)
