@@ -108,14 +108,19 @@ class RandomDot(DemoBase):
         return random.randint(0, 1)
 
 
+def get_display():
+    try:
+        import flipdotdisplay
+        return flipdotdisplay.FlipDotDisplay()
+    except ImportError as e:
+        print("Unable to create FlipDotDisplay:", e,
+              "\nFalling back to Simulator.")
+        return flipdotsim.FlipDotSim()
+
+
 def main():
-    fdd = flipdotsim.FlipDotSim()
-    demos = [
-        PlasmaDemo(fdd),
-        SwirlDemo(fdd),
-        PingPong(fdd),
-        RandomDot(fdd)
-        ]
+    fdd = get_display()
+    demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
     num = int(input(">"))
     print("Running demo. CTRL-C to abort.")
