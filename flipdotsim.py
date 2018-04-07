@@ -31,6 +31,8 @@ class FlipDotSim:
         self.y = pygame.image.load('y.jpg').convert()
         self.b = pygame.image.load('b.jpg').convert()
         self.bigfont = Font('clR6x12.bdf', 6, 12)
+        self.clock = pygame.time.Clock()
+        self.fps = fps
 
     def set(self, x, y):
         self.screen.blit(self.y, (x*20, y*20))
@@ -40,6 +42,7 @@ class FlipDotSim:
 
     def show(self):
         pygame.display.flip()
+        self.clock.tick(self.fps)
 
     def clear(self, invert=False):
         for x in range(self.width):
@@ -73,9 +76,7 @@ class FlipDotSim:
         text = text*2
         x = 0
         y = 0
-        clock = pygame.time.Clock()
         while running:
-            clock.tick(60)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
