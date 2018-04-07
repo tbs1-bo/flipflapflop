@@ -98,6 +98,8 @@ class PingPong(DemoBase):
                 self.current_x + self.direction < 0:
             self.direction = -self.direction
 
+        self.current_x += self.direction
+
 
 class RandomDot(DemoBase):
     """Random Dots"""
