@@ -8,4 +8,6 @@ In einem [Video bei YouTube](https://www.youtube.com/embed/a97wuYli1_Q) (oder be
 
 
 ## FlipDotSim
-FlipDotSim ist eine Klasse zur Simulation einer Flipdotanzeige. Dabei wird pygame verwendet. Ein Raspberry Pi ist wird nicht benötigt.
+FlipDotSim ist eine Klasse zur Simulation einer Flipdotanzeige. Dabei wird pygame verwendet. 
+Ein Raspberry Pi wird nicht benötigt.
+  
