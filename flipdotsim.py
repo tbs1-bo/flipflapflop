@@ -1,7 +1,7 @@
 import pygame
-import time
 
-class Font():
+
+class Font:
     def __init__(self, filename, width, height):
         f = open(filename, 'r')
         self.fontlist = f.readlines()
@@ -19,7 +19,8 @@ class Font():
             letter.append(int(self.fontlist[index+i], 16))
         return letter
 
-class FlipDotSim():
+
+class FlipDotSim:
     def __init__(self, width=28, height=13, fps=30):
         pygame.init()
         pygame.display.set_caption("FlipDot Simulatior")
@@ -40,7 +41,7 @@ class FlipDotSim():
     def show(self):
         pygame.display.flip()
 
-    def clear(self, invert = False):
+    def clear(self, invert=False):
         for x in range(self.width):
             for y in range(self.height):
                 if invert:
@@ -57,7 +58,7 @@ class FlipDotSim():
             x2 = x1 + font.width
             for x in range(max(x1, 0), min(x2, self.width)):
                 for y in range(max(y1, 0), min(y2, self.height)):
-                    if(letter[y] & (1<<(x2-x+1)) == (1<<(x2-x+1))):
+                    if letter[y] & (1<<(x2-x+1)) == (1<<(x2-x+1)):
                         self.set(x, y)
                     else:
                         self.reset(x, y)
@@ -83,7 +84,7 @@ class FlipDotSim():
                         running = False
             self.text(text, font, (x, y))
             self.show()
-            if(abs(x) + step >= (len(text)//2) * font.width):
+            if abs(x) + step >= (len(text)//2) * font.width:
                 x = 0
             else:
                 x = x-step
@@ -102,6 +103,7 @@ class FlipDotSim():
             
         pygame.quit()
     """
+
 
 if __name__ == '__main__':
     fds = FlipDotSim(28)
