@@ -83,22 +83,26 @@ class PingPong(DemoBase):
     """PingPong Demo"""
     def __init__(self, flipdotdisplay):
         super().__init__(flipdotdisplay)
-        self.direction = 1
-        self.current_x = 0
-        self.current_y = self.fdd.height // 2
+        self.vel = [1, 1]
+        self.pos = [0, self.fdd.height // 2]
 
     def handle_px(self, x, y):
-        if x == self.current_x and y == self.current_y:
+        if x == self.pos[0] and y == self.pos[1]:
             return True
         else:
             return False
 
     def prepare(self):
-        if self.current_x + self.direction > self.fdd.width or \
-                self.current_x + self.direction < 0:
-            self.direction = -self.direction
+        if self.pos[0] + self.vel[0] > self.fdd.width or \
+                self.pos[0] + self.vel[0] < 0:
+            self.vel[0] = -self.vel[0]
 
-        self.current_x += self.direction
+        if self.pos[1] + self.vel[1] > self.fdd.height or \
+                self.pos[1] + self.vel[1] < 0:
+            self.vel[1] = -self.vel[1]
+
+        self.pos = [self.pos[0] + self.vel[0],
+                    self.pos[1] + self.vel[1]]
 
 
 class RandomDot(DemoBase):
