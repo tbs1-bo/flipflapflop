@@ -118,6 +118,7 @@ def main():
         ]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
     num = int(input(">"))
+    print("Running demo. CTRL-C to abort.")
     demos[num].run()
 
 
