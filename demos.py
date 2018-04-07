@@ -121,6 +121,7 @@ class PingPong(DemoBase):
 
         self.pos = [self.pos[0] + self.vel[0],
                     self.pos[1] + self.vel[1]]
+        time.sleep(0.05)
 
 
 class RandomDot(DemoBase):
@@ -143,7 +144,7 @@ def get_display(width=28, height=13):
 
 
 def main():
-    fdd = get_display(width=28, height=13)
+    fdd = get_display(width=28, height=16)
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
