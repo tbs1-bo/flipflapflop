@@ -39,6 +39,12 @@ class FlipDotSim:
     def reset(self, x, y):
         self.screen.blit(self.b, (x*20, y*20))
 
+    def px(self, x, y, val):
+        if val:
+            self.set(x, y)
+        else:
+            self.reset(x, y)
+
     def show(self):
         pygame.display.flip()
         self.clock.tick(self.fps)
