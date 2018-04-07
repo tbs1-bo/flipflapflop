@@ -71,7 +71,9 @@ class FlipDotSim():
         text = text*2
         x = 0
         y = 0
+        clock = pygame.time.Clock()
         while running:
+            clock.tick(60)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
