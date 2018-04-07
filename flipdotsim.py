@@ -33,10 +33,11 @@ class FlipDotSim():
 
     def set(self, x, y):
         self.screen.blit(self.y, (x*20, y*20))
-        pygame.display.flip()
 
     def reset(self, x, y):
         self.screen.blit(self.b, (x*20, y*20))
+
+    def show(self):
         pygame.display.flip()
 
     def clear(self, invert = False):
@@ -81,6 +82,7 @@ class FlipDotSim():
                     if event.key == pygame.K_ESCAPE:
                         running = False
             self.text(text, font, (x, y))
+            self.show()
             if(abs(x) + step >= (len(text)//2) * font.width):
                 x = 0
             else:
