@@ -23,7 +23,7 @@ class Font:
 class FlipDotSim:
     def __init__(self, width=28, height=13, fps=30):
         pygame.init()
-        pygame.display.set_caption("FlipDot Simulatior")
+        pygame.display.set_caption("FlipDot Simulator")
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((self.width*20, self.height*20))
