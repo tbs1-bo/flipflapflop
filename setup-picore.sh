@@ -9,7 +9,7 @@
 #
 
 INSTALL_DIR=/opt/flipflapflop
-TCE_PACKAGES="firmware-rpi3-wireless wifi python3.5 python3.5-dev git compiletc libffi-dev"
+TCE_PACKAGES="firmware-rpi3-wireless wifi avahi python3.5 python3.5-dev git compiletc libffi-dev"
 PIP_PACKAGES="RPi.GPIO smbus-cffi spidev"
 # Wifi Settings
 SSID="testssid"
