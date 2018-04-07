@@ -51,7 +51,7 @@ class FlipDotSim:
                 else:
                     self.reset(x, y)
 
-    def text(self, text, font, start = (0,0)):
+    def text(self, text, font, start=(0, 0)):
         for l_index in range(len(text)):
             letter = font.letter(text[l_index])
             y1 = start[1]
