@@ -88,10 +88,10 @@ class PingPong(DemoBase):
         self.current_y = self.fdd.height // 2
 
     def handle_px(self, x, y):
-        if y != self.current_y:
-            return False
-        if x == current_x:
+        if x == self.current_x and y == self.current_y:
             return True
+        else:
+            return False
 
     def prepare(self):
         if self.current_x + self.direction > self.fdd.width or \
