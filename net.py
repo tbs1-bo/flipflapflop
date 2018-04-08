@@ -153,21 +153,6 @@ class RemoteDisplay:
         return bytes(payload, "utf8")
 
 
-class DummyDisplay:
-    def __init__(self):
-        self.width = 4
-        self.height = 3
-
-    def px(self, x, y, val):
-        pass
-
-    def show(self):
-        pass
-
-    def show2(self):
-        pass
-
-
 def main():
     import display
     disp = display.get_display(fallback=display.Fallback.SIMULATOR)

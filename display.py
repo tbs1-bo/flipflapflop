@@ -11,6 +11,22 @@ import enum
 class Fallback(enum.Enum):
     SIMULATOR = "simulator"
     REMOTE_DISPLAY = "remote_display"
+    DUMMY = "dummy"
+
+
+class DummyDisplay:
+    def __init__(self, width=4, height=3):
+        self.width = width
+        self.height = height
+
+    def px(self, x, y, val):
+        pass
+
+    def show(self):
+        pass
+
+    def show2(self):
+        pass
 
 
 def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
@@ -30,5 +46,10 @@ def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
             import net
             return net.RemoteDisplay(width=width, height=height)
 
+        elif fallback == Fallback.DUMMY:
+            return DummyDisplay(width=width, height=height)
+
         else:
             raise Exception("No display and no fallback!")
+
+
