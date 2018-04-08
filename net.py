@@ -38,8 +38,9 @@ class DisplayServer:
         self.last_display_update = time.time()
         self.display_cooldown_time = display_cooldown_time
 
-    def start(self, host, port):
-        print("Starting server for dimension", self.width, "x", self.height)
+    def start(self, host="0.0.0.0", port=8123):
+        print("Starting server for dimension", self.width, "x", self.height,
+              "on", host, "at port", port)
         addr = (host, port)
         with socket.socket() as sock:
             sock.bind(addr)
