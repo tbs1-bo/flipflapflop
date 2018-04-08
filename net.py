@@ -174,7 +174,7 @@ def main():
     # display = DummyDisplay()
     ds = DisplayServer(display,
                        display_cooldown_time=0.0001)
-    ds.start("0.0.0.0", 8123)
+    ds.start()
 
 
 if __name__ == "__main__":
