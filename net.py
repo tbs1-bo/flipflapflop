@@ -169,11 +169,9 @@ class DummyDisplay:
 
 
 def main():
-    import flipdotdisplay
-    display = flipdotdisplay.FlipDotDisplay()
-    # display = DummyDisplay()
-    ds = DisplayServer(display,
-                       display_cooldown_time=0.0001)
+    import display
+    disp = display.get_display(fallback=display.Fallback.SIMULATOR)
+    ds = DisplayServer(disp, display_cooldown_time=0.0001)
     ds.start()
 
 
