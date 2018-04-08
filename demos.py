@@ -1,7 +1,11 @@
-# demos.py
+"""
+Demos for a flipdotdisplay.
 
-# Some demos inspired by the exmaples of the scrollphathd
-# https://github.com/pimoroni/scroll-phat-hd
+Some of the demos (PlasmaDemo and SwirlDemo) are inspired by the exmaples
+of the scrollphathd: https://github.com/pimoroni/scroll-phat-hd
+
+"""
+
 
 import math
 import time
@@ -180,8 +184,8 @@ class GameOfLife(DemoBase):
 
 def main():
     import displayprovider
-    fdd = displayprovider.get_display(width=28, height=16,
-                                      fallback=displayprovider.Fallback.SIMULATOR)
+    fdd = displayprovider.get_display(
+        width=28, height=16, fallback=displayprovider.Fallback.SIMULATOR)
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd), GameOfLife(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
