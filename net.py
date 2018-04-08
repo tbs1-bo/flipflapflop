@@ -28,7 +28,6 @@ will respond with the dimensions of the display (width x height).
 
 import socket
 import time
-import flipdotdisplay
 
 
 class DisplayServer:
@@ -108,6 +107,7 @@ class DummyDisplay:
 
 
 def main():
+    import flipdotdisplay
     display = flipdotdisplay.FlipDotDisplay()
     # display = DummyDisplay()
     ds = DisplayServer(display,
