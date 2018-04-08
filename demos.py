@@ -3,7 +3,6 @@
 # Some demos inspired by the exmaples of the scrollphathd
 # https://github.com/pimoroni/scroll-phat-hd
 
-import flipdotsim
 import math
 import time
 import random
