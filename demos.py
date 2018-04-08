@@ -134,12 +134,56 @@ class RandomDot(DemoBase):
         return random.randint(0, 1)
 
 
+class GameOfLife(DemoBase):
+    """Conway's Game of Life"""
+
+    glider = {
+        (2, 2),
+        (1, 2),
+        (0, 2),
+        (2, 1),
+        (1, 0),
+    }
+
+    def __init__(self, flipdotdisplay):
+        super().__init__(flipdotdisplay)
+        # self.cells = GameOfLife.glider
+        self.cells = set()
+        for i in range(self.fdd.width * self.fdd.height // 2):
+            x = random.randint(0, self.fdd.width - 1)
+            y = random.randint(0, self.fdd.height - 1)
+            self.cells.add((x, y))
+
+    def _iterate(self):
+        new_board = set()
+        for cell in self.cells:
+            neighbours = self._neighbours(cell)
+            if len(self.cells.intersection(neighbours)) in (2, 3):
+                new_board.add(cell)
+            for nb in neighbours:
+                if len(self.cells.intersection(self._neighbours(nb))) == 3:
+                    new_board.add(nb)
+
+        return new_board
+
+    def _neighbours(self, cell):
+        x, y = cell
+        r = range(-1, 2)  # -1, 0, +1
+        return set((x+i, y+j) for i in r for j in r if not i == j == 0)
+
+    def prepare(self):
+        self.cells = self._iterate()
+
+    def handle_px(self, x, y):
+        return (x, y) in self.cells
+
+
 def main():
     import displayprovider
     fdd = displayprovider.get_display(width=28, height=16,
                                       fallback=displayprovider.Fallback.SIMULATOR)
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
-             RotatingPlasmaDemo(fdd)]
+             RotatingPlasmaDemo(fdd), GameOfLife(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
     num = int(input(">"))
     print("Running demo. CTRL-C to abort.")
