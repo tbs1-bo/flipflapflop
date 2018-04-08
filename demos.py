@@ -121,6 +121,8 @@ class PingPong(DemoBase):
 
         self.pos = [self.pos[0] + self.vel[0],
                     self.pos[1] + self.vel[1]]
+        # TODO just for the hardware version of the display. Can be removed
+        #      if it controls the framerate itself.
         time.sleep(0.05)
 
 
