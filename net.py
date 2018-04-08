@@ -99,10 +99,13 @@ class DummyDisplay:
     def __init__(self):
         self.width = 4
         self.height = 3
-    def px(self, x,y,val):
+
+    def px(self, x, y, val):
         pass
+
     def show(self):
         pass
+
     def show2(self):
         pass
 
