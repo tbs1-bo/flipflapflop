@@ -24,10 +24,36 @@ time of the display - i.e. the time to wait between screen updates.
 If the request contains the string 'SIZE' (ignoring case), the server
 will respond with the dimensions of the display (width x height).
 
+Lets start a server. Here we use a thread in order to be able to run the client
+afterwards. In practice the server will run on a different platform and can be
+started directly.
+
+    >>> import net
+    >>> import threading
+    >>> ds = net.DisplayServer(net.DummyDisplay())
+    >>> th = threading.Thread(target=ds.start)
+    >>> th.setDaemon(True)
+    >>> th.start()
+    Starting server for dimension 4 x 3 on 0.0.0.0 at port 10101
+
+Now we can start a client and send some pixels to the server.
+
+    >>> cl = net.RemoteDisplay(host="0.0.0.0")
+    Remote display will send data to 0.0.0.0 on port 10101
+    >>> cl.px(1, 1, True)
+    >>> cl.px(2, 3, True)
+    >>> cl.show()
+    Listening on 0.0.0.0 at port 10101
+    received 12 bytes
+
+The output lines after show() come from the server.
+
 """
 
 import socket
 import time
+
+DEFAULT_PORT = 10101
 
 
 class DisplayServer:
@@ -38,7 +64,7 @@ class DisplayServer:
         self.last_display_update = time.time()
         self.display_cooldown_time = display_cooldown_time
 
-    def start(self, host="0.0.0.0", port=8123):
+    def start(self, host="0.0.0.0", port=DEFAULT_PORT):
         print("Starting server for dimension", self.width, "x", self.height,
               "on", host, "at port", port)
         addr = (host, port)
@@ -93,6 +119,38 @@ class DisplayServer:
         self.display.show2()
         self.last_display_update = time.time()
         return "OK"
+
+
+class RemoteDisplay:
+    """Remote class to connect with a running display server."""
+    def __init__(self, host="0.0.0.0", port=DEFAULT_PORT, width=28, height=13):
+        print("Remote display will send data to", host, "on port", port)
+        self.host = host
+        self.port = port
+        self.width = width
+        self.height = height
+
+        self.buffer = []
+        for x in range(width):
+            col = [False] * height
+            self.buffer.append(col)
+
+    def px(self, x, y, val):
+        self.buffer[x][y] = val
+
+    def show(self):
+        with socket.socket() as sock:
+            sock.connect((self.host, self.port))
+            payload = self._buffer_to_payload()
+            sock.sendall(payload)
+
+    def _buffer_to_payload(self):
+        payload = ""
+        for y in range(self.height):
+            for x in range(self.width):
+                payload += "1" if self.buffer[x][y] else "0"
+
+        return bytes(payload, "utf8")
 
 
 class DummyDisplay:
