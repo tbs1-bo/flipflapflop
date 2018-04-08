@@ -135,9 +135,9 @@ class RandomDot(DemoBase):
 
 
 def main():
-    import display
-    fdd = display.get_display(width=28, height=16,
-                              fallback=display.Fallback.SIMULATOR)
+    import displayprovider
+    fdd = displayprovider.get_display(width=28, height=16,
+                                      fallback=displayprovider.Fallback.SIMULATOR)
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))

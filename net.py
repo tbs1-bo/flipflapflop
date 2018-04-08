@@ -154,8 +154,8 @@ class RemoteDisplay:
 
 
 def main():
-    import display
-    disp = display.get_display(fallback=display.Fallback.SIMULATOR)
+    import displayprovider
+    disp = displayprovider.get_display(fallback=displayprovider.Fallback.SIMULATOR)
     ds = DisplayServer(disp, display_cooldown_time=0.0001)
     ds.start()
 
