@@ -116,7 +116,7 @@ class DisplayServer:
                     return "bad payload:" + val
             print()
 
-        self.display.show2()
+        self.display.show2()  # TODO must be changed to show() if this is stable
         self.last_display_update = time.time()
         return "OK"
 
