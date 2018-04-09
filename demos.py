@@ -10,6 +10,10 @@ of the scrollphathd: https://github.com/pimoroni/scroll-phat-hd
 import math
 import time
 import random
+try:
+    import pygame
+except ImportError as e:
+    print("Unable to import pygame. Snake may not be runnable!", e)
 
 
 class DemoBase:
@@ -182,12 +186,81 @@ class GameOfLife(DemoBase):
         return (x, y) in self.cells
 
 
+class SnakeGame(DemoBase):
+    """Snake Game. Control with WASD."""
+    def __init__(self, flipflopdisplay):
+        super().__init__(flipflopdisplay)
+        self.snake_body = None
+        self.snake_direction = None
+        self.pill = None
+        self.reset()
+
+    def run(self):
+        """Overriden from base class."""
+        pygame.init()
+        super().run()
+
+    def reset(self):
+        self.snake_body = [(3, 1), (2, 1), (1, 1)]
+        self.snake_direction = [1, 0]
+        self.create_new_pill()
+
+    def prepare(self):
+        self.move_snake()
+        if len(self.snake_body) != len(set(self.snake_body)):
+            # snake eats itself
+            self.reset()
+
+        if self.pill in self.snake_body:
+            self.create_new_pill()
+
+        self.handle_input()
+
+    def move_snake(self):
+        # move the snakes head
+        head = self.snake_body[0]
+        new_head = ((head[0] + self.snake_direction[0]) % self.fdd.width,
+                    (head[1] + self.snake_direction[1]) % self.fdd.height)
+
+        if new_head == self.pill:
+            # eat pill
+            new_body = self.snake_body
+        else:
+            # move forward
+            new_body = self.snake_body[:-1]
+        self.snake_body = [new_head] + new_body
+
+    def handle_input(self):
+        xdir, ydir = self.snake_direction
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w and ydir != 1:
+                    self.snake_direction = [0, -1]
+                elif event.key == pygame.K_s and ydir != -1:
+                    self.snake_direction = [0, 1]
+                elif event.key == pygame.K_d and xdir != -1:
+                    self.snake_direction = [1, 0]
+                elif event.key == pygame.K_a and xdir != 1:
+                    self.snake_direction = [-1, 0]
+
+    def create_new_pill(self):
+        new_pill = None
+        while new_pill in self.snake_body or new_pill is None:
+            new_pill = (random.randint(0, self.fdd.width-1),
+                        random.randint(0, self.fdd.height-1))
+
+        self.pill = new_pill
+
+    def handle_px(self, x, y):
+        return (x, y) in self.snake_body or (x, y) == self.pill
+
+
 def main():
     import displayprovider
     fdd = displayprovider.get_display(
         width=28, height=16, fallback=displayprovider.Fallback.SIMULATOR)
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
-             RotatingPlasmaDemo(fdd), GameOfLife(fdd)]
+             RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
     num = int(input(">"))
     print("Running demo. CTRL-C to abort.")
