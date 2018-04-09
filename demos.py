@@ -187,17 +187,24 @@ class GameOfLife(DemoBase):
 
 
 class SnakeGame(DemoBase):
-    """Snake Game. Control with WASD."""
+    """Snake Game. Control with WASD or an attached Joystick."""
     def __init__(self, flipflopdisplay):
         super().__init__(flipflopdisplay)
         self.snake_body = None
         self.snake_direction = None
         self.pill = None
+        self.joystick = None
         self.reset()
 
     def run(self):
         """Overriden from base class."""
-        pygame.init()
+        # add joystick if present
+        pygame.joystick.init()
+        print("found", pygame.joystick.get_count(), "Joysticks")
+        if pygame.joystick.get_count() > 0:
+            self.joystick = pygame.joystick.Joystick(0)
+            self.joystick.init()
+
         super().run()
 
     def reset(self):
@@ -232,7 +239,18 @@ class SnakeGame(DemoBase):
 
     def handle_input(self):
         xdir, ydir = self.snake_direction
+        xax, yax = 0, 1
         for event in pygame.event.get():
+            if event.type == pygame.JOYAXISMOTION and self.joystick:
+                if self.joystick.get_axis(yax) < 0 and ydir != 1:
+                    self.snake_direction = [0, -1]
+                elif self.joystick.get_axis(yax) > 0 and ydir != -1:
+                    self.snake_direction = [0, 1]
+                elif self.joystick.get_axis(xax) > 0 and xdir != -1:
+                    self.snake_direction = [1, 0]
+                elif self.joystick.get_axis(xax) < 0 and xdir != 1:
+                    self.snake_direction = [-1, 0]
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w and ydir != 1:
                     self.snake_direction = [0, -1]
