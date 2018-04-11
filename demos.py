@@ -153,10 +153,17 @@ class GameOfLife(DemoBase):
         (1, 0),
     }
 
+    MAX_ITERATIONS = 100
+
     def __init__(self, flipdotdisplay):
         super().__init__(flipdotdisplay)
         # self.cells = GameOfLife.glider
         self.cells = set()
+        self.iterations = 0
+        self.reset()
+
+    def reset(self):
+        self.iterations = 0
         for i in range(self.fdd.width * self.fdd.height // 2):
             x = random.randint(0, self.fdd.width - 1)
             y = random.randint(0, self.fdd.height - 1)
@@ -181,6 +188,9 @@ class GameOfLife(DemoBase):
 
     def prepare(self):
         self.cells = self._iterate()
+        self.iterations += 1
+        if self.iterations > GameOfLife.MAX_ITERATIONS:
+            self.reset()
 
     def handle_px(self, x, y):
         return (x, y) in self.cells
