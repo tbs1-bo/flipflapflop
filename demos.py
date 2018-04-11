@@ -283,12 +283,80 @@ class SnakeGame(DemoBase):
         return (x, y) in self.snake_body or (x, y) == self.pill
 
 
+class FlappDot(DemoBase):
+    """Flappy Dot"""
+    def __init__(self, flipdotdisplay):
+        super().__init__(flipdotdisplay)
+        self.pos = (1, 1)
+        self.line_x = self.fdd.width - 1
+        self.gap = (1, 5)
+        self.score = 0
+        self.reset()
+
+    def reset(self):
+        self.pos = (1, 1)
+        self.line_x = self.fdd.width - 1
+        self.gap = (1, 5)
+        self.score = 0
+
+    def handle_input(self):
+        newx, newy = self.pos
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w:
+                    newy -= 1
+                    self.pos = (newx, newy)
+                    return
+
+        newy += 1
+        self.pos = (newx, newy)
+
+    def prepare(self):
+        time.sleep(0.1)     # TODO remove this when display handles framerate
+        self.handle_input()
+        self.move_line()
+        if not self.bird_is_alive():
+            self.reset()
+
+    def bird_is_alive(self):
+        if self.pos[1] < 0 or self.pos[1] > self.fdd.height:
+            # bird outside screen
+            return False
+
+        return self.line_x != self.pos[0] or \
+            self.gap[0] < self.pos[1] < self.gap[1]
+
+    def move_line(self):
+        self.line_x -= 1
+        if self.line_x < 0:
+            # create new line
+            self.line_x = self.fdd.width - 1
+            gap_start = random.randint(0, self.fdd.height - 5)
+            self.gap = (gap_start, gap_start + 5)
+            self.score += 1
+
+    def handle_px(self, x, y):
+        if self.pos == (x, y):
+            # draw flappy
+            return True
+        elif x == self.fdd.width - 1:
+            # show score at last column
+            return y < self.score
+        else:
+            # draw line with gap
+            if self.line_x == x:
+                return not (self.gap[0] <= y <= self.gap[1])
+
+        return False
+
+
 def main():
     import displayprovider
     fdd = displayprovider.get_display(
         width=28, height=16, fallback=displayprovider.Fallback.SIMULATOR)
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
-             RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd)]
+             RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd),
+             FlappDot(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
     num = int(input(">"))
     print("Running demo. CTRL-C to abort.")
