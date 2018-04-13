@@ -15,6 +15,9 @@ PIP_PACKAGES="RPi.GPIO smbus-cffi spidev"
 SSID="testssid"
 PASSWORD="wlanpass"
 
+# extra package index for pip
+EXTRA_PIP_INDEX=https://www.piwheels.org/simple
+
 # Backup files
 BACKUP_DIR="$(mktemp -d setup-picore-XXXXXX)"
 echo "Making Backups in $BACKUP_DIR"
@@ -23,7 +26,7 @@ echo "Making Backups in $BACKUP_DIR"
 tce-load -wi $TCE_PACKAGES || exit 1
 # enable pip
 python3.4 -m ensurepip
-pip3.4 install --user $PIP_PACKAGES || exit 1
+pip3.4 install --extra-index-url=$EXTRA_PIP_INDEX --user $PIP_PACKAGES || exit 1
 
 # add entry to wifi.db
 cp -v /home/tc/wifi.db $BACKUP_DIR
