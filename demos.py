@@ -355,13 +355,39 @@ class FlappDot(DemoBase):
         return False
 
 
+class BinaryClock(DemoBase):
+    """A binary clock"""
+    def __init__(self, flipdotdisplay, offset=(1, 1)):
+        super().__init__(flipdotdisplay)
+        self.pixels = []
+        self.offset = offset
+
+    def prepare(self):
+        self.pixels.clear()
+        tt = time.localtime()
+        for i, t in enumerate([tt.tm_hour, tt.tm_min, tt.tm_sec]):
+            self.add_pixels(t, y=i)
+
+    def add_pixels(self, num, y):
+        x = self.offset[0]
+        # convert to binary, cut off '0b' at the beginning and fill with
+        # 0's to a maximum length of 7 digits (needed for max number 60).
+        for c in bin(num)[2:].zfill(7):
+            if c == "1":
+                self.pixels.append((x, self.offset[1] + y))
+            x += 1
+
+    def handle_px(self, x, y):
+        return (x, y) in self.pixels
+
+
 def main():
     import displayprovider
     fdd = displayprovider.get_display(
         width=28, height=16, fallback=displayprovider.Fallback.SIMULATOR)
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd),
-             FlappDot(fdd)]
+             FlappDot(fdd), BinaryClock(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
     num = int(input(">"))
     print("Running demo. CTRL-C to abort.")
