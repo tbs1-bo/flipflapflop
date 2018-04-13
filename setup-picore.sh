@@ -9,7 +9,7 @@
 #
 
 INSTALL_DIR=/opt/flipflapflop
-TCE_PACKAGES="firmware-rpi3-wireless wifi avahi python3.5 python3.5-dev git compiletc libffi-dev"
+TCE_PACKAGES="firmware-rpi3-wireless wifi avahi python3.4 python3.4-dev git compiletc libffi-dev"
 PIP_PACKAGES="RPi.GPIO smbus-cffi spidev"
 # Wifi Settings
 SSID="testssid"
@@ -21,7 +21,9 @@ echo "Making Backups in $BACKUP_DIR"
 
 # setup system and installing packages
 tce-load -wi $TCE_PACKAGES || exit 1
-python3.5 -m pip install --user $PIP_PACKAGES || exit 1
+# enable pip
+python3.4 -m ensurepip
+pip3.4 install --user $PIP_PACKAGES || exit 1
 
 # add entry to wifi.db
 cp -v /home/tc/wifi.db $BACKUP_DIR
@@ -47,7 +49,7 @@ git -C $INSTALL_DIR clone https://github.com/tbs1-bo/flipflapflop.git || exit 1
 
 # adding system start entry
 cp -v /home/tc/.profile $BACKUP_DIR
-echo "sudo python3.5 $INSTALL_DIR/flipflapflop.py" >> /home/tc/.profile
+echo "sudo python3.4 $INSTALL_DIR/flipflapflop.py" >> /home/tc/.profile
 
 # making changes persistant
 filetool.sh -b
