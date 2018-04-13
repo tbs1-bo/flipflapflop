@@ -38,6 +38,7 @@ class Flipflapflop:
         """
         write a text on position (x, y) (upper left dot)
         """
+        # TODO move text related stuff into separate class/package
         for l_index in range(len(text)):
             letter = font.letter(text[l_index])
             y1 = pos[1]
@@ -55,6 +56,7 @@ class Flipflapflop:
         """
         scroll the text like a ticker
         """
+        # TODO move text related stuff into separate class/package
         self.clear()
         spaces = max((self.fdd.width // font.width) - len(text), 0) + 1
         text = text + ' '*spaces
