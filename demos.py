@@ -202,7 +202,8 @@ class SnakeGame(DemoBase):
         super().__init__(flipflopdisplay)
         self.snake_body = None
         self.snake_direction = None
-        self.pill = None
+        self.pills = []
+        self.max_pills = self.fdd.width // 10
         self.joystick = None
         self.reset()
 
@@ -220,7 +221,8 @@ class SnakeGame(DemoBase):
     def reset(self):
         self.snake_body = [(3, 1), (2, 1), (1, 1)]
         self.snake_direction = [1, 0]
-        self.create_new_pill()
+        for _i in range(self.max_pills):
+            self.create_new_pill()
 
     def prepare(self):
         self.move_snake()
@@ -228,7 +230,8 @@ class SnakeGame(DemoBase):
             # snake eats itself
             self.reset()
 
-        if self.pill in self.snake_body:
+        # if pills have been eaten, fill up with new ones
+        while len(self.pills) <= self.max_pills:
             self.create_new_pill()
 
         self.handle_input()
@@ -239,9 +242,10 @@ class SnakeGame(DemoBase):
         new_head = ((head[0] + self.snake_direction[0]) % self.fdd.width,
                     (head[1] + self.snake_direction[1]) % self.fdd.height)
 
-        if new_head == self.pill:
+        if new_head in self.pills:
             # eat pill
             new_body = self.snake_body
+            self.pills.remove(new_head)
         else:
             # move forward
             new_body = self.snake_body[:-1]
@@ -273,14 +277,15 @@ class SnakeGame(DemoBase):
 
     def create_new_pill(self):
         new_pill = None
-        while new_pill in self.snake_body or new_pill is None:
+        while new_pill is None or new_pill in self.snake_body or\
+                new_pill in self.pills:
             new_pill = (random.randint(0, self.fdd.width-1),
                         random.randint(0, self.fdd.height-1))
 
-        self.pill = new_pill
+        self.pills.append(new_pill)
 
     def handle_px(self, x, y):
-        return (x, y) in self.snake_body or (x, y) == self.pill
+        return (x, y) in self.snake_body or (x, y) in self.pills
 
 
 class FlappDot(DemoBase):
