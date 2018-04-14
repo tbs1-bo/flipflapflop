@@ -29,8 +29,9 @@ afterwards. In practice the server will run on a different platform and can be
 started directly.
 
     >>> import net
+    >>> import displayprovider
     >>> import threading
-    >>> ds = net.DisplayServer(net.DummyDisplay())
+    >>> ds = net.DisplayServer(displayprovider.DummyDisplay())
     >>> th = threading.Thread(target=ds.start)
     >>> th.setDaemon(True)
     >>> th.start()
