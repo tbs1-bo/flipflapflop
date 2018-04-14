@@ -14,7 +14,9 @@ class Fallback(enum.Enum):
     DUMMY = "dummy"
 
 
-class DummyDisplay:
+class DisplayBase:
+    """All displays must conform to the attributes and methods specified in 
+    this class."""
     def __init__(self, width=4, height=3):
         self.width = width
         self.height = height
@@ -26,6 +28,8 @@ class DummyDisplay:
         pass
 
     def show2(self):
+        """Optional method that may be implemented. Will be removed in the 
+        future."""
         pass
 
 
@@ -47,7 +51,7 @@ def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
             return net.RemoteDisplay(width=width, height=height)
 
         elif fallback == Fallback.DUMMY:
-            return DummyDisplay(width=width, height=height)
+            return DisplayBase(width=width, height=height)
 
         else:
             raise Exception("No display and no fallback!")

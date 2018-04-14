@@ -1,15 +1,15 @@
 import RPi.GPIO as GPIO
 import MCP23017
 import time
+import displayprovider
 
 
-class FlipDotDisplay:
+class FlipDotDisplay(displayprovider.DisplayBase):
     def __init__(self, address = 0x20, width=28, height=13, module = [18]):
+        super().__init__(width, height)
         GPIO.setmode(GPIO.BCM)
         for m in module:
             GPIO.setup(m, GPIO.OUT)
-        self.width = width
-        self.height = height
         self.pulsewidth = 0.0001
         self.module = module
         self.ioexp = MCP23017.Portexpander(address, 1)

@@ -1,4 +1,5 @@
 import pygame
+import displayprovider
 
 
 class Font:
@@ -20,12 +21,11 @@ class Font:
         return letter
 
 
-class FlipDotSim:
+class FlipDotSim(displayprovider.DisplayBase):
     def __init__(self, width=28, height=13, fps=30):
+        super().__init__(width, height)
         pygame.init()
         pygame.display.set_caption("FlipDot Simulator")
-        self.width = width
-        self.height = height
         self.screen = pygame.display.set_mode((self.width*20, self.height*20))
         self.y = pygame.image.load('y.jpg').convert()
         self.b = pygame.image.load('b.jpg').convert()

@@ -31,7 +31,7 @@ started directly.
     >>> import net
     >>> import displayprovider
     >>> import threading
-    >>> ds = net.DisplayServer(displayprovider.DummyDisplay())
+    >>> ds = net.DisplayServer(displayprovider.DisplayBase())
     >>> th = threading.Thread(target=ds.start)
     >>> th.setDaemon(True)
     >>> th.start()
@@ -53,6 +53,8 @@ The output lines after show() come from the server.
 
 import socket
 import time
+import displayprovider
+
 
 DEFAULT_PORT = 10101
 
@@ -122,14 +124,13 @@ class DisplayServer:
         return "OK"
 
 
-class RemoteDisplay:
+class RemoteDisplay(displayprovider.DisplayBase):
     """Remote class to connect with a running display server."""
     def __init__(self, host="0.0.0.0", port=DEFAULT_PORT, width=28, height=13):
+        super().__init__(width, height)
         print("Remote display will send data to", host, "on port", port)
         self.host = host
         self.port = port
-        self.width = width
-        self.height = height
 
         self.buffer = []
         for x in range(width):
