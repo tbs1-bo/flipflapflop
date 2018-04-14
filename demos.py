@@ -288,7 +288,7 @@ class SnakeGame(DemoBase):
         return (x, y) in self.snake_body or (x, y) in self.pills
 
 
-class FlappDot(DemoBase):
+class FlappyDot(DemoBase):
     """Flappy Dot. Control the bird with the w-key."""
     def __init__(self, flipdotdisplay):
         super().__init__(flipdotdisplay)
@@ -387,7 +387,7 @@ def main():
         width=28, height=16, fallback=displayprovider.Fallback.SIMULATOR)
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd),
-             FlappDot(fdd), BinaryClock(fdd)]
+             FlappyDot(fdd), BinaryClock(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
     num = int(input(">"))
     print("Running demo. CTRL-C to abort.")
