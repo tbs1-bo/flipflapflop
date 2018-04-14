@@ -1,5 +1,5 @@
 """
-Displaymodul that provides acces to different kinds of displays.
+Displaymodul that provides access to different kinds of displays.
 
 Different fallback strategies are available if the hardware display is not
 available.
