@@ -15,7 +15,7 @@ class Fallback(enum.Enum):
 
 
 class DisplayBase:
-    """All displays must conform to the attributes and methods specified in 
+    """All displays must conform to the attributes and methods specified in
     this class."""
     def __init__(self, width=4, height=3):
         self.width = width
@@ -28,7 +28,7 @@ class DisplayBase:
         pass
 
     def show2(self):
-        """Optional method that may be implemented. Will be removed in the 
+        """Optional method that may be implemented. Will be removed in the
         future."""
         pass
 

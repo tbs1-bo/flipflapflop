@@ -11,7 +11,8 @@ on a 4x3 display of this form
 
 the following request has to be sent to the server: 111101100110.
 
-A simple command line client like nc can send this request to 'server' listening
+A simple command line client like nc can send this request to 'server'
+listening
 on port 8123:
 
    $ echo 111101100110 | nc server 8123
@@ -157,7 +158,8 @@ class RemoteDisplay(displayprovider.DisplayBase):
 
 def main():
     import displayprovider
-    disp = displayprovider.get_display(fallback=displayprovider.Fallback.SIMULATOR)
+    disp = displayprovider.get_display(
+        fallback=displayprovider.Fallback.SIMULATOR)
     ds = DisplayServer(disp, display_cooldown_time=0.0001)
     ds.start()
 
