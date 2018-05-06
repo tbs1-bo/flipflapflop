@@ -1,7 +1,7 @@
 """
 Demos for a flipdotdisplay.
 
-Some of the demos (PlasmaDemo and SwirlDemo) are inspired by the exmaples
+Some of the demos (PlasmaDemo and SwirlDemo) are inspired by the examples
 of the scrollphathd: https://github.com/pimoroni/scroll-phat-hd
 
 """
