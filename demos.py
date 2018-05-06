@@ -6,6 +6,8 @@ of the scrollphathd: https://github.com/pimoroni/scroll-phat-hd
 
 """
 
+# TODO adapt dungeon crawler from 
+#      https://github.com/Stolistic/rgb-dungeon-crawl
 
 import math
 import time
