@@ -292,27 +292,33 @@ class SnakeGame(DemoBase):
 
 class FlappyDot(DemoBase):
     """Flappy Dot. Control the bird with the w-key."""
-    def __init__(self, flipdotdisplay):
+
+    def __init__(self, flipdotdisplay, max_lines=3):
         super().__init__(flipdotdisplay)
         self.pos = (1, 1)
-        # (x, gap start, gap end)
-        self.line = [self.fdd.width - 1, 1, 5]
+        # each line is a dictionary with entries x, gap_start, gap_end
+        self.lines = []
         self.score = 0
+        self.max_lines = max_lines
         self.reset()
+
+    def add_line(self, x, gap_start, gap_end):
+        self.lines.append({"x": x, "gap_start": gap_start, "gap_end": gap_end})
 
     def reset(self):
         self.pos = (1, 1)
-        self.line = [self.fdd.width - 1, 1, 5]
+        self.lines = []
+        for i in range(self.max_lines):
+            self.add_line(i * self.fdd.width // self.max_lines, 1, 5)
         self.score = 0
 
     def handle_input(self):
         newx, newy = self.pos
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w:
-                    newy -= 1
-                    self.pos = (newx, newy)
-                    return
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
+                newy -= 1
+                self.pos = (newx, newy)
+                return
 
         newy += 1
         self.pos = (newx, newy)
@@ -320,24 +326,33 @@ class FlappyDot(DemoBase):
     def prepare(self):
         time.sleep(0.1)     # TODO remove this when display handles framerate
         self.handle_input()
-        self.move_line()
+        self.move_lines()
         if not self.bird_is_alive():
             self.reset()
 
     def bird_is_alive(self):
         if self.pos[1] < 0 or self.pos[1] > self.fdd.height:
-            # bird outside screen
+            # bird outside screen (top or bottom)
             return False
 
-        return self.line[0] != self.pos[0] or \
-            self.line[1] < self.pos[1] < self.line[2]
+        # check collision with one of the lines
+        for l in self.lines:
+            if not (l['x'] != self.pos[0] or 
+                    l['gap_start'] < self.pos[1] < l['gap_end']):
+                return False
 
-    def move_line(self):
-        self.line[0] -= 1
-        if self.line[0] < 0:
+        return True
+
+    def move_lines(self):
+        for l in self.lines:
+            l['x'] -= 1
+        # remove lines off screen
+        self.lines = [l for l in self.lines if l['x'] >= 0]
+
+        if len(self.lines) < self.max_lines:
             # create new line
             gap_start = random.randint(0, self.fdd.height - 5)
-            self.line = [self.fdd.width-1, gap_start, gap_start+5]
+            self.add_line(self.fdd.width-1, gap_start, gap_start+5)
             self.score += 1
 
     def handle_px(self, x, y):
@@ -349,14 +364,16 @@ class FlappyDot(DemoBase):
             return y < self.score
         else:
             # draw line with gap
-            if self.line[0] == x:
-                return not (self.line[1] <= y <= self.line[2])
+            for l in self.lines:
+                if l['x'] == x:
+                    return not (l['gap_start'] <= y <= l['gap_end'])
 
         return False
 
 
 class BinaryClock(DemoBase):
     """A binary clock"""
+
     def __init__(self, flipdotdisplay, offset=(1, 1)):
         super().__init__(flipdotdisplay)
         self.pixels = []
@@ -396,4 +413,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-P
