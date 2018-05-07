@@ -295,15 +295,14 @@ class FlappyDot(DemoBase):
     def __init__(self, flipdotdisplay):
         super().__init__(flipdotdisplay)
         self.pos = (1, 1)
-        self.line_x = self.fdd.width - 1
-        self.gap = (1, 5)
+        # (x, gap start, gap end)
+        self.line = [self.fdd.width - 1, 1, 5]
         self.score = 0
         self.reset()
 
     def reset(self):
         self.pos = (1, 1)
-        self.line_x = self.fdd.width - 1
-        self.gap = (1, 5)
+        self.line = [self.fdd.width - 1, 1, 5]
         self.score = 0
 
     def handle_input(self):
@@ -330,16 +329,15 @@ class FlappyDot(DemoBase):
             # bird outside screen
             return False
 
-        return self.line_x != self.pos[0] or \
-            self.gap[0] < self.pos[1] < self.gap[1]
+        return self.line[0] != self.pos[0] or \
+            self.line[1] < self.pos[1] < self.line[2]
 
     def move_line(self):
-        self.line_x -= 1
-        if self.line_x < 0:
+        self.line[0] -= 1
+        if self.line[0] < 0:
             # create new line
-            self.line_x = self.fdd.width - 1
             gap_start = random.randint(0, self.fdd.height - 5)
-            self.gap = (gap_start, gap_start + 5)
+            self.line = [self.fdd.width-1, gap_start, gap_start+5]
             self.score += 1
 
     def handle_px(self, x, y):
@@ -351,8 +349,8 @@ class FlappyDot(DemoBase):
             return y < self.score
         else:
             # draw line with gap
-            if self.line_x == x:
-                return not (self.gap[0] <= y <= self.gap[1])
+            if self.line[0] == x:
+                return not (self.line[1] <= y <= self.line[2])
 
         return False
 
@@ -398,3 +396,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+P
