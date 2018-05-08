@@ -29,8 +29,8 @@ class FlipDotDisplay(displayprovider.DisplayBase):
         """
         write a pixel in the buffer
         """
-        assert 0 <= x <= self.width
-        assert 0 <= y <= self.height
+        assert 0 <= x < self.width
+        assert 0 <= y < self.height
         self.buffer[x][y] = val
 
     def flipdot(self, x, y, val):
