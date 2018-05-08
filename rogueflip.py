@@ -53,8 +53,7 @@ class Game(demos.DemoBase):  # TODO switch from DemoBase to pygame loop
             if coin.pos == [x_, y_]:
                 return coin.draw()
 
-        else:
-            return self.world.is_wall(x_, y_)
+        return self.world.is_wall(x_, y_)
 
     def prepare(self):
         self.player.tick()
