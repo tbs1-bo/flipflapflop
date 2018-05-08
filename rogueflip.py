@@ -1,3 +1,20 @@
+"""
+Rogueflip is a roguelike dungeon crawler for the flipdot display. Levels can
+be created as PNM files (ASCII-bases). These can be exported from GIMP. The
+player and walls have special color values.
+
+Walls must be black
+
+>>> World.COLOR_WALL
+[0, 0, 0]
+
+The player character must be blue.
+
+>>> World.COLOR_PLAYER
+[0, 0, 255]
+
+"""
+
 import demos
 import time
 import pygame
