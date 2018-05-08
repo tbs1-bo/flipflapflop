@@ -46,6 +46,8 @@ class FlipDotSim(displayprovider.DisplayBase):
             self.reset(x, y)
 
     def show(self):
+        # empty the event queue to prevent it from being full
+        pygame.event.get()
         pygame.display.flip()
         self.clock.tick(self.fps)
 
