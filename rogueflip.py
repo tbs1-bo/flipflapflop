@@ -1,7 +1,11 @@
 """
 Rogueflip is a roguelike dungeon crawler for the flipdot display. Levels can
 be created as PNM files (ASCII-bases). These can be exported from GIMP. The
-player and walls have special color values.
+player, enemies and walls have special color values described below.
+
+Enemies are moving randomly around. The player must avoid them.
+
+The special color values of the image format follow:
 
 Walls must be black
 
@@ -16,7 +20,7 @@ The player character must be blue.
 All enemies are red
 
 >>> World.COLOR_ENEMY
-[255, 0, 09]
+[255, 0, 0]
 
 """
 
