@@ -13,9 +13,11 @@ import math
 import time
 import random
 try:
+    import rogueflip
     import pygame
 except ImportError as e:
-    print("Unable to import pygame. Snake may not be runnable!", e)
+    print("Unable to import pygame or rogueflip. \
+        Some games may not be runnable!", e)
 
 
 class DemoBase:
@@ -404,7 +406,7 @@ def main():
         width=28, height=16, fallback=displayprovider.Fallback.SIMULATOR)
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd),
-             FlappyDot(fdd), BinaryClock(fdd)]
+             FlappyDot(fdd), BinaryClock(fdd), rogueflip.Game(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
     num = int(input(">"))
     print("Running demo. CTRL-C to abort.")
