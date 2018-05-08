@@ -34,7 +34,7 @@ class Game(demos.DemoBase):  # TODO switch from DemoBase to pygame loop
         pygame.init()
         self.world = World(worldfile)
         # top left position of current view inside the world
-        self.top_left = [0, 0]
+        self.window_top_left = [0, 0]
 
         self.player = self.world.find_player()
         self.player.blink_interval = 0.2
@@ -43,17 +43,18 @@ class Game(demos.DemoBase):  # TODO switch from DemoBase to pygame loop
         print("Found", len(self.coins), "coins.")
 
     def handle_px(self, x, y):
+        x_, y_ = self.window_top_left[0] + x, self.window_top_left[1] + y
         self.handle_input()
-        if self.player.pos == [x, y]:
+        if self.player.pos == [x_, y_]:
             # player is blinking
             return self.player.draw()
 
         for coin in self.coins:
-            if coin.pos == [x, y]:
+            if coin.pos == [x_, y_]:
                 return coin.draw()
 
         else:
-            return self.world.is_wall(x, y)
+            return self.world.is_wall(x_, y_)
 
     def prepare(self):
         self.player.tick()
@@ -62,27 +63,47 @@ class Game(demos.DemoBase):  # TODO switch from DemoBase to pygame loop
 
     def handle_input(self):
         newx, newy = self.player.pos
+        dx, dy = 0, 0
         for event in pygame.event.get():
             if event.type != pygame.KEYDOWN:
                 continue
 
             if event.key == pygame.K_w: 
-                newy -= 1
-            if event.key == pygame.K_a:
-                newx -= 1
-            if event.key == pygame.K_s:
-                newy += 1
-            if event.key == pygame.K_d:
-                newx += 1
+                dy = -1
+            elif event.key == pygame.K_a:
+                dx = -1
+            elif event.key == pygame.K_s:
+                dy = +1
+            elif event.key == pygame.K_d:
+                dx = +1
 
-            if not self.world.is_wall(newx, newy):
-                self.player.pos = [newx, newy]
+            if not self.world.is_wall(newx+dx, newy+dy):
+                self.player.pos = [newx+dx, newy+dy]
                 self.player_try_collect_coin()
+            if not self.player_in_window():
+                self.move_window(dx, dy)
 
     def player_try_collect_coin(self):
         x, y = self.player.pos
         # remove coin under player
         self.coins = [c for c in self.coins if c.pos != self.player.pos]
+
+    def player_in_window(self):
+        """Check if the player is inside the windows."""
+        wtlx, wtly = self.window_top_left
+        px, py = self.player.pos        
+
+        hor_inside = wtlx <= px < wtlx + self.fdd.width
+        ver_inside = wtly <= py < wtly + self.fdd.height
+
+        return hor_inside and ver_inside
+
+    def move_window(self, dx, dy):
+        """Move the visible window by the amount of dx*width and dy*height of
+        the flipdotdisplay."""
+        self.window_top_left[0] += self.fdd.width * dx
+        self.window_top_left[1] += self.fdd.height * dy
+
 
 class World:
     COLOR_WALL = [0, 0, 0]
