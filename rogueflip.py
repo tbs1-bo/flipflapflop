@@ -1,9 +1,7 @@
 """
 Rogueflip is a roguelike dungeon crawler for the flipdot display. Levels can
 be created as PNM files (ASCII-bases). These can be exported from GIMP. The
-player, enemies and walls have special color values described below.
-
-Enemies are moving randomly around. The player must avoid them.
+player, coins and walls have special color values described below.
 
 The special color values of the image format follow:
 
@@ -17,15 +15,14 @@ The player character must be blue.
 >>> World.COLOR_PLAYER
 [0, 0, 255]
 
-All enemies are red
+All coins are yellow
 
->>> World.COLOR_ENEMY
-[255, 0, 0]
+>>> World.COLOR_COIN
+[255, 255, 0]
 
 """
 
 import demos
-import random
 import time
 import pygame
 
@@ -42,8 +39,8 @@ class Game(demos.DemoBase):  # TODO switch from DemoBase to pygame loop
         self.player = self.world.find_player()
         self.player.blink_interval = 0.2
         print("Player placed at", self.player.pos)
-        self.enemies = self.world.find_enemies()
-        print("Found", len(self.enemies), "enemies.")
+        self.coins = self.world.find_coins()
+        print("Found", len(self.coins), "coins.")
 
     def handle_px(self, x, y):
         self.handle_input()
@@ -51,27 +48,17 @@ class Game(demos.DemoBase):  # TODO switch from DemoBase to pygame loop
             # player is blinking
             return self.player.draw()
 
-        for en in self.enemies:
-            if en.pos == [x, y]:
-                return en.draw()
+        for coin in self.coins:
+            if coin.pos == [x, y]:
+                return coin.draw()
 
         else:
             return self.world.is_wall(x, y)
 
     def prepare(self):
         self.player.tick()
-        self.move_enemies()
-        for en in self.enemies:            
-            en.tick()
-
-    def move_enemies(self):
-        for en in self.enemies:
-            if en.blink_on:  # only move when visible
-                newx, newy = en.pos
-                newx += random.randint(-1, 1)
-                newy += random.randint(-1, 1)
-                if not self.world.is_wall(newx, newy):
-                    en.pos = [newx, newy]
+        for coin in self.coins:            
+            coin.tick()
 
     def handle_input(self):
         newx, newy = self.player.pos
@@ -90,11 +77,17 @@ class Game(demos.DemoBase):  # TODO switch from DemoBase to pygame loop
 
             if not self.world.is_wall(newx, newy):
                 self.player.pos = [newx, newy]
+                self.player_try_collect_coin()
+
+    def player_try_collect_coin(self):
+        x, y = self.player.pos
+        # remove coin under player
+        self.coins = [c for c in self.coins if c.pos != self.player.pos]
 
 class World:
     COLOR_WALL = [0, 0, 0]
     COLOR_PLAYER = [0, 0, 255]
-    COLOR_ENEMY = [255, 0, 0]
+    COLOR_COIN = [255, 255, 0]
 
     def __init__(self, worldfile):
         self.pixels = []  # list of color values (r,g,b)
@@ -146,27 +139,27 @@ class World:
     def is_player(self, x, y):
         return self.get_px(x, y) == World.COLOR_PLAYER
 
-    def is_enemy(self, x, y):
-        return self.get_px(x, y) == World.COLOR_ENEMY
+    def is_coin(self, x, y):
+        return self.get_px(x, y) == World.COLOR_COIN
 
-    def _find_characters(self, typ):
+    def _find_game_objects(self, typ):
         chars = []
         for x in range(self.width):
             for y in range(self.height):
                 if self.get_px(x, y) == typ:
-                    en = Character(x, y)
+                    en = GameObject(x, y)
                     chars.append(en)
 
         return chars
 
     def find_player(self):
-        return self._find_characters(World.COLOR_PLAYER)[0]
+        return self._find_game_objects(World.COLOR_PLAYER)[0]
 
-    def find_enemies(self):
-        return self._find_characters(World.COLOR_ENEMY)
+    def find_coins(self):
+        return self._find_game_objects(World.COLOR_COIN)
 
 
-class Character:
+class GameObject:
     def __init__(self, x, y, blink_interval=0.5):
         self.pos = [x, y]
         self.blink_interval = blink_interval
