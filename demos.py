@@ -8,6 +8,8 @@ of the scrollphathd: https://github.com/pimoroni/scroll-phat-hd
 
 # TODO adapt dungeon crawler from 
 #      https://github.com/Stolistic/rgb-dungeon-crawl
+# TODO Maybe a game inspired by GPN18Schlangenspiel would interesting.
+#      https://git.bingo-ev.de/GPN18Programmierspiel
 
 import math
 import time
