@@ -1,5 +1,5 @@
 """
-TCP-Server for micropython that listens on a specified port for
+TCP-Server that listens on a specified port for
 TCP-Connections. Every request sent to the server has to be one of the special
 commands described later on or a string of 0s and 1s each specifying a dot to
 be turned on or off respectively. For instance, to display the letter 'T'
@@ -9,13 +9,12 @@ on a 4x3 display of this form
     0110
     0110
 
-the following request has to be sent to the server: 111101100110.
+the following request must be sent to the server: 111101100110.
 
 A simple command line client like nc can send this request to 'server'
-listening
-on port 8123:
+listening on port 10101:
 
-   $ echo 111101100110 | nc server 8123
+   $ echo 111101100110 | nc server 10101
 
 There is a cooldown time for requests that update the display. Many Requests
 in a short time will therefore be ignored. If the request contains the
