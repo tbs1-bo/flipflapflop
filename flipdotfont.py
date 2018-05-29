@@ -1,3 +1,4 @@
+
 class Font:
     """
     read a .bdf font file
@@ -26,6 +27,9 @@ class Font:
             letter.append(int(self.fontlist[index+i], 16))
             #print(bin(int(self.fontlist[index+i], 16)))
         return letter
+
+SMALL_FONT = Font("4x6.bdf", 6, 4)
+BIG_FONT = Font("clR6x12.bdf", 6, 12)
 
 
 class TextScroller:
