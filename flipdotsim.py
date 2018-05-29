@@ -43,8 +43,8 @@ class FlipDotSim(displayprovider.DisplayBase):
 
 
 if __name__ == '__main__':
-    import flipdotfont    
+    from flipdotfont import Font, TextScroller
     font = Font('clR6x12.bdf', 6, 12)
     fds = FlipDotSim(28)
-    fdw = flipdotfont.TextScroller(fds)
+    fdw = TextScroller(fds)
     fdw.scrolltext('Test 12345!', font, 1)
