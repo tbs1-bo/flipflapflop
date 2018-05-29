@@ -4,6 +4,8 @@ import uflipdotdisplay as FDD
 from flipdotfont import Font
 import time
 
+# TODO can this whole file be removed?
+
 class Flipflapflop:
     def __init__(self, flipdotdisplay):
         self.fdd = flipdotdisplay
@@ -38,7 +40,7 @@ class Flipflapflop:
         """
         write a text on position (x, y) (upper left dot)
         """
-        # TODO move text related stuff into separate class/package
+        # TODO can be removed: use flipdotfont.TextScroller instead
         for l_index in range(len(text)):
             letter = font.letter(text[l_index])
             y1 = pos[1]
@@ -56,7 +58,7 @@ class Flipflapflop:
         """
         scroll the text like a ticker
         """
-        # TODO move text related stuff into separate class/package
+        # TODO can be removed: use flipdotfont.TextScroller instead
         self.clear()
         spaces = max((self.fdd.width // font.width) - len(text), 0) + 1
         text = text + ' '*spaces
