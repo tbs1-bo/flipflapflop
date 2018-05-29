@@ -1,0 +1,361 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Welcome to flipflapflop’s documentation! &#8212; flipflapflop 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">flipflapflop 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-flipflapflop-s-documentation">
+<h1>Welcome to flipflapflop’s documentation!<a class="headerlink" href="#welcome-to-flipflapflop-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="flipdot-simulator">
+<h2>FlipDot-Simulator<a class="headerlink" href="#flipdot-simulator" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-flipdotsim"></span><dl class="class">
+<dt id="flipdotsim.FlipDotSim">
+<em class="property">class </em><code class="descclassname">flipdotsim.</code><code class="descname">FlipDotSim</code><span class="sig-paren">(</span><em>width=28</em>, <em>height=13</em>, <em>fps=30</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="flipdotsim.FlipDotSim.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><em>invert=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="flipdotsim.FlipDotSim.px">
+<code class="descname">px</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>val</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.px"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.px" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="flipdotsim.FlipDotSim.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="flipdotsim.FlipDotSim.set">
+<code class="descname">set</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="flipdotsim.FlipDotSim.show">
+<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-net">
+<span id="net"></span><h2>Net<a class="headerlink" href="#module-net" title="Permalink to this headline">¶</a></h2>
+<p>TCP-Server that listens on a specified port for
+TCP-Connections. Every request sent to the server has to be one of the special
+commands described later on or a string of 0s and 1s each specifying a dot to
+be turned on or off respectively. For instance, to display the letter ‘T’
+on a 4x3 display of this form</p>
+<blockquote>
+<div>1111
+0110
+0110</div></blockquote>
+<p>the following request must be sent to the server: 111101100110.</p>
+<p>A simple command line client like nc can send this request to ‘server’
+listening on port 10101:</p>
+<blockquote>
+<div>$ echo 111101100110 | nc server 10101</div></blockquote>
+<p>There is a cooldown time for requests that update the display. Many Requests
+in a short time will therefore be ignored. If the request contains the
+string ‘COOLDOWN’ (ignoring case), the server will respond with the cooldown
+time of the display - i.e. the time to wait between screen updates.</p>
+<p>If the request contains the string ‘SIZE’ (ignoring case), the server
+will respond with the dimensions of the display (width x height).</p>
+<p>Lets start a server. Here we use a thread in order to be able to run the client
+afterwards. In practice the server will run on a different platform and can be
+started directly.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">net</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">displayprovider</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">threading</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">DisplayServer</span><span class="p">(</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">DisplayBase</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">th</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">th</span><span class="o">.</span><span class="n">setDaemon</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">th</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="go">Starting server for dimension 4 x 3 on 0.0.0.0 at port 10101</span>
+</pre></div>
+</div>
+<p>Now we can start a client and send some pixels to the server.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cl</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">RemoteDisplay</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">)</span>
+<span class="go">Remote display will send data to 0.0.0.0 on port 10101</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cl</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cl</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="go">Listening on 0.0.0.0 at port 10101</span>
+<span class="go">received 12 bytes</span>
+</pre></div>
+</div>
+<p>The output lines after show() come from the server.</p>
+<dl class="class">
+<dt id="net.DisplayServer">
+<em class="property">class </em><code class="descclassname">net.</code><code class="descname">DisplayServer</code><span class="sig-paren">(</span><em>display</em>, <em>display_cooldown_time=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#DisplayServer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#net.DisplayServer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="net.DisplayServer.handle_request">
+<code class="descname">handle_request</code><span class="sig-paren">(</span><em>payload</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#DisplayServer.handle_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#net.DisplayServer.handle_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="net.DisplayServer.start">
+<code class="descname">start</code><span class="sig-paren">(</span><em>host='0.0.0.0'</em>, <em>port=10101</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#DisplayServer.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#net.DisplayServer.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="net.RemoteDisplay">
+<em class="property">class </em><code class="descclassname">net.</code><code class="descname">RemoteDisplay</code><span class="sig-paren">(</span><em>host='0.0.0.0'</em>, <em>port=10101</em>, <em>width=28</em>, <em>height=13</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#RemoteDisplay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#net.RemoteDisplay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remote class to connect with a running display server.</p>
+<dl class="method">
+<dt id="net.RemoteDisplay.px">
+<code class="descname">px</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>val</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#RemoteDisplay.px"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#net.RemoteDisplay.px" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="net.RemoteDisplay.show">
+<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#RemoteDisplay.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#net.RemoteDisplay.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="net.main">
+<code class="descclassname">net.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#net.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-rogueflip">
+<span id="rogueflip-demo"></span><h2>Rogueflip-Demo<a class="headerlink" href="#module-rogueflip" title="Permalink to this headline">¶</a></h2>
+<p>Rogueflip is a roguelike dungeon crawler for the flipdot display. Levels can
+be created as PNM files (ASCII-bases). These can be exported from GIMP. The
+player, coins and walls have special color values described below.</p>
+<p>The special color values of the image format follow:</p>
+<p>Walls must be black</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">World</span><span class="o">.</span><span class="n">COLOR_WALL</span>
+<span class="go">[0, 0, 0]</span>
+</pre></div>
+</div>
+<p>The player character must be blue.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">World</span><span class="o">.</span><span class="n">COLOR_PLAYER</span>
+<span class="go">[0, 0, 255]</span>
+</pre></div>
+</div>
+<p>All coins are yellow</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">World</span><span class="o">.</span><span class="n">COLOR_COIN</span>
+<span class="go">[255, 255, 0]</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="rogueflip.Game">
+<em class="property">class </em><code class="descclassname">rogueflip.</code><code class="descname">Game</code><span class="sig-paren">(</span><em>flipdotdisplay</em>, <em>worldfile='ressources/rogueflip_world.pnm'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game" title="Permalink to this definition">¶</a></dt>
+<dd><p>A roguelike for a flipdot display.</p>
+<dl class="method">
+<dt id="rogueflip.Game.handle_input">
+<code class="descname">handle_input</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.handle_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.handle_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.Game.handle_px">
+<code class="descname">handle_px</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.handle_px"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.handle_px" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifiy the color pixel a x|y should have by returning truth val.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.Game.move_window">
+<code class="descname">move_window</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.move_window"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.move_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the visible window by the amount of dx*width and dy*height of
+the flipdotdisplay.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.Game.player_in_window">
+<code class="descname">player_in_window</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.player_in_window"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.player_in_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the player is inside the windows.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.Game.player_try_collect_coin">
+<code class="descname">player_try_collect_coin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.player_try_collect_coin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.player_try_collect_coin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.Game.prepare">
+<code class="descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.prepare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do some preparation before update.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rogueflip.GameObject">
+<em class="property">class </em><code class="descclassname">rogueflip.</code><code class="descname">GameObject</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>blink_interval=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.GameObject" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="rogueflip.GameObject.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.GameObject.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine whether the character should be drawn now.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.GameObject.tick">
+<code class="descname">tick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject.tick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.GameObject.tick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rogueflip.World">
+<em class="property">class </em><code class="descclassname">rogueflip.</code><code class="descname">World</code><span class="sig-paren">(</span><em>worldfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="rogueflip.World.COLOR_COIN">
+<code class="descname">COLOR_COIN</code><em class="property"> = [255, 255, 0]</em><a class="headerlink" href="#rogueflip.World.COLOR_COIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rogueflip.World.COLOR_PLAYER">
+<code class="descname">COLOR_PLAYER</code><em class="property"> = [0, 0, 255]</em><a class="headerlink" href="#rogueflip.World.COLOR_PLAYER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rogueflip.World.COLOR_WALL">
+<code class="descname">COLOR_WALL</code><em class="property"> = [0, 0, 0]</em><a class="headerlink" href="#rogueflip.World.COLOR_WALL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.find_coins">
+<code class="descname">find_coins</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.find_coins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.find_coins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.find_player">
+<code class="descname">find_player</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.find_player"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.find_player" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.get_px">
+<code class="descname">get_px</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.get_px"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.get_px" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.is_coin">
+<code class="descname">is_coin</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_coin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.is_coin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.is_player">
+<code class="descname">is_player</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_player"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.is_player" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.is_wall">
+<code class="descname">is_wall</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_wall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.is_wall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.load_world">
+<code class="descname">load_world</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.load_world"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.load_world" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load world from file. The file has to be a PNM-Image file. A wall 
+is marked with a black, the player with a blue pixel.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to flipflapflop’s documentation!</a><ul>
+<li><a class="reference internal" href="#flipdot-simulator">FlipDot-Simulator</a></li>
+<li><a class="reference internal" href="#module-net">Net</a></li>
+<li><a class="reference internal" href="#module-rogueflip">Rogueflip-Demo</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">flipflapflop 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Marco Bakera, Reinhard Gummlich.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>
