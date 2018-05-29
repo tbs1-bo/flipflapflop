@@ -8,3 +8,6 @@
 micropython/
 __pycache__/
 venv/
+
+# generated documentation
+doc/_build/
