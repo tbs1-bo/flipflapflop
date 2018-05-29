@@ -1,6 +1,8 @@
 import pygame
 import displayprovider
 
+YELLOWDOT_FILE = "y.jpg"
+BLACKDOT_FILE = "b.jpg"
 
 class Font:
     def __init__(self, filename, width, height):
@@ -27,8 +29,8 @@ class FlipDotSim(displayprovider.DisplayBase):
         pygame.init()
         pygame.display.set_caption("FlipDot Simulator")
         self.screen = pygame.display.set_mode((self.width*20, self.height*20))
-        self.y = pygame.image.load('y.jpg').convert()
-        self.b = pygame.image.load('b.jpg').convert()
+        self.y = pygame.image.load(YELLOWDOT_FILE).convert()
+        self.b = pygame.image.load(BLACKDOT_FILE).convert()
         self.bigfont = Font('clR6x12.bdf', 6, 12)
         self.clock = pygame.time.Clock()
         self.fps = fps
