@@ -4,25 +4,6 @@ import displayprovider
 YELLOWDOT_FILE = "ressources/y.jpg"
 BLACKDOT_FILE = "ressources/b.jpg"
 
-class Font:
-    def __init__(self, filename, width, height):
-        f = open(filename, 'r')
-        self.fontlist = f.readlines()
-        f.close()
-        self.width = width
-        self.height = height
-
-    def letter(self, l):
-        try:
-            index = self.fontlist.index('ENCODING '+str(ord(l))+'\n') + 5
-        except:
-            index = self.fontlist.index('ENCODING '+str(32)+'\n') + 5
-        letter = []
-        for i in range(self.height):
-            letter.append(int(self.fontlist[index+i], 16))
-        return letter
-
-
 class FlipDotSim(displayprovider.DisplayBase):
     def __init__(self, width=28, height=13, fps=30):
         super().__init__(width, height)
