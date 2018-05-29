@@ -30,8 +30,7 @@ class FlipDotSim(displayprovider.DisplayBase):
         pygame.display.set_caption("FlipDot Simulator")
         self.screen = pygame.display.set_mode((self.width*20, self.height*20))
         self.y = pygame.image.load(YELLOWDOT_FILE).convert()
-        self.b = pygame.image.load(BLACKDOT_FILE).convert()
-        self.bigfont = Font('clR6x12.bdf', 6, 12)
+        self.b = pygame.image.load(BLACKDOT_FILE).convert()        
         self.clock = pygame.time.Clock()
         self.fps = fps
 
@@ -64,6 +63,7 @@ class FlipDotSim(displayprovider.DisplayBase):
 
 if __name__ == '__main__':
     import flipdotfont    
+    font = Font('clR6x12.bdf', 6, 12)
     fds = FlipDotSim(28)
     fdw = flipdotfont.TextScroller(fds)
-    fdw.scrolltext('Test 12345!', fds.bigfont, 1)
+    fdw.scrolltext('Test 12345!', font, 1)
