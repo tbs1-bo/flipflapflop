@@ -10,4 +10,4 @@ __pycache__/
 venv/
 
 # generated documentation
-doc/_build/
+docgen/_build/
