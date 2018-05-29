@@ -61,60 +61,9 @@ class FlipDotSim(displayprovider.DisplayBase):
                 else:
                     self.reset(x, y)
 
-    def text(self, text, font, start=(0, 0)):
-        for l_index in range(len(text)):
-            letter = font.letter(text[l_index])
-            y1 = start[1]
-            y2 = y1 + font.height
-            x1 = start[0] + l_index*font.width
-            x2 = x1 + font.width
-            for x in range(max(x1, 0), min(x2, self.width)):
-                for y in range(max(y1, 0), min(y2, self.height)):
-                    if letter[y] & (1<<(x2-x+1)) == (1<<(x2-x+1)):
-                        self.set(x, y)
-                    else:
-                        self.reset(x, y)
-
-    def scrolltext(self, text, font, step):
-        #if font == 'bigfont':
-        #   font = self.bigfont
-        running = True
-        self.clear()
-        spaces = max((self.width // font.width) - len(text), 0) + 1
-        text = text + ' '*spaces
-        text = text*2
-        x = 0
-        y = 0
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        running = False
-            self.text(text, font, (x, y))
-            self.show()
-            if abs(x) + step >= (len(text)//2) * font.width:
-                x = 0
-            else:
-                x = x-step
-            
-        pygame.quit()
-    """
-    def run(self):
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        running = False
-            
-        pygame.quit()
-    """
-
 
 if __name__ == '__main__':
+    import flipdotfont    
     fds = FlipDotSim(28)
-    fds.scrolltext('Test 12345!', fds.bigfont, 1)
+    fdw = flipdotfont.TextScroller(fds)
+    fdw.scrolltext('Test 12345!', fds.bigfont, 1)
