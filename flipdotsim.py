@@ -1,8 +1,8 @@
 import pygame
 import displayprovider
 
-YELLOWDOT_FILE = "y.jpg"
-BLACKDOT_FILE = "b.jpg"
+YELLOWDOT_FILE = "ressources/y.jpg"
+BLACKDOT_FILE = "ressources/b.jpg"
 
 class Font:
     def __init__(self, filename, width, height):
