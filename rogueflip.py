@@ -26,10 +26,12 @@ import demos
 import time
 import pygame
 
+DEFAULT_WORLD_FILE="ressources/rogueflip_world.pnm"
+
 class Game(demos.DemoBase):  # TODO switch from DemoBase to pygame loop 
     """A roguelike for a flipdot display."""
 
-    def __init__(self, flipdotdisplay, worldfile="rogueflip_world.pnm"):
+    def __init__(self, flipdotdisplay, worldfile=DEFAULT_WORLD_FILE):
         super().__init__(flipdotdisplay)
         pygame.init()
         self.world = World(worldfile)
