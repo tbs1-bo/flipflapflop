@@ -11,7 +11,7 @@ The simulator can be used in the following way.
 Creating a display with specific dimensions.
 
     >>> import flipdotsim
-    >>> fds = FlipDotSim(width=28, height=13)
+    >>> fds = flipdotsim.FlipDotSim(width=28, height=13)
 
 Set two pixels at the top left to be turned on.
 
