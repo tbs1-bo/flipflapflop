@@ -42,8 +42,60 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="flipdot-simulator">
-<h1>FlipDot-Simulator<a class="headerlink" href="#flipdot-simulator" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-flipdotsim">
+<span id="flipdot-simulator"></span><h1>FlipDot-Simulator<a class="headerlink" href="#module-flipdotsim" title="Permalink to this headline">¶</a></h1>
+<p>A package that allows for simulating the display without the need of a physical
+display. It relies on the pygame-package.</p>
+<p>See the simulator in action in the following video.</p>
+<a class="reference external image-reference" href="https://www.youtube-nocookie.com/embed/ed5-gVciz3I?rel=0"><img alt="https://img.youtube.com/vi/ed5-gVciz3I/0.jpg" src="https://img.youtube.com/vi/ed5-gVciz3I/0.jpg" /></a>
+<p>The simulator can be used in the following way.
+Creating a display with specific dimensions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flipdotsim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Set two pixels at the top left to be turned on.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Actually turn on or off all pixels.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="flipdotsim.FlipDotSim">
+<em class="property">class </em><code class="descclassname">flipdotsim.</code><code class="descname">FlipDotSim</code><span class="sig-paren">(</span><em>width=28</em>, <em>height=13</em>, <em>fps=30</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="flipdotsim.FlipDotSim.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><em>invert=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="flipdotsim.FlipDotSim.px">
+<code class="descname">px</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>val</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.px"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.px" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a pixel to on or off at (X|Y). The dot will not be displayed 
+immediately.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flipdotsim.FlipDotSim.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="flipdotsim.FlipDotSim.set">
+<code class="descname">set</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="flipdotsim.FlipDotSim.show">
+<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the current state of all pixels on the display.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
