@@ -1,3 +1,29 @@
+"""
+A package that allows for simulating the display without the need of a physical
+display. It relies on the pygame-package.
+
+See the simulator in action in the following video.
+
+.. image:: https://img.youtube.com/vi/ed5-gVciz3I/0.jpg
+   :target: https://www.youtube-nocookie.com/embed/ed5-gVciz3I?rel=0
+
+The simulator can be used in the following way.
+Creating a display with specific dimensions.
+
+    >>> import flipdotsim
+    >>> fds = FlipDotSim(width=28, height=13)
+
+Set two pixels at the top left to be turned on.
+
+    >>> fds.px(0,0, True)
+    >>> fds.px(0,1, True)
+
+Actually turn on or off all pixels.
+
+    >>> fds.show()
+
+"""
+
 import pygame
 import displayprovider
 
@@ -22,12 +48,15 @@ class FlipDotSim(displayprovider.DisplayBase):
         self.screen.blit(self.b, (x*20, y*20))
 
     def px(self, x, y, val):
+        """Set a pixel to on or off at (X|Y). The dot will not be displayed 
+        immediately."""
         if val:
             self.set(x, y)
         else:
             self.reset(x, y)
 
     def show(self):
+        """Show the current state of all pixels on the display."""
         # empty the event queue to prevent it from being full
         pygame.event.get()
         pygame.display.flip()
