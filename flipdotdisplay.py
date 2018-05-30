@@ -1,11 +1,22 @@
-import RPi.GPIO as GPIO
-import MCP23017
+"""
+The flipdotdisplay package allows for controlling a physical flipdotdisplay. 
+It relies on a portexpander that is connected to the display via I²C or SPI
+on one hand and to a RaspberryPi on the other hand.
+"""
+
+try:
+    import RPi.GPIO as GPIO
+    import MCP23017
+except ImportError as ex:
+    print("Some modules cannot be imported", ex)
 import time
 import displayprovider
 
 
 class FlipDotDisplay(displayprovider.DisplayBase):
     def __init__(self, address = 0x20, width=28, height=13, module = [18]):
+        """Create a display connected via a port expander on the given 
+        I²C-address."""
         super().__init__(width, height)
         GPIO.setmode(GPIO.BCM)
         for m in module:
@@ -27,13 +38,14 @@ class FlipDotDisplay(displayprovider.DisplayBase):
 
     def px(self, x, y, val):
         """
-        write a pixel in the buffer
+        Write a pixel at (x|y) into the buffer.
         """
         assert 0 <= x < self.width
         assert 0 <= y < self.height
         self.buffer[x][y] = val
 
     def flipdot(self, x, y, val):
+        """Immediately flip the dot at (x|y) to the given value."""
         mod = x // 28                   # module number
         col = x % 28                    # column of current module
         a = (y//7<<3) + y%7 + 1         # address of row (y) -> bank A of I/O-Expander
@@ -53,7 +65,7 @@ class FlipDotDisplay(displayprovider.DisplayBase):
 
     def printbuffer(self):
         """
-        print the buffer on terminal
+        Print the buffer onto the terminal.
         """ 
         for y in range(self.height):
             print("")
@@ -65,8 +77,9 @@ class FlipDotDisplay(displayprovider.DisplayBase):
 
     def show(self, fullbuffer = False):
         """
-        show the buffer on flip dot display
-        set the fullbuffer-flag to show whole buffer on the display and not only the changes
+        Show the current buffer on the flip dot display.
+        Set the fullbuffer-flag to show the whole buffer on the display and 
+        not only the changes.
         """
         #self.printbuffer()
         for x in range(self.width):
@@ -77,7 +90,7 @@ class FlipDotDisplay(displayprovider.DisplayBase):
 
     def show2(self):
         """
-        maybe a bit faster than show(True)
+        Maybe a bit faster than show(True)
         """
         for x in range(self.width):
             mod = x // 28
