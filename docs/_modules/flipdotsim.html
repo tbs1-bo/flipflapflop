@@ -36,7 +36,33 @@
           <div class="body" role="main">
             
   <h1>Source code for flipdotsim</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pygame</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">A package that allows for simulating the display without the need of a physical</span>
+<span class="sd">display. It relies on the pygame-package.</span>
+
+<span class="sd">See the simulator in action in the following video.</span>
+
+<span class="sd">.. image:: https://img.youtube.com/vi/ed5-gVciz3I/0.jpg</span>
+<span class="sd">   :target: https://www.youtube-nocookie.com/embed/ed5-gVciz3I?rel=0</span>
+
+<span class="sd">The simulator can be used in the following way.</span>
+<span class="sd">Creating a display with specific dimensions.</span>
+
+<span class="sd">    &gt;&gt;&gt; import flipdotsim</span>
+<span class="sd">    &gt;&gt;&gt; fds = FlipDotSim(width=28, height=13)</span>
+
+<span class="sd">Set two pixels at the top left to be turned on.</span>
+
+<span class="sd">    &gt;&gt;&gt; fds.px(0,0, True)</span>
+<span class="sd">    &gt;&gt;&gt; fds.px(0,1, True)</span>
+
+<span class="sd">Actually turn on or off all pixels.</span>
+
+<span class="sd">    &gt;&gt;&gt; fds.show()</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
 <span class="kn">import</span> <span class="nn">displayprovider</span>
 
 <span class="n">YELLOWDOT_FILE</span> <span class="o">=</span> <span class="s2">&quot;ressources/y.jpg&quot;</span>
@@ -60,12 +86,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mi">20</span><span class="p">,</span> <span class="n">y</span><span class="o">*</span><span class="mi">20</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="FlipDotSim.px"><a class="viewcode-back" href="../simulator.html#flipdotsim.FlipDotSim.px">[docs]</a>    <span class="k">def</span> <span class="nf">px</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set a pixel to on or off at (X|Y). The dot will not be displayed </span>
+<span class="sd">        immediately.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">val</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FlipDotSim.show"><a class="viewcode-back" href="../simulator.html#flipdotsim.FlipDotSim.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Show the current state of all pixels on the display.&quot;&quot;&quot;</span>
         <span class="c1"># empty the event queue to prevent it from being full</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>

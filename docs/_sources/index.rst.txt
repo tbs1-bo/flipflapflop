@@ -13,6 +13,7 @@ Contents:
    
    simulator
    net
+   developer
 
 Steuerung einer Flipdot-Zielanzeige mit verschiedenen Mikrocontrollern.
 
