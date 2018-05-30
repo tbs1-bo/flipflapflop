@@ -6,18 +6,22 @@
 Welcome to flipflapflop's documentation!
 ========================================
 
-Contents:
+Table of Contents:
 
 .. toctree::
    :maxdepth: 2
-   
+
    simulator
    net
    developer
 
-Steuerung einer Flipdot-Zielanzeige mit verschiedenen Mikrocontrollern.
+Das Projekt dient der Ansteuerung einer Flipdot-Zielanzeige mit verschiedenen 
+Mikrocontrollern oder einem RaspberryPi.
 
 .. image:: ../media/display_in_action.jpg
+
+Demo-Video
+----------
 
 Das folgende Video zeigt das Display in Aktion 
 (`Mirror bei archive.org <https://archive.org/details/FlipFlapFlop>`_).
@@ -25,6 +29,12 @@ Das folgende Video zeigt das Display in Aktion
 .. image:: https://img.youtube.com/vi/a97wuYli1_Q/0.jpg
    :target: https://www.youtube-nocookie.com/embed/a97wuYli1_Q?rel=0
 
+
+Schaltplan
+----------
+
+Ein :download:`Schaltplan <../media/FLIPDOT_SCHALTUNG.pdf>` zeigt den 
+internen Aufbau der Displays.
 
 
 Indices and tables
