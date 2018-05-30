@@ -97,7 +97,7 @@
 <span class="n">DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">10101</span>
 
 
-<div class="viewcode-block" id="DisplayServer"><a class="viewcode-back" href="../index.html#net.DisplayServer">[docs]</a><span class="k">class</span> <span class="nc">DisplayServer</span><span class="p">:</span>
+<div class="viewcode-block" id="DisplayServer"><a class="viewcode-back" href="../net.html#net.DisplayServer">[docs]</a><span class="k">class</span> <span class="nc">DisplayServer</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">display_cooldown_time</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">width</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">height</span>
@@ -105,7 +105,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_display_update</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_cooldown_time</span> <span class="o">=</span> <span class="n">display_cooldown_time</span>
 
-<div class="viewcode-block" id="DisplayServer.start"><a class="viewcode-back" href="../index.html#net.DisplayServer.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_PORT</span><span class="p">):</span>
+<div class="viewcode-block" id="DisplayServer.start"><a class="viewcode-back" href="../net.html#net.DisplayServer.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_PORT</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting server for dimension&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
               <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="s2">&quot;at port&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
         <span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
@@ -126,7 +126,7 @@
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DisplayServer.handle_request"><a class="viewcode-back" href="../index.html#net.DisplayServer.handle_request">[docs]</a>    <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+<div class="viewcode-block" id="DisplayServer.handle_request"><a class="viewcode-back" href="../net.html#net.DisplayServer.handle_request">[docs]</a>    <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
 
         <span class="c1"># answer with display dimension if desired</span>
@@ -162,7 +162,7 @@
         <span class="k">return</span> <span class="s2">&quot;OK&quot;</span></div>
 
 
-<div class="viewcode-block" id="RemoteDisplay"><a class="viewcode-back" href="../index.html#net.RemoteDisplay">[docs]</a><span class="k">class</span> <span class="nc">RemoteDisplay</span><span class="p">(</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">DisplayBase</span><span class="p">):</span>
+<div class="viewcode-block" id="RemoteDisplay"><a class="viewcode-back" href="../net.html#net.RemoteDisplay">[docs]</a><span class="k">class</span> <span class="nc">RemoteDisplay</span><span class="p">(</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">DisplayBase</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Remote class to connect with a running display server.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_PORT</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
@@ -175,10 +175,10 @@
             <span class="n">col</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">height</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
 
-<div class="viewcode-block" id="RemoteDisplay.px"><a class="viewcode-back" href="../index.html#net.RemoteDisplay.px">[docs]</a>    <span class="k">def</span> <span class="nf">px</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+<div class="viewcode-block" id="RemoteDisplay.px"><a class="viewcode-back" href="../net.html#net.RemoteDisplay.px">[docs]</a>    <span class="k">def</span> <span class="nf">px</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span></div>
 
-<div class="viewcode-block" id="RemoteDisplay.show"><a class="viewcode-back" href="../index.html#net.RemoteDisplay.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RemoteDisplay.show"><a class="viewcode-back" href="../net.html#net.RemoteDisplay.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span> <span class="k">as</span> <span class="n">sock</span><span class="p">:</span>
             <span class="n">sock</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">))</span>
             <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_to_payload</span><span class="p">()</span>
@@ -193,7 +193,7 @@
         <span class="k">return</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s2">&quot;utf8&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../index.html#net.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../net.html#net.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="kn">import</span> <span class="nn">displayprovider</span>
     <span class="n">disp</span> <span class="o">=</span> <span class="n">displayprovider</span><span class="o">.</span><span class="n">get_display</span><span class="p">(</span>
         <span class="n">fallback</span><span class="o">=</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">Fallback</span><span class="o">.</span><span class="n">SIMULATOR</span><span class="p">)</span>
