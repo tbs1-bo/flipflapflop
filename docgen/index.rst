@@ -10,28 +10,20 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
+   
+   simulator
+   net
 
+Steuerung einer Flipdot-Zielanzeige mit verschiedenen Mikrocontrollern.
 
-FlipDot-Simulator
----------
+.. image:: ../media/display_in_action.jpg
 
-.. automodule:: flipdotsim
-   :members:
-   :undoc-members:
+Das folgende Video zeigt das Display in Aktion 
+(`Mirror bei archive.org <https://archive.org/details/FlipFlapFlop>`_).
 
-Net
----
+.. image:: https://img.youtube.com/vi/a97wuYli1_Q/0.jpg
+   :target: https://www.youtube-nocookie.com/embed/a97wuYli1_Q?rel=0
 
-.. automodule:: net
-   :members:
-   :undoc-members:
-
-Rogueflip-Demo
---------------
-
-.. automodule:: rogueflip
-   :members:
-   :undoc-members:
 
 
 Indices and tables
