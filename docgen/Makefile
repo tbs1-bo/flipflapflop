@@ -56,8 +56,8 @@ html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
-	@echo "Copying to docs"
-	cp -r $(BUILDDIR)/html/* ../docs
+	@echo "Copy changed files to ..\docs."
+	rsync -avz $(BUILDDIR)/html/* ../docs
 
 .PHONY: dirhtml
 dirhtml:

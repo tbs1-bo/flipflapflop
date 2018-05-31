@@ -27,7 +27,7 @@ Demo-Video
 Das folgende Video zeigt das Display in Aktion 
 (`Mirror bei archive.org <https://archive.org/details/FlipFlapFlop>`_).
 
-.. image:: https://img.youtube.com/vi/a97wuYli1_Q/0.jpg
+.. image:: ../media/video_thumbnail.jpg
    :target: https://www.youtube-nocookie.com/embed/a97wuYli1_Q?rel=0
 
 
