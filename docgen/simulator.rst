@@ -1,6 +1,12 @@
 FlipDot-Simulator
 =================
 
+See the simulator in action in the following video.
+
+.. image:: ../media/simulator_video_thumbnail.jpg
+   :target: https://www.youtube-nocookie.com/embed/ed5-gVciz3I?rel=0
+
+
 .. automodule:: flipdotsim
    :members:
    :undoc-members:
