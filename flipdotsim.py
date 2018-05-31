@@ -4,7 +4,7 @@ display. It relies on the pygame-package.
 
 See the simulator in action in the following video.
 
-.. image:: https://img.youtube.com/vi/ed5-gVciz3I/0.jpg
+.. image:: ../media/simulator_video_thumbnail.jpg
    :target: https://www.youtube-nocookie.com/embed/ed5-gVciz3I?rel=0
 
 The simulator can be used in the following way.
