@@ -47,6 +47,7 @@ class TextScroller:
         self.fdd = flipdotdisplay
 
     def text(self, text, font, start=(0, 0)):
+        """Show the given given text with the given font on the display."""
         for l_index in range(len(text)):
             letter = font.letter(text[l_index])
             y1 = start[1]
@@ -60,6 +61,7 @@ class TextScroller:
         self.fdd.show()
 
     def scrolltext(self, text, font, step):
+        """Scroll text with a given font."""
         running = True
         self._clear()
         spaces = max((self.fdd.width // font.width) - len(text), 0) + 1
