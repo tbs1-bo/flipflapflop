@@ -1,0 +1,389 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Games &mdash; flipflapflop 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Developer Documentation" href="developer.html" />
+    <link rel="prev" title="Net" href="net.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> flipflapflop
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="fdd.html">FlipDotDisplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulator.html">FlipDot-Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="net.html">Net</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Games</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rogueflip">Rogueflip</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#level-description">Level Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-rogueflip">Module Description</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">Developer Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">flipflapflop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Games</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/game.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="games">
+<h1>Games<a class="headerlink" href="#games" title="Permalink to this headline">¶</a></h1>
+<p>FlipDot-Displays can be used to play funny games on.</p>
+<div class="section" id="rogueflip">
+<h2>Rogueflip<a class="headerlink" href="#rogueflip" title="Permalink to this headline">¶</a></h2>
+<p>The demo game <em>rogueflip</em> is inspired by text-console based dungeon games
+named ‘roguelike’. The following video shows the game in action.</p>
+<a class="reference external image-reference" href="https://www.youtube-nocookie.com/embed/ed5-gVciz3I?rel=0"><img alt="_images/simulator_video_thumbnail.jpg" src="_images/simulator_video_thumbnail.jpg" /></a>
+<div class="section" id="level-description">
+<h3>Level Description<a class="headerlink" href="#level-description" title="Permalink to this headline">¶</a></h3>
+<p>Each Level can be painted with a tool like GIMP. It must be exported as
+<a class="reference external" href="https://de.wikipedia.org/wiki/Portable_Anymap#Pixmap">PNM-file</a> afterwards.
+In this format the image dimension is described first. After that each line
+contains a color value - one for red, green and blue respectively. The image
+dimension must be a multiple of the dimension of the flipdot display.</p>
+<p>This <a class="reference download internal" href="_downloads/rogueflip_world.pnm" download=""><code class="xref download docutils literal notranslate"><span class="pre">example</span> <span class="pre">game</span> <span class="pre">world</span></code></a> can be
+opened with GIMP.</p>
+</div>
+<div class="section" id="module-rogueflip">
+<span id="module-description"></span><h3>Module Description<a class="headerlink" href="#module-rogueflip" title="Permalink to this headline">¶</a></h3>
+<p>Rogueflip is a roguelike dungeon crawler for the flipdot display. Levels can
+be created as PNM files (ASCII-based). These can be exported from GIMP. The
+player, coins and walls have special color values described below.</p>
+<p>The special color values of the image format are located in the 
+<a class="reference internal" href="#rogueflip.World" title="rogueflip.World"><code class="xref py py-class docutils literal notranslate"><span class="pre">World</span></code></a> class:</p>
+<p>Walls must be black</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">World</span><span class="o">.</span><span class="n">COLOR_WALL</span>
+<span class="go">[0, 0, 0]</span>
+</pre></div>
+</div>
+<p>The player character must be blue.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">World</span><span class="o">.</span><span class="n">COLOR_PLAYER</span>
+<span class="go">[0, 0, 255]</span>
+</pre></div>
+</div>
+<p>All coins are yellow</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">World</span><span class="o">.</span><span class="n">COLOR_COIN</span>
+<span class="go">[255, 255, 0]</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="rogueflip.Game">
+<em class="property">class </em><code class="descclassname">rogueflip.</code><code class="descname">Game</code><span class="sig-paren">(</span><em>flipdotdisplay</em>, <em>worldfile='ressources/rogueflip_world.pnm'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game" title="Permalink to this definition">¶</a></dt>
+<dd><p>A roguelike for a flipdot display.</p>
+<dl class="method">
+<dt id="rogueflip.Game.handle_input">
+<code class="descname">handle_input</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.handle_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.handle_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.Game.handle_px">
+<code class="descname">handle_px</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.handle_px"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.handle_px" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifiy the color pixel a x|y should have by returning truth val.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.Game.move_window">
+<code class="descname">move_window</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.move_window"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.move_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the visible window by the amount of dx*width and dy*height of
+the flipdotdisplay.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.Game.player_in_window">
+<code class="descname">player_in_window</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.player_in_window"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.player_in_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the player is inside the windows.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.Game.player_try_collect_coin">
+<code class="descname">player_try_collect_coin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.player_try_collect_coin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.player_try_collect_coin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.Game.prepare">
+<code class="descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.prepare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do some preparation before update.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rogueflip.GameObject">
+<em class="property">class </em><code class="descclassname">rogueflip.</code><code class="descname">GameObject</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>blink_interval=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.GameObject" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="rogueflip.GameObject.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.GameObject.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine whether the character should be drawn now.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.GameObject.tick">
+<code class="descname">tick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject.tick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.GameObject.tick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rogueflip.World">
+<em class="property">class </em><code class="descclassname">rogueflip.</code><code class="descname">World</code><span class="sig-paren">(</span><em>worldfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="rogueflip.World.COLOR_COIN">
+<code class="descname">COLOR_COIN</code><em class="property"> = [255, 255, 0]</em><a class="headerlink" href="#rogueflip.World.COLOR_COIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rogueflip.World.COLOR_PLAYER">
+<code class="descname">COLOR_PLAYER</code><em class="property"> = [0, 0, 255]</em><a class="headerlink" href="#rogueflip.World.COLOR_PLAYER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rogueflip.World.COLOR_WALL">
+<code class="descname">COLOR_WALL</code><em class="property"> = [0, 0, 0]</em><a class="headerlink" href="#rogueflip.World.COLOR_WALL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.find_coins">
+<code class="descname">find_coins</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.find_coins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.find_coins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.find_player">
+<code class="descname">find_player</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.find_player"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.find_player" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.get_px">
+<code class="descname">get_px</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.get_px"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.get_px" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.is_coin">
+<code class="descname">is_coin</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_coin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.is_coin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.is_player">
+<code class="descname">is_player</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_player"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.is_player" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.is_wall">
+<code class="descname">is_wall</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_wall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.is_wall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.World.load_world">
+<code class="descname">load_world</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.load_world"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.load_world" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load world from file. The file has to be a PNM-Image file. A wall 
+is marked with a black, the player with a blue pixel.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="developer.html" class="btn btn-neutral float-right" title="Developer Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="net.html" class="btn btn-neutral" title="Net" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Marco Bakera, Reinhard Gummlich.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

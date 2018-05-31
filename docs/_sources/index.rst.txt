@@ -14,6 +14,7 @@ Table of Contents:
    fdd
    simulator
    net
+   game
    developer
 
 Das Projekt dient der Ansteuerung einer Flipdot-Zielanzeige mit verschiedenen 
