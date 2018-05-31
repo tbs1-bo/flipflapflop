@@ -97,9 +97,10 @@ class Game:
                 self.move_window(dx, dy)
 
     def show_win_message(self):
-        self.textwriter.text("you", flipdotfont.BIG_FONT)
+        font = flipdotfont.big_font()
+        self.textwriter.text("you", font)
         time.sleep(2)
-        self.textwriter.text("win", flipdotfont.BIG_FONT)
+        self.textwriter.text("win", font)
         time.sleep(2)
 
     def player_try_collect_coin(self):

@@ -70,4 +70,4 @@ if __name__ == '__main__':
     import flipdotfont
     fds = FlipDotSim(28)
     fdw = flipdotfont.TextScroller(fds)
-    fdw.scrolltext('Test 12345!', flipdotfont.BIG_FONT, 1)
+    fdw.scrolltext('Test 12345!', flipdotfont.big_font(), 1)

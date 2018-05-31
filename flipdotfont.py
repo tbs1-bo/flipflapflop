@@ -28,9 +28,11 @@ class Font:
             #print(bin(int(self.fontlist[index+i], 16)))
         return letter
 
-SMALL_FONT = Font("ressources/4x6.bdf", 6, 4)
-BIG_FONT = Font("ressources/clR6x12.bdf", 6, 12)
+def small_font():
+    return Font("ressources/4x6.bdf", 6, 4)
 
+def big_font():
+    return Font("ressources/clR6x12.bdf", 6, 12)
 
 class TextScroller:
     """Write Text on Flipdotdisplays. A simple usage with a FlipDot-Simulator
