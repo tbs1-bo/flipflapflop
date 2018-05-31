@@ -57,8 +57,9 @@ on a 4x3 display of this form</p>
 <p>the following request must be sent to the server: 111101100110.</p>
 <p>A simple command line client like nc can send this request to ‘server’
 listening on port 10101:</p>
-<blockquote>
-<div>$ echo 111101100110 | nc server 10101</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="m">111101100110</span> <span class="p">|</span> nc server <span class="m">10101</span>
+</pre></div>
+</div>
 <p>There is a cooldown time for requests that update the display. Many Requests
 in a short time will therefore be ignored. If the request contains the
 string ‘COOLDOWN’ (ignoring case), the server will respond with the cooldown

@@ -17,6 +17,8 @@ the following request must be sent to the server: 111101100110.
 A simple command line client like nc can send this request to 'server'
 listening on port 10101:
 
+.. code-block:: bash
+
    $ echo 111101100110 | nc server 10101
 
 There is a cooldown time for requests that update the display. Many Requests
