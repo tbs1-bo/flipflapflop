@@ -11,8 +11,6 @@ Creating the documentation
 
 The documentation is created with sphinx and is configured in folder ``docgen``. 
 You can use ``make html`` or ``make.bat html`` to create the docucmentation
-in ``docgen/_build/html``
-
-To publish the documentation the html files must be copied to folder
-``docs``. After pushing to github it will be available 
+in ``docgen/_build/html``. It will automaticall be copied to ``docs``.
+After pushing to github it will be available 
 `there <https://tbs1-bo.github.io/flipflapflop/>`_.
