@@ -22,7 +22,7 @@ contains a color value - one for red, green and blue respectively. The image
 dimension must be a multiple of the dimension of the flipdot display.
 
 This :download:`example game world <../ressources/rogueflip_world.pnm>` can be 
-opened with GIMP.
+opened with GIMP or a simple text editor.
 
 
 Module Description

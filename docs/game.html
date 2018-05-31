@@ -176,7 +176,7 @@ In this format the image dimension is described first. After that each line
 contains a color value - one for red, green and blue respectively. The image
 dimension must be a multiple of the dimension of the flipdot display.</p>
 <p>This <a class="reference download internal" href="_downloads/rogueflip_world.pnm" download=""><code class="xref download docutils literal notranslate"><span class="pre">example</span> <span class="pre">game</span> <span class="pre">world</span></code></a> can be
-opened with GIMP.</p>
+opened with GIMP or a simple text editor.</p>
 </div>
 <div class="section" id="module-rogueflip">
 <span id="module-description"></span><h3>Module Description<a class="headerlink" href="#module-rogueflip" title="Permalink to this headline">¶</a></h3>
@@ -212,8 +212,7 @@ player, coins and walls have special color values described below.</p>
 <dl class="method">
 <dt id="rogueflip.Game.handle_px">
 <code class="descname">handle_px</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.handle_px"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.handle_px" title="Permalink to this definition">¶</a></dt>
-<dd><p>Specifiy the color pixel a x|y should have by returning truth val.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="rogueflip.Game.move_window">
@@ -236,8 +235,17 @@ the flipdotdisplay.</p>
 <dl class="method">
 <dt id="rogueflip.Game.prepare">
 <code class="descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.prepare" title="Permalink to this definition">¶</a></dt>
-<dd><p>Do some preparation before update.</p>
-</dd></dl>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.Game.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="rogueflip.Game.show_win_message">
+<code class="descname">show_win_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.show_win_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.show_win_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -253,7 +261,8 @@ the flipdotdisplay.</p>
 <dl class="method">
 <dt id="rogueflip.GameObject.tick">
 <code class="descname">tick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject.tick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.GameObject.tick" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>A method that should be invoked each frame.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -308,10 +317,18 @@ the flipdotdisplay.</p>
 <dl class="method">
 <dt id="rogueflip.World.load_world">
 <code class="descname">load_world</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.load_world"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.load_world" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load world from file. The file has to be a PNM-Image file. A wall 
-is marked with a black, the player with a blue pixel.</p>
+<dd><p>Load world from file. The file has to be a PNM-Image file - format
+P3, ASCII-based.</p>
+<p>Find the specification of the file format 
+<a class="reference external" href="https://de.wikipedia.org/wiki/Portable_Anymap#Pixmap">here</a>.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="function">
+<dt id="rogueflip.run_simulator">
+<code class="descclassname">rogueflip.</code><code class="descname">run_simulator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#run_simulator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.run_simulator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a sample game in the simulator.</p>
 </dd></dl>
 
 </div>
