@@ -24,6 +24,7 @@ All coins are yellow
 
 import time
 import pygame
+import flipdotfont
 
 DEFAULT_WORLD_FILE="ressources/rogueflip_world.pnm"
 
@@ -42,6 +43,8 @@ class Game:
         print("Player placed at", self.player.pos)
         self.coins = self.world.find_coins()
         print("Found", len(self.coins), "coins.")
+
+        self.textwriter = flipdotfont.TextScroller(flipdotdisplay)
 
     def run(self):
         while True:
@@ -88,8 +91,16 @@ class Game:
             if not self.world.is_wall(plx+dx, ply+dy):
                 self.player.pos = [plx + dx, ply + dy]
                 self.player_try_collect_coin()
+                if len(self.coins) == 0:
+                    self.show_win_message()
             if not self.player_in_window():
                 self.move_window(dx, dy)
+
+    def show_win_message(self):
+        self.textwriter.text("you", flipdotfont.BIG_FONT)
+        time.sleep(2)
+        self.textwriter.text("win", flipdotfont.BIG_FONT)
+        time.sleep(2)
 
     def player_try_collect_coin(self):
         x, y = self.player.pos
