@@ -5,9 +5,12 @@ commands described later on or a string of 0s and 1s each specifying a dot to
 be turned on or off respectively. For instance, to display the letter 'T'
 on a 4x3 display of this form
 
+::
+
     1111
     0110
     0110
+
 
 the following request must be sent to the server: 111101100110.
 
