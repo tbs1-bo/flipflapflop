@@ -49,10 +49,11 @@ TCP-Connections. Every request sent to the server has to be one of the special
 commands described later on or a string of 0s and 1s each specifying a dot to
 be turned on or off respectively. For instance, to display the letter ‘T’
 on a 4x3 display of this form</p>
-<blockquote>
-<div>1111
-0110
-0110</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1111</span>
+<span class="mi">0110</span>
+<span class="mi">0110</span>
+</pre></div>
+</div>
 <p>the following request must be sent to the server: 111101100110.</p>
 <p>A simple command line client like nc can send this request to ‘server’
 listening on port 10101:</p>
