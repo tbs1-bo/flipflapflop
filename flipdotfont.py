@@ -57,6 +57,7 @@ class TextScroller:
                 for y in range(max(y1, 0), min(y2, self.fdd.height)):
                     draw_dot = letter[y] & (1<<(x2-x+1)) == (1<<(x2-x+1))
                     self.fdd.px(x, y, draw_dot)
+        self.fdd.show()
 
     def scrolltext(self, text, font, step):
         running = True
@@ -68,7 +69,6 @@ class TextScroller:
         y = 0
         while running:
             self.text(text, font, (x, y))
-            self.fdd.show()
             if abs(x) + step >= (len(text)//2) * font.width:
                 x = 0
             else:
