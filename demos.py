@@ -294,6 +294,7 @@ class SnakeGame(DemoBase):
         return (x, y) in self.snake_body or (x, y) in self.pills
 
 
+# TODO add support for joystick
 class FlappyDot(DemoBase):
     """Flappy Dot. Control the bird with the w-key."""
 
