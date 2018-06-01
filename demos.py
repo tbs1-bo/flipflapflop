@@ -319,7 +319,10 @@ class FlappyDot(DemoBase):
     def handle_input(self):
         newx, newy = self.pos
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
+            if (event.type == pygame.KEYDOWN and event.key == pygame.K_w) or \
+               (event.type == pygame.JOYAXISMOTION and self.joystick):
+                if self.joystick.get_axis(yax) < 0 and ydir != 1:
+
                 newy -= 1
                 self.pos = (newx, newy)
                 return
