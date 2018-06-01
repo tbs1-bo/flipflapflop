@@ -162,9 +162,15 @@ class RemoteDisplay(displayprovider.DisplayBase):
 
 def main():
     import displayprovider
-    disp = displayprovider.get_display(
+    import os
+    w = int(os.environ.get("WIDTH", "28"))
+    h = int(os.environ.get("HEIGHT", "13"))
+    cooldown_time = float(os.environ.get("COOLDOWN_TIME", "0.0001"))
+    print(w, h, cooldown_time)
+
+    disp = displayprovider.get_display(width=w, height=h,
         fallback=displayprovider.Fallback.SIMULATOR)
-    ds = DisplayServer(disp, display_cooldown_time=0.0001)
+    ds = DisplayServer(disp, display_cooldown_time=cooldown_time)
     ds.start()
 
 
