@@ -2,10 +2,9 @@ image: alpine
 
 pages:
   script:
-  - apk --no-cache add py2-pip python-dev
-  - cd docgen && ls && pip install -r requirements.txt
-  - apk --no-cache add make
-  - cd docgen && make html
+  - apk --no-cache add py2-pip python-dev make
+  - cd docgen pip install -r requirements.txt
+  - make html
   - mv docgen/_build/html/ public/
   artifacts:
     paths:
