@@ -9,6 +9,6 @@ pages:
   - mv _build/html/ ../docs/
   artifacts:
     paths:
-    - public
+    - docs
   only:
   - master
