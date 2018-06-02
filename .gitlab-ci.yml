@@ -4,12 +4,10 @@ image: alpine
 
 pages:
   script:
-  #- apk --no-cache add py2-pip python-dev make rsync
   - apk --no-cache add python3 python3-dev make rsync
-  - pip3 install --upgrade pip
   - cd docgen 
   - pip3 install -r requirements.txt
-  - pip3 install pygame  # required by importing flipdotsim
+  # - pip3 install pygame  # required by importing flipdotsim
   - make html
   - mv _build/html ../public
   artifacts:
