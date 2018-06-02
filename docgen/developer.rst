@@ -10,8 +10,9 @@ Creating the documentation
 --------------------------
 
 The documentation is made with `Sphinx <http://www.sphinx-doc.org/>`_. 
-Therefore the sphinx framework and a third party theme
-from readthedocs.io must be installed.
+Therefore the sphinx framework and a third party 
+`theme from readthedocs <https://sphinx-rtd-theme.readthedocs.io>`_ 
+must be installed.
 
 .. code-block:: bash
 
