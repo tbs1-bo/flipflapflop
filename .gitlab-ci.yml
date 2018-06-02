@@ -1,3 +1,5 @@
+# Script for CI/CD on gitlab instances.
+#
 image: alpine
 
 pages:
