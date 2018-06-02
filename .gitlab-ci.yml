@@ -3,7 +3,7 @@ image: alpine
 pages:
   script:
   - apk --no-cache add py2-pip python-dev
-  - pip install sphinx
+  - pip install -r docgen/requirements.txt
   - apk --no-cache add make
   - cd docgen && make html
   - mv docgen/_build/html/ public/
