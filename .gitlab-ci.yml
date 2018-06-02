@@ -4,7 +4,7 @@ image: alpine
 
 pages:
   script:
-  - apk --no-cache add python3 python3-dev make rsync py3-sphinx py3-sphinx_rtd_theme
+  - apk --no-cache add python3 python3-dev make rsync
   - cd docgen 
   - pip3 install -r requirements.txt
   # - pip3 install pygame  # required by importing flipdotsim
