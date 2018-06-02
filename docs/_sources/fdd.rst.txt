@@ -11,7 +11,7 @@ FlipDotDisplay
 Text On The Display
 -------------------
 
-The package :class:`flipdotfont.TextScroller` can be used to write text onto the display.
+The class :class:`flipdotfont.TextScroller` can be used to write text onto the display.
 
 .. automodule:: flipdotfont
    :members:

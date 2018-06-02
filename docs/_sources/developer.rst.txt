@@ -11,11 +11,11 @@ Creating the documentation
 
 The documentation is made with `Sphinx <http://www.sphinx-doc.org/>`_. 
 Therefore the sphinx framework and a third party theme
-from readthedocs.io must be installed 
+from readthedocs.io must be installed.
 
 .. code-block:: bash
 
-   $ pip install sphinx sphinx_rtd_theme
+   $ pip install -r docgen/requirements.txt
 
 The documentation is created with sphinx and is configured in folder ``docgen``. 
 You can use ``make html`` or ``make.bat html`` to create the docucmentation
