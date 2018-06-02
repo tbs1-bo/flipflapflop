@@ -3,7 +3,7 @@ image: alpine
 pages:
   script:
   - apk --no-cache add py2-pip python-dev make
-  - cd docgen pip install -r requirements.txt
+  - cd docgen && pip install -r requirements.txt
   - make html
   - mv docgen/_build/html/ public/
   artifacts:
