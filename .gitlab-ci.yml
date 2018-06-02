@@ -3,9 +3,10 @@ image: alpine
 pages:
   script:
   - apk --no-cache add py2-pip python-dev make rsync
-  - cd docgen && pip install -r requirements.txt
+  - cd docgen 
+  - pip install -r requirements.txt
   - make html
-  - mv _build/html/ public/
+  - mv _build/html/ ../docs/
   artifacts:
     paths:
     - public
