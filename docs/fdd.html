@@ -253,11 +253,13 @@ letter() gets a character and returns a list of 8-bit-integers.</p>
 <em class="property">class </em><code class="descclassname">flipdotfont.</code><code class="descname">TextScroller</code><span class="sig-paren">(</span><em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write Text on Flipdotdisplays. A simple usage with a FlipDot-Simulator
 is shown in the following.</p>
-<blockquote>
-<div>import flipdotfont
-fds = FlipDotSim(28)
-fdw = flipdotfont.TextScroller(fds)
-fdw.scrolltext(‘Test 12345!’, flipdotfont.SMALL_FONT, 1)</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flipdotfont</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flipdotsim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">(</span><span class="mi">28</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fdw</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="n">fds</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fdw</span><span class="o">.</span><span class="n">scrolltext</span><span class="p">(</span><span class="s1">&#39;Test 12345!&#39;</span><span class="p">,</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">big_font</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="method">
 <dt id="flipdotfont.TextScroller.scrolltext">
 <code class="descname">scrolltext</code><span class="sig-paren">(</span><em>text</em>, <em>font</em>, <em>step</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.scrolltext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller.scrolltext" title="Permalink to this definition">¶</a></dt>

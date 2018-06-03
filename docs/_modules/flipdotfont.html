@@ -190,10 +190,11 @@
     <span class="sd">&quot;&quot;&quot;Write Text on Flipdotdisplays. A simple usage with a FlipDot-Simulator</span>
 <span class="sd">    is shown in the following.</span>
 
-<span class="sd">        import flipdotfont</span>
-<span class="sd">        fds = FlipDotSim(28)</span>
-<span class="sd">        fdw = flipdotfont.TextScroller(fds)</span>
-<span class="sd">        fdw.scrolltext(&#39;Test 12345!&#39;, flipdotfont.SMALL_FONT, 1)</span>
+<span class="sd">        &gt;&gt;&gt; import flipdotfont</span>
+<span class="sd">        &gt;&gt;&gt; import flipdotsim</span>
+<span class="sd">        &gt;&gt;&gt; fds = flipdotsim.FlipDotSim(28)</span>
+<span class="sd">        &gt;&gt;&gt; fdw = flipdotfont.TextScroller(fds)</span>
+<span class="sd">        &gt;&gt;&gt; fdw.scrolltext(&#39;Test 12345!&#39;, flipdotfont.big_font(), 1)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
