@@ -85,6 +85,7 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FlipDotDisplay</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-flipdotdisplay">Module <code class="docutils literal notranslate"><span class="pre">flipdotdisplay</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#text-on-the-display">Text On The Display</a></li>
 </ul>
 </li>
@@ -159,7 +160,22 @@
   <div class="section" id="flipdotdisplay">
 <h1>FlipDotDisplay<a class="headerlink" href="#flipdotdisplay" title="Permalink to this headline">¶</a></h1>
 <img alt="_images/display_in_action.jpg" src="_images/display_in_action.jpg" />
-<span class="target" id="module-flipdotdisplay"></span><p>The flipdotdisplay package allows for controlling a physical flipdotdisplay. 
+<p>The module must be connected to a RaspberryPi which in turn is connected to
+a port expander. The port expander itself is controlling the flipdot display.
+Each display is segmentd into modules. Each of these modules must be connected
+seperately to one GPIO port on the Raspberry Pi.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>+----------+              +---------+     +-----------------+
+|Raspberry |--[I²C SDA]---| Port-   |-----| flipdot-display |
+|Pi        |              | epander |     |_________________|
+|          |--[I²C SCL]---|         |-----|mod1|mod2|mod3   |
++----------+              +---------+     +-----------------+
+    |||                                      |    |     |
+    +++---------[one wire per module]--------+----+-----+
+</pre></div>
+</div>
+<div class="section" id="module-flipdotdisplay">
+<span id="module-flipdotdisplay"></span><h2>Module <code class="docutils literal notranslate"><span class="pre">flipdotdisplay</span></code><a class="headerlink" href="#module-flipdotdisplay" title="Permalink to this headline">¶</a></h2>
+<p>The flipdotdisplay package allows for controlling a physical flipdotdisplay. 
 It relies on a portexpander that is connected to the display via I²C or SPI
 on one hand and to a RaspberryPi on the other hand.</p>
 <dl class="class">
@@ -211,6 +227,7 @@ not only the changes.</p>
 
 </dd></dl>
 
+</div>
 <div class="section" id="text-on-the-display">
 <h2>Text On The Display<a class="headerlink" href="#text-on-the-display" title="Permalink to this headline">¶</a></h2>
 <p>The class <a class="reference internal" href="#flipdotfont.TextScroller" title="flipdotfont.TextScroller"><code class="xref py py-class docutils literal notranslate"><span class="pre">flipdotfont.TextScroller</span></code></a> can be used to write text onto the display.</p>
