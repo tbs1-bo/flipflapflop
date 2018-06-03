@@ -36,6 +36,13 @@ extensions = [
     'sphinx.ext.viewcode',
 ]
 
+# autodoc configuration
+#
+# This value contains a list of modules to be mocked up. This is useful when 
+# some external dependencies are not met at build time and break the 
+# building process. 
+autodoc_mock_imports = ["pygame", "RPi", "smbus"]
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 

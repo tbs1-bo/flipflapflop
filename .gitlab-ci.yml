@@ -7,7 +7,6 @@ pages:
   - apk --no-cache add python3 python3-dev make rsync
   - cd docgen 
   - pip3 install -r requirements.txt
-  # - pip3 install pygame  # TODO required by importing flipdotsim but does not work on gitlab
   - make html
   - mv _build/html ../public
   artifacts:
