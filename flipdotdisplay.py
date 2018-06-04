@@ -4,11 +4,8 @@ It relies on a portexpander that is connected to the display via I²C or SPI
 on one hand and to a RaspberryPi on the other hand.
 """
 
-try:
-    import RPi.GPIO as GPIO
-    import MCP23017
-except ImportError as ex:
-    print("Some modules cannot be imported", ex)
+import RPi.GPIO as GPIO
+import MCP23017
 import time
 import displayprovider
 
