@@ -11,3 +11,4 @@ venv/
 
 # generated documentation
 docgen/_build/
+configuration.py
