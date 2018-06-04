@@ -177,14 +177,17 @@ class World:
     def get_px(self, x, y):
         return self.pixels[self.width * y + x]
 
+    def is_onboard(self, x, y):
+        return 0 <= x < self.width and 0 <= y < self.height
+
     def is_wall(self, x, y):
-        return self.get_px(x, y) == World.COLOR_WALL
+        return self.is_onboard(x, y) and self.get_px(x, y) == World.COLOR_WALL
 
     def is_player(self, x, y):
-        return self.get_px(x, y) == World.COLOR_PLAYER
+        return self.is_onboard(x,y) and self.get_px(x, y) == World.COLOR_PLAYER
 
     def is_coin(self, x, y):
-        return self.get_px(x, y) == World.COLOR_COIN
+        return self.is_onboard(x,y) and self.get_px(x, y) == World.COLOR_COIN
 
     def _find_game_objects(self, typ):
         gobjs = []
