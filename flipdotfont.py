@@ -38,10 +38,11 @@ class TextScroller:
     """Write Text on Flipdotdisplays. A simple usage with a FlipDot-Simulator
     is shown in the following.
 
-        import flipdotfont
-        fds = FlipDotSim(28)
-        fdw = flipdotfont.TextScroller(fds)
-        fdw.scrolltext('Test 12345!', flipdotfont.SMALL_FONT, 1)
+        >>> import flipdotfont
+        >>> import flipdotsim
+        >>> fds = flipdotsim.FlipDotSim(28)
+        >>> fdw = flipdotfont.TextScroller(fds)
+        >>> fdw.scrolltext('Test 12345!', flipdotfont.big_font(), 1)
 
     """
 
