@@ -68,6 +68,10 @@ class FlipDotSim(displayprovider.DisplayBase):
 
 if __name__ == '__main__':
     import flipdotfont
-    fds = FlipDotSim(28)
+    import configuration
+    fds = FlipDotSim(
+        width=configuration.WIDTH, 
+        height=configuration.HEIGHT,
+        fps=configuration.simulator["fps"])
     fdw = flipdotfont.TextScroller(fds)
     fdw.scrolltext('Test 12345!', flipdotfont.big_font(), 1)

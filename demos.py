@@ -405,8 +405,10 @@ class BinaryClock(DemoBase):
 
 def main():
     import displayprovider
+    import configuration
     fdd = displayprovider.get_display(
-        width=28, height=16, fallback=displayprovider.Fallback.SIMULATOR)
+        width=configuration.WIDTH, height=configuration.HEIGHT, 
+        fallback=displayprovider.Fallback.SIMULATOR)
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd),
              FlappyDot(fdd), BinaryClock(fdd), rogueflip.Game(fdd)]

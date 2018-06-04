@@ -224,8 +224,10 @@ class GameObject:
 def run_simulator():
     """Run a sample game in the simulator."""
 
+    import configuration
     import flipdotsim
-    fdd = flipdotsim.FlipDotSim(width=28, height=16)
+    fdd = flipdotsim.FlipDotSim(width=configuration.WIDTH, 
+        height=configuration.HEIGHT)
     g = Game(fdd, DEFAULT_WORLD_FILE)
     g.run()
 
