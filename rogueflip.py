@@ -104,7 +104,6 @@ class Game:
         time.sleep(2)
 
     def player_try_collect_coin(self):
-        x, y = self.player.pos
         # remove coin under player
         self.coins = [c for c in self.coins if c.pos != self.player.pos]
 
