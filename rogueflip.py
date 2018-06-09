@@ -224,16 +224,28 @@ class GameObject:
 
 
 def run_simulator():
-    """Run a sample game in the simulator."""
-
-    import configuration
+    print("running a sample game in the simulator")
+    import configuration as conf
     import flipdotsim
-    fdd = flipdotsim.FlipDotSim(width=configuration.WIDTH, 
-        height=configuration.HEIGHT)
+    fdd = flipdotsim.FlipDotSim(width=conf.WIDTH, height=conf.HEIGHT)
+    run_width_flipdotdisplay(fdd)
+
+
+def run_remote_display():
+    print("running a sample game on a remote display")
+    import configuration as conf
+    import net
+    fdd = net.RemoteDisplay(host=conf.remote_display["host"],
+        port=conf.remote_display["port"], 
+        width=conf.WIDTH, height=conf.HEIGHT)
+    run_width_flipdotdisplay(fdd)
+
+
+def run_width_flipdotdisplay(fdd):
     g = Game(fdd, DEFAULT_WORLD_FILE)
     g.run()
 
 
 if __name__ == "__main__":
-    print("running a sample game in the simulator")
     run_simulator()
+    #run_remote_display()
