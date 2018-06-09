@@ -18,7 +18,7 @@ display_server = {
 }
 
 remote_display = {
-    "host": "0.0.0.0",
+    "host": "localhost",
     "port": 10101    
 }
 
