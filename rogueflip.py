@@ -51,6 +51,7 @@ class Game:
         self.textwriter = flipdotfont.TextScroller(flipdotdisplay)
 
     def run(self):
+        """Start the game running in an endless loop."""
         while True:
             self.tick()
             for x in range(self.fdd.width):
@@ -77,6 +78,7 @@ class Game:
             coin.tick()
 
     def handle_input(self):
+        """Handle user input from keyboard or joystick."""
         plx, ply = self.player.pos
         dx, dy = 0, 0
         for event in pygame.event.get():
