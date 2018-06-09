@@ -48,7 +48,7 @@ class Game:
 
     def run(self):
         while True:
-            self.prepare()
+            self.tick()
             for x in range(self.fdd.width):
                 for y in range(self.fdd.height):
                     val = self.handle_px(x, y)
@@ -67,7 +67,7 @@ class Game:
 
         return self.world.is_wall(x_, y_)
 
-    def prepare(self):
+    def tick(self):
         self.player.tick()
         for coin in self.coins:            
             coin.tick()
