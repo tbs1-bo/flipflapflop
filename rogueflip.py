@@ -34,6 +34,10 @@ class Game:
     def __init__(self, flipdotdisplay, worldfile=DEFAULT_WORLD_FILE):
         self.fdd = flipdotdisplay
         pygame.init()
+        if pygame.joystick.get_count() > 0:
+            print("Joystick found")
+            self.joystick = pygame.joystick.Joystick(0)
+            self.joystick.init()
         self.world = World(worldfile)
         # top left position of current view inside the world
         self.window_top_left = [0, 0]
@@ -76,17 +80,24 @@ class Game:
         plx, ply = self.player.pos
         dx, dy = 0, 0
         for event in pygame.event.get():
-            if event.type != pygame.KEYDOWN:
-                continue
+            if event.type == pygame.KEYDOWN:
+                # handle keyboard input
+                if event.key == pygame.K_w: 
+                    dy = -1
+                elif event.key == pygame.K_a:
+                    dx = -1
+                elif event.key == pygame.K_s:
+                    dy = +1
+                elif event.key == pygame.K_d:
+                    dx = +1
 
-            if event.key == pygame.K_w: 
-                dy = -1
-            elif event.key == pygame.K_a:
-                dx = -1
-            elif event.key == pygame.K_s:
-                dy = +1
-            elif event.key == pygame.K_d:
-                dx = +1
+            elif event.type == pygame.JOYAXISMOTION:
+                # handle joystick
+                dx += round(self.joystick.get_axis(0))
+                dy += round(self.joystick.get_axis(1))
+            else:
+                # ignore other events
+                continue
 
             if not self.world.is_wall(plx+dx, ply+dy):
                 self.player.pos = [plx + dx, ply + dy]
