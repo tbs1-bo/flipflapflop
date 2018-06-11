@@ -203,6 +203,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">textwriter</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="n">flipdotdisplay</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Game.run"><a class="viewcode-back" href="../game.html#rogueflip.Game.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Start the game running in an endless loop.&quot;&quot;&quot;</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
@@ -229,6 +230,7 @@
             <span class="n">coin</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Game.handle_input"><a class="viewcode-back" href="../game.html#rogueflip.Game.handle_input">[docs]</a>    <span class="k">def</span> <span class="nf">handle_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Handle user input from keyboard or joystick.&quot;&quot;&quot;</span>
         <span class="n">plx</span><span class="p">,</span> <span class="n">ply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">pos</span>
         <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
