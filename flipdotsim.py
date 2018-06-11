@@ -35,6 +35,7 @@ class FlipDotSim(displayprovider.DisplayBase):
         self.b = pygame.image.load(BLACKDOT_FILE).convert()        
         self.clock = pygame.time.Clock()
         self.fps = fps
+        self.clear()
 
     def set(self, x, y):
         self.screen.blit(self.y, (x*20, y*20))
