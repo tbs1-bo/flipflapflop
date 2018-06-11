@@ -1,7 +1,11 @@
 """Demo of an analog clock.
 
 The code is based on 
-https://github.com/sprintingkiwi/pycraft_mod/blob/master/mcpipy/clock.py
+`clock.py <https://github.com/sprintingkiwi/pycraft_mod/blob/master/mcpipy/clock.py>`_
+
+A demo video is available on 
+`YouTube <https://www.youtube-nocookie.com/embed/2X3LfF__rnQ?rel=0>`_
+
 """
 
 #
