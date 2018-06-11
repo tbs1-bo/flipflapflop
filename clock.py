@@ -67,7 +67,7 @@ for tick in range(0,12):
 
 hourHand = Hand(center, 12, radius * 0.5)
 minuteHand = Hand(center, 60, radius * 0.8)
-secondHand = Hand((center[0],center[1],), 60, radius * 0.8) 
+secondHand = Hand(center, 60, radius * 0.8) 
 
 while True:
     t = time.localtime()
