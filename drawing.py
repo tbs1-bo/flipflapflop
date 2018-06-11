@@ -1,5 +1,5 @@
 """Helper for drawing on pixel display. Taken from
-https://github.com/sprintingkiwi/pycraft_mod/blob/master/mcpipy/drawing.py
+`drawing.py <https://github.com/sprintingkiwi/pycraft_mod/blob/master/mcpipy/drawing.py>`_
 and adjusted to the needs of a 2d display.
 """
 
