@@ -9,7 +9,7 @@ Rogueflip
 The demo game *rogueflip* is inspired by text-console based dungeon games 
 named 'roguelike'. The following video shows the game in action.
 
-.. image:: ../media/simulator_video_thumbnail.jpg
+.. image:: ../media/simulator_video_thumbnail.png
    :target: https://www.youtube-nocookie.com/embed/ed5-gVciz3I?rel=0
 
 Level Description
