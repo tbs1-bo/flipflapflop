@@ -21,6 +21,14 @@ Therefore this has to be installed before.
 
 More information about this process is available on the pygame-website.
 
+Example
+-------
+
+.. literalinclude:: flipdotsim_example.py
+   :linenos:
+
+
+
 Module Description
 ------------------
 
