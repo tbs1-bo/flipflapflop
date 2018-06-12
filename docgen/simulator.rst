@@ -19,6 +19,8 @@ Therefore this has to be installed before.
 
     $ pip install pygame
 
+More information about this process is available on the pygame-website.
+
 Module Description
 ------------------
 
