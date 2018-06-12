@@ -28,3 +28,10 @@ There is a ``gitlab-ci.yml`` script that will only be executed if the project is
 hosted on a gitlab server. The script automatically deploys the documentation
 on every commit onto the master branch. An examples can be found 
 `here <https://tbs1-bo.gitlab.io/flipflapflop/>`_.
+
+Video Backups
+-------------
+
+The video linked in this documentation are hosted by YouTube. There is a 
+mirror of these videos at 
+`archive.org <https://archive.org/details/FlipFlapFlop>`_.
