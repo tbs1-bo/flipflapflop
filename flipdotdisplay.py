@@ -2,6 +2,32 @@
 The flipdotdisplay package allows for controlling a physical flipdotdisplay. 
 It relies on a portexpander that is connected to the display via I²C or SPI
 on one hand and to a RaspberryPi on the other hand.
+
+Suppose we would like to show the following pattern in the top left corner
+of the display::
+
+  o.
+  .o
+
+First a :py:class:`FlipDotDisplay` display must be created. We use the default 
+parameters here.
+
+>>> import flipdotdisplay
+>>> fdd = flipdotdisplay.FlipDotDisplay()
+
+The new display can now be used to set the pixels 
+with the :py:meth:`~FlipDotDisplay.px` method.
+
+>>> fdd.px(0,0, True)
+>>> fdd.px(0,1, False)
+>>> fdd.px(1,0, False)
+>>> fdd.px(1,1 True)
+
+After setting the pixels we need one final step to make them visible on the 
+display with :py:meth:`~FlipDotDisplay.show`.
+
+>>> fdd.show()
+
 """
 
 import RPi.GPIO as GPIO
@@ -13,7 +39,8 @@ import displayprovider
 class FlipDotDisplay(displayprovider.DisplayBase):
     def __init__(self, address = 0x20, width=28, height=13, module = [18]):
         """Create a display connected via a port expander on the given 
-        I²C-address."""
+        I²C-address. The given module list contains GPIO-ports that connect
+        the RaspberryPi with the the module in the display."""
         super().__init__(width, height)
         GPIO.setmode(GPIO.BCM)
         for m in module:
