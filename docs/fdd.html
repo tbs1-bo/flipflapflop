@@ -30,7 +30,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="FlipDot-Simulator" href="simulator.html" />
-    <link rel="prev" title="flipflapflop - Ansteuerung einer FlipDot-Anzeige" href="index.html" /> 
+    <link rel="prev" title="flipflapflop - FlipDot-Anzeigen ansteuern" href="index.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -171,6 +171,31 @@ seperately to one GPIO port on the Raspberry Pi.</p>
 <p>The flipdotdisplay package allows for controlling a physical flipdotdisplay. 
 It relies on a portexpander that is connected to the display via I²C or SPI
 on one hand and to a RaspberryPi on the other hand.</p>
+<p>Suppose we would like to show the following pattern in the top left corner
+of the display:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span><span class="o">.</span>
+<span class="o">.</span><span class="n">o</span>
+</pre></div>
+</div>
+<p>First a <a class="reference internal" href="#flipdotdisplay.FlipDotDisplay" title="flipdotdisplay.FlipDotDisplay"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlipDotDisplay</span></code></a> display must be created. We use the default 
+parameters here.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flipdotdisplay</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span> <span class="o">=</span> <span class="n">flipdotdisplay</span><span class="o">.</span><span class="n">FlipDotDisplay</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The new display can now be used to set the pixels 
+with the <a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.px" title="flipdotdisplay.FlipDotDisplay.px"><code class="xref py py-meth docutils literal notranslate"><span class="pre">px()</span></code></a> method.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After setting the pixels we need one final step to make them visible on the 
+display with <a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.show" title="flipdotdisplay.FlipDotDisplay.show"><code class="xref py py-meth docutils literal notranslate"><span class="pre">show()</span></code></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
 <dl class="class">
 <dt id="flipdotdisplay.FlipDotDisplay">
 <em class="property">class </em><code class="descclassname">flipdotdisplay.</code><code class="descname">FlipDotDisplay</code><span class="sig-paren">(</span><em>address=32, width=28, height=13, module=[18]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay" title="Permalink to this definition">¶</a></dt>
@@ -178,7 +203,8 @@ on one hand and to a RaspberryPi on the other hand.</p>
 <dt id="flipdotdisplay.FlipDotDisplay.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>address=32, width=28, height=13, module=[18]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a display connected via a port expander on the given 
-I²C-address.</p>
+I²C-address. The given module list contains GPIO-ports that connect
+the RaspberryPi with the the module in the display.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -291,7 +317,7 @@ is shown in the following.</p>
         <a href="simulator.html" class="btn btn-neutral float-right" title="FlipDot-Simulator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="flipflapflop - Ansteuerung einer FlipDot-Anzeige" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="flipflapflop - FlipDot-Anzeigen ansteuern" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
