@@ -3,10 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to flipflapflop's documentation!
-========================================
+flipflapflop - FlipDot-Anzeigen ansteuern
+=========================================
 
-Table of Contents:
+Inhaltsverzeichnis:
 
 .. toctree::
    :maxdepth: 2
@@ -18,9 +18,15 @@ Table of Contents:
    developer
 
 Das Projekt dient der Ansteuerung einer Flipdot-Zielanzeige mit verschiedenen 
-Mikrocontrollern oder einem RaspberryPi.
+Mikrocontrollern oder einem RaspberryPi. Das folgende Bild zeigt eine solche
+Anzeige.
 
 .. image:: ../media/display_in_action.jpg
+
+Kleine runde Plättchen mit unterschiedlichen Farben auf den Seiten sind so 
+gelagert, dass ein Strom genutzt werden kann, um sie durch einen Magneten
+kippen zu lassen. Damit kann dann ein Bild oder Text auf dem Display 
+dargestellt werden.
 
 Demo-Video
 ----------
@@ -39,7 +45,7 @@ Ein :download:`Schaltplan <../media/FLIPDOT_SCHALTUNG.pdf>` zeigt den
 internen Aufbau der Displays.
 
 
-Indices and tables
+Index und Tabellen
 ==================
 
 * :ref:`genindex`
