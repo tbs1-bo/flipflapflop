@@ -32,6 +32,6 @@ on every commit onto the master branch. An examples can be found
 Video Backups
 -------------
 
-The video linked in this documentation are hosted by YouTube. There is a 
+The videos linked in this documentation are hosted by YouTube. There is a 
 mirror of these videos at 
 `archive.org <https://archive.org/details/FlipFlapFlop>`_.
