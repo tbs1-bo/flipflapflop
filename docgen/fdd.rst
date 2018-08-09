@@ -25,6 +25,14 @@ Module ``flipdotdisplay``
    :undoc-members:
    :special-members:
 
+Module ``util``
+---------------
+
+.. automodule:: util
+   :members:
+   
+
+
 Text On The Display
 -------------------
 
