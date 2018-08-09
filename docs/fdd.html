@@ -79,6 +79,7 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FlipDotDisplay</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-flipdotdisplay">Module <code class="docutils literal notranslate"><span class="pre">flipdotdisplay</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-util">Module <code class="docutils literal notranslate"><span class="pre">util</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#text-on-the-display">Text On The Display</a></li>
 </ul>
 </li>
@@ -244,6 +245,21 @@ not only the changes.</p>
 <dd><p>Maybe a bit faster than show(True)</p>
 </dd></dl>
 
+</dd></dl>
+
+</div>
+<div class="section" id="module-util">
+<span id="module-util"></span><h2>Module <code class="docutils literal notranslate"><span class="pre">util</span></code><a class="headerlink" href="#module-util" title="Permalink to this headline">¶</a></h2>
+<p>This module contains helper methods for the handling of flipdotdisplays.</p>
+<dl class="function">
+<dt id="util.draw_surface_on_fdd">
+<code class="descclassname">util.</code><code class="descname">draw_surface_on_fdd</code><span class="sig-paren">(</span><em>surface: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f18cf53a8d0&gt;</em>, <em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_surface_on_fdd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#util.draw_surface_on_fdd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the surface onto the display. You need to invoke show() 
+afterwards to make it visible. Black pixels (rgb 0,0,0) are considered
+black and turned off, other colors are considered pixels turned on. 
+The clipping area of the  surface can be modified to draw only part 
+of the surface. A demo application is available in 
+demos.PygameSurfaceDemo.</p>
 </dd></dl>
 
 </div>

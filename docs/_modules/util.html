@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overview: module code &mdash; flipflapflop 0.1 documentation</title>
+  <title>util &mdash; flipflapflop 0.1 documentation</title>
   
 
   
@@ -125,7 +125,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Overview: module code</li>
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>util</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -140,14 +142,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="flipdotdisplay.html">flipdotdisplay</a></li>
-<li><a href="flipdotfont.html">flipdotfont</a></li>
-<li><a href="flipdotsim.html">flipdotsim</a></li>
-<li><a href="net.html">net</a></li>
-<li><a href="rogueflip.html">rogueflip</a></li>
-<li><a href="util.html">util</a></li>
-</ul>
+  <h1>Source code for util</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This module contains helper methods for the handling of flipdotdisplays.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pygame</span>
+
+
+<div class="viewcode-block" id="draw_surface_on_fdd"><a class="viewcode-back" href="../fdd.html#util.draw_surface_on_fdd">[docs]</a><span class="k">def</span> <span class="nf">draw_surface_on_fdd</span><span class="p">(</span><span class="n">surface</span><span class="p">:</span><span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">,</span> <span class="n">flipdotdisplay</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Draw the surface onto the display. You need to invoke show() </span>
+<span class="sd">    afterwards to make it visible. Black pixels (rgb 0,0,0) are considered</span>
+<span class="sd">    black and turned off, other colors are considered pixels turned on. </span>
+<span class="sd">    The clipping area of the  surface can be modified to draw only part </span>
+<span class="sd">    of the surface. A demo application is available in </span>
+<span class="sd">    demos.PygameSurfaceDemo.&quot;&quot;&quot;</span>
+    <span class="n">cx</span><span class="p">,</span><span class="n">cy</span><span class="p">,</span><span class="n">cw</span><span class="p">,</span><span class="n">ch</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">get_clip</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ch</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cw</span><span class="p">):</span>
+            <span class="n">r</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">a</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">get_at</span><span class="p">((</span><span class="n">cx</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">cy</span><span class="o">+</span><span class="n">y</span><span class="p">))</span>
+            <span class="n">ison</span> <span class="o">=</span> <span class="ow">not</span> <span class="p">(</span><span class="n">r</span> <span class="o">==</span> <span class="n">g</span> <span class="o">==</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">flipdotdisplay</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ison</span><span class="p">)</span></div>
+</pre></div>
 
            </div>
            
