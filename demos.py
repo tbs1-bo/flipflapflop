@@ -14,6 +14,7 @@ of the scrollphathd: https://github.com/pimoroni/scroll-phat-hd
 import math
 import time
 import random
+import util
 try:
     import rogueflip
     import pygame
@@ -42,6 +43,32 @@ class DemoBase:
     def prepare(self):
         """Do some preparation before update."""
         pass
+
+
+class PygameSurfaceDemo:
+    """Demo for testing the drawing on the display with a pygame Surface 
+    class."""
+
+    def __init__(self, flipdotdisplay):
+        self.fdd = flipdotdisplay
+
+        # load a surface from an image file and shrinken the clipping
+        # area (the visible part) to the size of the flipdotdisplay
+        self.surf = pygame.image.load("media/surface_test.png")
+        self.surf.set_clip(0, 0, self.fdd.width, self.fdd.height)        
+
+    def run(self):
+        while True:
+            self.update()
+            # draw the surface onto the display.
+            util.draw_surface_on_fdd(self.fdd, self.surf)
+            self.fdd.show()
+
+    def update(self):
+        # move clipping area one pixel per frame (ip=in place)
+        cl = self.surf.get_clip()
+        cl.move_ip(1, 0)
+        self.surf.set_clip(cl)
 
 
 class PlasmaDemo(DemoBase):
@@ -411,7 +438,8 @@ def main():
         fallback=displayprovider.Fallback.SIMULATOR)
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd),
-             FlappyDot(fdd), BinaryClock(fdd), rogueflip.Game(fdd)]
+             FlappyDot(fdd), BinaryClock(fdd), rogueflip.Game(fdd),
+             PygameSurfaceDemo(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
     num = int(input(">"))
     print("Running demo. CTRL-C to abort.")
