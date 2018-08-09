@@ -61,7 +61,7 @@ class PygameSurfaceDemo:
         while True:
             self.update()
             # draw the surface onto the display.
-            util.draw_surface_on_fdd(self.fdd, self.surf)
+            util.draw_surface_on_fdd(self.surf, self.fdd)
             self.fdd.show()
 
     def update(self):
