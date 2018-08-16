@@ -85,7 +85,7 @@ class DisplayServer:
                 # waiting for connection
                 remote_sock, cl = sock.accept()
                 buf = remote_sock.recv(self.width * self.height)
-                print("received", len(buf), "bytes")
+                #print("received", len(buf), "bytes")
 
                 try:
                     ans = self.handle_request(buf)
@@ -118,11 +118,11 @@ class DisplayServer:
             for x in range(self.width):
                 val = chr(payload[y * self.width + x])
                 if val in ("0", "1"):
-                    print(val, end="")
+                    #print(val, end="")
                     self.display.px(x, y, val == "1")
                 else:
                     return "bad payload:" + val
-            print()
+            #print()
 
         self.display.show2()  # TODO must be changed to show() if this is stable
         self.last_display_update = time.time()
