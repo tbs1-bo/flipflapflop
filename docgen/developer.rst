@@ -4,6 +4,14 @@ Developer Documentation
 Find here information for developers of this project. If you just want
 to use the package you don't need to read any further.
 
+Deployment
+----------
+
+The deployment scenario described relies on a Raspberry Pi that acts as as access point.
+The display is connected to it directly. On the Pi runs a systemd-service as described
+in the `Raspberry Pi Documentation <https://www.raspberrypi.org/documentation/linux/usage/systemd.md>`_.
+The service file ``flipflapflop.service`` must be copied to ``/etc/systemd/system`` can be
+started afterwards. It assumes the repository is checked out in ``/home/pi/flipflapflop``.
 
 
 Creating the documentation
