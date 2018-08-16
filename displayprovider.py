@@ -27,11 +27,6 @@ class DisplayBase:
     def show(self):
         pass
 
-    def show2(self):
-        """Optional method that may be implemented. Will be removed in the
-        future."""
-        pass
-
 
 def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
     try:

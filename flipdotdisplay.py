@@ -102,7 +102,7 @@ class FlipDotDisplay(displayprovider.DisplayBase):
                 else:
                     print(".", end="")
 
-    def show(self, fullbuffer = False):
+    def show_deprecated(self, fullbuffer = False):
         """
         Show the current buffer on the flip dot display.
         Set the fullbuffer-flag to show the whole buffer on the display and 
@@ -115,7 +115,7 @@ class FlipDotDisplay(displayprovider.DisplayBase):
                     self.flipdot(x, y, self.buffer[x][y])
                     self.oldbuffer[x][y] = self.buffer[x][y]
 
-    def show2(self):
+    def show(self):
         """
         Maybe a bit faster than show(True)
         """
