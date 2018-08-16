@@ -37,21 +37,22 @@ class BinClock:
                     self.digit(bhour[x], x, 0)
                     self.digit(bmin[x], x, 1)
                     # self.digit(bsec[x], x, 2)
-                self.draw_seconds_bar()
+                self.draw_seconds_bar(isec, imin)
                 self.fdd.show()
             time.sleep(0.2)
 
-    def draw_seconds_bar(self, seconds):
+    def draw_seconds_bar(self, seconds, minutes):
         self.draw_bar_borders()
         for x in range(2, 22):
-            self.fdd.px(x, 2 * 4 + 1, x < seconds)
-            self.fdd.px(x, 2 * 4 + 2, x + 20 < seconds)
-            self.fdd.px(x, 2 * 4 + 3, x + 40 < seconds)
-
+            x_ = x - 3
+            even = minutes % 2 == 0
+            self.fdd.px(x, 2 * 4 + 1, even ^ (x_ < seconds))
+            self.fdd.px(23 - x, 2 * 4 + 2, even ^ (x_ + 20 < seconds))
+            self.fdd.px(x, 2 * 4 + 3, even ^ (x_ + 40 < seconds))
 
     def draw_bar_borders(self):
-        for x in (0, 1, 22, 23):
-            for y in range(2 * 4, 2 * 4 + 3):
+        for x in (0, 23):
+            for y in range(2 * 4 + 1, 2 * 4 + 4):
                 self.fdd.px(x, y, True)
 
     def clear(self):
