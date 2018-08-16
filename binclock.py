@@ -31,9 +31,15 @@ class BinClock():
                 bhour = bin(ihour+64)[3:]
                 bmin = bin(imin+64)[3:]
                 bsec = bin(isec+64)[3:]
+                self.clear()
                 for x in range(6):
                     self.digit(bhour[x], x, 0)
                     self.digit(bmin[x], x, 1)
                     self.digit(bsec[x], x, 2)
                 self.fdd.show()
             time.sleep(0.2)
+
+    def clear(self):
+        for y in range(self.fdd.height):
+            for x in range(self.fdd.width):
+                self.px(x, y, False)
