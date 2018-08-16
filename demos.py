@@ -434,8 +434,10 @@ def main():
     import displayprovider
     import configuration
     fdd = displayprovider.get_display(
-        width=configuration.WIDTH, height=configuration.HEIGHT, 
+        width=configuration.WIDTH, height=configuration.HEIGHT,
         fallback=displayprovider.Fallback.SIMULATOR)
+    # import net
+    # fdd = net.RemoteDisplay(host="taylorpi.local")
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd),
              FlappyDot(fdd), BinaryClock(fdd), rogueflip.Game(fdd),
