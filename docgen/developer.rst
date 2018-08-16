@@ -7,11 +7,20 @@ to use the package you don't need to read any further.
 Deployment
 ----------
 
-The deployment scenario described relies on a Raspberry Pi that acts as as access point.
+The deployment scenario described here relies on a Raspberry Pi that acts as as 
+access point.
 The display is connected to it directly. On the Pi runs a systemd-service as described
 in the `Raspberry Pi Documentation <https://www.raspberrypi.org/documentation/linux/usage/systemd.md>`_.
-The service file ``flipflapflop.service`` must be copied to ``/etc/systemd/system`` can be
-started afterwards. It assumes the repository is checked out in ``/home/pi/flipflapflop``.
+The service file ``flipflapflop.service`` must be copied to ``/etc/systemd/system`` and 
+can be started afterwards::
+
+   $ sudo systemctl start flipflapflop.service
+
+To enable the service for automatic startup during boot use the following command::
+
+  sudo systemctl enable flipflapflop.service
+
+The service script assumes the repository is checked out in ``/home/pi/flipflapflop``.
 
 
 Creating the documentation
