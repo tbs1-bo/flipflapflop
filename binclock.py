@@ -42,4 +42,4 @@ class BinClock():
     def clear(self):
         for y in range(self.fdd.height):
             for x in range(self.fdd.width):
-                self.px(x, y, False)
+                self.fdd.px(x, y, False)
