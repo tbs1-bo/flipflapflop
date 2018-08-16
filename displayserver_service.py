@@ -5,6 +5,8 @@ startup script.
 
 import net
 import flipdotdisplay
+import binclock
+import threading
 
 # dimension of the display
 WIDTH, HEIGHT = 28, 13
@@ -12,11 +14,39 @@ WIDTH, HEIGHT = 28, 13
 # list of GPIO-pins connected to the modules
 MODULES = [14]
 
+# time to wait for request before clock should be turned again
+REQUEST_TIMEOUT = 5  # seconds
+
+
+def on_request():
+    """Turn of the clock on a request and wait for some time."""
+    global clock, timer
+
+    clock.visible = False
+    timer.cancel()
+    timer = threading.Timer(REQUEST_TIMEOUT, time_over)
+    timer.start()
+
+
+def time_over():
+    """Time has exceeded without request. Turn the clock on again."""
+    clock.visible = True
+
+
+clock = None
+timer = threading.Timer(0, time_over)
+
 
 def main():
     fdd = flipdotdisplay.FlipDotDisplay(
         width=WIDTH, height=HEIGHT, module=MODULES)
     displayserver = net.DisplayServer(fdd)
+    displayserver.on_request = on_request
+
+    global clock
+    clock = binclock.BinClock()
+    clock.run()
+
     displayserver.start()
 
 

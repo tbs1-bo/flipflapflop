@@ -63,6 +63,7 @@ class DisplayServer:
         self.width = display.width
         self.height = display.height
         self.display = display
+        self.on_request = lambda: None
 
     def start(self, host="0.0.0.0", port=DEFAULT_PORT):
         print("Starting server for dimension", self.width, "x", self.height,
@@ -77,6 +78,7 @@ class DisplayServer:
                 # waiting for connection
                 remote_sock, cl = sock.accept()
                 buf = remote_sock.recv(self.width * self.height)
+                self.on_request()
                 #print("received", len(buf), "bytes")
 
                 try:
