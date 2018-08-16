@@ -30,6 +30,7 @@ def on_request():
 
 def time_over():
     """Time has exceeded without request. Turn the clock on again."""
+    print("long time no request, restarting clock")
     clock.visible = True
 
 
