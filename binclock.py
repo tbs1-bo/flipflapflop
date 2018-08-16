@@ -13,10 +13,10 @@ class BinClock():
                   [False, True, False, False],
                   [False, True, False, False]]
         elif dig == '0':
-        pat = [[False, False, False, False],
-               [True, True, True, False],
-               [True, False, True, False],
-               [True, True, True, False]]
+            pat = [[False, False, False, False],
+                  [True, True, True, False],
+                  [True, False, True, False],
+                  [True, True, True, False]]
         for x in range(4):
             for y in range(4):
                 self.fdd.px(4*dx+x, 4*dy+y, pat[y][x])
