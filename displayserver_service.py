@@ -12,9 +12,13 @@ COOLDOWN_TIME = 0.5
 # dimension of the display
 WIDTH, HEIGHT = 28, 13
 
+# list of GPIO-pins connected to the modules
+MODULES = [14]
+
 
 def main():
-    fdd = flipdotdisplay.FlipDotDisplay(width=WIDTH, height=HEIGHT)
+    fdd = flipdotdisplay.FlipDotDisplay(
+        width=WIDTH, height=HEIGHT, module=MODULES)
     displayserver = net.DisplayServer(fdd, COOLDOWN_TIME)
     displayserver.start()
 
