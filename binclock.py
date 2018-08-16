@@ -42,6 +42,8 @@ class BinClock:
             time.sleep(0.2)
 
     def draw_seconds_bar(self, seconds, minutes):
+        """Draw three lines for the seconds. Each line representing 20
+        seconds."""
         self.draw_bar_borders()
         for x in range(2, 22):
             x_ = x - 3
