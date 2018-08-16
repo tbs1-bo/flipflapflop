@@ -36,4 +36,3 @@ class BinClock():
                     self.digit(bmin[x], x, 1)
                     self.digit(bsec[x], x, 2)
                 self.fdd.show()
-            time.sleep(0.2)
