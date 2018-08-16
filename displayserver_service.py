@@ -44,8 +44,9 @@ def main():
     displayserver.on_request = on_request
 
     global clock
-    clock = binclock.BinClock()
-    clock.run()
+    clock = binclock.BinClock(fdd)
+    th = threading.Thread(target=clock.run)
+    th.start()
 
     displayserver.start()
 
