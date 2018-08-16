@@ -28,6 +28,9 @@ display with :py:meth:`~FlipDotDisplay.show`.
 
 >>> fdd.show()
 
+
+A list of default GPIO pins for the modules is 14, 15, 18, 23, 24.
+
 """
 
 import RPi.GPIO as GPIO
