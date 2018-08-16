@@ -21,11 +21,6 @@ listening on port 10101:
 
    $ echo 111101100110 | nc server 10101
 
-There is a cooldown time for requests that update the display. Many Requests
-in a short time will therefore be ignored. If the request contains the
-string 'COOLDOWN' (ignoring case), the server will respond with the cooldown
-time of the display - i.e. the time to wait between screen updates.
-
 If the request contains the string 'SIZE' (ignoring case), the server
 will respond with the dimensions of the display (width x height).
 
@@ -57,7 +52,6 @@ The output lines after show() are coming from the server.
 """
 
 import socket
-import time
 import displayprovider
 
 
@@ -65,12 +59,10 @@ DEFAULT_PORT = 10101
 
 
 class DisplayServer:
-    def __init__(self, display, display_cooldown_time=1.0):
+    def __init__(self, display):
         self.width = display.width
         self.height = display.height
         self.display = display
-        self.last_display_update = time.time()
-        self.display_cooldown_time = display_cooldown_time
 
     def start(self, host="0.0.0.0", port=DEFAULT_PORT):
         print("Starting server for dimension", self.width, "x", self.height,
@@ -99,8 +91,6 @@ class DisplayServer:
         # answer with display dimension if desired
         if s.lower().startswith("size"):
             return "SIZE {w}x{h}".format(w=self.width, h=self.height)
-        elif s.lower().startswith("cooldown"):
-            return "cooldown time: " + str(self.display_cooldown_time)
 
         # draw pixels if enough bytes have been sent
         elif len(payload) >= self.width * self.height:
@@ -110,10 +100,6 @@ class DisplayServer:
             return "unknown request type"
 
     def _handle_display_update_request(self, payload):
-        since_last_update = time.time() - self.last_display_update
-        if since_last_update < self.display_cooldown_time:
-            return "Cooling down. Too many requests."
-
         for y in range(self.height):
             for x in range(self.width):
                 val = chr(payload[y * self.width + x])
@@ -125,7 +111,6 @@ class DisplayServer:
             #print()
 
         self.display.show2()  # TODO must be changed to show() if this is stable
-        self.last_display_update = time.time()
         return "OK"
 
 
@@ -167,8 +152,7 @@ def main():
     disp = displayprovider.get_display(
         width=configuration.WIDTH, height=configuration.HEIGHT,
         fallback=displayprovider.Fallback.SIMULATOR)
-    ds = DisplayServer(disp, 
-        display_cooldown_time=configuration.display_server["cooldown_time"])
+    ds = DisplayServer(disp)
     ds.start(host=configuration.display_server["host"],
         port=configuration.display_server["port"])
 

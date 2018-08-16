@@ -13,13 +13,12 @@ flipdotdisplay = {
 
 display_server = {
     "host": "0.0.0.0",
-    "port": 10101,
-    "cooldown_time": 1.0
+    "port": 10101
 }
 
 remote_display = {
     "host": "localhost",
-    "port": 10101    
+    "port": 10101
 }
 
 simulator = {
