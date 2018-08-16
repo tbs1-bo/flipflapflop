@@ -15,7 +15,7 @@ WIDTH, HEIGHT = 28, 13
 MODULES = [14]
 
 # time to wait for request before clock should be turned again
-REQUEST_TIMEOUT = 5
+REQUEST_TIMEOUT = 5  # seconds
 
 
 def on_request():
