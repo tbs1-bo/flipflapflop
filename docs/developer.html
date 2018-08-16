@@ -24,8 +24,7 @@
 
   
 
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -81,6 +80,7 @@
 <li class="toctree-l1"><a class="reference internal" href="net.html">Net</a></li>
 <li class="toctree-l1"><a class="reference internal" href="game.html">Games</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-the-documentation">Creating the documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#video-backups">Video Backups</a></li>
 </ul>
@@ -153,6 +153,23 @@
 <h1>Developer Documentation<a class="headerlink" href="#developer-documentation" title="Permalink to this headline">¶</a></h1>
 <p>Find here information for developers of this project. If you just want
 to use the package you don’t need to read any further.</p>
+<div class="section" id="deployment">
+<h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
+<p>The deployment scenario described here relies on a Raspberry Pi that acts as as
+access point.
+The display is connected to it directly. On the Pi runs a systemd-service as described
+in the <a class="reference external" href="https://www.raspberrypi.org/documentation/linux/usage/systemd.md">Raspberry Pi Documentation</a>.
+The service file <code class="docutils literal notranslate"><span class="pre">flipflapflop.service</span></code> must be copied to <code class="docutils literal notranslate"><span class="pre">/etc/systemd/system</span></code> and
+can be started afterwards:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl start flipflapflop.service
+</pre></div>
+</div>
+<p>To enable the service for automatic startup during boot use the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">flipflapflop</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+<p>The service script assumes the repository is checked out in <code class="docutils literal notranslate"><span class="pre">/home/pi/flipflapflop</span></code>.</p>
+</div>
 <div class="section" id="creating-the-documentation">
 <h2>Creating the documentation<a class="headerlink" href="#creating-the-documentation" title="Permalink to this headline">¶</a></h2>
 <p>The documentation is made with <a class="reference external" href="http://www.sphinx-doc.org/">Sphinx</a>.
@@ -234,10 +251,7 @@ mirror of these videos at
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {
