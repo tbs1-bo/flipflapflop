@@ -37,6 +37,7 @@ Text On The Display
 -------------------
 
 The class :class:`flipdotfont.TextScroller` can be used to write text onto the display.
+Another way to bring text onto the dispoay is by using :func:`util.draw_text_on_fdd`.
 
 .. automodule:: flipdotfont
    :members:
