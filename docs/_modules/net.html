@@ -165,11 +165,6 @@
 
 <span class="sd">   $ echo 111101100110 | nc server 10101</span>
 
-<span class="sd">There is a cooldown time for requests that update the display. Many Requests</span>
-<span class="sd">in a short time will therefore be ignored. If the request contains the</span>
-<span class="sd">string &#39;COOLDOWN&#39; (ignoring case), the server will respond with the cooldown</span>
-<span class="sd">time of the display - i.e. the time to wait between screen updates.</span>
-
 <span class="sd">If the request contains the string &#39;SIZE&#39; (ignoring case), the server</span>
 <span class="sd">will respond with the dimensions of the display (width x height).</span>
 
@@ -201,7 +196,6 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">socket</span>
-<span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">displayprovider</span>
 
 
@@ -209,12 +203,11 @@
 
 
 <div class="viewcode-block" id="DisplayServer"><a class="viewcode-back" href="../net.html#net.DisplayServer">[docs]</a><span class="k">class</span> <span class="nc">DisplayServer</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">display_cooldown_time</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">width</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">height</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display</span> <span class="o">=</span> <span class="n">display</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_display_update</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">display_cooldown_time</span> <span class="o">=</span> <span class="n">display_cooldown_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_request</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="DisplayServer.start"><a class="viewcode-back" href="../net.html#net.DisplayServer.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_PORT</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting server for dimension&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
@@ -229,7 +222,8 @@
                 <span class="c1"># waiting for connection</span>
                 <span class="n">remote_sock</span><span class="p">,</span> <span class="n">cl</span> <span class="o">=</span> <span class="n">sock</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
                 <span class="n">buf</span> <span class="o">=</span> <span class="n">remote_sock</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;received&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span> <span class="s2">&quot;bytes&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">on_request</span><span class="p">()</span>
+                <span class="c1">#print(&quot;received&quot;, len(buf), &quot;bytes&quot;)</span>
 
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">ans</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_request</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
@@ -243,8 +237,6 @@
         <span class="c1"># answer with display dimension if desired</span>
         <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="s2">&quot;SIZE </span><span class="si">{w}</span><span class="s2">x</span><span class="si">{h}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">s</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;cooldown&quot;</span><span class="p">):</span>
-            <span class="k">return</span> <span class="s2">&quot;cooldown time: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_cooldown_time</span><span class="p">)</span>
 
         <span class="c1"># draw pixels if enough bytes have been sent</span>
         <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
@@ -254,22 +246,17 @@
             <span class="k">return</span> <span class="s2">&quot;unknown request type&quot;</span></div>
 
     <span class="k">def</span> <span class="nf">_handle_display_update_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
-        <span class="n">since_last_update</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_display_update</span>
-        <span class="k">if</span> <span class="n">since_last_update</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_cooldown_time</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;Cooling down. Too many requests.&quot;</span>
-
         <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
                 <span class="n">val</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="n">y</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">val</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">):</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                    <span class="c1">#print(val, end=&quot;&quot;)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="s2">&quot;bad payload:&quot;</span> <span class="o">+</span> <span class="n">val</span>
-            <span class="nb">print</span><span class="p">()</span>
+            <span class="c1">#print()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">show2</span><span class="p">()</span>  <span class="c1"># TODO must be changed to show() if this is stable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_display_update</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="k">return</span> <span class="s2">&quot;OK&quot;</span></div>
 
 
@@ -311,8 +298,7 @@
     <span class="n">disp</span> <span class="o">=</span> <span class="n">displayprovider</span><span class="o">.</span><span class="n">get_display</span><span class="p">(</span>
         <span class="n">width</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">,</span>
         <span class="n">fallback</span><span class="o">=</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">Fallback</span><span class="o">.</span><span class="n">SIMULATOR</span><span class="p">)</span>
-    <span class="n">ds</span> <span class="o">=</span> <span class="n">DisplayServer</span><span class="p">(</span><span class="n">disp</span><span class="p">,</span> 
-        <span class="n">display_cooldown_time</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">display_server</span><span class="p">[</span><span class="s2">&quot;cooldown_time&quot;</span><span class="p">])</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">DisplayServer</span><span class="p">(</span><span class="n">disp</span><span class="p">)</span>
     <span class="n">ds</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">display_server</span><span class="p">[</span><span class="s2">&quot;host&quot;</span><span class="p">],</span>
         <span class="n">port</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">display_server</span><span class="p">[</span><span class="s2">&quot;port&quot;</span><span class="p">])</span></div>
 

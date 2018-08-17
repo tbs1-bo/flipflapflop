@@ -155,12 +155,19 @@
 to use the package you don’t need to read any further.</p>
 <div class="section" id="deployment">
 <h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
-<p>The deployment scenario described here relies on a Raspberry Pi that acts as as
-access point.
-The display is connected to it directly. On the Pi runs a systemd-service as described
+<p>Checkout the repository to <code class="docutils literal notranslate"><span class="pre">/home/pi/flipflapflop</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /home/pi
+$ git clone https://github.com/tbs1-bo/flipflapflop.git
+</pre></div>
+</div>
+<p>The deployment scenario described here relies on a Raspberry Pi that acts as an
+access point. To setup a Pi this way you can follow the <a class="reference external" href="https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md">instructions from raspberrypi.org</a>. We
+choose to give the Pi the IP4-address 10.0.0.1/8. The ethernet port can be connected directly or
+via USB to a local net in order to make the Pi accessible for other scenarios.</p>
+<p>The display will be connected to the Pi directly. On the Pi runs a systemd-service as described
 in the <a class="reference external" href="https://www.raspberrypi.org/documentation/linux/usage/systemd.md">Raspberry Pi Documentation</a>.
-The service file <code class="docutils literal notranslate"><span class="pre">flipflapflop.service</span></code> must be copied to <code class="docutils literal notranslate"><span class="pre">/etc/systemd/system</span></code> and
-can be started afterwards:</p>
+The service file <a class="reference download internal" href="_downloads/flipflapflop.service" download=""><code class="xref download docutils literal notranslate"><span class="pre">flipflapflop.service</span></code></a>
+must be copied to <code class="docutils literal notranslate"><span class="pre">/etc/systemd/system</span></code> and can be started afterwards:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl start flipflapflop.service
 </pre></div>
 </div>
@@ -168,7 +175,9 @@ can be started afterwards:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">flipflapflop</span><span class="o">.</span><span class="n">service</span>
 </pre></div>
 </div>
-<p>The service script assumes the repository is checked out in <code class="docutils literal notranslate"><span class="pre">/home/pi/flipflapflop</span></code>.</p>
+<p>The display server runs on the default port 10101 and can be configured further in
+<a class="reference download internal" href="_downloads/displayserver_service.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">displayserver_service.py</span></code></a>. You can specify
+dimensions of the display as well as module configuration here.</p>
 </div>
 <div class="section" id="creating-the-documentation">
 <h2>Creating the documentation<a class="headerlink" href="#creating-the-documentation" title="Permalink to this headline">¶</a></h2>

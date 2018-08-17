@@ -196,6 +196,7 @@ display with <a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>A list of default GPIO pins for the modules is 14, 15, 18, 23, 24.</p>
 <dl class="class">
 <dt id="flipdotdisplay.FlipDotDisplay">
 <em class="property">class </em><code class="descclassname">flipdotdisplay.</code><code class="descname">FlipDotDisplay</code><span class="sig-paren">(</span><em>address=32, width=28, height=13, module=[18]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay" title="Permalink to this definition">¶</a></dt>
@@ -232,16 +233,16 @@ the RaspberryPi with the the module in the display.</p>
 
 <dl class="method">
 <dt id="flipdotdisplay.FlipDotDisplay.show">
-<code class="descname">show</code><span class="sig-paren">(</span><em>fullbuffer=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>Show the current buffer on the flip dot display.
-Set the fullbuffer-flag to show the whole buffer on the display and 
-not only the changes.</p>
+<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maybe a bit faster than show(True)</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="flipdotdisplay.FlipDotDisplay.show2">
-<code class="descname">show2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.show2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.show2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Maybe a bit faster than show(True)</p>
+<dt id="flipdotdisplay.FlipDotDisplay.show_deprecated">
+<code class="descname">show_deprecated</code><span class="sig-paren">(</span><em>fullbuffer=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.show_deprecated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.show_deprecated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the current buffer on the flip dot display.
+Set the fullbuffer-flag to show the whole buffer on the display and 
+not only the changes.</p>
 </dd></dl>
 
 </dd></dl>
@@ -252,13 +253,27 @@ not only the changes.</p>
 <p>This module contains helper methods for the handling of flipdotdisplays.</p>
 <dl class="function">
 <dt id="util.draw_surface_on_fdd">
-<code class="descclassname">util.</code><code class="descname">draw_surface_on_fdd</code><span class="sig-paren">(</span><em>surface: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x102453da0&gt;</em>, <em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_surface_on_fdd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#util.draw_surface_on_fdd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draw the surface onto the display. You need to invoke show() 
+<code class="descclassname">util.</code><code class="descname">draw_surface_on_fdd</code><span class="sig-paren">(</span><em>surface: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x10c24db38&gt;</em>, <em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_surface_on_fdd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#util.draw_surface_on_fdd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the surface onto the display. You need to invoke show()
 afterwards to make it visible. Black pixels (rgb 0,0,0) are considered
-black and turned off, other colors are considered pixels turned on. 
-The clipping area of the  surface can be modified to draw only part 
-of the surface. A demo application is available in 
+black and turned off, other colors are considered pixels turned on.
+The clipping area of the  surface can be modified to draw only part
+of the surface. A demo application is available in
 demos.PygameSurfaceDemo.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="util.draw_text_on_fdd">
+<code class="descclassname">util.</code><code class="descname">draw_text_on_fdd</code><span class="sig-paren">(</span><em>text</em>, <em>fontname</em>, <em>fontsize</em>, <em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_text_on_fdd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#util.draw_text_on_fdd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw text on a display.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">net</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">util</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">RemoteDisplay</span><span class="p">(</span><span class="s2">&quot;taylorpi.local&quot;</span><span class="p">)</span>
+<span class="go">Remote display will send data to taylorpi.local on port 10101</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">util</span><span class="o">.</span><span class="n">draw_text_on_fdd</span><span class="p">(</span><span class="s2">&quot;Hallo&quot;</span><span class="p">,</span> <span class="s2">&quot;Arial&quot;</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="n">fdd</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>

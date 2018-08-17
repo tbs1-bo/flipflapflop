@@ -1,0 +1,14 @@
+[Unit]
+Description=Flip Flap Flop Display Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u displayserver_service.py
+WorkingDirectory=/home/pi/flipflapflop
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target

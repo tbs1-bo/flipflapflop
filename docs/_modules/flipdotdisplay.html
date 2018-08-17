@@ -172,6 +172,9 @@
 
 <span class="sd">&gt;&gt;&gt; fdd.show()</span>
 
+
+<span class="sd">A list of default GPIO pins for the modules is 14, 15, 18, 23, 24.</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">RPi.GPIO</span> <span class="k">as</span> <span class="nn">GPIO</span>
@@ -243,7 +246,7 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FlipDotDisplay.show"><a class="viewcode-back" href="../fdd.html#flipdotdisplay.FlipDotDisplay.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fullbuffer</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="FlipDotDisplay.show_deprecated"><a class="viewcode-back" href="../fdd.html#flipdotdisplay.FlipDotDisplay.show_deprecated">[docs]</a>    <span class="k">def</span> <span class="nf">show_deprecated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fullbuffer</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Show the current buffer on the flip dot display.</span>
 <span class="sd">        Set the fullbuffer-flag to show the whole buffer on the display and </span>
@@ -256,7 +259,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">flipdot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">])</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">oldbuffer</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="FlipDotDisplay.show2"><a class="viewcode-back" href="../fdd.html#flipdotdisplay.FlipDotDisplay.show2">[docs]</a>    <span class="k">def</span> <span class="nf">show2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FlipDotDisplay.show"><a class="viewcode-back" href="../fdd.html#flipdotdisplay.FlipDotDisplay.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Maybe a bit faster than show(True)</span>
 <span class="sd">        &quot;&quot;&quot;</span>

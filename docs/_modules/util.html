@@ -147,20 +147,37 @@
 
 <span class="kn">import</span> <span class="nn">pygame</span>
 
+<span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
 
-<div class="viewcode-block" id="draw_surface_on_fdd"><a class="viewcode-back" href="../fdd.html#util.draw_surface_on_fdd">[docs]</a><span class="k">def</span> <span class="nf">draw_surface_on_fdd</span><span class="p">(</span><span class="n">surface</span><span class="p">:</span><span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">,</span> <span class="n">flipdotdisplay</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Draw the surface onto the display. You need to invoke show() </span>
+<div class="viewcode-block" id="draw_surface_on_fdd"><a class="viewcode-back" href="../fdd.html#util.draw_surface_on_fdd">[docs]</a><span class="k">def</span> <span class="nf">draw_surface_on_fdd</span><span class="p">(</span><span class="n">surface</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">,</span> <span class="n">flipdotdisplay</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Draw the surface onto the display. You need to invoke show()</span>
 <span class="sd">    afterwards to make it visible. Black pixels (rgb 0,0,0) are considered</span>
-<span class="sd">    black and turned off, other colors are considered pixels turned on. </span>
-<span class="sd">    The clipping area of the  surface can be modified to draw only part </span>
-<span class="sd">    of the surface. A demo application is available in </span>
+<span class="sd">    black and turned off, other colors are considered pixels turned on.</span>
+<span class="sd">    The clipping area of the  surface can be modified to draw only part</span>
+<span class="sd">    of the surface. A demo application is available in</span>
 <span class="sd">    demos.PygameSurfaceDemo.&quot;&quot;&quot;</span>
-    <span class="n">cx</span><span class="p">,</span><span class="n">cy</span><span class="p">,</span><span class="n">cw</span><span class="p">,</span><span class="n">ch</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">get_clip</span><span class="p">()</span>
+    <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cw</span><span class="p">,</span> <span class="n">ch</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">get_clip</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ch</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cw</span><span class="p">):</span>
-            <span class="n">r</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">a</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">get_at</span><span class="p">((</span><span class="n">cx</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">cy</span><span class="o">+</span><span class="n">y</span><span class="p">))</span>
+            <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">get_at</span><span class="p">((</span><span class="n">cx</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="n">y</span><span class="p">))</span>
             <span class="n">ison</span> <span class="o">=</span> <span class="ow">not</span> <span class="p">(</span><span class="n">r</span> <span class="o">==</span> <span class="n">g</span> <span class="o">==</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
             <span class="n">flipdotdisplay</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ison</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_text_on_fdd"><a class="viewcode-back" href="../fdd.html#util.draw_text_on_fdd">[docs]</a><span class="k">def</span> <span class="nf">draw_text_on_fdd</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">fontname</span><span class="p">,</span> <span class="n">fontsize</span><span class="p">,</span> <span class="n">flipdotdisplay</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Draw text on a display.</span>
+
+<span class="sd">    &gt;&gt;&gt; import net</span>
+<span class="sd">    &gt;&gt;&gt; import util</span>
+<span class="sd">    &gt;&gt;&gt; fdd = net.RemoteDisplay(&quot;taylorpi.local&quot;)</span>
+<span class="sd">    Remote display will send data to taylorpi.local on port 10101</span>
+<span class="sd">    &gt;&gt;&gt; util.draw_text_on_fdd(&quot;Hallo&quot;, &quot;Arial&quot;, 9, fdd)</span>
+<span class="sd">    &gt;&gt;&gt; fdd.show()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="n">fontname</span><span class="p">,</span> <span class="n">fontsize</span><span class="p">,</span> <span class="n">bold</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">italic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">surf</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+                       <span class="kc">None</span><span class="p">)</span>
+    <span class="n">draw_surface_on_fdd</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="n">flipdotdisplay</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
