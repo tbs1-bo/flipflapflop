@@ -12,3 +12,6 @@ venv/
 # generated documentation
 docgen/_build/
 configuration.py
+
+# ignoring Mac files with metadata
+.DS_Store
