@@ -7,12 +7,21 @@ to use the package you don't need to read any further.
 Deployment
 ----------
 
-The deployment scenario described here relies on a Raspberry Pi that acts as as 
-access point.
-The display is connected to it directly. On the Pi runs a systemd-service as described
+Checkout the repository to ``/home/pi/flipflapflop``::
+
+  $ cd /home/pi
+  $ git clone https://github.com/tbs1-bo/flipflapflop.git
+
+The deployment scenario described here relies on a Raspberry Pi that acts as an 
+access point. To setup a Pi this way you can follow the `instructions from raspberrypi.org 
+<https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md>`_. We
+choose to give the Pi the IP4-address 10.0.0.1/8. The ethernet port can be connected directly or
+via USB to a local net in order to make the Pi accessible for other scenarios.
+
+The display will be connected to the Pi directly. On the Pi runs a systemd-service as described
 in the `Raspberry Pi Documentation <https://www.raspberrypi.org/documentation/linux/usage/systemd.md>`_.
-The service file ``flipflapflop.service`` must be copied to ``/etc/systemd/system`` and 
-can be started afterwards::
+The service file :download:`flipflapflop.service <../deployment/flipflapflop.service>`
+must be copied to ``/etc/systemd/system`` and can be started afterwards::
 
    $ sudo systemctl start flipflapflop.service
 
@@ -20,7 +29,9 @@ To enable the service for automatic startup during boot use the following comman
 
   sudo systemctl enable flipflapflop.service
 
-The service script assumes the repository is checked out in ``/home/pi/flipflapflop``.
+The display server runs on the default port 10101 and can be configured further in 
+:download:`displayserver_service.py <../displayserver_service.py>`. You can specify 
+dimensions of the display as well as module configuration here.
 
 
 Creating the documentation
