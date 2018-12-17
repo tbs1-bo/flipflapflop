@@ -130,7 +130,11 @@ class FlipDotDisplay(displayprovider.DisplayBase):
                     a = a + 0b10000000
                 else:
                     a = a + 0b01100000
-                self.ioexp.write_value('A', a)
+                try:  # TODO Remove this hack
+                    self.ioexp.write_value('A', a)
+                except OSError:
+                    print("OSError during write to IOExpander")
+
                 GPIO.output(self.module[mod], GPIO.HIGH)
                 time.sleep(self.pulsewidth)
                 #self.ioexp.write_value('A', 0x00)
