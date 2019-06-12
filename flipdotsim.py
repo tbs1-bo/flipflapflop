@@ -54,7 +54,10 @@ class FlipDotSim(displayprovider.DisplayBase):
     def show(self):
         """Show the current state of all pixels on the display."""
         # empty the event queue to prevent it from being full
-        pygame.event.get()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit(0)
+
         pygame.display.flip()
         self.clock.tick(self.fps)
 
