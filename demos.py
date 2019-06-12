@@ -288,6 +288,9 @@ class SnakeGame(DemoBase):
         xdir, ydir = self.snake_direction
         xax, yax = 0, 1
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+                
             if event.type == pygame.JOYAXISMOTION and self.joystick:
                 if self.joystick.get_axis(yax) < 0 and ydir != 1:
                     self.snake_direction = [0, -1]

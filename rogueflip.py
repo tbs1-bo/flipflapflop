@@ -82,6 +82,9 @@ class Game:
         plx, ply = self.player.pos
         dx, dy = 0, 0
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+                
             if event.type == pygame.KEYDOWN:
                 # handle keyboard input
                 if event.key == pygame.K_w: 
