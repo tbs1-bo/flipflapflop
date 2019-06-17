@@ -28,6 +28,7 @@ class DemoBase:
         self.fdd = flipdotdisplay
 
     def run(self):
+        'Run the demo in an endless loop.'
         while True:
             self.prepare()
             for x in range(self.fdd.width):
