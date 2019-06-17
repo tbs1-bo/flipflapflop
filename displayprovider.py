@@ -12,6 +12,7 @@ class Fallback(enum.Enum):
     SIMULATOR = "simulator"
     REMOTE_DISPLAY = "remote_display"
     DUMMY = "dummy"
+    SERIAL = "serial"
 
 
 class DisplayBase:
@@ -47,6 +48,10 @@ def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
 
         elif fallback == Fallback.DUMMY:
             return DisplayBase(width=width, height=height)
+
+        elif fallback == Fallback.SERIAL:
+            import fffserial
+            return fffserial.SerialDisplay(width=width, height=height)
 
         else:
             raise Exception("No display and no fallback!")
