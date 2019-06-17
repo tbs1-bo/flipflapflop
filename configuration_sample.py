@@ -7,6 +7,7 @@ WIDTH = 28
 HEIGHT = 13
 
 flipdotdisplay = {
+    "serialdevice": "/dev/ttyUSB0",
     "i2c_address": 0x20,
     "modules": [18]
 }

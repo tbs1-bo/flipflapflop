@@ -1,7 +1,8 @@
 import serial  # pip install pyserial
 import displayprovider
+import configuration
 
-DEVICE = '/dev/ttyUSB0'  # TODO move to configuration.py
+DEVICE = configuration.flipdotdisplay["serialdevice"]
 
 class SerialDisplay(displayprovider.DisplayBase):
     DIMENSION = 0b10010000 # Es folgen zwei Bytes mit BREITE und HÖHE.
