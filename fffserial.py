@@ -14,12 +14,16 @@ class SerialDisplay(displayprovider.DisplayBase):
 
     def __init__(self, width=4, height=3):
         super().__init__(width, height)
-        self.buffer = []
+        # TODO add support for auto configuring dimensions        
         self.ser = serial.Serial(DEVICE)
 
     def px(self, x, y, val):
-        # TODO
-        pass
+        # TODO add support for buffered operation
+        assert 0 <= x <= 255
+        assert 0 <= y <= 255
+        
+        bs = [SerialDisplay.PXSET if val else SerialDisplay.PXRESET, x, y]
+        self.ser.write(bytes(bs))
 
     def show(self):
         # TODO
