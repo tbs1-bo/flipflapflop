@@ -1,6 +1,9 @@
 # Pycharm project files
 .idea
 
+# VS Code settings
+.vscode/settings.json
+
 # Backup files
 *~
 
