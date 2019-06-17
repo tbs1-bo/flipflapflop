@@ -3,6 +3,7 @@ import displayprovider
 import configuration
 
 DEVICE = configuration.flipdotdisplay["serialdevice"]
+BAUD = configuration.flipdotdisplay["serialbaudrate"]
 
 class SerialDisplay(displayprovider.DisplayBase):
     DIMENSION = 0b10010000 # Es folgen zwei Bytes mit BREITE und HÖHE.
@@ -14,8 +15,9 @@ class SerialDisplay(displayprovider.DisplayBase):
 
     def __init__(self, width=4, height=3):
         super().__init__(width, height)
-        # TODO add support for auto configuring dimensions        
-        self.ser = serial.Serial(DEVICE)
+        # TODO add support for auto configuring dimensions
+        print('open serial device', DEVICE, BAUD)      
+        self.ser = serial.Serial(DEVICE, BAUD)
 
     def px(self, x, y, val):
         # TODO add support for buffered operation
