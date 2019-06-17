@@ -21,10 +21,21 @@ class SerialDisplay(displayprovider.DisplayBase):
         # TODO add support for buffered operation
         assert 0 <= x <= 255
         assert 0 <= y <= 255
-        
+
         bs = [SerialDisplay.PXSET if val else SerialDisplay.PXRESET, x, y]
         self.ser.write(bytes(bs))
 
     def show(self):
         # TODO
         pass
+
+
+def demo():
+    import demos
+    ffd = SerialDisplay(width=configuration.WIDTH, height=configuration.HEIGHT)
+    demo = demos.RotatingPlasmaDemo(ffd)
+    demo.run()
+
+
+if __name__ == '__main__':
+    demo()
