@@ -22,7 +22,7 @@ class SerialDisplay(displayprovider.DisplayBase):
         super().__init__(width, height)
         # TODO add support for auto configuring dimensions
         print('open serial device', DEVICE, BAUD)      
-        self.ser = serial.Serial(DEVICE, BAUD)
+        self.ser = serial.serial_for_url(DEVICE, baudrate=BAUD) # serial.Serial(DEVICE, BAUD)
         self.buffered = buffered        
         self.buffer = [False] * (width * height)
 

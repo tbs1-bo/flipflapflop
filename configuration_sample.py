@@ -7,6 +7,7 @@ WIDTH = 28
 HEIGHT = 13
 
 flipdotdisplay = {
+    #"serialdevice": "spy:///dev/ttyUSB0",  # use this for debugging
     "serialdevice": "/dev/ttyUSB0",
     "serialbaudrate": 115200,
     "i2c_address": 0x20,
