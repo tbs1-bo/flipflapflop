@@ -40,19 +40,19 @@ class SerialDisplay(displayprovider.DisplayBase):
         if not self.buffered:
             return
 
-        byteq_sequence = [SerialDisplay.PICTURE]
+        byte_sequence = [SerialDisplay.PICTURE]
         byte = '0'
         for bit in self.buffer:
             byte += '1' if bit else '0'
             if len(byte) == 8:
-                byteq_sequence.append(int(byte, base=2))
+                byte_sequence.append(int(byte, base=2))
                 byte = '0'
 
         if len(byte) > 1:
             byte += '0' * (8 - len(byte))
-            byteq_sequence.append(int(byte, base=2))
+            byte_sequence.append(int(byte, base=2))
 
-        self.ser.write(bytes(byteq_sequence))
+        self.ser.write(bytes(byte_sequence))
 
 
 def demo():
