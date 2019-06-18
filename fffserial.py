@@ -13,23 +13,46 @@ class SerialDisplay(displayprovider.DisplayBase):
     PXRESET = 0b10000010 # Es folgen zwei Bytes X, y mit Positionsinformationen 
     ECHO = 0b11110000  # Das gesendet Byte wird zurückgesendet.
 
-    def __init__(self, width=4, height=3):
+    def __init__(self, width=4, height=3, buffered=True):
+        '''
+        Create serial display with given dimension. If buffered is True, all 
+        calls to px() will write into an internal buffer until a call to 
+        show() will send the data.
+        '''
         super().__init__(width, height)
         # TODO add support for auto configuring dimensions
         print('open serial device', DEVICE, BAUD)      
         self.ser = serial.Serial(DEVICE, BAUD)
+        self.buffered = buffered        
+        self.buffer = [False] * (width * height)
 
     def px(self, x, y, val):
-        # TODO add support for buffered operation
         assert 0 <= x <= 255
         assert 0 <= y <= 255
 
-        bs = [SerialDisplay.PXSET if val else SerialDisplay.PXRESET, x, y]
-        self.ser.write(bytes(bs))
+        if self.buffered:
+            self.buffer[y * self.width + x] = val
+        else:
+            bs = [SerialDisplay.PXSET if val else SerialDisplay.PXRESET, x, y]
+            self.ser.write(bytes(bs))
 
     def show(self):
-        # TODO
-        pass
+        if not self.buffered:
+            return
+
+        byteq_sequence = [SerialDisplay.PICTURE]
+        byte = '0'
+        for bit in self.buffer:
+            byte += '1' if bit else '0'
+            if len(byte) == 8:
+                byteq_sequence.append(int(byte, base=2))
+                byte = '0'
+
+        if len(byte) > 1:
+            byte += '0' * (8 - len(byte))
+            byteq_sequence.append(int(byte, base=2))
+
+        self.ser.write(bytes(byteq_sequence))
 
 
 def demo():
