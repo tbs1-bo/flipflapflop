@@ -28,6 +28,12 @@ class DisplayBase:
     def show(self):
         pass
 
+    def clear(self):
+        "Set all pixels to false."
+        for x in range(self.width):
+            for y in range(self.height):
+                self.px(x, y, False)
+
 
 def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
     try:
