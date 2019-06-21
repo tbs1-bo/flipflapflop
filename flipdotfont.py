@@ -63,7 +63,7 @@ class TextScroller:
                     self.fdd.px(x, y, draw_dot)
         self.fdd.show()
 
-    def scrolltext(self, text, font, step):
+    def scrolltext(self, text, font, step=1):
         """Scroll text with a given font."""
         running = True
         self._clear()
