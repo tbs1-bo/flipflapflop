@@ -11,7 +11,7 @@ class SerialDisplay(displayprovider.DisplayBase):
 
     PXSET = 0b10000011  # Es folgen zwei Bytes X, Y mit Positionsinformationen 
     PXRESET = 0b10000010 # Es folgen zwei Bytes X, y mit Positionsinformationen 
-    ECHO = 0b11110000  # Das gesendet Byte wird zurückgesendet.
+    ECHO = 0b11110000  # Das gesendete Byte wird zurückgesendet.
 
     def __init__(self, width=4, height=3, buffered=True):
         '''
