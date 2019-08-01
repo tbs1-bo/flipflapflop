@@ -5,7 +5,6 @@ import configuration
 DEVICE = configuration.flipdotdisplay["serialdevice"]
 BAUD = configuration.flipdotdisplay["serialbaudrate"]
 
-
 class SerialDisplay(displayprovider.DisplayBase):
     DIMENSION = 0b10010000 # Es folgen zwei Bytes mit BREITE und HÖHE.
     PICTURE = 0b10000001 # Es folgen Breite*Höhe Datenbits (zeilenweise)
