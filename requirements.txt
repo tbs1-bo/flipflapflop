@@ -1,0 +1,5 @@
+# needed for the serial interface
+pyserial
+
+# needed for the simulator
+pygame
