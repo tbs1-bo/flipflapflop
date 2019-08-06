@@ -39,8 +39,7 @@ class SerialDisplay(displayprovider.DisplayBase):
             self.ser.write(bytes(bs))
 
     def show(self):
-        if not self.buffered:
-            return
+        'Send the content of the buffer to the display using serial interface.'
 
         byte_sequence = [SerialDisplay.PICTURE]
         byte = '0' # Databytes start with 0
