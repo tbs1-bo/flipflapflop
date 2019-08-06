@@ -41,7 +41,7 @@ class SerialDisplay(displayprovider.DisplayBase):
             return
 
         byte_sequence = [SerialDisplay.PICTURE]
-        byte = '0'
+        byte = '0' # Databytes start with 0
         for bit in self.buffer:
             byte += '1' if bit else '0'
             if len(byte) == 8:
