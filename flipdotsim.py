@@ -26,6 +26,8 @@ YELLOWDOT_FILE = "ressources/y.jpg"
 BLACKDOT_FILE = "ressources/b.jpg"
 
 class FlipDotSim(displayprovider.DisplayBase):
+    'Simulator class that shows the display in a pygame GUI.'
+
     def __init__(self, width=28, height=13, fps=30):
         super().__init__(width, height)
         pygame.init()
