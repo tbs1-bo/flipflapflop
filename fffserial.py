@@ -27,8 +27,8 @@ class SerialDisplay(displayprovider.DisplayBase):
         self.buffer = [False] * (width * height)
 
     def px(self, x, y, val):
-        assert 0 <= x <= 255
-        assert 0 <= y <= 255
+        assert 0 <= x < self.width
+        assert 0 <= y < self.height
 
         if self.buffered:
             self.buffer[y * self.width + x] = val
