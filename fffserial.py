@@ -59,6 +59,10 @@ class SerialDisplay(displayprovider.DisplayBase):
 
         self.ser.write(bytes(byte_sequence))
 
+def demo_simple():
+    ffd = SerialDisplay(width=28, height=13, buffered=False)
+    print("sending pixel")
+    ffd.px(1, 2, False)
 
 def demo():
     import demos
@@ -68,4 +72,5 @@ def demo():
 
 
 if __name__ == '__main__':
-    demo()
+    #demo()
+    demo_simple()
