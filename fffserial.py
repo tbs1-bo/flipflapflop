@@ -57,19 +57,24 @@ class SerialDisplay(displayprovider.DisplayBase):
             byte += '0' * (8 - len(byte))
             byte_sequence.append(int(byte, base=2))
 
-        self.ser.write(bytes(byte_sequence))
+    def close(self):
+        'Close the serial device'
+        self.ser.close()
 
 def demo_simple():
     ffd = SerialDisplay(width=28, height=13, buffered=False)
     print("sending pixel")
     ffd.px(1, 2, False)
+    ffd.close()
 
 def demo():
     import demos
-    ffd = SerialDisplay(width=configuration.WIDTH, height=configuration.HEIGHT)
+    ffd = SerialDisplay(width=configuration.WIDTH, height=configuration.HEIGHT, buffered=True)
     demo = demos.RotatingPlasmaDemo(ffd)
+    try:
     demo.run()
-
+    except KeyboardInterrupt:
+        ffd.close()
 
 if __name__ == '__main__':
     #demo()
