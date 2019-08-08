@@ -24,7 +24,7 @@ import displayprovider
 
 YELLOWDOT_FILE = "ressources/y.jpg"
 BLACKDOT_FILE = "ressources/b.jpg"
-IMAGE_WIDTH_HEIGHT = 20  # pixel on each side
+IMG_WIDTH_HEIGHT = 20  # pixel on each side
 
 class FlipDotSim(displayprovider.DisplayBase):
     'Simulator class that shows the display in a pygame GUI.'
@@ -34,7 +34,7 @@ class FlipDotSim(displayprovider.DisplayBase):
         pygame.init()
         pygame.display.set_caption("FlipDot Simulator")
         self.screen = pygame.display.set_mode(
-            (self.width*IMAGE_WIDTH_HEIGHT, self.height*IMAGE_WIDTH_HEIGHT))
+            (self.width*IMG_WIDTH_HEIGHT, self.height*IMG_WIDTH_HEIGHT))
         self.y = pygame.image.load(YELLOWDOT_FILE).convert()
         self.b = pygame.image.load(BLACKDOT_FILE).convert()        
         self.clock = pygame.time.Clock()
@@ -42,10 +42,10 @@ class FlipDotSim(displayprovider.DisplayBase):
         self.clear()
 
     def set(self, x, y):
-        self.screen.blit(self.y, (x*IMAGE_WIDTH_HEIGHT, y*IMAGE_WIDTH_HEIGHT))
+        self.screen.blit(self.y, (x*IMG_WIDTH_HEIGHT, y*IMG_WIDTH_HEIGHT))
 
     def reset(self, x, y):
-        self.screen.blit(self.b, (x*IMAGE_WIDTH_HEIGHT, y*IMAGE_WIDTH_HEIGHT))
+        self.screen.blit(self.b, (x*IMG_WIDTH_HEIGHT, y*IMG_WIDTH_HEIGHT))
 
     def px(self, x, y, val):
         """Set a pixel to on or off at (X|Y). The dot will not be displayed 
