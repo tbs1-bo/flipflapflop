@@ -35,6 +35,10 @@ Module ``util``
 Module ``fffserial``
 --------------------
 
+The serial module relies on an ardiuno connected to the display that runs
+the :download:`firmware <../arduino/fffarduino_nano/fffarduino_nano.ino>`. 
+
+
 .. automodule:: fffserial
    :members:
    :undoc-members:
