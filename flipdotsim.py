@@ -42,10 +42,10 @@ class FlipDotSim(displayprovider.DisplayBase):
         self.clear()
 
     def set(self, x, y):
-        self.screen.blit(self.y, (x*20, y*20))
+        self.screen.blit(self.y, (x*IMAGE_WIDTH_HEIGHT, y*IMAGE_WIDTH_HEIGHT))
 
     def reset(self, x, y):
-        self.screen.blit(self.b, (x*20, y*20))
+        self.screen.blit(self.b, (x*IMAGE_WIDTH_HEIGHT, y*IMAGE_WIDTH_HEIGHT))
 
     def px(self, x, y, val):
         """Set a pixel to on or off at (X|Y). The dot will not be displayed 
