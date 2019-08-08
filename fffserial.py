@@ -1,3 +1,9 @@
+'''
+Module for communicating with the display using a serial interface. The display
+is connected to an arduino. This packages helps during the
+communication with the device over a serial interface.
+'''
+
 import serial  # pip install pyserial
 import displayprovider
 import configuration
@@ -72,7 +78,7 @@ def demo():
     ffd = SerialDisplay(width=configuration.WIDTH, height=configuration.HEIGHT, buffered=True)
     demo = demos.RotatingPlasmaDemo(ffd)
     try:
-    demo.run()
+        demo.run()
     except KeyboardInterrupt:
         ffd.close()
 
