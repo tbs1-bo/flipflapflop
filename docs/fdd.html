@@ -255,7 +255,7 @@ not only the changes.</p>
 <p>This module contains helper methods for the handling of flipdotdisplays.</p>
 <dl class="function">
 <dt id="util.draw_surface_on_fdd">
-<code class="descclassname">util.</code><code class="descname">draw_surface_on_fdd</code><span class="sig-paren">(</span><em>surface: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7fa5751944e0&gt;</em>, <em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_surface_on_fdd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#util.draw_surface_on_fdd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">util.</code><code class="descname">draw_surface_on_fdd</code><span class="sig-paren">(</span><em>surface: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f269a3515c0&gt;</em>, <em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_surface_on_fdd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#util.draw_surface_on_fdd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw the surface onto the display. You need to invoke show()
 afterwards to make it visible. Black pixels (rgb 0,0,0) are considered
 black and turned off, other colors are considered pixels turned on.
@@ -280,8 +280,10 @@ demos.PygameSurfaceDemo.</p>
 
 </div>
 <div class="section" id="module-fffserial">
-<span id="module-fffserial"></span><h2>Module <code class="docutils literal notranslate"><span class="pre">fffserial</span></code><a class="headerlink" href="#module-fffserial" title="Permalink to this headline">¶</a></h2>
-<p>Module for communicating with the display using a serial interface. The display
+<h2>Module <code class="docutils literal notranslate"><span class="pre">fffserial</span></code><a class="headerlink" href="#module-fffserial" title="Permalink to this headline">¶</a></h2>
+<p>The serial module relies on an ardiuno connected to the display that runs
+the <a class="reference download internal" href="_downloads/fffarduino_nano.ino" download=""><code class="xref download docutils literal notranslate"><span class="pre">firmware</span></code></a>.</p>
+<span class="target" id="module-fffserial"></span><p>Module for communicating with the display using a serial interface. The display
 is connected to an arduino. This packages helps during the
 communication with the device over a serial interface.</p>
 <dl class="class">
