@@ -25,8 +25,8 @@ class SerialDisplay(displayprovider.DisplayBase):
         calls to px() will write into an internal buffer until a call to 
         show() will send the data.
         '''
-        # coordinate information must fit into 1 Byte!
-        assert width < 256 and height < 256, "Serial display dimension is too big!"
+        # coordinate information must fit into 7 Bit!
+        assert width < 128 and height < 128, "Serial display dimension is too big!"
         super().__init__(width, height)
         # TODO add support for auto configuring dimensions
         print('open serial device', serial_device)      
