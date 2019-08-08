@@ -19,7 +19,7 @@ class SerialDisplay(displayprovider.DisplayBase):
     PXRESET = 0b10000010 # Es folgen zwei Bytes X, y mit Positionsinformationen 
     ECHO = 0b11110000  # Das gesendete Byte wird zurückgesendet.
 
-    def __init__(self, width=4, height=3, buffered=True):
+    def __init__(self, width=4, height=3, serial_device="/dev/ttyUSB0", baud=9600, buffered=True):
         '''
         Create serial display with given dimension. If buffered is True, all 
         calls to px() will write into an internal buffer until a call to 
@@ -29,8 +29,8 @@ class SerialDisplay(displayprovider.DisplayBase):
         assert width < 256 and height < 256, "Serial display dimension is too big!"
         super().__init__(width, height)
         # TODO add support for auto configuring dimensions
-        print('open serial device', DEVICE, BAUD)      
-        self.ser = serial.serial_for_url(DEVICE, baudrate=BAUD, timeout=1) # serial.Serial(DEVICE, BAUD)
+        print('open serial device', serial_device)      
+        self.ser = serial.serial_for_url(serial_device, baudrate=baud, timeout=1) # serial.Serial(DEVICE, BAUD)
         self.buffered = buffered        
         self.buffer = [False] * (width * height)
 
@@ -68,14 +68,15 @@ class SerialDisplay(displayprovider.DisplayBase):
         self.ser.close()
 
 def demo_simple():
-    ffd = SerialDisplay(width=28, height=13, buffered=False)
+    ffd = SerialDisplay(width=28, height=13, serial_device=DEVICE, baud=BAUD, buffered=False)
     print("sending pixel")
     ffd.px(1, 2, False)
     ffd.close()
 
 def demo():
     import demos
-    ffd = SerialDisplay(width=configuration.WIDTH, height=configuration.HEIGHT, buffered=True)
+    ffd = SerialDisplay(width=configuration.WIDTH, height=configuration.HEIGHT, 
+                        serial_device=DEVICE, baud=BAUD, buffered=True)
     demo = demos.RotatingPlasmaDemo(ffd)
     try:
         demo.run()
