@@ -24,6 +24,7 @@ import displayprovider
 
 YELLOWDOT_FILE = "ressources/y.jpg"
 BLACKDOT_FILE = "ressources/b.jpg"
+IMAGE_WIDTH_HEIGHT = 20  # pixel on each side
 
 class FlipDotSim(displayprovider.DisplayBase):
     'Simulator class that shows the display in a pygame GUI.'
@@ -32,7 +33,8 @@ class FlipDotSim(displayprovider.DisplayBase):
         super().__init__(width, height)
         pygame.init()
         pygame.display.set_caption("FlipDot Simulator")
-        self.screen = pygame.display.set_mode((self.width*20, self.height*20))
+        self.screen = pygame.display.set_mode(
+            (self.width*IMAGE_WIDTH_HEIGHT, self.height*IMAGE_WIDTH_HEIGHT))
         self.y = pygame.image.load(YELLOWDOT_FILE).convert()
         self.b = pygame.image.load(BLACKDOT_FILE).convert()        
         self.clock = pygame.time.Clock()
