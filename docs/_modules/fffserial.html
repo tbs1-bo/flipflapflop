@@ -170,12 +170,12 @@
 <span class="sd">        calls to px() will write into an internal buffer until a call to </span>
 <span class="sd">        show() will send the data.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="c1"># coordinate information must fit into 1 Byte!</span>
-        <span class="k">assert</span> <span class="n">width</span> <span class="o">&lt;</span> <span class="mi">256</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">,</span> <span class="s2">&quot;Serial display dimension is too big!&quot;</span>
+        <span class="c1"># coordinate information must fit into 7 Bit!</span>
+        <span class="k">assert</span> <span class="n">width</span> <span class="o">&lt;</span> <span class="mi">128</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;Serial display dimension is too big!&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
         <span class="c1"># TODO add support for auto configuring dimensions</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;open serial device&#39;</span><span class="p">,</span> <span class="n">serial_device</span><span class="p">)</span>      
-        <span class="bp">self</span><span class="o">.</span><span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">serial_for_url</span><span class="p">(</span><span class="n">serial_device</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="n">baud</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># serial.Serial(DEVICE, BAUD)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">serial_for_url</span><span class="p">(</span><span class="n">serial_device</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="n">baud</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">buffered</span> <span class="o">=</span> <span class="n">buffered</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span><span class="p">)</span></div>
 
@@ -243,7 +243,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Marco Bakera, Reinhard Gummlich.
+        &copy; Copyright 2019, Marco Bakera, Reinhard Gummlich.
 
     </p>
   </div>
