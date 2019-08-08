@@ -24,7 +24,8 @@
 
   
 
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -274,7 +275,11 @@
                     <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mb">0b10000000</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mb">0b01100000</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>  <span class="c1"># TODO Remove this hack</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;OSError during write to IOExpander&quot;</span><span class="p">)</span>
+
                 <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">[</span><span class="n">mod</span><span class="p">],</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">HIGH</span><span class="p">)</span>
                 <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pulsewidth</span><span class="p">)</span>
                 <span class="c1">#self.ioexp.write_value(&#39;A&#39;, 0x00)</span>
@@ -328,7 +333,10 @@
 
   
 
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
 
   <script type="text/javascript">
       jQuery(function () {

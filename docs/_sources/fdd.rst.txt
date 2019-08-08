@@ -32,6 +32,13 @@ Module ``util``
    :members:
    
 
+Module ``fffserial``
+--------------------
+
+.. automodule:: fffserial
+   :members:
+   :undoc-members:
+   :special-members:
 
 Text On The Display
 -------------------

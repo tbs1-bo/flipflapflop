@@ -1,0 +1,15 @@
+Tutorial für das Display (deutsch)
+==================================
+
+Verbinden
+---------
+
+Das Display stellt einen Access Point mit dem Namen ``flipflapflop``
+bereit. Hier kann man sich mit dem Passwort ``polfpalfpilf``
+anmelden und erreicht das Display danach unter ``taylorpi.local``
+oder unter der Adresse 10.0.0.1.
+
+Pixel setzen
+------------
+
+Mit einem kleinen einfach Python-Programm

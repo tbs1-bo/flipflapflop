@@ -24,7 +24,8 @@
 
   
 
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -79,6 +80,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FlipDotDisplay</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-flipdotdisplay">Module <code class="docutils literal notranslate"><span class="pre">flipdotdisplay</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-util">Module <code class="docutils literal notranslate"><span class="pre">util</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fffserial">Module <code class="docutils literal notranslate"><span class="pre">fffserial</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#text-on-the-display">Text On The Display</a></li>
 </ul>
 </li>
@@ -253,7 +255,7 @@ not only the changes.</p>
 <p>This module contains helper methods for the handling of flipdotdisplays.</p>
 <dl class="function">
 <dt id="util.draw_surface_on_fdd">
-<code class="descclassname">util.</code><code class="descname">draw_surface_on_fdd</code><span class="sig-paren">(</span><em>surface: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x10e8c2cf8&gt;</em>, <em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_surface_on_fdd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#util.draw_surface_on_fdd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">util.</code><code class="descname">draw_surface_on_fdd</code><span class="sig-paren">(</span><em>surface: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f268d7c9240&gt;</em>, <em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_surface_on_fdd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#util.draw_surface_on_fdd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw the surface onto the display. You need to invoke show()
 afterwards to make it visible. Black pixels (rgb 0,0,0) are considered
 black and turned off, other colors are considered pixels turned on.
@@ -275,6 +277,82 @@ demos.PygameSurfaceDemo.</p>
 </pre></div>
 </div>
 </dd></dl>
+
+</div>
+<div class="section" id="module-fffserial">
+<span id="module-fffserial"></span><h2>Module <code class="docutils literal notranslate"><span class="pre">fffserial</span></code><a class="headerlink" href="#module-fffserial" title="Permalink to this headline">¶</a></h2>
+<p>Module for communicating with the display using a serial interface. The display
+is connected to an arduino. This packages helps during the
+communication with the device over a serial interface.</p>
+<dl class="class">
+<dt id="fffserial.SerialDisplay">
+<em class="property">class </em><code class="descclassname">fffserial.</code><code class="descname">SerialDisplay</code><span class="sig-paren">(</span><em>width=4</em>, <em>height=3</em>, <em>buffered=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.SerialDisplay" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="fffserial.SerialDisplay.DIMENSION">
+<code class="descname">DIMENSION</code><em class="property"> = 144</em><a class="headerlink" href="#fffserial.SerialDisplay.DIMENSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fffserial.SerialDisplay.ECHO">
+<code class="descname">ECHO</code><em class="property"> = 240</em><a class="headerlink" href="#fffserial.SerialDisplay.ECHO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fffserial.SerialDisplay.PICTURE">
+<code class="descname">PICTURE</code><em class="property"> = 129</em><a class="headerlink" href="#fffserial.SerialDisplay.PICTURE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fffserial.SerialDisplay.PXRESET">
+<code class="descname">PXRESET</code><em class="property"> = 130</em><a class="headerlink" href="#fffserial.SerialDisplay.PXRESET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fffserial.SerialDisplay.PXSET">
+<code class="descname">PXSET</code><em class="property"> = 131</em><a class="headerlink" href="#fffserial.SerialDisplay.PXSET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fffserial.SerialDisplay.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>width=4</em>, <em>height=3</em>, <em>buffered=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.SerialDisplay.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create serial display with given dimension. If buffered is True, all 
+calls to px() will write into an internal buffer until a call to 
+show() will send the data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="fffserial.SerialDisplay.__module__">
+<code class="descname">__module__</code><em class="property"> = 'fffserial'</em><a class="headerlink" href="#fffserial.SerialDisplay.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fffserial.SerialDisplay.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.SerialDisplay.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the serial device</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fffserial.SerialDisplay.px">
+<code class="descname">px</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>val</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.px"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.SerialDisplay.px" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fffserial.SerialDisplay.show">
+<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.SerialDisplay.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send the content of the buffer to the display using serial interface.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="fffserial.demo">
+<code class="descclassname">fffserial.</code><code class="descname">demo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#demo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.demo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="fffserial.demo_simple">
+<code class="descclassname">fffserial.</code><code class="descname">demo_simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#demo_simple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.demo_simple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="text-on-the-display">
@@ -312,7 +390,7 @@ is shown in the following.</p>
 </div>
 <dl class="method">
 <dt id="flipdotfont.TextScroller.scrolltext">
-<code class="descname">scrolltext</code><span class="sig-paren">(</span><em>text</em>, <em>font</em>, <em>step</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.scrolltext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller.scrolltext" title="Permalink to this definition">¶</a></dt>
+<code class="descname">scrolltext</code><span class="sig-paren">(</span><em>text</em>, <em>font</em>, <em>step=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.scrolltext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller.scrolltext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scroll text with a given font.</p>
 </dd></dl>
 
@@ -393,7 +471,10 @@ is shown in the following.</p>
 
   
 
-  <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
 
   <script type="text/javascript">
       jQuery(function () {
