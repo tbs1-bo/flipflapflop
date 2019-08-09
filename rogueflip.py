@@ -21,6 +21,10 @@ class Game:
             self.joystick = pygame.joystick.Joystick(0)
             self.joystick.init()
         self.world = World(worldfile)
+        assert self.world.map.width % self.fdd.width == 0 and \
+               self.world.map.height % self.fdd.height == 0, \
+               "Width and height of the map must be a multiple of display width and height"
+               
         # top left position of current view inside the world
         self.window_top_left = [0, 0]
 
