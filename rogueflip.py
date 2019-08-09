@@ -123,59 +123,35 @@ class Game:
 
 
 class World:
-    WALL = 0
-    PLAYER = 1
-    COIN = 2
-    BACK = 3
+    WALL = 'wall'
+    PLAYER = 'player'
+    COIN = 'coin'
+    BACK = 'back'
 
     def __init__(self, worldfile):
         self.pixels = []  # list of tile types
-        self.width = 0
-        self.height = 0
-        self.load_world_tmx(worldfile)
+        self.map = pytmx.TiledMap(worldfile)
 
-    def load_world_tmx(self, filename):
-        'Load tiled map from file.'
-
-        tiled_map = pytmx.TiledMap(filename)
-        self.width, self.height = tiled_map.width, tiled_map.height
-
-        layer0 = tiled_map.layers[0]
-        for x, y, _ in layer0.tiles():
-            tile_type = tiled_map.get_tile_properties(x, y, 0)['type']
-            if tile_type == 'back':
-                self.pixels.append(World.BACK)
-            elif tile_type == 'wall':
-                self.pixels.append(World.WALL)
-            elif tile_type == 'player':
-                self.pixels.append(World.PLAYER)
-            elif tile_type == 'coin':
-                self.pixels.append(World.COIN)
-            else:
-                assert False, "Tile type unknown"
-
-        assert len(self.pixels) == self.width * self.height
-
-    def get_px(self, x, y):
-        return self.pixels[self.width * y + x]
+    def get_type(self, x, y):
+        return self.map.get_tile_properties(x, y, 0)['type']
 
     def is_onboard(self, x, y):
-        return 0 <= x < self.width and 0 <= y < self.height
+        return 0 <= x < self.map.width and 0 <= y < self.map.height
 
     def is_wall(self, x, y):
-        return self.is_onboard(x, y) and self.get_px(x, y) == World.WALL
+        return self.is_onboard(x, y) and self.get_type(x, y) == World.WALL
 
     def is_player(self, x, y):
-        return self.is_onboard(x,y) and self.get_px(x, y) == World.PLAYER
+        return self.is_onboard(x,y) and self.get_type(x, y) == World.PLAYER
 
     def is_coin(self, x, y):
-        return self.is_onboard(x,y) and self.get_px(x, y) == World.COIN
+        return self.is_onboard(x,y) and self.get_type(x, y) == World.COIN
 
     def _find_game_objects(self, typ):
         gobjs = []
-        for x in range(self.width):
-            for y in range(self.height):
-                if self.get_px(x, y) == typ:
+        for x in range(self.map.width):
+            for y in range(self.map.height):
+                if self.get_type(x, y) == typ:
                     en = GameObject(x, y)
                     gobjs.append(en)
 
