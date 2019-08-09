@@ -1,37 +1,19 @@
 """
 Rogueflip is a roguelike dungeon crawler for the flipdot display. Levels can
-be created as PNM files (ASCII-based). These can be exported from GIMP. The
-player, coins and walls have special color values described below.
-
-The special color values of the image format are located in the 
-:class:`World` class:
-
-Walls must be black
-
->>> World.COLOR_WALL
-[0, 0, 0]
-
-The player character must be blue.
-
->>> World.COLOR_PLAYER
-[0, 0, 255]
-
-All coins are yellow
-
->>> World.COLOR_COIN
-[255, 255, 0]
+be created with tiled and a corresponding tileset.
 """
 
 import time
 import pygame
 import flipdotfont
+import pytmx
 
-DEFAULT_WORLD_FILE="ressources/rogueflip_world.pnm"
+DEFAULT_TMX_WORLD_FILE="ressources/rogueflip_world.tmx"
 
 class Game:
     """A roguelike for a flipdot display."""
 
-    def __init__(self, flipdotdisplay, worldfile=DEFAULT_WORLD_FILE):
+    def __init__(self, flipdotdisplay, worldfile):
         self.fdd = flipdotdisplay
         pygame.init()
         if pygame.joystick.get_count() > 0:
@@ -141,52 +123,37 @@ class Game:
 
 
 class World:
-    COLOR_WALL = [0, 0, 0]
-    COLOR_PLAYER = [0, 0, 255]
-    COLOR_COIN = [255, 255, 0]
+    WALL = 0
+    PLAYER = 1
+    COIN = 2
+    BACK = 3
 
     def __init__(self, worldfile):
-        self.pixels = []  # list of color values (r,g,b)
+        self.pixels = []  # list of tile types
         self.width = 0
         self.height = 0
-        self.load_world(worldfile)
+        self.load_world_tmx(worldfile)
 
-    def load_world(self, file):
-        """Load world from file. The file has to be a PNM-Image file - format
-        P3, ASCII-based.
+    def load_world_tmx(self, filename):
+        'Load tiled map from file.'
 
-        Find the specification of the file format 
-        `here <https://de.wikipedia.org/wiki/Portable_Anymap#Pixmap>`_."""
-        print("Loading world", file)
+        tiled_map = pytmx.TiledMap(filename)
+        self.width, self.height = tiled_map.width, tiled_map.height
 
-        with open(file) as f:
-            firstline = f.readline().strip()
-            if firstline != "P3":
-                raise Exception("Wrong file format" + str(file))
-            px = []
-            line = f.readline()
-            while line:
-                if line.startswith("#"):
-                    line = f.readline()
-                    continue
-                if " " in line:
-                    # dimension found
-                    w, h = line.strip().split(' ')
-                    print("dimension found", w, h)
-                    self.width, self.height = int(w), int(h)
-                    # consume next line (max brightness)
-                    f.readline()
+        layer0 = tiled_map.layers[0]
+        for x, y, _ in layer0.tiles():
+            tile_type = tiled_map.get_tile_properties(x, y, 0)['type']
+            if tile_type == 'back':
+                self.pixels.append(World.BACK)
+            elif tile_type == 'wall':
+                self.pixels.append(World.WALL)
+            elif tile_type == 'player':
+                self.pixels.append(World.PLAYER)
+            elif tile_type == 'coin':
+                self.pixels.append(World.COIN)
+            else:
+                assert False, "Tile type unknown"
 
-                else:
-                    # color value found
-                    px.append(int(line.strip()))
-                    if len(px) >= 3:
-                        self.pixels.append(px)
-                        px = []
-
-                line = f.readline()
-
-        assert len(px) == 0, "Number of color values no multiple of 3!"
         assert len(self.pixels) == self.width * self.height
 
     def get_px(self, x, y):
@@ -196,13 +163,13 @@ class World:
         return 0 <= x < self.width and 0 <= y < self.height
 
     def is_wall(self, x, y):
-        return self.is_onboard(x, y) and self.get_px(x, y) == World.COLOR_WALL
+        return self.is_onboard(x, y) and self.get_px(x, y) == World.WALL
 
     def is_player(self, x, y):
-        return self.is_onboard(x,y) and self.get_px(x, y) == World.COLOR_PLAYER
+        return self.is_onboard(x,y) and self.get_px(x, y) == World.PLAYER
 
     def is_coin(self, x, y):
-        return self.is_onboard(x,y) and self.get_px(x, y) == World.COLOR_COIN
+        return self.is_onboard(x,y) and self.get_px(x, y) == World.COIN
 
     def _find_game_objects(self, typ):
         gobjs = []
@@ -215,10 +182,10 @@ class World:
         return gobjs
 
     def find_player(self):
-        return self._find_game_objects(World.COLOR_PLAYER)[0]
+        return self._find_game_objects(World.PLAYER)[0]
 
     def find_coins(self):
-        return self._find_game_objects(World.COLOR_COIN)
+        return self._find_game_objects(World.COIN)
 
 
 class GameObject:
@@ -258,7 +225,7 @@ def run_remote_display():
 
 
 def run_width_flipdotdisplay(fdd):
-    g = Game(fdd, DEFAULT_WORLD_FILE)
+    g = Game(fdd, DEFAULT_TMX_WORLD_FILE)
     g.run()
 
 

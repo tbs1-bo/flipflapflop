@@ -15,14 +15,16 @@ named 'roguelike'. The following video shows the game in action.
 Level Description
 ^^^^^^^^^^^^^^^^^
 
-Each Level can be painted with a tool like GIMP. It must be exported as
-`PNM-file <https://de.wikipedia.org/wiki/Portable_Anymap#Pixmap>`_ afterwards.
-In this format the image dimension is described first. After that each line 
-contains a color value - one for red, green and blue respectively. The image 
-dimension must be a multiple of the dimension of the flipdot display.
+Each Level can be created with the `tiled map editor
+<https://www.mapeditor.org/>`_. 
+The map 
+dimensions must be a multiple of the dimension of the flipdot display.
 
-This :download:`example game world <../ressources/rogueflip_world.pnm>` can be 
-opened with GIMP or a simple text editor.
+This :download:`example game world <../ressources/rogueflip_world.tmx>` can be 
+opened with tiled using the following tileset. The tiles labeled P and C 
+represent the player and a collectable coin respectively.
+
+.. image:: ../ressources/rogueflip_tiles.jpg
 
 
 Module Description

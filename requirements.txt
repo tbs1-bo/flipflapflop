@@ -3,3 +3,6 @@ pyserial
 
 # needed for the simulator
 pygame
+
+# reading tiled maps for rogueflip
+pytmx
