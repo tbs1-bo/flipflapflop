@@ -1,6 +1,6 @@
 """
 Rogueflip is a roguelike dungeon crawler for the flipdot display. Levels can
-be created with tiled and a corresponding tileset.
+be created with the tiled map editor (https://www.mapeditor.org/) and a corresponding tileset.
 """
 
 import time
