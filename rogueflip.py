@@ -131,9 +131,11 @@ class World:
     def __init__(self, worldfile):
         self.pixels = []  # list of tile types
         self.map = pytmx.TiledMap(worldfile)
+        assert len(self.map.layers) == 1, "Assuming everything in one layer."
 
     def get_type(self, x, y):
-        return self.map.get_tile_properties(x, y, 0)['type']
+        default_layer = 0
+        return self.map.get_tile_properties(x, y, default_layer)['type']
 
     def is_onboard(self, x, y):
         return 0 <= x < self.map.width and 0 <= y < self.map.height
