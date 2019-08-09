@@ -163,39 +163,21 @@ named ‘roguelike’. The following video shows the game in action.</p>
 <a class="reference external image-reference" href="https://www.youtube-nocookie.com/embed/ed5-gVciz3I?rel=0"><img alt="_images/simulator_video_thumbnail.png" src="_images/simulator_video_thumbnail.png" /></a>
 <div class="section" id="level-description">
 <h3>Level Description<a class="headerlink" href="#level-description" title="Permalink to this headline">¶</a></h3>
-<p>Each Level can be painted with a tool like GIMP. It must be exported as
-<a class="reference external" href="https://de.wikipedia.org/wiki/Portable_Anymap#Pixmap">PNM-file</a> afterwards.
-In this format the image dimension is described first. After that each line
-contains a color value - one for red, green and blue respectively. The image
-dimension must be a multiple of the dimension of the flipdot display.</p>
-<p>This <a class="reference download internal" href="_downloads/rogueflip_world.pnm" download=""><code class="xref download docutils literal notranslate"><span class="pre">example</span> <span class="pre">game</span> <span class="pre">world</span></code></a> can be
-opened with GIMP or a simple text editor.</p>
+<p>Each Level can be created with the <a class="reference external" href="https://www.mapeditor.org/">tiled map editor</a>.
+The map
+dimensions must be a multiple of the dimension of the flipdot display.</p>
+<p>This <a class="reference download internal" href="_downloads/rogueflip_world.tmx" download=""><code class="xref download docutils literal notranslate"><span class="pre">example</span> <span class="pre">game</span> <span class="pre">world</span></code></a> can be
+opened with tiled using the following tileset. The tiles labeled P and C
+represent the player and a collectable coin respectively.</p>
+<img alt="_images/rogueflip_tiles.jpg" src="_images/rogueflip_tiles.jpg" />
 </div>
 <div class="section" id="module-rogueflip">
 <span id="module-description"></span><h3>Module Description<a class="headerlink" href="#module-rogueflip" title="Permalink to this headline">¶</a></h3>
 <p>Rogueflip is a roguelike dungeon crawler for the flipdot display. Levels can
-be created as PNM files (ASCII-based). These can be exported from GIMP. The
-player, coins and walls have special color values described below.</p>
-<p>The special color values of the image format are located in the 
-<a class="reference internal" href="#rogueflip.World" title="rogueflip.World"><code class="xref py py-class docutils literal notranslate"><span class="pre">World</span></code></a> class:</p>
-<p>Walls must be black</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">World</span><span class="o">.</span><span class="n">COLOR_WALL</span>
-<span class="go">[0, 0, 0]</span>
-</pre></div>
-</div>
-<p>The player character must be blue.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">World</span><span class="o">.</span><span class="n">COLOR_PLAYER</span>
-<span class="go">[0, 0, 255]</span>
-</pre></div>
-</div>
-<p>All coins are yellow</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">World</span><span class="o">.</span><span class="n">COLOR_COIN</span>
-<span class="go">[255, 255, 0]</span>
-</pre></div>
-</div>
+be created with tiled and a corresponding tileset.</p>
 <dl class="class">
 <dt id="rogueflip.Game">
-<em class="property">class </em><code class="descclassname">rogueflip.</code><code class="descname">Game</code><span class="sig-paren">(</span><em>flipdotdisplay</em>, <em>worldfile='ressources/rogueflip_world.pnm'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rogueflip.</code><code class="descname">Game</code><span class="sig-paren">(</span><em>flipdotdisplay</em>, <em>worldfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game" title="Permalink to this definition">¶</a></dt>
 <dd><p>A roguelike for a flipdot display.</p>
 <dl class="method">
 <dt id="rogueflip.Game.handle_input">
@@ -265,18 +247,23 @@ the flipdotdisplay.</p>
 <dt id="rogueflip.World">
 <em class="property">class </em><code class="descclassname">rogueflip.</code><code class="descname">World</code><span class="sig-paren">(</span><em>worldfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
-<dt id="rogueflip.World.COLOR_COIN">
-<code class="descname">COLOR_COIN</code><em class="property"> = [255, 255, 0]</em><a class="headerlink" href="#rogueflip.World.COLOR_COIN" title="Permalink to this definition">¶</a></dt>
+<dt id="rogueflip.World.BACK">
+<code class="descname">BACK</code><em class="property"> = 3</em><a class="headerlink" href="#rogueflip.World.BACK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="rogueflip.World.COLOR_PLAYER">
-<code class="descname">COLOR_PLAYER</code><em class="property"> = [0, 0, 255]</em><a class="headerlink" href="#rogueflip.World.COLOR_PLAYER" title="Permalink to this definition">¶</a></dt>
+<dt id="rogueflip.World.COIN">
+<code class="descname">COIN</code><em class="property"> = 2</em><a class="headerlink" href="#rogueflip.World.COIN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="rogueflip.World.COLOR_WALL">
-<code class="descname">COLOR_WALL</code><em class="property"> = [0, 0, 0]</em><a class="headerlink" href="#rogueflip.World.COLOR_WALL" title="Permalink to this definition">¶</a></dt>
+<dt id="rogueflip.World.PLAYER">
+<code class="descname">PLAYER</code><em class="property"> = 1</em><a class="headerlink" href="#rogueflip.World.PLAYER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rogueflip.World.WALL">
+<code class="descname">WALL</code><em class="property"> = 0</em><a class="headerlink" href="#rogueflip.World.WALL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -315,12 +302,9 @@ the flipdotdisplay.</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="rogueflip.World.load_world">
-<code class="descname">load_world</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.load_world"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.load_world" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load world from file. The file has to be a PNM-Image file - format
-P3, ASCII-based.</p>
-<p>Find the specification of the file format 
-<a class="reference external" href="https://de.wikipedia.org/wiki/Portable_Anymap#Pixmap">here</a>.</p>
+<dt id="rogueflip.World.load_world_tmx">
+<code class="descname">load_world_tmx</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.load_world_tmx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.load_world_tmx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load tiled map from file.</p>
 </dd></dl>
 
 </dd></dl>
