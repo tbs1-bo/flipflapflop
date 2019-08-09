@@ -26,6 +26,10 @@ represent the player and a collectable coin respectively.
 
 .. image:: ../ressources/rogueflip_tiles.jpg
 
+An example world looks like the following.
+
+.. image:: ../ressources/rogueflip_world.png
+
 
 Module Description
 ^^^^^^^^^^^^^^^^^^
