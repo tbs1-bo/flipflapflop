@@ -6,7 +6,7 @@ be created with tiled and a corresponding tileset.
 import time
 import pygame
 import flipdotfont
-import pytmx
+import pytmx  # https://github.com/bitcraft/PyTMX
 
 DEFAULT_TMX_WORLD_FILE="ressources/rogueflip_world.tmx"
 
