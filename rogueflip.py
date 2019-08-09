@@ -20,6 +20,7 @@ class Game:
             print("Joystick found")
             self.joystick = pygame.joystick.Joystick(0)
             self.joystick.init()
+
         self.world = World(worldfile)
         assert self.world.map.width % self.fdd.width == 0 and \
                self.world.map.height % self.fdd.height == 0, \
@@ -29,7 +30,6 @@ class Game:
         self.window_top_left = [0, 0]
 
         self.player = self.world.find_player()
-        self.player.blink_interval = 0.2
         print("Player placed at", self.player.pos)
         self.coins = self.world.find_coins()
         print("Found", len(self.coins), "coins.")
@@ -135,11 +135,11 @@ class World:
     def __init__(self, worldfile):
         self.pixels = []  # list of tile types
         self.map = pytmx.TiledMap(worldfile)
+        self.default_layer = 0
         assert len(self.map.layers) == 1, "Assuming everything in one layer."
 
     def get_type(self, x, y):
-        default_layer = 0
-        return self.map.get_tile_properties(x, y, default_layer)['type']
+        return self.map.get_tile_properties(x, y, self.default_layer)['type']
 
     def is_onboard(self, x, y):
         return 0 <= x < self.map.width and 0 <= y < self.map.height
@@ -158,7 +158,9 @@ class World:
         for x in range(self.map.width):
             for y in range(self.map.height):
                 if self.get_type(x, y) == typ:
-                    en = GameObject(x, y)
+                    blink_int = self.map.get_tile_properties(
+                        x, y, self.default_layer)['blink_interval']
+                    en = GameObject(x, y, blink_int)
                     gobjs.append(en)
 
         return gobjs
