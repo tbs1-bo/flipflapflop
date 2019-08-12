@@ -5,7 +5,7 @@ import flipdotsim
 
 WIDTH = 28
 HEIGHT = 13
-presentation_file = 'ressources/rogueflip_world.tmx'
+presentation_file = 'ressources/presentation.tmx'
 fdd = flipdotsim.FlipDotSim(width=WIDTH, height=HEIGHT)
 
 tiled_map = None
