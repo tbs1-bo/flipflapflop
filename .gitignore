@@ -2,8 +2,7 @@
 .idea
 
 # VS Code settings
-.vscode/settings.json
-.vscode/launch.json
+.vscode/
 
 # Backup files
 *~
