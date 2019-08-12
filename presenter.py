@@ -34,11 +34,11 @@ def handle_input(userin):
         offsety += HEIGHT
     elif ',' in userin:
         inx, iny = userin.split(',')
-        inx, iny = int(inx), int(iny)
-        if on_map(inx, iny):
-            offsetx, offsety = inx, iny
+        intx, inty = int(inx), int(iny)
+        if on_map(intx, inty):
+            offsetx, offsety = intx, inty
     elif userin == 'q':
-            exit()
+        exit()
 
     
 def on_map(x, y):
