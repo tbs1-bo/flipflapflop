@@ -2,27 +2,41 @@ import displayprovider
 import flipdotfont
 import pytmx
 import flipdotsim
+import threading
+import time
 
 WIDTH = 28
 HEIGHT = 13
 presentation_file = 'ressources/presentation.tmx'
 fdd = flipdotsim.FlipDotSim(width=WIDTH, height=HEIGHT)
 
+DISPLAY_WAIT_TIME = 0.01 # seconds
+
 tiled_map = None
 offsetx, offsety = 0, 0
+display_loop_running = False
 
 def main():
     global tiled_map, offsetx, offsety
     tiled_map = pytmx.TiledMap(presentation_file)
+    th = threading.Thread(target=run_display_loop)
+    th.start()
 
     while True:
-        display(offsetx, offsety)
-        s = input("> ")
+        s = input("wasd rq> ")
         handle_input(s)
 
+def run_display_loop():
+    global offsetx, offsety, display_loop_running
+
+    display_loop_running = True
+
+    while display_loop_running:
+        display(offsetx, offsety)
+        time.sleep(DISPLAY_WAIT_TIME)
 
 def handle_input(userin):
-    global offsetx, offsety
+    global offsetx, offsety, display_loop_running, tiled_map
 
     if userin == 'a' and on_map(offsetx - WIDTH, 0):
         offsetx -= WIDTH
@@ -32,14 +46,19 @@ def handle_input(userin):
         offsety -= HEIGHT
     elif userin == 's' and on_map(0, offsety + HEIGHT):
         offsety += HEIGHT
+    elif userin == 'r':
+        print("reloading", presentation_file)
+        tiled_map = pytmx.TiledMap(presentation_file)
+    elif userin == 'q':
+        display_loop_running = False
+        exit()
     elif ',' in userin:
         inx, iny = userin.split(',')
         intx, inty = int(inx), int(iny)
         if on_map(intx, inty):
             offsetx, offsety = intx, inty
-    elif userin == 'q':
-        exit()
 
+    print("drawing@", offsetx, offsety)
     
 def on_map(x, y):
     'check if the coordinates are on the tiled map.'
@@ -48,21 +67,25 @@ def on_map(x, y):
 
 
 def display(offsetx, offsety):
-    print("drawing@", offsetx, offsety)
-    disp = ''
     for y in range(HEIGHT):
         for x in range(WIDTH):
             x_ = offsetx + x
             y_ = offsety + y
-            if on_map(x_, y_):
-                # id 0: black, id 1: yellow
-                yellow = tiled_map.get_tile_properties(
-                    x_,y_,0)['id'] == 1
-                fdd.px(x,y,yellow)
-                disp += '*' if yellow else '.'
-        disp += '\n'
+            if not on_map(x_, y_):
+                continue
 
-    print(disp)
+            tile_props = tiled_map.get_tile_properties(x_,y_,layer=0)
+            # id 0: black, id 1: yellow
+            black = tile_props['id'] == 0
+            if black:
+                fdd.px(x, y, False)
+            else:
+                now = time.time()
+                t = now - int(now)  # removing integer part
+
+                blink_interval = tile_props['blink_interval']
+                fdd.px(x, y, t > blink_interval)
+
     fdd.show()
 
 
