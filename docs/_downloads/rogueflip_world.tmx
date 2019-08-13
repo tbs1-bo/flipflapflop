@@ -4,21 +4,25 @@
   <image source="rogueflip_tiles.jpg" width="80" height="20"/>
   <tile id="0">
    <properties>
+    <property name="blink_interval" type="float" value="0"/>
     <property name="type" value="back"/>
    </properties>
   </tile>
   <tile id="1">
    <properties>
+    <property name="blink_interval" type="float" value="0"/>
     <property name="type" value="wall"/>
    </properties>
   </tile>
   <tile id="2">
    <properties>
+    <property name="blink_interval" type="float" value="0.2"/>
     <property name="type" value="player"/>
    </properties>
   </tile>
   <tile id="3">
    <properties>
+    <property name="blink_interval" type="float" value="0.5"/>
     <property name="type" value="coin"/>
    </properties>
   </tile>

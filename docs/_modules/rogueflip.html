@@ -145,32 +145,36 @@
   <h1>Source code for rogueflip</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Rogueflip is a roguelike dungeon crawler for the flipdot display. Levels can</span>
-<span class="sd">be created with tiled and a corresponding tileset.</span>
+<span class="sd">be created with the tiled map editor (https://www.mapeditor.org/) and a corresponding tileset.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">pygame</span>
 <span class="kn">import</span> <span class="nn">flipdotfont</span>
-<span class="kn">import</span> <span class="nn">pytmx</span>
+<span class="kn">import</span> <span class="nn">pytmx</span>  <span class="c1"># https://github.com/bitcraft/PyTMX</span>
 
 <span class="n">DEFAULT_TMX_WORLD_FILE</span><span class="o">=</span><span class="s2">&quot;ressources/rogueflip_world.tmx&quot;</span>
 
 <div class="viewcode-block" id="Game"><a class="viewcode-back" href="../game.html#rogueflip.Game">[docs]</a><span class="k">class</span> <span class="nc">Game</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A roguelike for a flipdot display.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flipdotdisplay</span><span class="p">,</span> <span class="n">worldfile</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flipdotdisplay</span><span class="p">,</span> <span class="n">worldfile</span><span class="o">=</span><span class="n">DEFAULT_TMX_WORLD_FILE</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span> <span class="o">=</span> <span class="n">flipdotdisplay</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">get_count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Joystick found&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">joystick</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">Joystick</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">world</span> <span class="o">=</span> <span class="n">World</span><span class="p">(</span><span class="n">worldfile</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">width</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> \
+               <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">height</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">height</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> \
+               <span class="s2">&quot;Width and height of the map must be a multiple of display width and height&quot;</span>
+               
         <span class="c1"># top left position of current view inside the world</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window_top_left</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">find_player</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">blink_interval</span> <span class="o">=</span> <span class="mf">0.2</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Player placed at&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">pos</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">find_coins</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coins</span><span class="p">),</span> <span class="s2">&quot;coins.&quot;</span><span class="p">)</span>
@@ -268,60 +272,40 @@
 
 
 <div class="viewcode-block" id="World"><a class="viewcode-back" href="../game.html#rogueflip.World">[docs]</a><span class="k">class</span> <span class="nc">World</span><span class="p">:</span>
-    <span class="n">WALL</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">PLAYER</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">COIN</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">BACK</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">WALL</span> <span class="o">=</span> <span class="s1">&#39;wall&#39;</span>
+    <span class="n">PLAYER</span> <span class="o">=</span> <span class="s1">&#39;player&#39;</span>
+    <span class="n">COIN</span> <span class="o">=</span> <span class="s1">&#39;coin&#39;</span>
+    <span class="n">BACK</span> <span class="o">=</span> <span class="s1">&#39;back&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">worldfile</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># list of tile types</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">load_world_tmx</span><span class="p">(</span><span class="n">worldfile</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map</span> <span class="o">=</span> <span class="n">pytmx</span><span class="o">.</span><span class="n">TiledMap</span><span class="p">(</span><span class="n">worldfile</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_layer</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Assuming everything in one layer.&quot;</span>
 
-<div class="viewcode-block" id="World.load_world_tmx"><a class="viewcode-back" href="../game.html#rogueflip.World.load_world_tmx">[docs]</a>    <span class="k">def</span> <span class="nf">load_world_tmx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-        <span class="s1">&#39;Load tiled map from file.&#39;</span>
-
-        <span class="n">tiled_map</span> <span class="o">=</span> <span class="n">pytmx</span><span class="o">.</span><span class="n">TiledMap</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">tiled_map</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">tiled_map</span><span class="o">.</span><span class="n">height</span>
-
-        <span class="n">layer0</span> <span class="o">=</span> <span class="n">tiled_map</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">layer0</span><span class="o">.</span><span class="n">tiles</span><span class="p">():</span>
-            <span class="n">tile_type</span> <span class="o">=</span> <span class="n">tiled_map</span><span class="o">.</span><span class="n">get_tile_properties</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">tile_type</span> <span class="o">==</span> <span class="s1">&#39;back&#39;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">World</span><span class="o">.</span><span class="n">BACK</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">tile_type</span> <span class="o">==</span> <span class="s1">&#39;wall&#39;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">World</span><span class="o">.</span><span class="n">WALL</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">tile_type</span> <span class="o">==</span> <span class="s1">&#39;player&#39;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">World</span><span class="o">.</span><span class="n">PLAYER</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">tile_type</span> <span class="o">==</span> <span class="s1">&#39;coin&#39;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">World</span><span class="o">.</span><span class="n">COIN</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Tile type unknown&quot;</span>
-
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pixels</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span></div>
-
-<div class="viewcode-block" id="World.get_px"><a class="viewcode-back" href="../game.html#rogueflip.World.get_px">[docs]</a>    <span class="k">def</span> <span class="nf">get_px</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span></div>
+<div class="viewcode-block" id="World.get_type"><a class="viewcode-back" href="../game.html#rogueflip.World.get_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">get_tile_properties</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_layer</span><span class="p">)[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="World.is_onboard"><a class="viewcode-back" href="../game.html#rogueflip.World.is_onboard">[docs]</a>    <span class="k">def</span> <span class="nf">is_onboard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">return</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span></div>
+        <span class="k">return</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">width</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">height</span></div>
 
 <div class="viewcode-block" id="World.is_wall"><a class="viewcode-back" href="../game.html#rogueflip.World.is_wall">[docs]</a>    <span class="k">def</span> <span class="nf">is_wall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_onboard</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">World</span><span class="o">.</span><span class="n">WALL</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_onboard</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">World</span><span class="o">.</span><span class="n">WALL</span></div>
 
 <div class="viewcode-block" id="World.is_player"><a class="viewcode-back" href="../game.html#rogueflip.World.is_player">[docs]</a>    <span class="k">def</span> <span class="nf">is_player</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_onboard</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">World</span><span class="o">.</span><span class="n">PLAYER</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_onboard</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">World</span><span class="o">.</span><span class="n">PLAYER</span></div>
 
 <div class="viewcode-block" id="World.is_coin"><a class="viewcode-back" href="../game.html#rogueflip.World.is_coin">[docs]</a>    <span class="k">def</span> <span class="nf">is_coin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_onboard</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">World</span><span class="o">.</span><span class="n">COIN</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_onboard</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">World</span><span class="o">.</span><span class="n">COIN</span></div>
 
     <span class="k">def</span> <span class="nf">_find_game_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">typ</span><span class="p">):</span>
         <span class="n">gobjs</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">typ</span><span class="p">:</span>
-                    <span class="n">en</span> <span class="o">=</span> <span class="n">GameObject</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">typ</span><span class="p">:</span>
+                    <span class="n">blink_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">get_tile_properties</span><span class="p">(</span>
+                        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_layer</span><span class="p">)[</span><span class="s1">&#39;blink_interval&#39;</span><span class="p">]</span>
+                    <span class="n">en</span> <span class="o">=</span> <span class="n">GameObject</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">blink_int</span><span class="p">)</span>
                     <span class="n">gobjs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">en</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">gobjs</span>
