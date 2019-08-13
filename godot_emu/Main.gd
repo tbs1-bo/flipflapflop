@@ -5,7 +5,7 @@ const STEP_SIZE = 50  # pixels
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	tmap = get_node("Map/TileMap")
+	tmap = $Map/TileMap
 	var err = get_tree().connect("screen_resized", self, "_on_screen_resized")
 	if err != OK:
 		printerr("Unable to connect")
