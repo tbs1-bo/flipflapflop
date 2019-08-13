@@ -11,8 +11,8 @@ script = ExtResource( 1 )
 [node name="PanelConfig" type="Panel" parent="."]
 margin_left = 33.0
 margin_top = 222.0
-margin_right = 555.0
-margin_bottom = 397.0
+margin_right = 810.0
+margin_bottom = 528.0
 
 [node name="ButtonConnect" type="Button" parent="PanelConfig"]
 margin_left = 19.0
@@ -22,11 +22,30 @@ margin_bottom = 118.0
 text = "Connect"
 
 [node name="LineEditIpAdress" type="LineEdit" parent="PanelConfig"]
-margin_left = 211.0
+margin_left = 210.0
 margin_top = 60.0
-margin_right = 460.0
+margin_right = 459.0
 margin_bottom = 120.0
+rect_pivot_offset = Vector2( 206, 48 )
 text = "127.0.0.1"
+align = 1
+
+[node name="LineEditWidth" type="LineEdit" parent="PanelConfig"]
+margin_left = 210.0
+margin_top = 146.0
+margin_right = 317.0
+margin_bottom = 206.0
+rect_pivot_offset = Vector2( 206, 48 )
+text = "28"
+align = 1
+
+[node name="LineEditHeight" type="LineEdit" parent="PanelConfig"]
+margin_left = 337.0
+margin_top = 146.0
+margin_right = 444.0
+margin_bottom = 206.0
+rect_pivot_offset = Vector2( 206, 48 )
+text = "13"
 align = 1
 
 [node name="fff" parent="." instance=ExtResource( 2 )]

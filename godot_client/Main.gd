@@ -9,6 +9,8 @@ func _ready():
 #	pass
 
 func _on_ButtonConnect_pressed():
-	$fff.visible = true
 	$PanelConfig.hide()
 	$fff.connect_to($PanelConfig/LineEditIpAdress.text)
+	$fff.init_display(int($PanelConfig/LineEditWidth.text),
+					  int($PanelConfig/LineEditHeight.text))
+	$fff.visible = true

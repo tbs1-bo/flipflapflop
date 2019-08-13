@@ -2,6 +2,7 @@ extends Node2D
 
 var peer: StreamPeerTCP
 const DEFAULT_PORT = 10101
+var display_size
 
 func connect_to(host):
 	print("connect to %s on port %s" % [host, DEFAULT_PORT])
@@ -13,6 +14,13 @@ func connect_to(host):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
+
+func init_display(width, height):
+	for x in range(width):
+		for y in range(height):
+			$TileMap.set_cell(x, y, 0)
+
+	display_size = Vector2(width, height)
 
 func _input(event):
 	if not self.visible:
