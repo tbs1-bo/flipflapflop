@@ -12,7 +12,9 @@ const YELLOW = 49  # ascii 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	tilemap = get_node("TileMap")
-	update_width_height()
+	var screen_size = get_viewport_rect().size
+	width = screen_size.x / tilemap.cell_size.x
+	height = screen_size.y / tilemap.cell_size.y
 	clear_display()
 
 	print("listening on port ", PORT)
@@ -58,17 +60,3 @@ func _on_Button_pressed():
 		      " type ", typeof(tilemap), " invalid ", cell == TileMap.INVALID_CELL)
 		tilemap.set_cell(x, 2, cell)
 		
-func _on_teWidth_text_changed():
-	update_width_height()
-
-func _on_teHeight_text_changed():
-	update_width_height()	
-
-func update_width_height():
-	print("updating width and height")
-	var tHeight = get_node("teHeight").text
-	height = int(tHeight)
-	var tWidth = get_node("teWidth").text
-	width = int(tWidth)
-	print(width, " ", height)
-
