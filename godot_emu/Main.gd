@@ -7,7 +7,9 @@ const STEP_SIZE = 50  # pixels
 func _ready():
 	print('starting')
 	tmap = get_node("Map/TileMap")
-	get_tree().connect("screen_resized", self, "_on_screen_resized")
+	var err = get_tree().connect("screen_resized", self, "_on_screen_resized")
+	if err != OK:
+		printerr("Unable to connect")
 
 func _on_screen_resized():
 	$Label.visible = true
