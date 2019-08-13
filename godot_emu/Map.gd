@@ -11,8 +11,6 @@ const YELLOW = 49  # ascii 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_tree().connect("screen_resized", self, "_on_screen_resized")
-	
 	tilemap = $TileMap
 
 	init_width_height()
@@ -22,10 +20,6 @@ func _ready():
 	server = TCP_Server.new()
 	server.listen(PORT)
 
-func _on_screen_resized():
-	init_width_height()
-	clear_display()
-	
 func init_width_height():
 	var screen_size = get_viewport_rect().size
 	width = int(screen_size.x / (tilemap.cell_size.x * tilemap.scale.x))
