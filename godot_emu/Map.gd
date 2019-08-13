@@ -58,6 +58,7 @@ func process_bytes(bytes):
 
 
 func _on_Config_size_changed(w, h, sc):
+	clear_display()
 	width = w
 	height = h
 	tilemap.scale.x = sc
