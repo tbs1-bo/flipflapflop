@@ -16,17 +16,18 @@ func _input(event):
 	if not self.visible:
 		return
 		
-	if event is InputEventMouse:
-		#print(event)
-		var mousepos = event.position
-		var mappos = $TileMap.world_to_map(mousepos)
-		print("world %s \t map %s" % [mousepos, mappos])
-	
 	if event is InputEventMouseButton and event.pressed:
 		var tile_pos = $TileMap.world_to_map(event.position)
 		var old_tile = $TileMap.get_cellv(tile_pos)
 		$TileMap.set_cellv(tile_pos, 1-old_tile)
-		
+		send_to_server()
+
+func send_to_server():
+	# TODO iterate over tiles
+	var data = '10101'
+	print("sending ", data)
+	peer.put_data(data.to_ascii())
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
