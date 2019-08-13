@@ -13,7 +13,7 @@ DEFAULT_TMX_WORLD_FILE="ressources/rogueflip_world.tmx"
 class Game:
     """A roguelike for a flipdot display."""
 
-    def __init__(self, flipdotdisplay, worldfile):
+    def __init__(self, flipdotdisplay, worldfile=DEFAULT_TMX_WORLD_FILE):
         self.fdd = flipdotdisplay
         pygame.init()
         if pygame.joystick.get_count() > 0:
