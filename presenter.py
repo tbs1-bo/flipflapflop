@@ -4,13 +4,14 @@ import pytmx
 import flipdotsim
 import threading
 import time
+import configuration
 
-WIDTH = 28
-HEIGHT = 13
+WIDTH = configuration.WIDTH
+HEIGHT = configuration.HEIGHT
 presentation_file = 'ressources/presentation.tmx'
 fdd = flipdotsim.FlipDotSim(width=WIDTH, height=HEIGHT)
 
-DISPLAY_WAIT_TIME = 0.01 # seconds
+DISPLAY_WAIT_TIME = 1 / configuration.simulator['fps']
 
 tiled_map = None
 offsetx, offsety = 0, 0
