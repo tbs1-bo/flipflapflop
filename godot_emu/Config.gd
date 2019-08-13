@@ -12,9 +12,9 @@ signal size_changed
 
 
 func _on_Button_pressed():
-	var width = int($LineEditWidth.text)
-	var height = int($LineEditHeight.text)
-	var scale = $HSliderScale.value
+	var width = int($Panel/LineEditWidth.text)
+	var height = int($Panel/LineEditHeight.text)
+	var scale = $Panel/HSliderScale.value
 	self.visible = false
 	emit_signal("size_changed", width, height, scale)
 	

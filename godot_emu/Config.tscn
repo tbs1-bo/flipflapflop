@@ -5,30 +5,13 @@
 [node name="Config" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
-margin_left = 4.1111
-margin_top = 6.55556
-margin_right = 265.111
-margin_bottom = 113.556
-color = Color( 0.227451, 0.0941176, 0.0941176, 1 )
+[node name="Panel" type="Panel" parent="."]
+margin_left = 4.0
+margin_top = 6.0
+margin_right = 266.0
+margin_bottom = 124.0
 
-[node name="LineEditWidth" type="LineEdit" parent="."]
-margin_left = 123.111
-margin_top = 15.5556
-margin_right = 181.111
-margin_bottom = 39.5556
-rect_pivot_offset = Vector2( 44, 64 )
-text = "28"
-
-[node name="LineEditHeight" type="LineEdit" parent="."]
-margin_left = 194.111
-margin_top = 15.5556
-margin_right = 252.111
-margin_bottom = 39.5556
-rect_pivot_offset = Vector2( 44, 64 )
-text = "13"
-
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="Panel"]
 margin_left = 12.1111
 margin_top = 15.5556
 margin_right = 95.1111
@@ -36,7 +19,7 @@ margin_bottom = 42.5556
 text = "width, height"
 valign = 1
 
-[node name="Label2" type="Label" parent="."]
+[node name="Label2" type="Label" parent="Panel"]
 margin_left = 13.0
 margin_top = 45.7778
 margin_right = 96.0
@@ -44,14 +27,30 @@ margin_bottom = 72.7778
 text = "scale"
 valign = 1
 
-[node name="Button" type="Button" parent="."]
+[node name="LineEditWidth" type="LineEdit" parent="Panel"]
+margin_left = 123.111
+margin_top = 15.5556
+margin_right = 181.111
+margin_bottom = 39.5556
+rect_pivot_offset = Vector2( 44, 64 )
+text = "28"
+
+[node name="LineEditHeight" type="LineEdit" parent="Panel"]
+margin_left = 194.111
+margin_top = 15.5556
+margin_right = 252.111
+margin_bottom = 39.5556
+rect_pivot_offset = Vector2( 44, 64 )
+text = "13"
+
+[node name="Button" type="Button" parent="Panel"]
 margin_left = 20.1111
 margin_top = 83.5556
 margin_right = 51.1111
 margin_bottom = 103.556
 text = "OK"
 
-[node name="HSliderScale" type="HSlider" parent="."]
+[node name="HSliderScale" type="HSlider" parent="Panel"]
 margin_left = 75.1111
 margin_top = 52.5556
 margin_right = 251.111
@@ -59,4 +58,5 @@ margin_bottom = 68.5556
 min_value = 1.0
 max_value = 5.0
 value = 1.0
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+ticks_on_borders = true
+[connection signal="pressed" from="Panel/Button" to="." method="_on_Button_pressed"]
