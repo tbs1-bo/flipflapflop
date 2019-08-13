@@ -1,24 +1,23 @@
 extends Node2D
 
 var tmap: TileMap
-var lbl: Label
 const STEP_SIZE = 50  # pixels
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print('starting')
 	tmap = get_node("Map/TileMap")
-	lbl = get_node("Label")
 	get_tree().connect("screen_resized", self, "_on_screen_resized")
 
 func _on_screen_resized():
-	lbl.visible = true
+	$Label.visible = true
 
-	var map = get_node("Map")
+	var map = $Map
 	var w = map.width
 	var h = map.height
-	lbl.text = "size: %s x %s" % [w, h]
-	get_node("TimerHideLabel").start()
+	$Label.text = "size: %s x %s" % [w, h]
+	
+	$TimerHideLabel.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -47,4 +46,4 @@ func _input(event):
 		tmap.scale.y = max(1, tmap.scale.y - 1)
 
 func _on_Timer_timeout():
-	lbl.visible = false
+	$Label.visible = false

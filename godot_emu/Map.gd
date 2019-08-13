@@ -13,7 +13,7 @@ const YELLOW = 49  # ascii 1
 func _ready():
 	get_tree().connect("screen_resized", self, "_on_screen_resized")
 	
-	tilemap = get_node("TileMap")
+	tilemap = $TileMap
 
 	init_width_height()
 	clear_display()
