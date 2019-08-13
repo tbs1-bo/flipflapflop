@@ -16,6 +16,7 @@ import time
 import random
 import util
 import abc
+import configuration
 
 try:
     import rogueflip
@@ -24,6 +25,7 @@ except ImportError as e:
     print("Unable to import pygame or rogueflip. \
         Some games may not be runnable!", e)
 
+SLEEP_TIME = 1 / configuration.simulator['fps']
 
 class DemoBase(abc.ABC):
     def __init__(self, flipdotdisplay):
@@ -38,6 +40,7 @@ class DemoBase(abc.ABC):
                     val = self.handle_px(x, y)
                     self.fdd.px(x, y, val)
             self.fdd.show()
+            time.sleep(SLEEP_TIME)
 
     @abc.abstractmethod
     def handle_px(self, x, y):
@@ -165,9 +168,6 @@ class PingPong(DemoBase):
 
         self.pos = [self.pos[0] + self.vel[0],
                     self.pos[1] + self.vel[1]]
-        # TODO just for the hardware version of the display. Can be removed
-        #      if it controls the framerate itself.
-        time.sleep(0.05)
 
 
 class RandomDot(DemoBase):
@@ -440,11 +440,11 @@ class BinaryClock(DemoBase):
 def main():
     import displayprovider
     import configuration
-    fdd = displayprovider.get_display(
-        width=configuration.WIDTH, height=configuration.HEIGHT,
-        fallback=displayprovider.Fallback.SIMULATOR)
-    # import net
-    # fdd = net.RemoteDisplay(host="taylorpi.local")
+    #fdd = displayprovider.get_display(
+    #    width=configuration.WIDTH, height=configuration.HEIGHT,
+    #    fallback=displayprovider.Fallback.SIMULATOR)
+    import net
+    fdd = net.RemoteDisplay()
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd),
              FlappyDot(fdd), BinaryClock(fdd), rogueflip.Game(fdd),
