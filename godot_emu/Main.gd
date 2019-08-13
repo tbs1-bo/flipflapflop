@@ -33,6 +33,9 @@ func _process(delta):
 		tmap.position.y += STEP_SIZE * delta
 
 func _input(event):
+	if event.is_action_pressed('ui_select') or event is InputEventMouseButton:
+		$Config.visible = true
+		
 	if event.is_action_pressed("ui_cancel"):
 		tmap.position = Vector2(0, 0)
 		tmap.scale = Vector2(1, 1)
@@ -53,3 +56,4 @@ func drag_y_direction(event):
 
 func _on_Timer_timeout():
 	lbl.visible = false
+
