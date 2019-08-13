@@ -39,11 +39,8 @@ func clear_display():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if server.is_connection_available():
-		print("conn available")
 		var conn = server.take_connection()
-		print("bytes available ", conn.get_available_bytes())
 		var bs = conn.get_data(conn.get_available_bytes())
-		print("bytes ", bs, len(bs))
 		process_bytes(bs[1])
 		
 
