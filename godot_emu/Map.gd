@@ -30,7 +30,6 @@ func init_width_height():
 	var screen_size = get_viewport_rect().size
 	width = int(screen_size.x / tilemap.cell_size.x)
 	height = int(screen_size.y / tilemap.cell_size.y)
-	print("size (in cells): %s x %s " % [width, height])
 	
 func clear_display():
 	for x in range(width):
@@ -53,21 +52,9 @@ func process_bytes(bytes):
 	var y = 0
 	
 	for b in bytes:
-		print("byte ", b)
-		print("xy ", x, " ", y)
-		
 		tilemap.set_cell(x, y, b == YELLOW)
 		
 		x += 1
 		if x >= width:
 			x = 0
 			y += 1
-
-func _on_Button_pressed():
-	var cell
-	for x in range(4):
-		cell = tilemap.get_cell(x, 0)
-		print("x ", x, " cell ", cell, 
-		      " type ", typeof(tilemap), " invalid ", cell == TileMap.INVALID_CELL)
-		tilemap.set_cell(x, 2, cell)
-		
