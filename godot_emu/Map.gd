@@ -28,8 +28,8 @@ func _on_screen_resized():
 	
 func init_width_height():
 	var screen_size = get_viewport_rect().size
-	width = int(screen_size.x / tilemap.cell_size.x)
-	height = int(screen_size.y / tilemap.cell_size.y)
+	width = int(screen_size.x / (tilemap.cell_size.x * tilemap.scale.x))
+	height = int(screen_size.y / (tilemap.cell_size.y * tilemap.scale.y))
 	
 func clear_display():
 	for x in range(width):
