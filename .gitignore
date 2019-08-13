@@ -18,3 +18,6 @@ configuration.py
 
 # ignoring Mac files with metadata
 .DS_Store
+
+# goto project files
+godot_emu/.import/
