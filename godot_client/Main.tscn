@@ -26,7 +26,7 @@ margin_left = 211.0
 margin_top = 60.0
 margin_right = 460.0
 margin_bottom = 120.0
-text = "192.168.178.99"
+text = "127.0.0.1"
 align = 1
 
 [node name="fff" parent="." instance=ExtResource( 2 )]
