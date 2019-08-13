@@ -21,3 +21,16 @@ func _process(delta):
 		map.position.y -= STEP_SIZE
 	if Input.is_action_pressed('ui_down'):
 		map.position.y += STEP_SIZE
+		
+
+func _input(event):
+	if event.is_action_pressed("ui_cancel"):
+		map.position = Vector2(0, 0)
+		map.scale = Vector2(1, 1)
+
+	if event.is_action_pressed("ui_page_up"):
+		map.scale.x += 1
+		map.scale.y += 1
+	if event.is_action_pressed("ui_page_down"):
+		map.scale.x = max(1, map.scale.x - 1)
+		map.scale.y = max(1, map.scale.y - 1)
