@@ -12,6 +12,7 @@ script = ExtResource( 1 )
 margin_right = 76.0
 margin_bottom = 26.0
 
-[node name="Timer" type="Timer" parent="."]
+[node name="TimerHideLabel" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="TimerHideLabel" to="." method="_on_Timer_timeout"]
