@@ -3,7 +3,6 @@ extends Node2D
 var tmap: TileMap
 var lbl: Label
 const STEP_SIZE = 50  # pixels
-const MINIMAL_DRAG_DETECT = 50 # pixels must be moved to detect drag event
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -40,20 +39,12 @@ func _input(event):
 		tmap.position = Vector2(0, 0)
 		tmap.scale = Vector2(1, 1)
 
-	if event.is_action_pressed("ui_page_up") or drag_y_direction(event) > 0:
+	if event.is_action_pressed("ui_page_up"):
 		tmap.scale.x += 1
 		tmap.scale.y += 1
-	if event.is_action_pressed("ui_page_down") or drag_y_direction(event) < 0:
+	if event.is_action_pressed("ui_page_down"):
 		tmap.scale.x = max(1, tmap.scale.x - 1)
 		tmap.scale.y = max(1, tmap.scale.y - 1)
 
-func drag_y_direction(event):
-	'Return the amount of pixels in y direction the draf event has produced if above minimal value.'
-	if event is InputEventScreenDrag and event.relative.length() > MINIMAL_DRAG_DETECT:
-		return event.relative.y
-	else:
-		return 0
-
 func _on_Timer_timeout():
 	lbl.visible = false
-
