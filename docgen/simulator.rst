@@ -39,3 +39,18 @@ Module Description
 .. automodule:: flipdotsim
    :members:
    :undoc-members:
+
+Simulator (godot version)
+-------------------------
+
+There is another simulator that relies on the `godot game engine
+<https://www.godotengine.org/>`_. A standalone version for Windows
+and Linux is available from the `projects releases page 
+<https://github.com/tbs1-bo/flipflapflop/releases>`_.
+
+After startup the simulator can be controlled by cursor keys
+(moving the display) and page up/down for scaling the map.
+
+The simulator conforms to the protocol described in the 
+:doc:`net` module: send a sequence of 1s and 0s (in ASCII)
+to port 10101 of the server.
