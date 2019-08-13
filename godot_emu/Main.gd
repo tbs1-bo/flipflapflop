@@ -18,7 +18,7 @@ func _on_screen_resized():
 	var w = map.width
 	var h = map.height
 	lbl.text = "size: %s x %s" % [w, h]
-	get_node("Timer").start()
+	get_node("TimerHideLabel").start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
