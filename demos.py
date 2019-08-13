@@ -15,6 +15,8 @@ import math
 import time
 import random
 import util
+import abc
+
 try:
     import rogueflip
     import pygame
@@ -23,7 +25,7 @@ except ImportError as e:
         Some games may not be runnable!", e)
 
 
-class DemoBase:
+class DemoBase(abc.ABC):
     def __init__(self, flipdotdisplay):
         self.fdd = flipdotdisplay
 
@@ -37,9 +39,10 @@ class DemoBase:
                     self.fdd.px(x, y, val)
             self.fdd.show()
 
+    @abc.abstractmethod
     def handle_px(self, x, y):
         """Specifiy the color pixel a x|y should have by returning truth val."""
-        raise Exception("Must be overriden!")
+        pass
 
     def prepare(self):
         """Do some preparation before update."""
