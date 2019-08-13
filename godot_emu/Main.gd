@@ -2,7 +2,7 @@ extends Node2D
 
 var tmap: TileMap
 var lbl: Label
-const STEP_SIZE = 5  # pixels
+const STEP_SIZE = 50  # pixels
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,13 +23,13 @@ func _on_screen_resized():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_pressed('ui_left'):
-		tmap.position.x -= STEP_SIZE
+		tmap.position.x -= STEP_SIZE * delta
 	if Input.is_action_pressed('ui_right'):
-		tmap.position.x += STEP_SIZE
+		tmap.position.x += STEP_SIZE * delta
 	if Input.is_action_pressed('ui_up'):
-		tmap.position.y -= STEP_SIZE
+		tmap.position.y -= STEP_SIZE * delta
 	if Input.is_action_pressed('ui_down'):
-		tmap.position.y += STEP_SIZE
+		tmap.position.y += STEP_SIZE * delta
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
