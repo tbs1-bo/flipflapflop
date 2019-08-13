@@ -11,6 +11,9 @@ HEIGHT = configuration.HEIGHT
 presentation_file = 'ressources/presentation.tmx'
 fdd = flipdotsim.FlipDotSim(width=WIDTH, height=HEIGHT)
 
+#import net
+#fdd = net.RemoteDisplay()
+
 DISPLAY_WAIT_TIME = 1 / configuration.simulator['fps']
 
 tiled_map = None
