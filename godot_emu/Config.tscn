@@ -6,56 +6,56 @@
 script = ExtResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = 5.0
-margin_top = 23.0
-margin_right = 266.0
-margin_bottom = 130.0
+margin_left = 4.1111
+margin_top = 6.55556
+margin_right = 265.111
+margin_bottom = 113.556
 color = Color( 0.227451, 0.0941176, 0.0941176, 1 )
 
 [node name="LineEditWidth" type="LineEdit" parent="."]
-margin_left = 124.0
-margin_top = 32.0
-margin_right = 182.0
-margin_bottom = 56.0
+margin_left = 123.111
+margin_top = 15.5556
+margin_right = 181.111
+margin_bottom = 39.5556
 rect_pivot_offset = Vector2( 44, 64 )
 text = "28"
 
 [node name="LineEditHeight" type="LineEdit" parent="."]
-margin_left = 195.0
-margin_top = 32.0
-margin_right = 253.0
-margin_bottom = 56.0
+margin_left = 194.111
+margin_top = 15.5556
+margin_right = 252.111
+margin_bottom = 39.5556
 rect_pivot_offset = Vector2( 44, 64 )
 text = "13"
 
 [node name="Label" type="Label" parent="."]
-margin_left = 13.0
-margin_top = 32.0
-margin_right = 96.0
-margin_bottom = 59.0
+margin_left = 12.1111
+margin_top = 15.5556
+margin_right = 95.1111
+margin_bottom = 42.5556
 text = "width, height"
 valign = 1
 
 [node name="Label2" type="Label" parent="."]
-margin_left = 13.8889
-margin_top = 62.2222
-margin_right = 96.8889
-margin_bottom = 89.2222
+margin_left = 13.0
+margin_top = 45.7778
+margin_right = 96.0
+margin_bottom = 72.7778
 text = "scale"
 valign = 1
 
 [node name="Button" type="Button" parent="."]
-margin_left = 21.0
-margin_top = 100.0
-margin_right = 52.0
-margin_bottom = 120.0
+margin_left = 20.1111
+margin_top = 83.5556
+margin_right = 51.1111
+margin_bottom = 103.556
 text = "OK"
 
 [node name="HSliderScale" type="HSlider" parent="."]
-margin_left = 76.0
-margin_top = 69.0
-margin_right = 252.0
-margin_bottom = 85.0
+margin_left = 75.1111
+margin_top = 52.5556
+margin_right = 251.111
+margin_bottom = 68.5556
 min_value = 1.0
 max_value = 5.0
 value = 1.0
