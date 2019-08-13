@@ -40,11 +40,10 @@ func _input(event):
 		tmap.scale = Vector2(1, 1)
 
 	if event.is_action_pressed("ui_page_up"):
-		tmap.scale.x += 1
-		tmap.scale.y += 1
+		tmap.scale += Vector2(1, 1)
 	if event.is_action_pressed("ui_page_down"):
-		tmap.scale.x = max(1, tmap.scale.x - 1)
-		tmap.scale.y = max(1, tmap.scale.y - 1)
+		tmap.scale = Vector2(max(1, tmap.scale.x - 1), 
+							 max(1, tmap.scale.y - 1))
 
 func _on_Timer_timeout():
 	$Label.visible = false
