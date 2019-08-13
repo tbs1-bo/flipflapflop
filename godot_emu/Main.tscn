@@ -19,6 +19,6 @@ one_shot = true
 
 [node name="Config" parent="." instance=ExtResource( 3 )]
 visible = false
-scale = Vector2( 2, 2 )
+scale = Vector2( 1.5, 1.5 )
 [connection signal="timeout" from="TimerHideLabel" to="." method="_on_Timer_timeout"]
 [connection signal="size_changed" from="Config" to="Map" method="_on_Config_size_changed"]
