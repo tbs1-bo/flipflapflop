@@ -1,12 +1,35 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Map.gd" type="Script" id=1]
-[ext_resource path="res://Main.tres" type="TileSet" id=2]
+[ext_resource path="res://Map.tres" type="TileSet" id=2]
 
 [node name="Map" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 6.0
+margin_top = 547.0
+margin_right = 122.0
+margin_bottom = 592.0
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 20, 20 )
 format = 1
+
+[node name="teWidth" type="TextEdit" parent="."]
+margin_left = 135.0
+margin_top = 570.0
+margin_right = 165.0
+margin_bottom = 590.0
+text = "28"
+
+[node name="teHeight" type="TextEdit" parent="."]
+margin_left = 187.0
+margin_top = 570.0
+margin_right = 217.0
+margin_bottom = 590.0
+text = "13"
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="text_changed" from="teWidth" to="." method="_on_teWidth_text_changed"]
+[connection signal="text_changed" from="teHeight" to="." method="_on_teHeight_text_changed"]
