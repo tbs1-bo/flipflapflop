@@ -22,5 +22,7 @@ configuration.py
 # goto project files
 godot_emu/.import/
 godot_emu/export/
+godot_client/.import/
+godot_client/export/
 
 
