@@ -10,11 +10,12 @@ signal size_changed
 #func _process(delta):
 #	pass
 
-
 func _on_Button_pressed():
 	var width = int($Panel/LineEditWidth.text)
 	var height = int($Panel/LineEditHeight.text)
 	var scale = $Panel/HSliderScale.value
 	self.visible = false
 	emit_signal("size_changed", width, height, scale)
-	
+
+func _on_HSliderScale_value_changed(value):
+	$Panel/LabelScale.text = "scale %s" % value

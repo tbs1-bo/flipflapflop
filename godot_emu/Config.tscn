@@ -19,7 +19,7 @@ margin_bottom = 42.5556
 text = "width, height"
 valign = 1
 
-[node name="Label2" type="Label" parent="Panel"]
+[node name="LabelScale" type="Label" parent="Panel"]
 margin_left = 13.0
 margin_top = 45.7778
 margin_right = 96.0
@@ -57,6 +57,8 @@ margin_right = 251.111
 margin_bottom = 68.5556
 min_value = 1.0
 max_value = 5.0
+step = 0.1
 value = 1.0
 ticks_on_borders = true
 [connection signal="pressed" from="Panel/Button" to="." method="_on_Button_pressed"]
+[connection signal="value_changed" from="Panel/HSliderScale" to="." method="_on_HSliderScale_value_changed"]
