@@ -4,9 +4,11 @@ var peer: StreamPeerTCP
 const DEFAULT_PORT = 10101
 
 func connect_to(host):
-	print("connect to %s" % host)
+	print("connect to %s on port %s" % [host, DEFAULT_PORT])
 	peer = StreamPeerTCP.new()
-	peer.connect_to_host(host, DEFAULT_PORT)
+	var err = peer.connect_to_host(host, DEFAULT_PORT)
+	if err != OK:
+		printerr("Unable to connect")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
