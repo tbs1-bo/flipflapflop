@@ -20,7 +20,7 @@ func _ready():
 
 func _on_ButtonConnect_pressed():
 	config.hide()
-	fff.connect_to(line_edit_ip.text)
+	fff.set_host(line_edit_ip.text)
 	fff.init_display(int(line_edit_width.text),
 					  int(line_edit_height.text))
 	fff.visible = true

@@ -4,12 +4,16 @@ var peer: StreamPeerTCP
 const DEFAULT_PORT = 10101
 var display_size
 var tmap
+var server_ip
 
-func connect_to(host):
-	print("connect to %s on port %s" % [host, DEFAULT_PORT])
+func set_host(host):
+	server_ip = host
+
+func connect_to_server():
+	print("connect to %s on port %s" % [server_ip, DEFAULT_PORT])
 	peer = StreamPeerTCP.new()
-	var err = peer.connect_to_host(host, DEFAULT_PORT)
-	if err != OK:
+	var err = peer.connect_to_host(server_ip, DEFAULT_PORT)
+	if err != OK or peer.get_status() != StreamPeerTCP.STATUS_CONNECTED:
 		printerr("Unable to connect")
 
 # Called when the node enters the scene tree for the first time.
@@ -34,10 +38,16 @@ func _input(event):
 		send_to_server()
 
 func send_to_server():
-	# TODO iterate over tiles
-	var data = '10101'
-	print("sending ", data)
-	peer.put_data(data.to_ascii())
+	connect_to_server()
+	var data = ''
+	for cellv in tmap.get_used_cells():
+		data += str(tmap.get_cellv(cellv))
+		
+	#print("sending ", data)
+	var err = peer.put_data(data.to_ascii())
+	if err != OK:
+		print("Unable to send data")
+	#peer.disconnect_from_host()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
