@@ -66,21 +66,30 @@ class TextScroller:
                     self.fdd.px(x, y, draw_dot)
         #self.fdd.show()
 
-    def scrolltext(self, text, font, step=1):
+    def scrolltext(self, text, font, delay=0, step=1):
         """Scroll text with a given font."""
-        running = True
+        """ new: just one time!! """
+        """ TODO: neue scrolltext-Methode, die von "außen" gesteuert wird und
+            selbst kein fdd.show() mehr aufruft und kein Delay erzeugt """
+        #running = True
+        text_width = (len(text) * (font.width-1) + self.fdd.width) // step
         self._clear()
-        spaces = max((self.fdd.width // font.width) - len(text), 0) + 1
-        text = text + ' '*spaces
+        #spaces = max((self.fdd.width // font.width) - len(text), 0) + 1
+        #text = text + ' '*spaces
+        text = text + '         '
         text = text*2
         x = 0
         y = 0
-        while running:
+        #while running:
+        for _ in range(text_width):
             self.text(text, font, (x, y))
             if abs(x) + step >= (len(text)//2) * font.width:
                 x = 0
             else:
                 x = x-step
+            self.fdd.show()
+            import time
+            time.sleep(delay)
 
     def _clear(self):
         for y in range(self.fdd.height):
