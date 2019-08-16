@@ -59,9 +59,12 @@ class TextScroller:
             x2 = x1 + font.width
             for x in range(max(x1, 0), min(x2, self.fdd.width)):
                 for y in range(max(y1, 0), min(y2, self.fdd.height)):
-                    draw_dot = letter[y] & (1<<(x2-x+1)) == (1<<(x2-x+1))
+                    """ make the bit pattern of the letter row right-aligned """
+                    letter_row = letter[y-y1] >> (7-font.width)
+                    """ mask one bit of the pattern """
+                    draw_dot = letter_row & (1<<(x2-x+1)) == (1<<(x2-x+1))
                     self.fdd.px(x, y, draw_dot)
-        self.fdd.show()
+        #self.fdd.show()
 
     def scrolltext(self, text, font, step=1):
         """Scroll text with a given font."""
