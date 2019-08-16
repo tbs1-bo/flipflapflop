@@ -40,16 +40,27 @@ class TextScroller:
 
         >>> import flipdotfont
         >>> import flipdotsim
+        >>> import time
         >>> fds = flipdotsim.FlipDotSim(28)
-        >>> fdw = flipdotfont.TextScroller(fds)
-        >>> fdw.scrolltext('Test 12345!', flipdotfont.big_font(), 1)
+        >>> t = flipdotfont.TextScroller(fds, "Hello world.", 
+                                         flipdotfont.big_font())
+        >>> while True:
+        >>>     t.scrolltext()
+        >>>     fdd.show()
+        >>>     time.sleep(0.1)
 
     """
 
-    def __init__(self, flipdotdisplay):
+    def __init__(self, flipdotdisplay, text, font):
         self.fdd = flipdotdisplay
+        self.font = font
+        self.text = ""
+        self.changetext(text)
+        self.x = 0
+        self.y = 0
+        self.statictext(self.text, font, (self.x, self.y))
 
-    def text(self, text, font, start=(0, 0)):
+    def statictext(self, text, font, start=(0, 0)):
         """Show the given given text with the given font on the display."""
         for l_index in range(len(text)):
             letter = font.letter(text[l_index])
@@ -64,32 +75,21 @@ class TextScroller:
                     """ mask one bit of the pattern """
                     draw_dot = letter_row & (1<<(x2-x+1)) == (1<<(x2-x+1))
                     self.fdd.px(x, y, draw_dot)
-        #self.fdd.show()
+    
+    def scrolltext(self, step=1):
+        """Scroll the text (one step)."""
+        if abs(self.x) + step >= (len(self.text)//2) * self.font.width:
+            self.x = 0
+        else:
+            self.x = self.x-step
+        self.statictext(self.text, self.font, (self.x, self.y))
 
-    def scrolltext(self, text, font, delay=0, step=1):
-        """Scroll text with a given font."""
-        """ new: just one time!! """
-        """ TODO: neue scrolltext-Methode, die von "außen" gesteuert wird und
-            selbst kein fdd.show() mehr aufruft und kein Delay erzeugt """
-        #running = True
-        text_width = (len(text) * (font.width-1) + self.fdd.width) // step
-        self._clear()
-        #spaces = max((self.fdd.width // font.width) - len(text), 0) + 1
-        #text = text + ' '*spaces
-        text = text + '         '
-        text = text*2
-        x = 0
-        y = 0
-        #while running:
-        for _ in range(text_width):
-            self.text(text, font, (x, y))
-            if abs(x) + step >= (len(text)//2) * font.width:
-                x = 0
-            else:
-                x = x-step
-            self.fdd.show()
-            import time
-            time.sleep(delay)
+    def changetext(self, text):
+        """Change the text and add some spaces."""
+        self.text = text
+        spaces = max((self.fdd.width // self.font.width) - len(self.text), 0) + 1
+        self.text = self.text + ' '*spaces
+        self.text = self.text*2
 
     def _clear(self):
         for y in range(self.fdd.height):
