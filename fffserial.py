@@ -62,16 +62,19 @@ class SerialDisplay(displayprovider.DisplayBase):
         if len(byte) > 1:
             byte += '0' * (8 - len(byte))
             byte_sequence.append(int(byte, base=2))
+   
+        self.ser.write(bytes(byte_sequence))
 
     def close(self):
         'Close the serial device'
         self.ser.close()
 
 def demo_simple():
-    ffd = SerialDisplay(width=28, height=13, serial_device=DEVICE, baud=BAUD, buffered=False)
+    ffd = SerialDisplay(width=28, height=13, serial_device=DEVICE, baud=BAUD, buffered=True)
     print("sending pixel")
-    ffd.px(1, 2, False)
-    ffd.close()
+    ffd.px(10, 10, True)
+    ffd.show()
+    #ffd.close()
 
 def demo():
     import demos
@@ -84,5 +87,5 @@ def demo():
         ffd.close()
 
 if __name__ == '__main__':
-    #demo()
-    demo_simple()
+    demo()
+    #demo_simple()
