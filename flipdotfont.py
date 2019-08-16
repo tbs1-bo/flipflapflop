@@ -29,7 +29,7 @@ class Font:
         return letter
 
 def small_font():
-    return Font("ressources/4x6.bdf", 6, 4)
+    return Font("ressources/4x6.bdf", 4, 6)
 
 def big_font():
     return Font("ressources/clR6x12.bdf", 6, 12)
