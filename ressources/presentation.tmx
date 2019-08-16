@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="280" height="13" tilewidth="20" tileheight="20" infinite="0" nextlayerid="9" nextobjectid="1">
- <tileset firstgid="1" name="ff" tilewidth="20" tileheight="20" tilecount="4" columns="4">
-  <image source="rogueflip_tiles.jpg" width="80" height="20"/>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="280" height="13" tilewidth="20" tileheight="20" infinite="0" nextlayerid="10" nextobjectid="14">
+ <tileset firstgid="1" name="ff" tilewidth="20" tileheight="20" tilecount="5" columns="5">
+  <image source="presentation_tiles.jpg" width="100" height="20"/>
   <tile id="0">
    <properties>
     <property name="blink_interval" type="float" value="0"/>
@@ -24,6 +24,12 @@
    <properties>
     <property name="blink_interval" type="float" value="0.5"/>
     <property name="type" value="coin"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="blink_interval" type="float" value="0"/>
+    <property name="type" value="text"/>
    </properties>
   </tile>
  </tileset>
