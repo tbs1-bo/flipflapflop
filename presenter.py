@@ -17,19 +17,28 @@ fdd = flipdotsim.FlipDotSim(width=WIDTH, height=HEIGHT)
 DISPLAY_WAIT_TIME = 1 / configuration.simulator['fps']
 
 tiled_map = None
-tiled_map_objects = {}  # mapping (x,y) to objects
 offsetx, offsety = 0, 0
 display_loop_running = False
 
-def main():
-    global tiled_map, offsetx, offsety, tiled_map_objects
-    tiled_map = pytmx.TiledMap(presentation_file)
+class TiledMap2(pytmx.TiledMap):
+    def __init__(self, filename):
+        super().__init__(filename)
+        self.xy2objects = {}  # maping (x,y) to objects
 
-    for o in tiled_map.objects:
-        print("Object at", int(o.x), int(o.y))
-        # transform pixel into grid coordinates
-        x, y = int(o.x/o.width), int(o.y/o.height)
-        tiled_map_objects[(x, y)] = o
+        for o in self.objects:
+            ox, oy = int(o.x), int(o.y)
+            print("Found Object at %s, %s: %s" % (ox, oy, o.name))
+            # transform pixel into grid coordinates
+            x, y = int(o.x/o.width), int(o.y/o.height)
+            self.xy2objects[(x, y)] = o
+
+    def get_object(self, x, y):
+        return self.xy2objects.get((x,y))
+
+
+def main():
+    global tiled_map, offsetx, offsety
+    tiled_map = TiledMap2(presentation_file)
 
     th = threading.Thread(target=run_display_loop)
     th.start()
@@ -98,13 +107,14 @@ def display(offsetx, offsety):
                 blink_interval = tile_props['blink_interval']
                 fdd.px(x, y, t > blink_interval)
 
-            if (x_, y_) in tiled_map_objects.keys():
-                handle_obj(tiled_map_objects[(x_, y_)])
+            # Check if object a position
+            obj = tiled_map.get_object(x_, y_)
+            if obj is not None:
+                handle_obj(obj)
 
     fdd.show()
 
-def handle_obj(obj):
-    #print("handling", obj)
+def handle_obj(obj: pytmx.TiledObject):
     # TODO handle text nodes
     txt = obj.name
     #print(txt)
