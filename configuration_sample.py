@@ -27,3 +27,8 @@ remote_display = {
 simulator = {
     "fps": 30
 }
+
+
+mqtt_broker = 'mqtt.eclipse.org'
+mqtt_topic_display = 'display'
+mqtt_topic_info = 'display_info'

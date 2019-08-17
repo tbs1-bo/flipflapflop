@@ -6,3 +6,6 @@ pygame
 
 # reading tiled maps for rogueflip
 pytmx
+
+# for mqtt support
+paho-mqtt
