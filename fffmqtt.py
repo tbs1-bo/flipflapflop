@@ -66,12 +66,41 @@ class Mqtt2Display:
         else:
             self.mqtt.loop_forever()
 
-def demo():
-    import flipdotsim
-    fdd = flipdotsim.FlipDotSim()
+class MqttDisplay(displayprovider.DisplayBase):
+    def __init__(self, width, height, broker, topic):
+        '''A display that connects to a broker and publishes pixel data
+        encoded as string of 1s and 0s into the given topic.
+        '''
+        super().__init__(width, height)
 
-    mqtt2disp = Mqtt2Display(BROKER, TOPIC_DISPLAY, TOPIC_INFO, fdd)
-    mqtt2disp.run(background=False)
+        self.topic = topic
+        self.mqtt = paho.mqtt.client.Client()
+        print('connecting to broker', broker)
+        self.mqtt.connect(broker)
+        self.buffer = ['0'] * (width * height)
+
+    def px(self, x, y, val):
+        index = y * self.width + x
+        self.buffer[index] = '1' if val else '0'
+    
+    def show(self):
+        payload = ''.join(self.buffer)
+        self.mqtt.publish(self.topic, payload)
+        #self.mqtt.loop()
+
+def demo():
+    # create simulator and let mqtt messages update the display
+    import flipdotsim
+    fdd_sim = flipdotsim.FlipDotSim(width=configuration.WIDTH, height=configuration.HEIGHT)
+    mqtt2disp = Mqtt2Display(BROKER, TOPIC_DISPLAY, TOPIC_INFO, fdd_sim)
+    mqtt2disp.run(background=True)
+
+    # create mqttdisplay and let demo publish messages into the display topic
+    import demos
+    fdd_mqtt = MqttDisplay(configuration.WIDTH, configuration.HEIGHT, 
+                           BROKER, TOPIC_DISPLAY)
+    demo = demos.RotatingPlasmaDemo(fdd_mqtt)
+    demo.run()
 
 
 if __name__ == '__main__':
