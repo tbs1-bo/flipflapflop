@@ -36,6 +36,8 @@ class Mqtt2Display:
         # publishing info about the display
         self.mqtt.publish(self.topic_info+'/width', self.fdd.width, retain=True)
         self.mqtt.publish(self.topic_info+'/height', self.fdd.height, retain=True)
+        infotxt = 'Send pixel information to topic "%s".' % self.topic_display
+        self.mqtt.publish(self.topic_info+'/info', infotxt, retain=True)
 
     def _on_message(self, client, userdata, msg: paho.mqtt.client.MQTTMessage):
         self.draw_on_display(str(msg.payload, 'ascii'))
