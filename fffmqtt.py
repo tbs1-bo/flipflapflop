@@ -90,7 +90,7 @@ class MqttDisplay(displayprovider.DisplayBase):
         self.mqtt.publish(self.topic, payload)
         #self.mqtt.loop()
 
-def demo():
+def test_rotating_plasma():
     # create simulator and let mqtt messages update the display
     import flipdotsim
     fdd_sim = flipdotsim.FlipDotSim(width=configuration.WIDTH, height=configuration.HEIGHT)
@@ -102,8 +102,12 @@ def demo():
     fdd_mqtt = MqttDisplay(configuration.WIDTH, configuration.HEIGHT, 
                            BROKER, TOPIC_DISPLAY)
     demo = demos.RotatingPlasmaDemo(fdd_mqtt)
-    demo.run()
+    try:
+        print("Starting demo. Press crtl-c to stop.")
+        demo.run()
+    except KeyboardInterrupt:
+        print("Demo finished")
 
 
 if __name__ == '__main__':
-    demo()
+    test_rotating_plasma()
