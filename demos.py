@@ -31,9 +31,11 @@ class DemoBase(abc.ABC):
     def __init__(self, flipdotdisplay):
         self.fdd = flipdotdisplay
 
-    def run(self):
-        'Run the demo in an endless loop.'
-        while True:
+    def run(self, runtime=None):
+        'Run the demo in an endless loop or for a given time (in seconds)'
+        start_time = time.time() 
+
+        while (runtime is None) or (time.time()-start_time) < runtime:
             self.prepare()
             for x in range(self.fdd.width):
                 for y in range(self.fdd.height):
