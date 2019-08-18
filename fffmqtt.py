@@ -91,32 +91,36 @@ class MqttDisplay(displayprovider.DisplayBase):
         #self.mqtt.loop()
 
 def test_mqtt_display():
-    
+    import time
+
     def on_msg(client, userdata, msg:paho.mqtt.client.MQTTMessage):
         userdata['msg_recvd'] = True
-        userdata['test_passed'] = str(msg.payload, 'ascii') == '000100'
+        userdata['test_passed'] = str(msg.payload, 'ascii') == userdata['expected']
 
     broker = 'mqtt.eclipse.org'
     topic = 'mqttdisplay_t'
-    user_data = {'msg_recvd': False, 'test_passed': False}
 
     mqtt = paho.mqtt.client.Client()
-    mqtt.user_data_set(user_data)
     mqtt.on_message = on_msg
     mqtt.connect(broker)
     mqtt.loop_start()
     mqtt.subscribe(topic)    
 
     fdd = MqttDisplay(width=2, height=3, broker=broker, topic=topic)
-    fdd.clear()
-    fdd.px(1,1, True)
-    fdd.show()
 
-    import time
-    time.sleep(1)
+    for x1,y1,x2,y2,exp in [(0,0,1,1, '100100'),
+                            (0,0,1,2, '100001'),
+                            (0,0,1,0, '110000')]:
+        fdd.clear()
+        fdd.px(x1,y1, True)
+        fdd.px(x2,y2, True)
+        user_data = {'msg_recvd': False, 'expected': exp, 'test_passed': False}
+        mqtt.user_data_set(user_data)
+        fdd.show()
 
-    assert user_data['msg_recvd']
-    assert user_data['test_passed']
+        time.sleep(0.4)
+        assert user_data['msg_recvd']
+        assert user_data['test_passed']
 
     mqtt.disconnect()
 
