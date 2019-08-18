@@ -19,9 +19,9 @@ class Mqtt2Display:
         topic is used to publish information about the fdd display on connect.
         '''
         self.mqtt = paho.mqtt.client.Client()
-        self.mqtt.connect(broker)
         self.mqtt.on_connect = self._on_connect
         self.mqtt.on_message = self._on_message
+        self.mqtt.connect(broker)
         self.topic_display = topic_display
         self.topic_info = topic_info
         self.fdd = fdd
