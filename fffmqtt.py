@@ -90,6 +90,37 @@ class MqttDisplay(displayprovider.DisplayBase):
         self.mqtt.publish(self.topic, payload)
         #self.mqtt.loop()
 
+def test_mqtt_display():
+    
+    def on_msg(client, userdata, msg:paho.mqtt.client.MQTTMessage):
+        userdata['msg_recvd'] = True
+        userdata['test_passed'] = str(msg.payload, 'ascii') == '000100'
+
+    broker = 'mqtt.eclipse.org'
+    topic = 'mqttdisplay_t'
+    user_data = {'msg_recvd': False, 'test_passed': False}
+
+    mqtt = paho.mqtt.client.Client()
+    mqtt.user_data_set(user_data)
+    mqtt.on_message = on_msg
+    mqtt.connect(broker)
+    mqtt.loop_start()
+    mqtt.subscribe(topic)    
+
+    fdd = MqttDisplay(width=2, height=3, broker=broker, topic=topic)
+    fdd.clear()
+    fdd.px(1,1, True)
+    fdd.show()
+
+    import time
+    time.sleep(1)
+
+    assert user_data['msg_recvd']
+    assert user_data['test_passed']
+
+    mqtt.disconnect()
+
+
 def test_rotating_plasma():
     # create simulator and let mqtt messages update the display
     import flipdotsim
