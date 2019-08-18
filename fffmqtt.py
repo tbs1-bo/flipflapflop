@@ -139,7 +139,7 @@ def test_rotating_plasma():
     demo = demos.RotatingPlasmaDemo(fdd_mqtt)
     try:
         print("Starting demo. Press crtl-c to stop.")
-        demo.run()
+        demo.run(runtime=2)
     except KeyboardInterrupt:
         print("Demo finished")
 
