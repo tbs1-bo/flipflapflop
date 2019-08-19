@@ -12,3 +12,6 @@ paho-mqtt
 
 # zeroconf/bonjour/mDNS for python
 zeroconf
+
+# for development (tests)
+pytest
