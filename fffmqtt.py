@@ -1,6 +1,3 @@
-# TODO add service discovery for mqtt
-# https://github.com/jstasiak/python-zeroconf/blob/master/README.rst
-
 import paho.mqtt.client
 import configuration
 import displayprovider
@@ -144,5 +141,65 @@ def test_rotating_plasma():
         print("Demo finished")
 
 
+def discover_mqtt_broker(timeout=5):
+    '''Try to discover an MQTT broker on all interaces using zeroconf. 
+    A timeout (in seconds) specifies how long to wait for an answer.
+    An IPv4 adress is returned if a broker has been discovered. 
+    '''
+
+    import time
+    import socket
+
+    # https://github.com/jstasiak/python-zeroconf/blob/master/README.rst
+    from zeroconf import ServiceBrowser, Zeroconf
+    import zeroconf
+
+    # helper class
+    class OneServiceFinder:
+        def __init__(self):
+            self.service_info = None
+
+        def add_service(self, zeroconf, type, name):
+            if self.service_info is None:
+                self.service_info = zeroconf.get_service_info(type, name)
+                print("service found", self.service_info.name)
+
+        def get_ip(self):
+            if not self.service_found():
+                return None
+
+            # assuming IPv4
+            return socket.inet_ntop(socket.AF_INET, self.service_info.addresses[0])
+
+        def service_found(self):
+            return self.service_info is not None
+
+    start_time = time.time()
+
+    zc = Zeroconf()
+    listener = OneServiceFinder()
+    # starts implicitly
+    ServiceBrowser(zc, "_mqtt._tcp.local.", listener)
+
+    waiting = True
+    while waiting:
+        if listener.service_found():
+            waiting = False
+        if time.time()-start_time > timeout:
+            waiting = False
+
+        time.sleep(0.1)
+
+    zc.close()
+    return listener.get_ip()
+
+def test_discover_mqtt_broker():
+    print("Searching Broker")    
+    broker_ip = discover_mqtt_broker()
+    assert '.' in broker_ip
+    print(broker_ip)
+
+
 if __name__ == '__main__':
+    #test_discover_mqtt_broker()
     test_rotating_plasma()
