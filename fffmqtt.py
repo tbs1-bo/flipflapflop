@@ -149,11 +149,7 @@ def test_rotating_plasma():
     fdd_mqtt = MqttDisplay(configuration.WIDTH, configuration.HEIGHT, 
                            BROKER, TOPIC_DISPLAY)
     demo = demos.RotatingPlasmaDemo(fdd_mqtt)
-    try:
-        print("Starting demo. Press crtl-c to stop.")
-        demo.run(runtime=2)
-    except KeyboardInterrupt:
-        print("Demo finished")
+    demo.run(runtime=2)
 
 
 def discover_mqtt_broker(timeout=5):
