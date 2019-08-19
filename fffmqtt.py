@@ -66,6 +66,21 @@ class Mqtt2Display:
             self.mqtt.loop_forever()
 
 class MqttDisplay(displayprovider.DisplayBase):
+    '''
+    A Display that sends all data into a topic of an MQTT broker.
+
+    >>> import fffmqtt
+    >>> fdd = fffmqtt.MqttDisplay(width=2,height=3, 
+    ...     broker='mqtt.eclipse.org', topic='display')
+    connecting to broker mqtt.eclipse.org
+
+    >>> fdd.clear()
+    >>> fdd.px(1,1,True)
+
+    The next line finally sends all data to the topic inside the broker.
+
+    >>> fdd.show()
+    '''
     def __init__(self, width, height, broker, topic):
         '''A display that connects to a broker and publishes pixel data
         encoded as string of 1s and 0s into the given topic.
