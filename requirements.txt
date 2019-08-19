@@ -9,3 +9,6 @@ pytmx
 
 # for mqtt support
 paho-mqtt
+
+# zeroconf/bonjour/mDNS for python
+zeroconf
