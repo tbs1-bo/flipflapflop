@@ -5,6 +5,6 @@ FILES="flipdotsim.py flipdotfont.py displayprovider.py net.py rogueflip.py fffmq
 echo testing $FILES
 python3 -m doctest $FILES
 
-# running tests
+# running tests using pytest
 FILES='fffmqtt.py'
 pytest -v $FILES
