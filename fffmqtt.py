@@ -96,7 +96,7 @@ class MqttDisplay(displayprovider.DisplayBase):
     def px(self, x, y, val):
         index = y * self.width + x
         self.buffer[index] = '1' if val else '0'
-    
+
     def is_px(self, x, y):
         return self.buffer[y * self.width + x] == '1'
     
@@ -104,6 +104,45 @@ class MqttDisplay(displayprovider.DisplayBase):
         payload = ''.join(self.buffer)
         self.mqtt.publish(self.topic, payload)
         #self.mqtt.loop()
+
+class MqttTasmotaDisplay(MqttDisplay):
+    '''Linear (i.e. one dimensionbal) Display that sends information to an MQTT
+    broker respecting the tasmota topic format.
+
+    https://github.com/arendst/Sonoff-Tasmota/wiki/commands#light
+    https://github.com/arendst/Sonoff-Tasmota/wiki/commands#using-backlog
+    '''
+
+    def __init__(self, width, broker, cmnd_base_topic):
+        super().__init__(width, height=1, broker=broker, topic=cmnd_base_topic)
+        self.mqtt.publish(cmnd_base_topic + '/PIXELS', width)
+
+    def show(self):
+        'Will send LEDx #RRGGBB commands in form of BACKLOG command.'
+
+        backlog = ''
+        for i in range(len(self.buffer)):
+            if self.is_px(i, 0):
+                payload = 'ff0000'
+            else:
+                payload = '000000'
+
+            backlog += 'led%s %s;' % (i+1, payload)
+
+        print("sending payload ", len(backlog))
+        self.mqtt.publish(self.topic + "/BACKLOG", backlog)
+
+def test_tasmota_display():
+    num_leds = 4
+    fff = MqttTasmotaDisplay(num_leds, 'mqtt.eclipse.org', 'cmnd/baksonoff')
+
+    import time
+    for i in range(num_leds):
+        print("setting pixel", i)
+        fff.clear()
+        fff.px(i,0, True)
+        fff.show()
+        time.sleep(0.1)
 
 def test_mqtt_display():
     import time
