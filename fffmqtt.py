@@ -97,6 +97,9 @@ class MqttDisplay(displayprovider.DisplayBase):
         index = y * self.width + x
         self.buffer[index] = '1' if val else '0'
     
+    def is_px(self, x, y):
+        return self.buffer[y * self.width + x] == '1'
+    
     def show(self):
         payload = ''.join(self.buffer)
         self.mqtt.publish(self.topic, payload)
