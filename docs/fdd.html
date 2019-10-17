@@ -255,7 +255,7 @@ not only the changes.</p>
 <p>This module contains helper methods for the handling of flipdotdisplays.</p>
 <dl class="function">
 <dt id="util.draw_surface_on_fdd">
-<code class="descclassname">util.</code><code class="descname">draw_surface_on_fdd</code><span class="sig-paren">(</span><em>surface: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f269a3515c0&gt;</em>, <em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_surface_on_fdd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#util.draw_surface_on_fdd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">util.</code><code class="descname">draw_surface_on_fdd</code><span class="sig-paren">(</span><em>surface: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f33ab2615f8&gt;</em>, <em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_surface_on_fdd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#util.draw_surface_on_fdd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw the surface onto the display. You need to invoke show()
 afterwards to make it visible. Black pixels (rgb 0,0,0) are considered
 black and turned off, other colors are considered pixels turned on.
@@ -380,25 +380,36 @@ letter() gets a character and returns a list of 8-bit-integers.</p>
 
 <dl class="class">
 <dt id="flipdotfont.TextScroller">
-<em class="property">class </em><code class="descclassname">flipdotfont.</code><code class="descname">TextScroller</code><span class="sig-paren">(</span><em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">flipdotfont.</code><code class="descname">TextScroller</code><span class="sig-paren">(</span><em>flipdotdisplay</em>, <em>text</em>, <em>font</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write Text on Flipdotdisplays. A simple usage with a FlipDot-Simulator
 is shown in the following.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flipdotfont</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flipdotsim</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">(</span><span class="mi">28</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fdw</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="n">fds</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fdw</span><span class="o">.</span><span class="n">scrolltext</span><span class="p">(</span><span class="s1">&#39;Test 12345!&#39;</span><span class="p">,</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">big_font</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="n">fds</span><span class="p">,</span> <span class="s2">&quot;Hello world.&quot;</span><span class="p">,</span> 
+<span class="gp">... </span>                                <span class="n">flipdotfont</span><span class="o">.</span><span class="n">big_font</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">t</span><span class="o">.</span><span class="n">scrolltext</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">fds</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="method">
-<dt id="flipdotfont.TextScroller.scrolltext">
-<code class="descname">scrolltext</code><span class="sig-paren">(</span><em>text</em>, <em>font</em>, <em>step=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.scrolltext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller.scrolltext" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scroll text with a given font.</p>
+<dt id="flipdotfont.TextScroller.changetext">
+<code class="descname">changetext</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.changetext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller.changetext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the text and add some spaces.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="flipdotfont.TextScroller.text">
-<code class="descname">text</code><span class="sig-paren">(</span><em>text</em>, <em>font</em>, <em>start=(0</em>, <em>0)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller.text" title="Permalink to this definition">¶</a></dt>
+<dt id="flipdotfont.TextScroller.scrolltext">
+<code class="descname">scrolltext</code><span class="sig-paren">(</span><em>step=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.scrolltext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller.scrolltext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scroll the text (one step).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flipdotfont.TextScroller.statictext">
+<code class="descname">statictext</code><span class="sig-paren">(</span><em>text</em>, <em>font</em>, <em>start=(0</em>, <em>0)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.statictext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller.statictext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show the given given text with the given font on the display.</p>
 </dd></dl>
 
