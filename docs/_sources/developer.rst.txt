@@ -64,7 +64,7 @@ Class Diagram
 The following diagram shows classes of the project.
 
 .. image:: ../media/class_diagram.png
-   :target: ../media/class_diagram.png
+   :target: ../_images/class_diagram.png
 
 
 Video Backups
