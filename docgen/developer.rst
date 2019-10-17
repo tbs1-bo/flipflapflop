@@ -57,6 +57,16 @@ hosted on a gitlab server. The script automatically deploys the documentation
 on every commit onto the master branch. An examples can be found 
 `here <https://tbs1-bo.gitlab.io/flipflapflop/>`_.
 
+
+Class Diagram
+-------------
+
+The following diagram shows classes of the project.
+
+.. image:: ../media/class_diagram.png
+   :target: ../media/class_diagram.png
+
+
 Video Backups
 -------------
 

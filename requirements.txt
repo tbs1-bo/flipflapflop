@@ -15,3 +15,7 @@ zeroconf
 
 # for development (tests)
 pytest
+
+# for class diagrams (pyreverse)
+pylint
+
