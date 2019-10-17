@@ -66,8 +66,11 @@ class PygameSurfaceDemo:
         self.surf = pygame.image.load("media/surface_test.png")
         self.surf.set_clip(0, 0, self.fdd.width, self.fdd.height)        
 
-    def run(self):
-        while True:
+    def run(self, runtime=None):
+        'Run the demo in an endless loop or for a given time (in seconds)'
+        start_time = time.time() 
+
+        while (runtime is None) or (time.time()-start_time) < runtime:
             self.update()
             # draw the surface onto the display.
             util.draw_surface_on_fdd(self.surf, self.fdd)
