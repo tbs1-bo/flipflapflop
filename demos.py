@@ -441,6 +441,17 @@ class BinaryClock(DemoBase):
     def handle_px(self, x, y):
         return (x, y) in self.pixels
 
+def test_demos():
+    import flipdotsim
+    fdd = flipdotsim.FlipDotSim()
+    demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
+             RotatingPlasmaDemo(fdd), GameOfLife(fdd), # SnakeGame(fdd),
+             # FlappyDot(fdd), 
+             BinaryClock(fdd), # rogueflip.Game(fdd),
+             PygameSurfaceDemo(fdd)]
+    for demo in demos:
+        print(demo)
+        demo.run(runtime=2)
 
 def main():
     import displayprovider
