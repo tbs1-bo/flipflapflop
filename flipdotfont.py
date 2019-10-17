@@ -44,7 +44,7 @@ class TextScroller:
     >>> fds = flipdotsim.FlipDotSim(28, 13)
     >>> t = flipdotfont.TextScroller(fds, "Hello world.", 
     ...                                 flipdotfont.big_font())
-    >>> while True:
+    >>> for _ in range(20):
     ...     t.scrolltext()
     ...     fds.show()
     ...     time.sleep(0.1)

@@ -45,7 +45,6 @@ Now we can start a client and send some pixels to the server.
     >>> cl.px(2, 3, True)
     >>> cl.show()
     Listening on 0.0.0.0 at port 10101
-    received 12 bytes
 
 The output lines after show() are coming from the server.
 
