@@ -69,10 +69,14 @@ hourHand = Hand(center, 12, radius * 0.5)
 minuteHand = Hand(center, 60, radius * 0.8)
 secondHand = Hand(center, 60, radius * 0.8) 
 
-while True:
-    t = time.localtime()
-    hourHand.update(t[3])
-    minuteHand.update(t[4])
-    secondHand.update(t[5])
-    fdd.show()
-    time.sleep(1)
+def main():
+    while True:
+        t = time.localtime()
+        hourHand.update(t[3])
+        minuteHand.update(t[4])
+        secondHand.update(t[5])
+        fdd.show()
+        time.sleep(1)
+
+if __name__ == '__main__':
+    main()
