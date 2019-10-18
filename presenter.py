@@ -140,7 +140,8 @@ def main():
     # init display: serial interface or simulator as fallback.
     try:
         import fffserial
-        fdd = fffserial.SerialDisplay(width=WIDTH, height=HEIGHT, 
+        fdd = fffserial.SerialDisplay(
+            width=WIDTH, height=HEIGHT,
             serial_device=configuration.flipdotdisplay['serialdevice'],
             baud=configuration.flipdotdisplay['serialbaudrate'])
     except Exception as e:
