@@ -75,7 +75,7 @@ class DisplayServer:
 
             while True:
                 # waiting for connection
-                remote_sock, cl = sock.accept()
+                remote_sock, _cl = sock.accept()
                 buf = remote_sock.recv(self.width * self.height)
                 self.on_request()
                 #print("received", len(buf), "bytes")
@@ -124,7 +124,7 @@ class RemoteDisplay(displayprovider.DisplayBase):
         self.port = port
 
         self.buffer = []
-        for x in range(width):
+        for _x in range(width):
             col = [False] * height
             self.buffer.append(col)
 
