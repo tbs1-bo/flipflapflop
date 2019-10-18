@@ -138,10 +138,19 @@ def test_tiled_map2():
 
 def main():
     tiled_map = TiledMap2(PRESENTATION_FILE)
-    fdd = flipdotsim.FlipDotSim(width=WIDTH, height=HEIGHT)
+
+    # init display: serial interface or simulator as fallback.
+    try:
+        import fffserial
+        fdd = fffserial.SerialDisplay(width=WIDTH, height=HEIGHT, 
+            serial_device=configuration.flipdotdisplay['serialdevice'],
+            baud=configuration.flipdotdisplay['serialbaudrate'])
+    except Exception as e:
+        print(e, "FALLBACK: Using simulator")
+        fdd = flipdotsim.FlipDotSim(width=WIDTH, height=HEIGHT)
+
     presenter = Presenter(fdd, tiled_map, DISPLAY_WAIT_TIME)
     presenter.run()
-
 
 
 if __name__ == '__main__':
