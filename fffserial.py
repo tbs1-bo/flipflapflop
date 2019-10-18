@@ -78,7 +78,7 @@ def demo_simple():
 
 def test_serial():
     fdd = SerialDisplay(width=28, height=13, 
-        # using a seerial debugging device
+        # using a serial dummy device for debugging
         # https://pythonhosted.org/pyserial/url_handlers.html#loop
         serial_device='loop://?logging=debug', 
         buffered=False)
@@ -88,6 +88,8 @@ def test_serial():
     fdd.buffered = True
     fdd.px(10, 10, True)
     fdd.show()
+
+    fdd.close()
 
 def demo():
     import demos
