@@ -73,6 +73,10 @@ class FlipDotSim(displayprovider.DisplayBase):
                 else:
                     self.reset(x, y)
 
+    def close(self):
+        'Deinitialize pygame and close open windows.'
+        pygame.quit()
+
 
 if __name__ == '__main__':
     import flipdotfont
