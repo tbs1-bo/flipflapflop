@@ -124,7 +124,7 @@ class TiledMap2(pytmx.TiledMap):
 
         for o in self.objects:
             ox, oy = int(o.x), int(o.y)
-            print("Found Object at %s, %s: %s" % (ox, oy, o.name))
+            #print("Found Object at %s, %s: %s" % (ox, oy, o.name))
             # transform pixel into grid coordinates
             x, y = int(o.x/o.width), int(o.y/o.height)
             self.xy2objects[(x, y)] = o
