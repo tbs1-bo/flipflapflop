@@ -78,6 +78,32 @@ class FlipDotSim(displayprovider.DisplayBase):
         pygame.quit()
 
 
+def test_flipdot_sim():
+    import time
+
+    fdd = FlipDotSim(width=3, height=2)
+
+    fdd.px(0, 0, True)
+    fdd.px(1, 1, True)
+    fdd.show()
+    time.sleep(0.3)
+
+    fdd.reset(0, 0)
+    fdd.set(1, 0)
+    fdd.show()
+    time.sleep(0.3)
+
+    fdd.clear()
+    fdd.show()
+    time.sleep(0.3)
+
+    fdd.clear(invert=True)
+    fdd.show()
+    time.sleep(0.3)
+
+    fdd.close()
+
+
 if __name__ == '__main__':
     import flipdotfont
     import configuration
