@@ -34,7 +34,7 @@ class Game:
         self.coins = self.world.find_coins()
         print("Found", len(self.coins), "coins.")
 
-        self.textwriter = flipdotfont.TextScroller(flipdotdisplay)
+        self.fdd = flipdotdisplay
 
     def run(self):
         """Start the game running in an endless loop."""
@@ -100,9 +100,12 @@ class Game:
 
     def show_win_message(self):
         font = flipdotfont.big_font()
-        self.textwriter.text("you", font)
+        flipdotfont.TextScroller(self.fdd, "you", font)
+        self.fdd.show()
         time.sleep(2)
-        self.textwriter.text("win", font)
+
+        flipdotfont.TextScroller(self.fdd, "win", font)
+        self.fdd.show()
         time.sleep(2)
 
     def player_try_collect_coin(self):
