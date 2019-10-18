@@ -458,11 +458,11 @@ def test_demos():
 def main():
     import displayprovider
     import configuration
-    #fdd = displayprovider.get_display(
-    #    width=configuration.WIDTH, height=configuration.HEIGHT,
-    #    fallback=displayprovider.Fallback.SIMULATOR)
-    import net
-    fdd = net.RemoteDisplay()
+    fdd = displayprovider.get_display(
+        width=configuration.WIDTH, height=configuration.HEIGHT,
+        fallback=displayprovider.Fallback.SIMULATOR)
+    #import net
+    #fdd = net.RemoteDisplay()
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd),
              FlappyDot(fdd), BinaryClock(fdd), rogueflip.Game(fdd),
