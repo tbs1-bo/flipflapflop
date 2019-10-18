@@ -9,7 +9,7 @@ import configuration
 WIDTH = configuration.WIDTH
 HEIGHT = configuration.HEIGHT
 
-PRESENTATION_FILE = 'ressources/presentation.tmx'
+PRESENTATION_FILE = 'ressources/presentation_lt19.tmx'
 DISPLAY_WAIT_TIME = 1 / configuration.simulator['fps']
 
 class Presenter:
