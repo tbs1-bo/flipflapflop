@@ -25,7 +25,7 @@ remote_display = {
 }
 
 simulator = {
-    "fps": 30
+    "fps": 60
 }
 
 
