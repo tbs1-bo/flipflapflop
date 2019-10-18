@@ -1,5 +1,3 @@
-import displayprovider
-import flipdotfont
 import pytmx
 import flipdotsim
 import threading
