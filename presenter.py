@@ -3,28 +3,64 @@ import flipdotsim
 import threading
 import time
 import configuration
+import pygame
+
 
 WIDTH = configuration.WIDTH
 HEIGHT = configuration.HEIGHT
 
 PRESENTATION_FILE = 'ressources/presentation_lt19.tmx'
-DISPLAY_WAIT_TIME = 1 / configuration.simulator['fps']
+DISPLAY_FPS = configuration.simulator['fps']
 
 class Presenter:
-    def __init__(self, fdd, tiled_map, display_wait_time):
+    def __init__(self, fdd, tiled_map, fps):
         self.fdd = fdd
 
         self.tiled_map = tiled_map
         self.offsetx, self.offsety = 0, 0
         self.display_loop_running = False
-        self.display_wait_time = display_wait_time
+        self.fps = fps
+        self.init_joystick()
 
-    def run_display_loop(self):
+    def init_joystick(self):
+        pygame.init()
+        if pygame.joystick.get_count() == 0:
+            print("No Joystick found")
+        else:
+            print("Joystick found.")
+            joy = pygame.joystick.Joystick(0)
+            joy.init()
+
+    def run_gui_loop(self):
         self.display_loop_running = True
 
+        clock = pygame.time.Clock()
         while self.display_loop_running:
             self.display()
-            time.sleep(self.display_wait_time)
+
+            for ev in pygame.event.get():
+                self.handle_joystick_event(ev)
+
+            clock.tick(self.fps)
+
+        pygame.quit()
+
+    def handle_joystick_event(self, event):
+        x_axis = 0
+        y_axis = 1
+
+        if event.type == pygame.JOYAXISMOTION:
+            if event.axis == x_axis:
+                if event.value < 0:
+                    self.handle_input('a')
+                elif event.value > 0:
+                    self.handle_input('d')
+
+            if event.axis == y_axis:
+                if event.value < 0:
+                    self.handle_input('w')
+                elif event.value > 0:
+                    self.handle_input('s')
 
     def display(self):
         for y in range(self.fdd.height):
@@ -87,7 +123,7 @@ class Presenter:
             0 <= y < self.tiled_map.height
 
     def run(self):
-        th = threading.Thread(target=self.run_display_loop)
+        th = threading.Thread(target=self.run_gui_loop)
         th.start()
 
         while self.display_loop_running:
@@ -97,7 +133,7 @@ class Presenter:
 def test_presenter():
     tiled_map = TiledMap2(PRESENTATION_FILE)
     fdd = flipdotsim.FlipDotSim(width=WIDTH, height=HEIGHT)
-    p = Presenter(fdd, tiled_map, DISPLAY_WAIT_TIME)
+    p = Presenter(fdd, tiled_map, DISPLAY_FPS)
 
     assert not p.on_map(-1, -1)
 
@@ -141,7 +177,7 @@ def main():
         print(e, "FALLBACK: Using simulator")
         fdd = flipdotsim.FlipDotSim(width=WIDTH, height=HEIGHT)
 
-    presenter = Presenter(fdd, tiled_map, DISPLAY_WAIT_TIME)
+    presenter = Presenter(fdd, tiled_map, DISPLAY_FPS)
     presenter.run()
 
 
