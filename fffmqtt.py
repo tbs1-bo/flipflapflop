@@ -193,6 +193,7 @@ def test_rotating_plasma():
     demo = demos.RotatingPlasmaDemo(fdd_mqtt)
     demo.run(runtime=2)
 
+    fdd_sim.close()
 
 def discover_mqtt_broker(timeout=5):
     '''Try to discover an MQTT broker on all interaces using zeroconf. 

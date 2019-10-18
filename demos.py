@@ -453,6 +453,8 @@ def test_demos():
         print(demo)
         demo.run(runtime=2)
 
+    fdd.close()
+
 def main():
     import displayprovider
     import configuration
