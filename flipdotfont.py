@@ -100,3 +100,13 @@ class TextScroller:
 
         self.fdd.show()
 
+def test_text_scroller():
+    import flipdotsim
+    import time
+
+    fdd = flipdotsim.FlipDotSim()
+    font = small_font()
+    tsc = TextScroller(fdd, "Hallo", font)
+    fdd.show()
+    time.sleep(0.5)
+    fdd.close()
