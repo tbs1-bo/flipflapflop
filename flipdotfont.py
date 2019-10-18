@@ -54,7 +54,7 @@ class TextScroller:
     def __init__(self, flipdotdisplay, text, font):
         self.fdd = flipdotdisplay
         self.font = font
-        self.text = ""
+        self.text = text
         self.changetext(text)
         self.x = 0
         self.y = 0
