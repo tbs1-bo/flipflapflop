@@ -97,7 +97,7 @@ class Presenter:
             s = input("wasd rq> ")
             self.handle_input(s)
 
-def test_presented():
+def test_presenter():
     tiled_map = TiledMap2(PRESENTATION_FILE)
     fdd = flipdotsim.FlipDotSim(width=WIDTH, height=HEIGHT)
     p = Presenter(fdd, tiled_map, DISPLAY_WAIT_TIME)
