@@ -40,8 +40,6 @@ class TextScroller:
 
     >>> import flipdotfont
     >>> import flipdotsim
-    pygame 1.9.4
-    Hello from the pygame community. https://www.pygame.org/contribute.html
     >>> import time
     >>> fds = flipdotsim.FlipDotSim(28, 13)
     >>> t = flipdotfont.TextScroller(fds, "Hello world.", 

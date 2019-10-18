@@ -3,6 +3,8 @@
 # running doctests
 FILES="flipdotsim.py flipdotfont.py displayprovider.py net.py rogueflip.py fffmqtt.py"
 echo testing $FILES
+# turn off pygame greeting upon first import
+PYGAME_HIDE_SUPPORT_PROMPT=1
 python3 -m doctest $FILES
 
 # running tests using pytest
