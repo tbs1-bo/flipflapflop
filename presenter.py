@@ -73,7 +73,6 @@ class Presenter:
             self.tiled_map = TiledMap2(self.tiled_map.filename)
         elif userin == 'q':
             self.display_loop_running = False
-            exit(0)
         elif ',' in userin:
             inx, iny = userin.split(',')
             intx, inty = int(inx), int(iny)
@@ -91,7 +90,7 @@ class Presenter:
         th = threading.Thread(target=self.run_display_loop)
         th.start()
 
-        while True:
+        while self.display_loop_running:
             s = input("wasd rq> ")
             self.handle_input(s)
 
@@ -102,16 +101,10 @@ def test_presenter():
 
     assert not p.on_map(-1, -1)
 
-    for i in "wasdr":
+    for i in "wasdrq":
         print("testing input", i)
         p.handle_input(i)
         p.display()
-
-    try:   
-        p.handle_input('q')
-        assert False, "No System Exit occured"
-    except SystemExit:
-        pass
 
     fdd.close()
 
