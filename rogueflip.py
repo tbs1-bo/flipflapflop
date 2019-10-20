@@ -198,7 +198,7 @@ def run_simulator():
     import configuration as conf
     import flipdotsim
     fdd = flipdotsim.FlipDotSim(width=conf.WIDTH, height=conf.HEIGHT)
-    run_width_flipdotdisplay(fdd)
+    run_with_flipdotdisplay(fdd)
 
 
 def run_remote_display():
@@ -208,10 +208,10 @@ def run_remote_display():
     fdd = net.RemoteDisplay(host=conf.remote_display["host"],
         port=conf.remote_display["port"], 
         width=conf.WIDTH, height=conf.HEIGHT)
-    run_width_flipdotdisplay(fdd)
+    run_with_flipdotdisplay(fdd)
 
 
-def run_width_flipdotdisplay(fdd):
+def run_with_flipdotdisplay(fdd):
     g = Game(fdd, DEFAULT_TMX_WORLD_FILE)
     g.run()
 
