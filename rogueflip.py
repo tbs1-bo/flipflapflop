@@ -228,7 +228,9 @@ def test_roguegame():
 
     def user_event_generator():
         print("creating events")
-        for key in [pygame.K_d, pygame.K_a, pygame.K_s, pygame.K_w]:
+        # run to the next screen
+        for k in 'waaasssssdssssasssssssssssssddddddddd':
+            key = ord(k)
             print("posting key event", key)
             ev = pygame.event.Event(pygame.KEYDOWN, key=key)
             pygame.event.post(ev)
