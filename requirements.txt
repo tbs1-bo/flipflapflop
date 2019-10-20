@@ -4,7 +4,7 @@ pyserial
 # needed for the simulator
 pygame
 
-# reading tiled maps for rogueflip
+# reading tiled maps for rogueflip and the presenter
 pytmx
 
 # for mqtt support

@@ -251,7 +251,7 @@ def test_discover_mqtt_broker():
     print("Searching Broker")    
     broker_ip = discover_mqtt_broker()
     assert '.' in broker_ip
-    print(broker_ip)
+    print('service discovered:', broker_ip)
 
 
 if __name__ == '__main__':
