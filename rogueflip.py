@@ -223,20 +223,20 @@ def test_roguegame():
     import threading
     import pygame.event
 
-    fdd = flipdotsim.FlipDotSim()
-    g = Game(fdd, DEFAULT_TMX_WORLD_FILE)
-
     def user_event_generator():
         print("creating events")
         # run to the next screen
         for k in 'waaasssssdssssasssssssssssssddddddddd':
             key = ord(k)
             print("posting key event", key)
-            ev = pygame.event.Event(pygame.KEYDOWN, key=key)
-            pygame.event.post(ev)
-            time.sleep(0.5)
+            pygame.event.post(
+                pygame.event.Event(pygame.KEYDOWN, key=key))
+            time.sleep(0.1)
 
         g.game_running = False
+
+    fdd = flipdotsim.FlipDotSim()
+    g = Game(fdd, 'ressources/rogueflip_testworld.tmx')
 
     th = threading.Thread(target=user_event_generator)
     th.start()
