@@ -15,6 +15,7 @@ class Game:
 
     def __init__(self, flipdotdisplay, worldfile=DEFAULT_TMX_WORLD_FILE):
         self.fdd = flipdotdisplay
+        self.game_running = False
         pygame.init()
         if pygame.joystick.get_count() > 0:
             print("Joystick found")
@@ -38,7 +39,8 @@ class Game:
 
     def run(self):
         """Start the game running in an endless loop."""
-        while True:
+        self.game_running = True
+        while self.game_running:
             self.tick()
             for x in range(self.fdd.width):
                 for y in range(self.fdd.height):
@@ -213,6 +215,30 @@ def run_remote_display():
 
 def run_with_flipdotdisplay(fdd):
     g = Game(fdd, DEFAULT_TMX_WORLD_FILE)
+    g.run()
+
+
+def test_roguegame():
+    import flipdotsim
+    import threading
+    import pygame.event
+
+    fdd = flipdotsim.FlipDotSim()
+    g = Game(fdd, DEFAULT_TMX_WORLD_FILE)
+
+    def user_event_generator():
+        print("creating events")
+        for key in [pygame.K_d, pygame.K_a, pygame.K_s, pygame.K_w]:
+            print("posting key event", key)
+            ev = pygame.event.Event(pygame.KEYDOWN, key=key)
+            pygame.event.post(ev)
+            time.sleep(0.5)
+
+        g.game_running = False
+
+    th = threading.Thread(target=user_event_generator)
+    th.start()
+
     g.run()
 
 
