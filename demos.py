@@ -249,7 +249,7 @@ class SnakeGame(DemoBase):
         self.joystick = None
         self.reset()
 
-    def run(self):
+    def run(self, runtime=None):
         """Overriden from base class."""
         # add joystick if present
         pygame.joystick.init()
@@ -258,7 +258,7 @@ class SnakeGame(DemoBase):
             self.joystick = pygame.joystick.Joystick(0)
             self.joystick.init()
 
-        super().run()
+        super().run(runtime)
 
     def reset(self):
         self.snake_body = [(3, 1), (2, 1), (1, 1)]
