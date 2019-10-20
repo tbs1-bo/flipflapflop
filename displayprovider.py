@@ -12,7 +12,7 @@ class Fallback(enum.Enum):
     SIMULATOR = "simulator"
     REMOTE_DISPLAY = "remote_display"
     DUMMY = "dummy"
-    SERIAL = "serial"
+    I2C = "i2c"
 
 
 class DisplayBase:
@@ -37,10 +37,10 @@ class DisplayBase:
 
 def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
     try:
-        import flipdotdisplay
-        return flipdotdisplay.FlipDotDisplay(width=width, height=height)
+        import fffserial
+        return fffserial.SerialDisplay(width=width, height=height)
 
-    except ImportError as e:
+    except Exception as e:
         print("Unable to create FlipDotDisplay:", e,
               "\nFalling back to", fallback.name)
 
@@ -55,9 +55,9 @@ def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
         elif fallback == Fallback.DUMMY:
             return DisplayBase(width=width, height=height)
 
-        elif fallback == Fallback.SERIAL:
-            import fffserial
-            return fffserial.SerialDisplay(width=width, height=height)
+        elif fallback == Fallback.I2C:
+            import flipdotdisplay
+            return flipdotdisplay.FlipDotDisplay(width=width, height=height)
 
         else:
             raise Exception("No display and no fallback!")
