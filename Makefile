@@ -4,6 +4,8 @@ venv: requirements.txt
 	venv/bin/pip install --upgrade pip
 	venv/bin/pip install -r requirements.txt
 
+configuration.py: configuration_sample.py
+	cp configuration_sample.py configuration.py
 
 media/class_diagram.png: *py venv
 	venv/bin/pyreverse -o png *py
