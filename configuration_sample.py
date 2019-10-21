@@ -11,7 +11,8 @@ flipdotdisplay = {
     "serialdevice": "/dev/ttyUSB0",
     "serialbaudrate": 115200,
     "i2c_address": 0x20,
-    "modules": [18]
+    "modules": [18],
+    "buffered": False
 }
 
 display_server = {

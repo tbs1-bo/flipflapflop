@@ -41,7 +41,8 @@ def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
         return fffserial.SerialDisplay(
             width=width, height=height, 
             serial_device=configuration.flipdotdisplay['serialdevice'],
-            baud=configuration.flipdotdisplay['serialbaudrate'])
+            baud=configuration.flipdotdisplay['serialbaudrate'],
+            buffered=configuration.flipdotdisplay['buffered'])
 
     except Exception as e:
         print("Unable to create FlipDotDisplay:", e,
