@@ -93,23 +93,21 @@ class DisplayServer:
         if s.lower().startswith("size"):
             return "SIZE {w}x{h}".format(w=self.width, h=self.height)
 
-        # draw pixels if enough bytes have been sent
-        elif len(payload) >= self.width * self.height:
-            return self._handle_display_update_request(payload)
-
+        # draw pixels
         else:
-            return "unknown request type"
+            return self._handle_display_update_request(payload)
 
     def _handle_display_update_request(self, payload):
         for y in range(self.height):
             for x in range(self.width):
-                val = chr(payload[y * self.width + x])
-                if val in ("0", "1"):
-                    #print(val, end="")
-                    self.display.px(x, y, val == "1")
+                index = y * self.width + x
+                if  index < len(payload):
+                    val = chr(payload[index])
                 else:
-                    return "bad payload:" + val
-            #print()
+                    val = "0"
+
+                if val in ("0", "1"):
+                    self.display.px(x, y, val == "1")
 
         self.display.show()
         return "OK"
