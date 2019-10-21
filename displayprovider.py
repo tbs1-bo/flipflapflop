@@ -6,7 +6,7 @@ available.
 
 """
 import enum
-
+import configuration
 
 class Fallback(enum.Enum):
     SIMULATOR = "simulator"
@@ -38,7 +38,10 @@ class DisplayBase:
 def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
     try:
         import fffserial
-        return fffserial.SerialDisplay(width=width, height=height)
+        return fffserial.SerialDisplay(
+            width=width, height=height, 
+            serial_device=configuration.flipdotdisplay['serialdevice'],
+            baud=configuration.flipdotdisplay['serialbaudrate'])
 
     except Exception as e:
         print("Unable to create FlipDotDisplay:", e,
