@@ -89,6 +89,12 @@ class DisplayServer:
     def handle_request(self, payload):
         s = str(payload, "ascii")
 
+        import lt19fl
+        if 'flag' in s.lower():
+            return 'wie lautet das motto?'
+        elif lt19fl.EXP in s.lower():
+            return self.lt19()
+            
         # answer with display dimension if desired
         if s.lower().startswith("size"):
             return "SIZE {w}x{h}".format(w=self.width, h=self.height)
@@ -96,6 +102,19 @@ class DisplayServer:
         # draw pixels
         else:
             return self._handle_display_update_request(payload)
+
+    def lt19(self):  # TODO remove later
+        import lt19fl
+        import flipdotfont
+        import time
+
+        txt = flipdotfont.TextScroller(
+            self.display, 'flag discovered :)', flipdotfont.big_font())
+        self.display.show()
+        time.sleep(3)
+        self.display.clear()
+        self.display.show()
+        return lt19fl.FL
 
     def _handle_display_update_request(self, payload):
         for y in range(self.height):
