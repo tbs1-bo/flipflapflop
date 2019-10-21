@@ -21,11 +21,12 @@ import configuration
 try:
     import rogueflip
     import pygame
+    import pygame.time
 except ImportError as e:
     print("Unable to import pygame or rogueflip. \
         Some games may not be runnable!", e)
 
-SLEEP_TIME = 1 / configuration.simulator['fps']
+FPS = configuration.simulator['fps']
 
 class DemoBase(abc.ABC):
     def __init__(self, flipdotdisplay):
@@ -34,6 +35,8 @@ class DemoBase(abc.ABC):
     def run(self, runtime=None):
         'Run the demo in an endless loop or for a given time (in seconds)'
         start_time = time.time() 
+        pygame.init()
+        clock = pygame.time.Clock()
 
         while (runtime is None) or (time.time()-start_time) < runtime:
             self.prepare()
@@ -42,7 +45,7 @@ class DemoBase(abc.ABC):
                     val = self.handle_px(x, y)
                     self.fdd.px(x, y, val)
             self.fdd.show()
-            time.sleep(SLEEP_TIME)
+            clock.tick(FPS)
 
     @abc.abstractmethod
     def handle_px(self, x, y):
@@ -252,6 +255,7 @@ class SnakeGame(DemoBase):
     def run(self, runtime=None):
         """Overriden from base class."""
         # add joystick if present
+        pygame.init()
         pygame.joystick.init()
         print("found", pygame.joystick.get_count(), "Joysticks")
         if pygame.joystick.get_count() > 0:
