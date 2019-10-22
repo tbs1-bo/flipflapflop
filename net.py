@@ -85,6 +85,7 @@ class DisplayServer:
                 try:
                     ans = self.handle_request(buf)
                     remote_sock.send(bytes(ans, "ascii"))
+                    remote_sock.close()
                 except Exception as e:
                     print("ERROR", e)
 
