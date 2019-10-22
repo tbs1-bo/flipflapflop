@@ -185,6 +185,7 @@ def test_networking():
 
     import demos
     demo = demos.RotatingPlasmaDemo(remote_display)
+    demo.fps = 30  # reduce fps for networking
     demo.run(2)
     
     ds.server_running = False
