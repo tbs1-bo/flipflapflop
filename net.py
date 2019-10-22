@@ -63,17 +63,19 @@ class DisplayServer:
         self.height = display.height
         self.display = display
         self.on_request = lambda: None
+        self.server_running = False
 
     def start(self, host="0.0.0.0", port=DEFAULT_PORT):
         print("Starting server for dimension", self.width, "x", self.height,
               "on", host, "at port", port)
         addr = (host, port)
+        self.server_running = True
         with socket.socket() as sock:
             sock.bind(addr)
             print("Listening on", host, "at port", port)
             sock.listen(10)
 
-            while True:
+            while self.server_running:
                 # waiting for connection
                 remote_sock, _cl = sock.accept()
                 buf = remote_sock.recv(self.width * self.height)
