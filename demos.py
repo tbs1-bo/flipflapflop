@@ -29,8 +29,9 @@ except ImportError as e:
 FPS = configuration.simulator['fps']
 
 class DemoBase(abc.ABC):
-    def __init__(self, flipdotdisplay):
+    def __init__(self, flipdotdisplay, fps=FPS):
         self.fdd = flipdotdisplay
+        self.fps = fps
 
     def run(self, runtime=None):
         'Run the demo in an endless loop or for a given time (in seconds)'
@@ -45,7 +46,7 @@ class DemoBase(abc.ABC):
                     val = self.handle_px(x, y)
                     self.fdd.px(x, y, val)
             self.fdd.show()
-            clock.tick(FPS)
+            clock.tick(self.fps)
 
     @abc.abstractmethod
     def handle_px(self, x, y):

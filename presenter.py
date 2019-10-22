@@ -9,7 +9,7 @@ import pygame
 WIDTH = configuration.WIDTH
 HEIGHT = configuration.HEIGHT
 
-PRESENTATION_FILE = 'ressources/presentation_lt19.tmx'
+PRESENTATION_FILE = 'ressources/lt19/presentation_lt19.tmx'
 DISPLAY_FPS = configuration.simulator['fps']
 
 class Presenter:

@@ -63,17 +63,19 @@ class DisplayServer:
         self.height = display.height
         self.display = display
         self.on_request = lambda: None
+        self.server_running = False
 
     def start(self, host="0.0.0.0", port=DEFAULT_PORT):
         print("Starting server for dimension", self.width, "x", self.height,
               "on", host, "at port", port)
         addr = (host, port)
+        self.server_running = True
         with socket.socket() as sock:
             sock.bind(addr)
             print("Listening on", host, "at port", port)
             sock.listen(10)
 
-            while True:
+            while self.server_running:
                 # waiting for connection
                 remote_sock, _cl = sock.accept()
                 buf = remote_sock.recv(self.width * self.height)
@@ -162,6 +164,34 @@ class RemoteDisplay(displayprovider.DisplayBase):
 
         return bytes(payload, "utf8")
 
+def test_networking():
+    import flipdotsim
+    import threading
+    import time
+
+    fdd = flipdotsim.FlipDotSim(width=15, height=15)
+    ds = DisplayServer(fdd)
+    th = threading.Thread(target=ds.start,
+                          kwargs={'host':'127.0.0.1'})
+    th.setDaemon(True)
+    th.start()
+    time.sleep(0.2)  # wait for server to start
+    
+    remote_display = RemoteDisplay(host="127.0.0.1", width=15, height=15)
+    remote_display.px(1, 1, True)
+    remote_display.px(2, 1, True)
+    remote_display.show()
+    time.sleep(0.5)
+
+    import demos
+    demo = demos.RotatingPlasmaDemo(remote_display)
+    demo.fps = 30  # reduce fps for networking
+    demo.run(2)
+    
+    ds.server_running = False
+    th.join(2)
+    fdd.close()
+    #exit()
 
 def main():
     import displayprovider
