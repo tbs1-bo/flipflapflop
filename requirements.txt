@@ -19,3 +19,5 @@ pytest
 # for class diagrams (pyreverse)
 pylint
 
+# for lt19
+jupyter
