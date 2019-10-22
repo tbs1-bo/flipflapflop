@@ -25,4 +25,6 @@ godot_emu/export/
 godot_client/.import/
 godot_client/export/
 
+# jupyter notebooks checkpoints
 
+.ipynb_checkpoints/
