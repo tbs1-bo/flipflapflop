@@ -17,20 +17,16 @@ import random
 import util
 import abc
 import configuration
-
-try:
-    import rogueflip
-    import pygame
-    import pygame.time
-except ImportError as e:
-    print("Unable to import pygame or rogueflip. \
-        Some games may not be runnable!", e)
+import rogueflip
+import pygame
+import pygame.time
 
 FPS = configuration.simulator['fps']
 
 class DemoBase(abc.ABC):
-    def __init__(self, flipdotdisplay):
+    def __init__(self, flipdotdisplay, fps=FPS):
         self.fdd = flipdotdisplay
+        self.fps = fps
 
     def run(self, runtime=None):
         'Run the demo in an endless loop or for a given time (in seconds)'
@@ -45,7 +41,7 @@ class DemoBase(abc.ABC):
                     val = self.handle_px(x, y)
                     self.fdd.px(x, y, val)
             self.fdd.show()
-            clock.tick(FPS)
+            clock.tick(self.fps)
 
     @abc.abstractmethod
     def handle_px(self, x, y):
