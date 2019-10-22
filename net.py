@@ -164,6 +164,33 @@ class RemoteDisplay(displayprovider.DisplayBase):
 
         return bytes(payload, "utf8")
 
+def test_networking():
+    import flipdotsim
+    import threading
+    import time
+
+    fdd = flipdotsim.FlipDotSim(width=15, height=15)
+    ds = DisplayServer(fdd)
+    th = threading.Thread(target=ds.start,
+                          kwargs={'host':'127.0.0.1'})
+    th.setDaemon(True)
+    th.start()
+    time.sleep(0.2)  # wait for server to start
+    
+    remote_display = RemoteDisplay(host="127.0.0.1", width=15, height=15)
+    remote_display.px(1, 1, True)
+    remote_display.px(2, 1, True)
+    remote_display.show()
+    time.sleep(0.5)
+
+    import demos
+    demo = demos.RotatingPlasmaDemo(remote_display)
+    demo.run(2)
+    
+    ds.server_running = False
+    th.join(2)
+    fdd.close()
+    #exit()
 
 def main():
     import displayprovider
