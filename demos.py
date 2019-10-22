@@ -17,14 +17,9 @@ import random
 import util
 import abc
 import configuration
-
-try:
-    import rogueflip
-    import pygame
-    import pygame.time
-except ImportError as e:
-    print("Unable to import pygame or rogueflip. \
-        Some games may not be runnable!", e)
+import rogueflip
+import pygame
+import pygame.time
 
 FPS = configuration.simulator['fps']
 
