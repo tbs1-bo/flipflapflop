@@ -1,6 +1,6 @@
 #!/bin/sh
 
-test -d venv || make venv
+make venv
 
 # running doctests
 FILES="flipdotsim.py flipdotfont.py displayprovider.py net.py rogueflip.py fffmqtt.py"
