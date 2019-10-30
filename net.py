@@ -111,6 +111,7 @@ class DisplayServer:
         import flipdotfont
         import time
 
+        # TODO use shorter text for smaller display.
         txt = flipdotfont.TextScroller(
             self.display, 'flag discovered :)', flipdotfont.big_font())
         self.display.show()
