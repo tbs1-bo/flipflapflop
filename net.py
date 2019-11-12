@@ -106,20 +106,6 @@ class DisplayServer:
         else:
             return self._handle_display_update_request(payload)
 
-    def lt19(self):  # TODO remove later
-        import lt19fl
-        import flipdotfont
-        import time
-
-        # TODO use shorter text for smaller display.
-        txt = flipdotfont.TextScroller(
-            self.display, 'flag found :)', flipdotfont.small_font())
-        self.display.show()
-        time.sleep(3)
-        self.display.clear()
-        self.display.show()
-        return lt19fl.FL
-
     def _handle_display_update_request(self, payload):
         for y in range(self.height):
             for x in range(self.width):
