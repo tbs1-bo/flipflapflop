@@ -31,5 +31,5 @@ simulator = {
 
 
 mqtt_broker = 'mqtt.eclipse.org'
-mqtt_topic_display = 'display'
-mqtt_topic_info = 'display_info'
+mqtt_topic_display = 'fff_display'
+mqtt_topic_info = 'fff_display_info'
