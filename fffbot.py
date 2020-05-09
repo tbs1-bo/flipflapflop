@@ -7,9 +7,9 @@ OUTFILE = 'gamejamdo_2020-05/iidir/irc.freenode.net/%s/in' % IRC_CHANNEL
 OUTFILE_SERVER = 'gamejamdo_2020-05/iidir/irc.freenode.net/in'
 BOTUSER = 'fffbot'
 NUMBER_OF_PLAYERS = 4
-GAMELOOP_SLEEPTIME = 0.1
+GAMELOOP_SLEEPTIME = 0.1  # seconds
 
-PROCESS_DELAY = 2
+PROCESS_DELAY = 1.5  # seconds
 last_process = time.time()
 
 class Pills:
@@ -53,9 +53,9 @@ class Player:
         self.visible_flip_delay = 0.1
 
     def move(self, dx, dy):
-        if self.x + dx < self.fdd.width and self.x + dx >= 0: 
+        if 0 <= self.x + dx < self.fdd.width: 
             self.x += dx
-        if self.y + dy < self.fdd.height and self.y + dy >= 0: 
+        if 0 <= self.y + dy < self.fdd.height: 
             self.y += dy
 
     def draw(self):
@@ -80,6 +80,9 @@ def decode(line):
     else:
         return last_cmd.strip()
 
+# TODO Idee: Es gibt jeweils einen Spieler für Norden, Osten, Süden, Westen. Die Spieler, der
+# Himmelsrichtung bestimmen über eine Textnachricht die Richtung.
+#
 def get_command():
     with open(INFILE, 'rt') as f:
         ls = f.readlines()
@@ -87,18 +90,18 @@ def get_command():
         i = -1
         count = 0
         wasd = {'w':0, 'a':0, 's':0, 'd':0, '': 0}
-        maximum = ''
+        max_vote = ''
         while count < NUMBER_OF_PLAYERS:
             last_cmd = decode(ls[i])
             if last_cmd in ('w', 'a', 's', 'd'):
                 wasd[last_cmd] += 1
                 count += 1
-                if wasd[last_cmd] > wasd[maximum]:
-                    maximum = last_cmd
+                if wasd[last_cmd] > wasd[max_vote]:
+                    max_vote = last_cmd
 
             i -= 1
 
-    return maximum
+    return max_vote
 
 def get_command_old():
     with open(INFILE, 'rt') as f:
