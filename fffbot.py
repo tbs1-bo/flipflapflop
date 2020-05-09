@@ -27,10 +27,11 @@ class Pills:
         'eating pill if at (x,y)'
         if (x, y) in self.pills:
             log("eating pill at", x, y, "pills left", len(self.pills))
-            bot("Pille gefressen.")
             self.pills.remove((x, y))
+            bot("Staub gefressen. %s Staubpartikel übrig." % len(self.pills))
 
         if len(self.pills) == 0:
+            bot("Glückwunsch!")
             self.init_pills()
 
     def init_pills(self):
@@ -118,7 +119,7 @@ def process(command):
     global pl, pills
 
     log("processing", command)
-    #bot("processing " + command)
+
     dx, dy = 0, 0
     if command == 'w': dy -= 1
     elif command == 'a': dx -= 1
@@ -148,9 +149,8 @@ def join_channel(channel):
 def main():
     global last_process
     while True:
-        last_cmd = get_command()
-
         if time.time() - last_process > PROCESS_DELAY:
+            last_cmd = get_command()
             process(last_cmd)
             last_process = time.time()
 
@@ -159,6 +159,8 @@ def main():
         time.sleep(GAMELOOP_SLEEPTIME)
 
 join_channel(IRC_CHANNEL)
+bot("Friss den Staub. Steuere den Staubfänger mit den Tasten WASD.")
+bot("Die letzten %s Eingaben entscheiden über die Richtung." % NUMBER_OF_PLAYERS)
 fdd = get_display()
 pills = Pills(10, fdd)
 pl = Player(fdd)
