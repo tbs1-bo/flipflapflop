@@ -11,12 +11,8 @@ class Pills:
     def __init__(self, num, fdd):
         self.fdd = fdd
         self.pills = []
-        print("generating pills", num)
-        while len(self.pills) < num:
-            randx = random.randint(0, self.fdd.width - 1)
-            randy = random.randint(0, self.fdd.height - 1)
-            if (randx, randy) not in self.pills:
-                self.pills.append((randx, randy))
+        self.num_pills = num
+        self.init_pills()
 
     def draw(self):
         for x, y in self.pills:
@@ -27,6 +23,18 @@ class Pills:
         if (x, y) in self.pills:
             print("eating pill at", x, y, "pills left", len(self.pills))
             self.pills.remove((x, y))
+
+        if len(self.pills) == 0:
+            self.init_pills()
+
+    def init_pills(self):
+        print("generating pills", self.num_pills)
+        while len(self.pills) < self.num_pills:
+            randx = random.randint(0, self.fdd.width - 1)
+            randy = random.randint(0, self.fdd.height - 1)
+            if (randx, randy) not in self.pills:
+                self.pills.append((randx, randy))
+
 
 class Player:
     def __init__(self, fdd):
@@ -54,7 +62,30 @@ def get_display():
     import displayprovider
     return displayprovider.get_display()
 
-def get_command():
+def get_command(bestof=3):
+    with open(INFILE, 'rt') as f:
+        ls = f.readlines()
+
+        lines = ls[-bestof:]
+        wasd = {'w':0, 'a':0, 's':0, 'd':0}
+        best = 'w'
+        for line in lines:
+            fields = line.split(' ')
+            if len(fields) != 3:
+                continue
+
+            _timestamp, _user, last_cmd = fields
+            last_cmd = last_cmd.strip()
+            if last_cmd in ('w', 'a', 's', 'd'):
+                wasd[last_cmd] += 1
+                if wasd[last_cmd] > wasd[best]:
+                    best = last_cmd
+
+    #print("wasd", wasd, "best", best)
+    return best
+
+
+def get_command_old():
     with open(INFILE, 'rt') as f:
         ls = f.readlines()
         fields = ls[-1].split(' ')
