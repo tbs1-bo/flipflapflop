@@ -21,14 +21,14 @@ class Pills:
     def eat_pill(self, x, y):
         'eating pill if at (x,y)'
         if (x, y) in self.pills:
-            print("eating pill at", x, y, "pills left", len(self.pills))
+            log("eating pill at", x, y, "pills left", len(self.pills))
             self.pills.remove((x, y))
 
         if len(self.pills) == 0:
             self.init_pills()
 
     def init_pills(self):
-        print("generating pills", self.num_pills)
+        log("generating pills", self.num_pills)
         while len(self.pills) < self.num_pills:
             randx = random.randint(0, self.fdd.width - 1)
             randy = random.randint(0, self.fdd.height - 1)
@@ -97,10 +97,13 @@ def get_command_old():
 
     return last_cmd
 
+def log(*msgs):
+    print(int(time.time()), *msgs)
+
 def process(command):
     global pl, pills
 
-    print("processing", command)
+    log("processing", command)
     dx, dy = 0, 0
     if command == 'w': dy -= 1
     elif command == 'a': dx -= 1
