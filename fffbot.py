@@ -70,6 +70,10 @@ def get_display():
     return displayprovider.get_display()
 
 def decode(line):
+    '''
+    Each regular line is made of a timestamp, a username and a message. 
+    Special messages come from the user -!-.
+    '''
     fields = line.split(' ')
     if len(fields) != 3:
         return None
