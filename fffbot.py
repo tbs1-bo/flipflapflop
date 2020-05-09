@@ -5,8 +5,8 @@ INFILE = 'gamejamdo_2020-05/iidir/irc.freenode.net/#gamejamdo_fff/out'
 px, py = 5, 5
 
 def get_display():
-    import flipdotdisplay
-    return flipdotdisplay.FlipDotDisplay()
+    import displayprovider
+    return displayprovider.get_display()
 
 def get_command():
     with open(INFILE, 'rt') as f:
