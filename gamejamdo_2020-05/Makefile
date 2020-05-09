@@ -5,5 +5,3 @@ ii/ii:
 	git clone https://git.suckless.org/ii
 	cd ii && make
 
-join:
-	echo '/join #gamejamdo_fff' > iidir/'irc.freenode.net'/in

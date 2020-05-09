@@ -1,10 +1,15 @@
 import time
 import random
-INFILE = 'gamejamdo_2020-05/iidir/irc.freenode.net/#gamejamdo_fff/out'
 
+INFILE = 'gamejamdo_2020-05/iidir/irc.freenode.net/#gamejamdo_fff/out'
+OUTFILE = 'gamejamdo_2020-05/iidir/irc.freenode.net/#gamejamdo_fff/in'
+OUTFILE_SERVER = 'gamejamdo_2020-05/iidir/irc.freenode.net/in'
+IRC_CHANNEL = '#gamejamdo_fff'
+BOTUSER = 'fffbot'
+NUMBER_OF_PLAYERS = 4
 GAMELOOP_SLEEPTIME = 0.1
 
-PROCESS_DELAY = 1
+PROCESS_DELAY = 2
 last_process = time.time()
 
 class Pills:
@@ -22,6 +27,7 @@ class Pills:
         'eating pill if at (x,y)'
         if (x, y) in self.pills:
             log("eating pill at", x, y, "pills left", len(self.pills))
+            bot("Pille gefressen.")
             self.pills.remove((x, y))
 
         if len(self.pills) == 0:
@@ -62,28 +68,36 @@ def get_display():
     import displayprovider
     return displayprovider.get_display()
 
-def get_command(bestof=3):
+def decode(line):
+    fields = line.split(' ')
+    if len(fields) != 3:
+        return None
+
+    _timestamp, user, last_cmd = fields
+    if user == BOTUSER:
+        return None
+    else:
+        return last_cmd.strip()
+
+def get_command():
     with open(INFILE, 'rt') as f:
         ls = f.readlines()
 
-        lines = ls[-bestof:]
-        wasd = {'w':0, 'a':0, 's':0, 'd':0}
-        best = 'w'
-        for line in lines:
-            fields = line.split(' ')
-            if len(fields) != 3:
-                continue
-
-            _timestamp, _user, last_cmd = fields
-            last_cmd = last_cmd.strip()
+        i = -1
+        count = 0
+        wasd = {'w':0, 'a':0, 's':0, 'd':0, '': 0}
+        maximum = ''
+        while count < NUMBER_OF_PLAYERS:
+            last_cmd = decode(ls[i])
             if last_cmd in ('w', 'a', 's', 'd'):
                 wasd[last_cmd] += 1
-                if wasd[last_cmd] > wasd[best]:
-                    best = last_cmd
+                count += 1
+                if wasd[last_cmd] > wasd[maximum]:
+                    maximum = last_cmd
 
-    #print("wasd", wasd, "best", best)
-    return best
+            i -= 1
 
+    return maximum
 
 def get_command_old():
     with open(INFILE, 'rt') as f:
@@ -104,6 +118,7 @@ def process(command):
     global pl, pills
 
     log("processing", command)
+    #bot("processing " + command)
     dx, dy = 0, 0
     if command == 'w': dy -= 1
     elif command == 'a': dx -= 1
@@ -113,6 +128,10 @@ def process(command):
     pl.move(dx ,dy)
     pills.eat_pill(pl.x, pl.y)
 
+def bot(msg):
+    with open(OUTFILE, 'wt') as f:
+        f.write(msg + "\n")
+
 def draw():
     global pl, pills
 
@@ -120,6 +139,11 @@ def draw():
     pl.draw()
     pills.draw()
     fdd.show()
+
+def join_channel(channel):
+    log("joining channel", channel)
+    with open(OUTFILE_SERVER, 'wt') as f:
+        f.write('/JOIN ' + IRC_CHANNEL + '\n')
 
 def main():
     global last_process
@@ -134,6 +158,7 @@ def main():
 
         time.sleep(GAMELOOP_SLEEPTIME)
 
+join_channel(IRC_CHANNEL)
 fdd = get_display()
 pills = Pills(10, fdd)
 pl = Player(fdd)
