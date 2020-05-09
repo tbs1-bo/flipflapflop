@@ -1,10 +1,10 @@
 import time
 import random
 
-INFILE = 'gamejamdo_2020-05/iidir/irc.freenode.net/#gamejamdo_fff/out'
-OUTFILE = 'gamejamdo_2020-05/iidir/irc.freenode.net/#gamejamdo_fff/in'
+IRC_CHANNEL = '#gamejamdo_staubfaenger'
+INFILE = 'gamejamdo_2020-05/iidir/irc.freenode.net/%s/out' % IRC_CHANNEL
+OUTFILE = 'gamejamdo_2020-05/iidir/irc.freenode.net/%s/in' % IRC_CHANNEL
 OUTFILE_SERVER = 'gamejamdo_2020-05/iidir/irc.freenode.net/in'
-IRC_CHANNEL = '#gamejamdo_fff'
 BOTUSER = 'fffbot'
 NUMBER_OF_PLAYERS = 4
 GAMELOOP_SLEEPTIME = 0.1
