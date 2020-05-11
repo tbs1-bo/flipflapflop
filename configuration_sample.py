@@ -1,5 +1,5 @@
 """
-Some default configuration options with default valies.
+Some default configuration options with default values.
 Copy this file to configuration.py and change the values as needed.
 """
 

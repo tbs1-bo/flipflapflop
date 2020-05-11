@@ -95,7 +95,7 @@ def get_command():
         count = 0
         wasd = {'w':0, 'a':0, 's':0, 'd':0, '': 0}
         max_vote = ''
-        while count < NUMBER_OF_PLAYERS:
+        while count < NUMBER_OF_PLAYERS and abs(i) < len(ls):
             last_cmd = decode(ls[i])
             if last_cmd in ('w', 'a', 's', 'd'):
                 wasd[last_cmd] += 1
