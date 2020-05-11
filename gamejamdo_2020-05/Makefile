@@ -5,3 +5,5 @@ ii/ii:
 	git clone https://git.suckless.org/ii
 	cd ii && make
 
+run: ii/ii
+	cd .. && ./venv/bin/python -m gamejamdo_2020-05
