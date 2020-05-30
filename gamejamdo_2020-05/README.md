@@ -1,7 +1,11 @@
 Flipflapflop Display für den Gamejam
 ====================================
 
-Ein Display, welches sich über einen Chat steuern lässt.
+Ein Flipdot-Display, welches sich über einen Chat steuern lässt.
+Wir haben für einen GameJam ein Spiel darauf umgesetzt, welches über
+einen IRC-Chat kontrolliert wird. Es geht darum Staubkörner in Form
+von blinkenden Dots einzusammeln. Die Mehrzahl der Eingabe im Chat
+entscheidet über den jeweils nächsten Zug. 
 
 Mit `make connect` wird ein IRC-Bot in `iidir` gestartet,
 der sich über Dateien auslesen und steuern lässt.
