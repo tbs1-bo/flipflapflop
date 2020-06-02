@@ -14,3 +14,7 @@ In `fffbot.py` befindet sich das Hauptprogramm.
 Im IRC-Channel können die Spieler mit WASD das Display steuern.
 Die Richtung wird per Mehrheitsentscheid über die letzten
 *n* Nachrichten gefällt.
+
+Im Bildungsfern-Podcast beschreiben wir in Folge
+[GameJam Remote](https://bildungsfern-podcast.de/bf36-gamejam-remote-mit-reinhard/)
+das Vorgehen genauer.
