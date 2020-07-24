@@ -145,6 +145,10 @@ void setupDimension() {
 }
 
 void loop() {
+  // To make communication to arduino over USB-Serial work (especial reading),
+  // consider
+  // https://playground.arduino.cc/Main/DisablingAutoResetOnSerialConnection/
+
   if(Serial.available() > 0) {
     int input = Serial.read();
     if(input == 0b11110000) {
