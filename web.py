@@ -19,7 +19,11 @@ display = displayprovider.get_display()
 
 @app.route('/px/<int:x>/<int:y>/<string:onoff>', methods=['GET', 'POST'])
 def px(x, y, onoff):
-    print(x, y, onoff)
+    if not(0 <= x < display.width):
+        return 'x too big', 400
+    if not(0 <= y < display.height):
+        return 'y too big', 400
+
     if onoff == 'on':
         display.px(x, y, True)
         display.show()
@@ -27,6 +31,6 @@ def px(x, y, onoff):
         display.px(x, y, False)
         display.show()
     else:
-        return 'error'
+        return 'value must be "on" or "off"', 400
 
-    return 'ok'
+    return 'ok', 200
