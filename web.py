@@ -2,8 +2,9 @@
 Web-Interface for the display.
 
 Start with
-FLASK_APP=web.py
-flask run --host=0.0.0.0
+
+    $ FLASK_APP=web.py
+    $ flask run --host=0.0.0.0
 
 Use FLASK_ENV=development for a development server.
 
@@ -13,7 +14,7 @@ must "on" or "off". You can send a GET or POST request to theses addreses.
 
 For instance to turn pixel at location (2,3) on you can use
 
-$ curl HOSTNAME/px/2/3/on
+    $ curl HOSTNAME/px/2/3/on
 
 '''
 
