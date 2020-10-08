@@ -17,10 +17,6 @@ import time
 
 display = displayprovider.get_display()
 
-@app.route('/')
-def index():
-    return 'ok'
-
 @app.route('/px/<int:x>/<int:y>/<string:onoff>', methods=['GET', 'POST'])
 def px(x, y, onoff):
     print(x, y, onoff)
