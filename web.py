@@ -34,3 +34,14 @@ def px(x, y, onoff):
         return 'value must be "on" or "off"', 400
 
     return 'ok', 200
+
+def test_px():
+    client = app.test_client()
+    for onoff in ['on', 'off']:
+        for x,y in [(3,5), (11,9)]:
+            resp = client.get(f'/px/{x}/{y}/{onoff}')
+            assert resp.status_code == 200
+            assert resp.data == b'ok'
+    
+    resp = client.get('px/1000/1000/on')
+    assert resp.status_code == 400
