@@ -21,3 +21,6 @@ pylint
 
 # for lt19
 jupyter
+
+# for web
+flask
