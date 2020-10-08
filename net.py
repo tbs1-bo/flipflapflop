@@ -92,12 +92,6 @@ class DisplayServer:
     def handle_request(self, payload):
         s = str(payload, "ascii")
 
-        import lt19fl
-        if 'flag' in s.lower():
-            return 'wie lautet das motto?'
-        elif lt19fl.EXP in s.lower():
-            return self.lt19()
-            
         # answer with display dimension if desired
         if s.lower().startswith("size"):
             return "SIZE {w}x{h}".format(w=self.width, h=self.height)
