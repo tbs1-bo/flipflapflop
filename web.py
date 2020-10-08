@@ -7,6 +7,14 @@ flask run --host=0.0.0.0
 
 Use FLASK_ENV=development for a development server.
 
+The webserver provides an address at location '/px/<x>/<y>/<on or off>' with
+coordinate values for <x> and <y> and a status value for <on or off> which
+must "on" or "off". You can send a GET or POST request to theses addreses.
+
+For instance to turn pixel at location (2,3) on you can use
+
+$ curl HOSTNAME/px/2/3/on
+
 '''
 
 from flask import Flask, request
