@@ -10,11 +10,10 @@ Use FLASK_ENV=development for a development server.
 '''
 
 from flask import Flask, request
-
-app = Flask(__name__)
 import displayprovider
 import time
 
+app = Flask(__name__)
 display = displayprovider.get_display()
 
 @app.route('/px/<int:x>/<int:y>/<string:onoff>', methods=['GET', 'POST'])
