@@ -23,10 +23,13 @@ import displayprovider
 import time
 
 app = Flask(__name__)
-display = displayprovider.get_display()
 
 @app.route('/px/<int:x>/<int:y>/<string:onoff>', methods=['GET', 'POST'])
 def px(x, y, onoff):
+    if 'display' not in app.config:
+        app.config['display'] = displayprovider.get_display()
+
+    display = app.config['display']
     if not(0 <= x < display.width):
         return 'x too big', 400
     if not(0 <= y < display.height):
