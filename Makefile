@@ -11,3 +11,11 @@ media/class_diagram.png: *py venv
 	venv/bin/pyreverse -o png *py
 	mv classes.png media/class_diagram.png
 	rm packages.png
+
+webserver: venv
+	# only one worker to prevent display connection be created multiple times.
+	venv/bin/gunicorn -w 1 -b 0.0.0.0:8000 web:app
+
+FFFHOST=localhost:8000
+webserver_test: 
+	while true; do curl $(FFFHOST)/px/3/2/on; curl $(FFFHOST)/px/3/2/off; done;
