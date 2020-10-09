@@ -27,3 +27,7 @@ jupyter
 # for web
 flask
 gunicorn
+
+# for web2
+hug
+gunicorn
