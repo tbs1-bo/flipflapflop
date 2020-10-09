@@ -27,7 +27,7 @@ app = Flask(__name__)
 def get_display():
     if 'display' not in app.config:
         app.config['display'] = displayprovider.get_display()
-
+    
     return app.config['display']
 
 
@@ -50,6 +50,35 @@ def px(x, y, onoff):
 
     return 'ok', 200
 
+@app.route('/page', methods=['POST'])
+def page():
+    display = get_display()
+
+    data = request.form['data']
+
+    x, y = 0, 0
+    for d in data:
+        if d == '1':
+            onoff = True
+        elif d == '0':
+            onoff = False
+        else:
+            return 'data must be 0 or 1', 400
+
+        if 0 <= x < display.width and 0 <= y < display.height:
+            display.px(x, y, onoff)
+        else:
+            return 'image too big', 400
+
+        if x+1 < display.width:
+            x += 1
+        else:
+            y += 1
+            x = 0
+
+    display.show()
+    return 'ok', 200
+
 def test_px():
     client = app.test_client()
     for onoff in ['on', 'off']:
@@ -60,3 +89,6 @@ def test_px():
     
     resp = client.get('px/1000/1000/on')
     assert resp.status_code == 400
+
+    resp = client.post('/page', data={'data':'110110110'})
+    assert resp.status_code == 200
