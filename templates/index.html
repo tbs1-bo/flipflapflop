@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xml:lang="de" lang="de" 
+      xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Flip Flap Flop</title>
+    <!-- classless stylesheet: https://watercss.kognise.dev/ -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+</head>
+  <body>
+    <h1>Flip Flap Flop Display</h1>
+
+    <iframe src="https://meet.ffmuc.net/flipflapflop" width="800" height="600"></iframe> 
+
+    <p>Das Display kann aus der Ferne gesteuert werden. </p>
+
+    <p><code>{{ request.host }}/px/x/y/onoff</code> setzt (onoff ist 'on') oder löscht 
+        (onoff ist 'off') einen Pixel an der Stelle (x|y) auf 'on':
+        <code>http://{{ request.host }}/px/3/2/on</code>
+    </p>
+
+    <p><code>{{ request.host }}/page</code> erwartet einen POST-Request mit dem Parameter 
+        <code>data</code>, welcher aus 0en und 1en besteht, die wiederum die 
+        Pixel setzen (1) oder löschen (0): <code>$ curl -d data=110110 {{ request.host }}/page</code>
+    </p>
+  </body>
+</html>

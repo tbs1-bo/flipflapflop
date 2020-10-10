@@ -18,7 +18,7 @@ For instance to turn pixel at location (2,3) on you can use
 
 '''
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 import displayprovider
 import time
 
@@ -30,6 +30,9 @@ def get_display():
     
     return app.config['display']
 
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/px/<int:x>/<int:y>/<string:onoff>', methods=['GET', 'POST'])
 def px(x, y, onoff):
@@ -91,4 +94,9 @@ def test_px():
     assert resp.status_code == 400
 
     resp = client.post('/page', data={'data':'110110110'})
+    assert resp.status_code == 200
+
+def test_index():
+    client = app.test_client()
+    resp = client.get('/')
     assert resp.status_code == 200
