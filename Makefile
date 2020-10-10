@@ -12,10 +12,11 @@ media/class_diagram.png: *py venv
 	mv classes.png media/class_diagram.png
 	rm packages.png
 
+FFFHOST=0.0.0.0:8000
 webserver: venv
 	# only one worker to prevent display connection be created multiple times.
-	venv/bin/gunicorn -w 1 -b 0.0.0.0:8000 web:app
+	venv/bin/gunicorn -w 1 -b $(FFFHOST) web:app
 
-FFFHOST=localhost:8000
-webserver_test: 
+webserver_test: venv
+	venv/bin/pytest web.py
 	while true; do curl $(FFFHOST)/px/3/2/on; curl $(FFFHOST)/px/3/2/off; done;
