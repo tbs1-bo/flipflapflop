@@ -93,6 +93,8 @@ def test_px():
     resp = client.get('px/1000/1000/on')
     assert resp.status_code == 400
 
+def test_page():
+    client = app.test_client()
     resp = client.post('/page', data={'data':'110110110'})
     assert resp.status_code == 200
 
