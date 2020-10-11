@@ -21,6 +21,7 @@ For instance to turn pixel at location (2,3) on you can use
 from flask import Flask, request, render_template
 import displayprovider
 import time
+import configuration
 
 app = Flask(__name__)
 
@@ -32,7 +33,11 @@ def get_display():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template(
+        'index.html', 
+        iframe_url=configuration.web_iframe_video_url,
+        iframe_width=configuration.web_iframe_width,
+        iframe_height=configuration.web_iframe_height)
 
 @app.route('/px/<int:x>/<int:y>/<string:onoff>', methods=['GET', 'POST'])
 def px(x, y, onoff):
