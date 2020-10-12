@@ -16,6 +16,8 @@
 
     <p>Das Display kann aus der Ferne gesteuert werden. </p>
 
+    <p>Dimension: {{ dimension }}</p>
+
     <p><code>{{ request.host }}/px/x/y/onoff</code> setzt (onoff ist 'on') oder löscht 
         (onoff ist 'off') einen Pixel an der Stelle (x|y) auf 'on':
         <code>http://{{ request.host }}/px/3/2/on</code>

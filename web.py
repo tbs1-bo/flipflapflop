@@ -33,8 +33,11 @@ def get_display():
 
 @app.route('/')
 def index():
+    display = get_display()
+    dimension = f'{display.width} x {display.height}'
     return render_template(
-        'index.html', 
+        'index.html',
+        dimension=dimension,
         iframe_url=configuration.web_iframe_video_url,
         iframe_width=configuration.web_iframe_width,
         iframe_height=configuration.web_iframe_height)
