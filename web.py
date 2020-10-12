@@ -110,3 +110,24 @@ def test_index():
     client = app.test_client()
     resp = client.get('/')
     assert resp.status_code == 200
+
+def test_plasmademo():
+    from math import sin, cos
+
+    client = app.test_client()
+    display = get_display()
+
+    ticks = 0
+    frames = 100
+    for _ in range(frames):
+        payload = ''
+        for y in range(display.height):
+            for x in range(display.width):
+                ticks += 0.001
+                s = sin(ticks / 50.0) * 2.0 + 6.0
+                v = 0.3 + (0.3 * sin((x * s) + ticks / 4.0) *
+                        cos((y * s) + ticks / 4.0))
+                show_px = v > 0.3
+                payload += '1' if show_px else '0'
+                
+        client.post('/page', data={'data': payload})
