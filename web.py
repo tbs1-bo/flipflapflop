@@ -10,11 +10,19 @@ Use FLASK_ENV=development for a development server.
 
 The webserver provides an address at location '/px/<x>/<y>/<on or off>' with
 coordinate values for <x> and <y> and a status value for <on or off> which
-must "on" or "off". You can send a GET or POST request to theses addreses.
+must "on" or "off". You can send a GET or POST request to this addres.
 
 For instance to turn pixel at location (2,3) on you can use
 
     $ curl HOSTNAME/px/2/3/on
+
+Route /page can be read with method GET or changed with methode POST.
+
+/page (GET) returns a list of 1s and 0s the represent the current display.
+
+/page (POST) expects a parameter data of 1s and 0s to change the current 
+display. Entries with X are ignored and allow for partial updates of the
+display.
 
 '''
 
