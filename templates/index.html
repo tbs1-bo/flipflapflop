@@ -27,5 +27,9 @@
         <code>data</code>, welcher aus 0en und 1en besteht, die wiederum die 
         Pixel setzen (1) oder löschen (0): <code>$ curl -d data=110110 {{ request.host }}/page</code>
     </p>
+
+    <form action='/page' method='POST'>
+      <input type="text" name='data'>
+    </form>
   </body>
 </html>
