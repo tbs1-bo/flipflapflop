@@ -21,7 +21,7 @@ Route /page can be read with method GET or changed with methode POST.
 /page (GET) returns a list of 1s and 0s the represent the current display.
 
 /page (POST) expects a parameter data of 1s and 0s to change the current 
-display. Entries with X are ignored and allow for partial updates of the
+display. Entries with x are ignored and allow for partial updates of the
 display.
 
 '''
@@ -93,7 +93,7 @@ def route_page_post():
             onoff = True
         elif d == '0':
             onoff = False
-        elif d == 'x':
+        elif d in ['x', 'X']:
             onoff = None
         else:
             return 'data must be 0 or 1', 400
@@ -149,7 +149,7 @@ def test_page():
     assert resp.data[:9] == b'110110110'
     assert resp.data[-9:] == b'000000000'
 
-    resp = client.post('/page', data={'data': '000xxxxxx'})
+    resp = client.post('/page', data={'data': '000xxxXXx'})
     assert resp.status_code == 200
     resp = client.get('/page')
     assert resp.data[:9] == b'000110110'
