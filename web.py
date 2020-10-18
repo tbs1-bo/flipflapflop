@@ -28,7 +28,6 @@ display.
 
 from flask import Flask, request, render_template
 import displayprovider
-import time
 import configuration
 
 app = Flask(__name__)
