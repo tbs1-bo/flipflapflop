@@ -31,8 +31,23 @@ def get_display():
     
     return app.config['display']
 
+def get_buffer():
+    if 'buffer' not in app.config:
+        buffersize = get_display().width * get_display().height
+        app.config['buffer'] = [False] * buffersize
+
+    return app.config['buffer']
+
+def set_buffer(x, y, val):
+    buffer = get_buffer()
+    buffer[y * get_display().width + x] = val
+
+def set_px(x, y, val):
+    get_display().px(x, y, val)
+    set_buffer(x, y, val)
+
 @app.route('/')
-def index():
+def route_index():
     display = get_display()
     dimension = f'{display.width} x {display.height}'
     return render_template(
@@ -43,7 +58,7 @@ def index():
         iframe_height=configuration.web_iframe_height)
 
 @app.route('/px/<int:x>/<int:y>/<string:onoff>', methods=['GET', 'POST'])
-def px(x, y, onoff):
+def route_px(x, y, onoff):
     display = get_display()
     if not(0 <= x < display.width):
         return 'x too big', 400
@@ -51,10 +66,10 @@ def px(x, y, onoff):
         return 'y too big', 400
 
     if onoff == 'on':
-        display.px(x, y, True)
+        set_px(x, y, True)
         display.show()
     elif onoff == 'off':
-        display.px(x, y, False)
+        set_px(x, y, False)
         display.show()
     else:
         return 'value must be "on" or "off"', 400
@@ -62,7 +77,7 @@ def px(x, y, onoff):
     return 'ok', 200
 
 @app.route('/page', methods=['POST'])
-def page():
+def route_page_post():
     display = get_display()
 
     data = request.form['data']
@@ -77,7 +92,7 @@ def page():
             return 'data must be 0 or 1', 400
 
         if 0 <= x < display.width and 0 <= y < display.height:
-            display.px(x, y, onoff)
+            set_px(x, y, onoff)
         else:
             return 'image too big', 400
 
@@ -90,8 +105,17 @@ def page():
     display.show()
     return 'ok', 200
 
+@app.route('/page', methods=['GET'])
+def route_page_get():
+    response = ''
+    for b in get_buffer():
+        response += '1' if b else '0'
+
+    return response, 200
+
 def test_px():
     client = app.test_client()
+
     for onoff in ['on', 'off']:
         for x,y in [(3,5), (11,9)]:
             resp = client.get(f'/px/{x}/{y}/{onoff}')
@@ -103,8 +127,16 @@ def test_px():
 
 def test_page():
     client = app.test_client()
+
+    resp = client.get('/page')
+    assert resp.data[:9] == b'000000000'
+
     resp = client.post('/page', data={'data':'110110110'})
     assert resp.status_code == 200
+
+    resp = client.get('/page')
+    assert resp.data[:9] == b'110110110'
+    assert resp.data[-9:] == b'000000000'
 
 def test_index():
     client = app.test_client()
