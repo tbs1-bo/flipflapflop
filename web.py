@@ -38,13 +38,12 @@ def get_buffer():
 
     return app.config['buffer']
 
-def set_buffer(x, y, val):
-    buffer = get_buffer()
-    buffer[y * get_display().width + x] = val
-
 def set_px(x, y, val):
     get_display().px(x, y, val)
-    set_buffer(x, y, val)
+
+    # update buffer
+    buffer = get_buffer()
+    buffer[y * get_display().width + x] = val
 
 @app.route('/')
 def route_index():
