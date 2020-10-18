@@ -85,13 +85,16 @@ def route_page_post():
             onoff = True
         elif d == '0':
             onoff = False
+        elif d == 'x':
+            onoff = None
         else:
             return 'data must be 0 or 1', 400
 
-        if 0 <= x < display.width and 0 <= y < display.height:
-            set_px(x, y, onoff)
-        else:
-            return 'image too big', 400
+        if onoff is not None:
+            if 0 <= x < display.width and 0 <= y < display.height:
+                set_px(x, y, onoff)
+            else:
+                return 'image too big', 400
 
         if x+1 < display.width:
             x += 1
@@ -125,6 +128,9 @@ def test_px():
 def test_page():
     client = app.test_client()
 
+    resp = client.post('/page', data={'data':'000abc'})
+    assert resp.status_code == 400
+
     resp = client.get('/page')
     assert resp.data[:9] == b'000000000'
 
@@ -133,6 +139,12 @@ def test_page():
 
     resp = client.get('/page')
     assert resp.data[:9] == b'110110110'
+    assert resp.data[-9:] == b'000000000'
+
+    resp = client.post('/page', data={'data': '000xxxxxx'})
+    assert resp.status_code == 200
+    resp = client.get('/page')
+    assert resp.data[:9] == b'000110110'
     assert resp.data[-9:] == b'000000000'
 
 def test_index():
