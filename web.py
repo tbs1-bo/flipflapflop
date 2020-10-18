@@ -53,9 +53,7 @@ def route_index():
     return render_template(
         'index.html',
         dimension=dimension,
-        iframe_url=configuration.web_iframe_video_url,
-        iframe_width=configuration.web_iframe_width,
-        iframe_height=configuration.web_iframe_height)
+        web_conference_url=configuration.web_conference_url)
 
 @app.route('/px/<int:x>/<int:y>/<string:onoff>', methods=['GET', 'POST'])
 def route_px(x, y, onoff):

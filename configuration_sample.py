@@ -34,7 +34,4 @@ mqtt_broker = 'mqtt.eclipse.org'
 mqtt_topic_display = 'fff_display'
 mqtt_topic_info = 'fff_display_info'
 
-# URL of an iframe that shows the video of the display in the webserver
-web_iframe_video_url = 'https://meet.ffmuc.net/flipflapflop'
-web_iframe_width = 800
-web_iframe_height = 600
+web_conference_url = 'https://meet.ffmuc.net/flipflapflop'
