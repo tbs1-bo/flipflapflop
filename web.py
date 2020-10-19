@@ -112,6 +112,7 @@ def route_page_post():
     display.show()
     return 'ok', 200
 
+# TODO Splitting the display into areas /page1, /page2, ...
 @app.route('/page', methods=['GET'])
 def route_page_get():
     response = ''
