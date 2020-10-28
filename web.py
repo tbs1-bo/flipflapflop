@@ -126,7 +126,7 @@ def test_px():
 
     for onoff in ['on', 'off']:
         for x,y in [(3,5), (11,9)]:
-            resp = client.get(f'/px/{x}/{y}/{onoff}')
+            resp = client.get('/px/{x}/{y}/{onoff}'.format(x=x, y=y, onoff=onoff))
             assert resp.status_code == 200
             assert resp.data == b'ok'
     
