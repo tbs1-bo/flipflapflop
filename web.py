@@ -55,7 +55,7 @@ def set_px(x, y, val):
 @app.route('/')
 def route_index():
     display = get_display()
-    dimension = f'{display.width} x {display.height}'
+    dimension = str(display.width) + ' x ' + str(display.height)
     return render_template(
         'index.html',
         dimension=dimension,
