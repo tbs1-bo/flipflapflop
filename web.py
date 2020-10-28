@@ -180,3 +180,30 @@ def test_plasmademo():
                 payload += '1' if show_px else '0'
                 
         client.post('/page', data={'data': payload})
+
+def test_plasmademo_remote():
+    from math import sin, cos
+    from urllib.request import urlopen
+    import os
+
+    if 'FFF_IP' in os.environ:
+        host = 'http://' + os.environ['FFF_IP']
+    else:
+        print('No Public ip given in FFF_IP. Ignoring test.')
+        return
+
+    width, height = 28, 13
+    ticks = 0
+    frames = 100
+    for _ in range(frames):
+        payload = ''
+        for y in range(height):
+            for x in range(width):
+                ticks += 0.005
+                s = sin(ticks / 50.0) * 2.0 + 6.0
+                v = 0.3 + (0.3 * sin((x * s) + ticks / 4.0) *
+                        cos((y * s) + ticks / 4.0))
+                show_px = v > 0.3
+                payload += '1' if show_px else '0'
+
+        urlopen(host + '/page', data=('data=' + payload).encode())
