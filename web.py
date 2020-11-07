@@ -29,12 +29,18 @@ display.
 from flask import Flask, request, render_template
 import displayprovider
 import configuration
+import time
+
+DOTS_FLIPPED_INDICATOR = 5000
+STATS_FILE = 'fff_stats.csv'
 
 app = Flask(__name__)
 
 def get_display():
     if 'display' not in app.config:
-        app.config['display'] = displayprovider.get_display()
+        d = displayprovider.get_display()
+        d.dots_flipped = 0
+        app.config['display'] = d
     
     return app.config['display']
 
@@ -46,11 +52,18 @@ def get_buffer():
     return app.config['buffer']
 
 def set_px(x, y, val):
-    get_display().px(x, y, val)
+    d = get_display()
+    d.px(x, y, val)
 
     # update buffer
     buffer = get_buffer()
-    buffer[y * get_display().width + x] = val
+    if buffer[y * get_display().width + x] != val:
+        buffer[y * get_display().width + x] = val
+        d.dots_flipped += 1
+
+        if d.dots_flipped % DOTS_FLIPPED_INDICATOR == 0:
+            with open(STATS_FILE, 'at') as f:
+                f.write(f'{d.dots_flipped};{time.time()}\n')
 
 @app.route('/')
 def route_index():
