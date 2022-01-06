@@ -95,7 +95,7 @@ def route_page_post():
         elif d in ['x', 'X']:
             onoff = None
         else:
-            return 'data must be 0 or 1', 400
+            return 'data must be 0 or 1 or x', 400
 
         if onoff is not None:
             if 0 <= x < display.width and 0 <= y < display.height:
