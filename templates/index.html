@@ -35,7 +35,6 @@
       <code>data</code>, welcher einen Text enthält, der auf dem Display dargestellt werden soll: 
       <code>$ curl -d data=Hallo {{ request.host }}/txt</code>
   </p>
-
   <form>
       <input type="text" id='data' name='data'>
       <input type="button" value="Anzeigen" onclick="showTxt()">
@@ -47,11 +46,8 @@
         let formData = new FormData();
         formData.append('data', data);
       
-        fetch('http://{{ request.host }}/txt', {
+        fetch('{{ request.host_url }}/txt', {
           method: 'POST',
-          //headers: {
-          //  'Content-Type': 'application/x-www-form-urlencoded'
-          //},
           body: formData,
         })
         .then(data => {
