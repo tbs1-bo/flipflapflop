@@ -43,8 +43,6 @@
     <script>
       function showTxt() {
         let data = document.getElementById('data').value;
-        let formData = new FormData();
-        formData.append('data', data);
       
         fetch('{{ request.host_url }}/txt', {
           method: 'POST',
