@@ -11,16 +11,18 @@
   <body>
     <h1>Flipdot Flut</h1>
 
+    <!-- used for LNI 2020 https://wiki.das-labor.org/w/Location_not_included_2020/Flipdotflut
     <a href="{{ web_conference_url }}" target="blank">
       (schaue hier dem Display bei der Arbeit zu)
     </a>
+    -->
 
     <p>Das Display kann aus der Ferne gesteuert werden. </p>
 
     <p>Dimension: {{ dimension }}</p>
 
     <p><code>{{ request.host }}/px/x/y/onoff</code> setzt (onoff ist 'on') oder löscht 
-        (onoff ist 'off') einen Pixel an der Stelle (x|y) auf 'on':
+        (onoff ist 'off') einen Pixel an der Stelle (x|y):
         <code>http://{{ request.host }}/px/3/2/on</code>
     </p>
 
@@ -31,7 +33,7 @@
 
     <p><code>{{ request.host }}/txt</code> erwartet einen POST-Request mit dem Parameter 
       <code>data</code>, welcher einen Text enthält, der auf dem Display dargestellt werden soll: 
-      <code>$ curl -d data=110110 {{ request.host }}/txt</code>
+      <code>$ curl -d data=Hallo {{ request.host }}/txt</code>
   </p>
 
   <form action='/txt' method='POST'>
