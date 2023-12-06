@@ -26,14 +26,14 @@
         <code>http://{{ request.host }}/px/3/2/on</code>
     </p>
 
-    <p><code>{{ request.host }}/page</code> erwartet einen POST-Request mit dem Parameter 
-        <code>data</code>, welcher aus 0en und 1en besteht, die wiederum die 
-        Pixel setzen (1) oder löschen (0): <code>$ curl -d data=110110 {{ request.host }}/page</code>
+    <p><code>{{ request.host }}/page</code> erwartet einen POST-Request, 
+      welcher aus 0en und 1en besteht, die wiederum die 
+      Pixel setzen (1) oder löschen (0): <code>$ curl -d 110110 {{ request.host }}/page</code>
     </p>
 
-    <p><code>{{ request.host }}/txt</code> erwartet einen POST-Request mit dem Parameter 
-      <code>data</code>, welcher einen Text enthält, der auf dem Display dargestellt werden soll: 
-      <code>$ curl -d data=Hallo {{ request.host }}/txt</code>
+    <p><code>{{ request.host }}/txt</code> erwartet einen POST-Request,
+      welcher einen Text enthält, der auf dem Display dargestellt werden soll: 
+      <code>$ curl -d Hallo {{ request.host }}/txt</code>
   </p>
   <form>
       <input type="text" id='data' name='data'>
@@ -48,7 +48,7 @@
       
         fetch('{{ request.host_url }}/txt', {
           method: 'POST',
-          body: formData,
+          body: data
         })
         .then(data => {
           console.log('Success:', data);

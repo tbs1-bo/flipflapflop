@@ -83,19 +83,19 @@ def route_px(x, y, onoff):
 
 @app.route('/txt', methods=['POST'])
 def route_txt_post():
-    display = get_display()
+    txt = request.get_data(as_text=True)
 
-    txt = request.form['data']    
+    display = get_display()
     flipdotfont.TextScroller(display, txt, flipdotfont.small_font())
 
     display.show()
-    return 'ok', 200
+    return f'ok', 200
 
 @app.route('/page', methods=['POST'])
 def route_page_post():
     display = get_display()
 
-    data = request.form['data']
+    data = request.get_data(as_text=True)
 
     x, y = 0, 0
     for d in data:
