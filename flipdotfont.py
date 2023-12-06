@@ -58,20 +58,20 @@ class TextScroller:
         self.changetext(text)
         self.x = 0
         self.y = 0
-        self.statictext(self.text, font, (self.x, self.y))
+        self.statictext(self.text, (self.x, self.y))
 
-    def statictext(self, text, font, start=(0, 0)):
+    def statictext(self, text, start=(0, 0)):
         """Show the given given text with the given font on the display."""
         for l_index in range(len(text)):
-            letter = font.letter(text[l_index])
+            letter = self.font.letter(text[l_index])
             y1 = start[1]
-            y2 = y1 + font.height
-            x1 = start[0] + l_index*font.width
-            x2 = x1 + font.width
+            y2 = y1 + self.font.height
+            x1 = start[0] + l_index * self.font.width
+            x2 = x1 + self.font.width
             for x in range(max(x1, 0), min(x2, self.fdd.width)):
                 for y in range(max(y1, 0), min(y2, self.fdd.height)):
                     """ make the bit pattern of the letter row right-aligned """
-                    letter_row = letter[y-y1] >> (7-font.width)
+                    letter_row = letter[y-y1] >> (7-self.font.width)
                     """ mask one bit of the pattern """
                     draw_dot = letter_row & (1<<(x2-x+1)) == (1<<(x2-x+1))
                     self.fdd.px(x, y, draw_dot)
