@@ -12,6 +12,7 @@ PyTMX = "^3.31"
 paho-mqtt = "^1.6.1"
 zeroconf = "^0.39.3"
 pyserial = "^3.5"
+flask = "^3.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
