@@ -29,7 +29,12 @@
         Pixel setzen (1) oder löschen (0): <code>$ curl -d data=110110 {{ request.host }}/page</code>
     </p>
 
-    <form action='/page' method='POST'>
+    <p><code>{{ request.host }}/txt</code> erwartet einen POST-Request mit dem Parameter 
+      <code>data</code>, welcher einen Text enthält, der auf dem Display dargestellt werden soll: 
+      <code>$ curl -d data=110110 {{ request.host }}/txt</code>
+  </p>
+
+  <form action='/txt' method='POST'>
       <input type="text" name='data'>
     </form>
   </body>

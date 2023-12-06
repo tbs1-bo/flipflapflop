@@ -29,6 +29,7 @@ display.
 from flask import Flask, request, render_template
 import displayprovider
 import configuration
+import flipdotfont
 
 app = Flask(__name__)
 
@@ -78,6 +79,16 @@ def route_px(x, y, onoff):
     else:
         return 'value must be "on" or "off"', 400
 
+    return 'ok', 200
+
+@app.route('/txt', methods=['POST'])
+def route_txt_post():
+    display = get_display()
+
+    txt = request.form['data']    
+    flipdotfont.TextScroller(display, txt, flipdotfont.small_font())
+
+    display.show()
     return 'ok', 200
 
 @app.route('/page', methods=['POST'])
