@@ -25,12 +25,29 @@ display.
 
 /txt (POST) expects a text to display.
 
+/display (GET) returns the current display as JSON.
+
+/display (POST) expects a JSON with a single image or a list of images to 
+display. Each image is a dictionary with the keys "pixels" and "duration_ms".
+The value of "pixels" is a string of 0s and 1s. The value of "duration_ms" is
+the duration of the image in milliseconds. For instance:
+    
+        {
+            "images": [
+                {   
+                    "pixels": "00001100...",
+                    "duration_ms": 1000
+                },
+                ...
+            ]            
+        }
 '''
 
 from flask import Flask, request, render_template
 import displayprovider
 import configuration
 import flipdotfont
+import time
 
 app = Flask(__name__)
 
@@ -127,6 +144,16 @@ def _show(data):
     display.show()
     return 'ok', 200
 
+def _show_sequence(list_of_images):
+    "Show a sequence of images."
+    for image in list_of_images:
+        desc, code = _show(image["pixels"])
+        if code != 200:
+            return "Error in image: " + desc, code
+        time.sleep(image["duration_ms"] / 1000)
+
+    return "ok", 200
+
 @app.route('/page', methods=['GET'])
 def route_page_get():
     "Return the current display as string of 0s and 1s."
@@ -158,10 +185,26 @@ def route_display_post():
     {
         "pixels": "00001100..."
     }
+
+    To send a sequence of images, send a list of images including duration in 
+    ms:
+    {
+        "images": [
+            {   
+                "pixels": "00001100...",
+                "duration_ms": 1000
+            },
+            ...
+        ]
+        
+    }
     """
     data = request.get_json()
-    return _show(data["pixels"])
-    # TODO use route_page_post or common method
+
+    if "pixels" in data:
+        return _show(data["pixels"])
+    if "images" in data:        
+        return _show_sequence(data["images"])
 
 def test_display_get():
     client = app.test_client()
@@ -184,6 +227,15 @@ def test_display_post():
     js = client.get("/display").json
 
     assert js["pixels"][0:len(pixels)] == pixels
+
+    # sequence of images
+    images = []
+    for pxs in ["00001100", "11110000", "00000000"]:
+        images.append({"pixels": pxs, "duration_ms": 100})
+
+    response = client.post("/display", json={"images": images})
+    assert response.status_code == 200
+
 
 def test_px():
     client = app.test_client()
