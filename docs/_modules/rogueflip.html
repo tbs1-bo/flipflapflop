@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,42 +11,45 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> flipflapflop
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> flipflapflop
           
 
           
@@ -67,6 +69,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -85,6 +88,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -123,7 +127,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">Module code</a> &raquo;</li>
         
@@ -158,8 +162,9 @@
 <div class="viewcode-block" id="Game"><a class="viewcode-back" href="../game.html#rogueflip.Game">[docs]</a><span class="k">class</span> <span class="nc">Game</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A roguelike for a flipdot display.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flipdotdisplay</span><span class="p">,</span> <span class="n">worldfile</span><span class="o">=</span><span class="n">DEFAULT_TMX_WORLD_FILE</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flipdotdisplay</span><span class="p">,</span> <span class="n">worldfile</span><span class="o">=</span><span class="n">DEFAULT_TMX_WORLD_FILE</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span> <span class="o">=</span> <span class="n">flipdotdisplay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game_running</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">get_count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Joystick found&quot;</span><span class="p">)</span>
@@ -167,10 +172,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">world</span> <span class="o">=</span> <span class="n">World</span><span class="p">(</span><span class="n">worldfile</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">width</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> \
-               <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">height</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">height</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> \
-               <span class="s2">&quot;Width and height of the map must be a multiple of display width and height&quot;</span>
-               
+
         <span class="c1"># top left position of current view inside the world</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window_top_left</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 
@@ -179,11 +181,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">coins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">find_coins</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coins</span><span class="p">),</span> <span class="s2">&quot;coins.&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">textwriter</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="n">flipdotdisplay</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span> <span class="o">=</span> <span class="n">flipdotdisplay</span>
 
 <div class="viewcode-block" id="Game.run"><a class="viewcode-back" href="../game.html#rogueflip.Game.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Start the game running in an endless loop.&quot;&quot;&quot;</span>
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">width</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> \
+               <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">height</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">height</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> \
+               <span class="s2">&quot;Width and height of the map must be a multiple of display width and height&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">game_running</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_running</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
@@ -245,9 +252,12 @@
 
 <div class="viewcode-block" id="Game.show_win_message"><a class="viewcode-back" href="../game.html#rogueflip.Game.show_win_message">[docs]</a>    <span class="k">def</span> <span class="nf">show_win_message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">font</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">big_font</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">textwriter</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;you&quot;</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+        <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="p">,</span> <span class="s2">&quot;you&quot;</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">textwriter</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;win&quot;</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+
+        <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="p">,</span> <span class="s2">&quot;win&quot;</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Game.player_try_collect_coin"><a class="viewcode-back" href="../game.html#rogueflip.Game.player_try_collect_coin">[docs]</a>    <span class="k">def</span> <span class="nf">player_try_collect_coin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -277,7 +287,7 @@
     <span class="n">COIN</span> <span class="o">=</span> <span class="s1">&#39;coin&#39;</span>
     <span class="n">BACK</span> <span class="o">=</span> <span class="s1">&#39;back&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">worldfile</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">worldfile</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># list of tile types</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">map</span> <span class="o">=</span> <span class="n">pytmx</span><span class="o">.</span><span class="n">TiledMap</span><span class="p">(</span><span class="n">worldfile</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_layer</span> <span class="o">=</span> <span class="mi">0</span>
@@ -318,7 +328,7 @@
 
 
 <div class="viewcode-block" id="GameObject"><a class="viewcode-back" href="../game.html#rogueflip.GameObject">[docs]</a><span class="k">class</span> <span class="nc">GameObject</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">blink_interval</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">blink_interval</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blink_interval</span> <span class="o">=</span> <span class="n">blink_interval</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_updated</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -340,7 +350,7 @@
     <span class="kn">import</span> <span class="nn">configuration</span> <span class="k">as</span> <span class="nn">conf</span>
     <span class="kn">import</span> <span class="nn">flipdotsim</span>
     <span class="n">fdd</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">conf</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">conf</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">)</span>
-    <span class="n">run_width_flipdotdisplay</span><span class="p">(</span><span class="n">fdd</span><span class="p">)</span></div>
+    <span class="n">run_with_flipdotdisplay</span><span class="p">(</span><span class="n">fdd</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="run_remote_display"><a class="viewcode-back" href="../game.html#rogueflip.run_remote_display">[docs]</a><span class="k">def</span> <span class="nf">run_remote_display</span><span class="p">():</span>
@@ -350,11 +360,37 @@
     <span class="n">fdd</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">RemoteDisplay</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">conf</span><span class="o">.</span><span class="n">remote_display</span><span class="p">[</span><span class="s2">&quot;host&quot;</span><span class="p">],</span>
         <span class="n">port</span><span class="o">=</span><span class="n">conf</span><span class="o">.</span><span class="n">remote_display</span><span class="p">[</span><span class="s2">&quot;port&quot;</span><span class="p">],</span> 
         <span class="n">width</span><span class="o">=</span><span class="n">conf</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">conf</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">)</span>
-    <span class="n">run_width_flipdotdisplay</span><span class="p">(</span><span class="n">fdd</span><span class="p">)</span></div>
+    <span class="n">run_with_flipdotdisplay</span><span class="p">(</span><span class="n">fdd</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="run_width_flipdotdisplay"><a class="viewcode-back" href="../game.html#rogueflip.run_width_flipdotdisplay">[docs]</a><span class="k">def</span> <span class="nf">run_width_flipdotdisplay</span><span class="p">(</span><span class="n">fdd</span><span class="p">):</span>
+<div class="viewcode-block" id="run_with_flipdotdisplay"><a class="viewcode-back" href="../game.html#rogueflip.run_with_flipdotdisplay">[docs]</a><span class="k">def</span> <span class="nf">run_with_flipdotdisplay</span><span class="p">(</span><span class="n">fdd</span><span class="p">):</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">Game</span><span class="p">(</span><span class="n">fdd</span><span class="p">,</span> <span class="n">DEFAULT_TMX_WORLD_FILE</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="test_roguegame"><a class="viewcode-back" href="../game.html#rogueflip.test_roguegame">[docs]</a><span class="k">def</span> <span class="nf">test_roguegame</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">flipdotsim</span>
+    <span class="kn">import</span> <span class="nn">threading</span>
+    <span class="kn">import</span> <span class="nn">pygame.event</span>
+
+    <span class="k">def</span> <span class="nf">user_event_generator</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;creating events&quot;</span><span class="p">)</span>
+        <span class="c1"># run to the next screen</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="s1">&#39;waaasssssdssssasssssssssssssddddddddd&#39;</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;posting key event&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">))</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+
+        <span class="n">g</span><span class="o">.</span><span class="n">game_running</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">fdd</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">()</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">Game</span><span class="p">(</span><span class="n">fdd</span><span class="p">,</span> <span class="s1">&#39;ressources/rogueflip_testworld.tmx&#39;</span><span class="p">)</span>
+
+    <span class="n">th</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">user_event_generator</span><span class="p">)</span>
+    <span class="n">th</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
     <span class="n">g</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></div>
 
 
@@ -373,11 +409,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Marco Bakera, Reinhard Gummlich.
+        
+        &copy; Copyright 2019, Marco Bakera, Reinhard Gummlich
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -389,36 +433,16 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

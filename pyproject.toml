@@ -17,6 +17,8 @@ flask = "^3.0.0" # for the web interface
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
 pylint = "^3.0.3" # for class diagrams (pyreverse)
+sphinx = "^7.2.6"
+sphinx-rtd-theme = "^2.0.0"
 
 [build-system]
 requires = ["poetry-core"]

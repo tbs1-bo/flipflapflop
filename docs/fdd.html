@@ -1,87 +1,105 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FlipDotDisplay &mdash; flipflapflop 0.1 documentation</title>
-  
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
   
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-  
-  
-
-  
-
-  
-  
-    
-
-  
-
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=2709fde1"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="FlipDot-Simulator" href="simulator.html" />
     <link rel="prev" title="flipflapflop - FlipDot-Anzeigen ansteuern" href="index.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
+        <div class="wy-side-nav-search" >
 
           
-            <a href="index.html" class="icon icon-home"> flipflapflop
           
-
-          
+          <a href="index.html" class="icon icon-home">
+            flipflapflop
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FlipDotDisplay</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-flipdotdisplay">Module <code class="docutils literal notranslate"><span class="pre">flipdotdisplay</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-util">Module <code class="docutils literal notranslate"><span class="pre">util</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-fffserial">Module <code class="docutils literal notranslate"><span class="pre">fffserial</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#text-on-the-display">Text On The Display</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-0">Module <code class="docutils literal notranslate"><span class="pre">flipdotdisplay</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.__init__"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.__module__"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.__module__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.flipdot"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.flipdot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.printbuffer"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.printbuffer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.px"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.px()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.show"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.show()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.show_deprecated"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.show_deprecated()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-1">Module <code class="docutils literal notranslate"><span class="pre">util</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#util.draw_surface_on_fdd"><code class="docutils literal notranslate"><span class="pre">draw_surface_on_fdd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#util.draw_text_on_fdd"><code class="docutils literal notranslate"><span class="pre">draw_text_on_fdd()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fffserial">Module <code class="docutils literal notranslate"><span class="pre">fffserial</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fffserial.SerialDisplay"><code class="docutils literal notranslate"><span class="pre">SerialDisplay</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.DIMENSION"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.DIMENSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.ECHO"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.ECHO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.PICTURE"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.PICTURE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.PXRESET"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.PXRESET</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.PXSET"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.PXSET</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.__annotations__"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.__annotations__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.__init__"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.__module__"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.__module__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.close"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.px"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.px()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.show"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.show()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fffserial.demo"><code class="docutils literal notranslate"><span class="pre">demo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fffserial.demo_simple"><code class="docutils literal notranslate"><span class="pre">demo_simple()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fffserial.test_serial"><code class="docutils literal notranslate"><span class="pre">test_serial()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#text-on-the-display">Text On The Display</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flipdotfont.Font"><code class="docutils literal notranslate"><span class="pre">Font</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotfont.Font.letter"><code class="docutils literal notranslate"><span class="pre">Font.letter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#flipdotfont.TextScroller"><code class="docutils literal notranslate"><span class="pre">TextScroller</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotfont.TextScroller.changetext"><code class="docutils literal notranslate"><span class="pre">TextScroller.changetext()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotfont.TextScroller.scrolltext"><code class="docutils literal notranslate"><span class="pre">TextScroller.scrolltext()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotfont.TextScroller.statictext"><code class="docutils literal notranslate"><span class="pre">TextScroller.statictext()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#flipdotfont.big_font"><code class="docutils literal notranslate"><span class="pre">big_font()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flipdotfont.small_font"><code class="docutils literal notranslate"><span class="pre">small_font()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flipdotfont.test_text_scroller"><code class="docutils literal notranslate"><span class="pre">test_text_scroller()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="simulator.html">FlipDot-Simulator</a></li>
@@ -90,70 +108,32 @@
 <li class="toctree-l1"><a class="reference internal" href="developer.html">Developer Documentation</a></li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">flipflapflop</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>FlipDotDisplay</li>
-    
-    
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">FlipDotDisplay</li>
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="_sources/fdd.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="flipdotdisplay">
-<h1>FlipDotDisplay<a class="headerlink" href="#flipdotdisplay" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="flipdotdisplay">
+<h1>FlipDotDisplay<a class="headerlink" href="#flipdotdisplay" title="Link to this heading"></a></h1>
 <img alt="_images/display_in_action.jpg" src="_images/display_in_action.jpg" />
 <p>The module must be connected to a RaspberryPi which in turn is connected to
 a port expander. The port expander itself is controlling the flipdot display.
@@ -168,8 +148,8 @@ seperately to one GPIO port on the Raspberry Pi.</p>
     +++---------[one wire per module]--------+----+-----+
 </pre></div>
 </div>
-<div class="section" id="module-flipdotdisplay">
-<span id="module-flipdotdisplay"></span><h2>Module <code class="docutils literal notranslate"><span class="pre">flipdotdisplay</span></code><a class="headerlink" href="#module-flipdotdisplay" title="Permalink to this headline">¶</a></h2>
+<section id="module-0">
+<span id="module-flipdotdisplay"></span><h2>Module <code class="docutils literal notranslate"><span class="pre">flipdotdisplay</span></code><a class="headerlink" href="#module-0" title="Link to this heading"></a></h2>
 <p>The flipdotdisplay package allows for controlling a physical flipdotdisplay. 
 It relies on a portexpander that is connected to the display via I²C or SPI
 on one hand and to a RaspberryPi on the other hand.</p>
@@ -181,13 +161,13 @@ of the display:</p>
 </div>
 <p>First a <a class="reference internal" href="#flipdotdisplay.FlipDotDisplay" title="flipdotdisplay.FlipDotDisplay"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlipDotDisplay</span></code></a> display must be created. We use the default 
 parameters here.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flipdotdisplay</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flipdotdisplay</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span> <span class="o">=</span> <span class="n">flipdotdisplay</span><span class="o">.</span><span class="n">FlipDotDisplay</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The new display can now be used to set the pixels 
 with the <a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.px" title="flipdotdisplay.FlipDotDisplay.px"><code class="xref py py-meth docutils literal notranslate"><span class="pre">px()</span></code></a> method.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span> <span class="kc">True</span><span class="p">)</span>
@@ -195,53 +175,53 @@ with the <a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.px" 
 </div>
 <p>After setting the pixels we need one final step to make them visible on the 
 display with <a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.show" title="flipdotdisplay.FlipDotDisplay.show"><code class="xref py py-meth docutils literal notranslate"><span class="pre">show()</span></code></a>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>A list of default GPIO pins for the modules is 14, 15, 18, 23, 24.</p>
-<dl class="class">
-<dt id="flipdotdisplay.FlipDotDisplay">
-<em class="property">class </em><code class="descclassname">flipdotdisplay.</code><code class="descname">FlipDotDisplay</code><span class="sig-paren">(</span><em>address=32, width=28, height=13, module=[18]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="flipdotdisplay.FlipDotDisplay.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>address=32, width=28, height=13, module=[18]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.__init__" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flipdotdisplay.</span></span><span class="sig-name descname"><span class="pre">FlipDotDisplay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">13</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[18]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay" title="Link to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">13</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[18]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.__init__" title="Link to this definition"></a></dt>
 <dd><p>Create a display connected via a port expander on the given 
 I²C-address. The given module list contains GPIO-ports that connect
 the RaspberryPi with the the module in the display.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="flipdotdisplay.FlipDotDisplay.__module__">
-<code class="descname">__module__</code><em class="property"> = 'flipdotdisplay'</em><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.__module__" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay.__module__">
+<span class="sig-name descname"><span class="pre">__module__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'flipdotdisplay'</span></em><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.__module__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="flipdotdisplay.FlipDotDisplay.flipdot">
-<code class="descname">flipdot</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>val</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.flipdot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.flipdot" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay.flipdot">
+<span class="sig-name descname"><span class="pre">flipdot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.flipdot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.flipdot" title="Link to this definition"></a></dt>
 <dd><p>Immediately flip the dot at (x|y) to the given value.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="flipdotdisplay.FlipDotDisplay.printbuffer">
-<code class="descname">printbuffer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.printbuffer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.printbuffer" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay.printbuffer">
+<span class="sig-name descname"><span class="pre">printbuffer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.printbuffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.printbuffer" title="Link to this definition"></a></dt>
 <dd><p>Print the buffer onto the terminal.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="flipdotdisplay.FlipDotDisplay.px">
-<code class="descname">px</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>val</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.px"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.px" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay.px">
+<span class="sig-name descname"><span class="pre">px</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.px"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.px" title="Link to this definition"></a></dt>
 <dd><p>Write a pixel at (x|y) into the buffer.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="flipdotdisplay.FlipDotDisplay.show">
-<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.show" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.show" title="Link to this definition"></a></dt>
 <dd><p>Maybe a bit faster than show(True)</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="flipdotdisplay.FlipDotDisplay.show_deprecated">
-<code class="descname">show_deprecated</code><span class="sig-paren">(</span><em>fullbuffer=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.show_deprecated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.show_deprecated" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay.show_deprecated">
+<span class="sig-name descname"><span class="pre">show_deprecated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fullbuffer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.show_deprecated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.show_deprecated" title="Link to this definition"></a></dt>
 <dd><p>Show the current buffer on the flip dot display.
 Set the fullbuffer-flag to show the whole buffer on the display and 
 not only the changes.</p>
@@ -249,13 +229,13 @@ not only the changes.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-util">
-<span id="module-util"></span><h2>Module <code class="docutils literal notranslate"><span class="pre">util</span></code><a class="headerlink" href="#module-util" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-1">
+<span id="module-util"></span><h2>Module <code class="docutils literal notranslate"><span class="pre">util</span></code><a class="headerlink" href="#module-1" title="Link to this heading"></a></h2>
 <p>This module contains helper methods for the handling of flipdotdisplays.</p>
-<dl class="function">
-<dt id="util.draw_surface_on_fdd">
-<code class="descclassname">util.</code><code class="descname">draw_surface_on_fdd</code><span class="sig-paren">(</span><em>surface: &lt;sphinx.ext.autodoc.importer._MockObject object at 0x7f33ab2615f8&gt;</em>, <em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_surface_on_fdd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#util.draw_surface_on_fdd" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="util.draw_surface_on_fdd">
+<span class="sig-prename descclassname"><span class="pre">util.</span></span><span class="sig-name descname"><span class="pre">draw_surface_on_fdd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pygame.Surface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flipdotdisplay</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_surface_on_fdd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.draw_surface_on_fdd" title="Link to this definition"></a></dt>
 <dd><p>Draw the surface onto the display. You need to invoke show()
 afterwards to make it visible. Black pixels (rgb 0,0,0) are considered
 black and turned off, other colors are considered pixels turned on.
@@ -264,11 +244,11 @@ of the surface. A demo application is available in
 demos.PygameSurfaceDemo.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="util.draw_text_on_fdd">
-<code class="descclassname">util.</code><code class="descname">draw_text_on_fdd</code><span class="sig-paren">(</span><em>text</em>, <em>fontname</em>, <em>fontsize</em>, <em>flipdotdisplay</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_text_on_fdd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#util.draw_text_on_fdd" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="util.draw_text_on_fdd">
+<span class="sig-prename descclassname"><span class="pre">util.</span></span><span class="sig-name descname"><span class="pre">draw_text_on_fdd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flipdotdisplay</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util.html#draw_text_on_fdd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.draw_text_on_fdd" title="Link to this definition"></a></dt>
 <dd><p>Draw text on a display.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">net</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">net</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">util</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">RemoteDisplay</span><span class="p">(</span><span class="s2">&quot;taylorpi.local&quot;</span><span class="p">)</span>
 <span class="go">Remote display will send data to taylorpi.local on port 10101</span>
@@ -278,218 +258,197 @@ demos.PygameSurfaceDemo.</p>
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="module-fffserial">
-<h2>Module <code class="docutils literal notranslate"><span class="pre">fffserial</span></code><a class="headerlink" href="#module-fffserial" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-fffserial">
+<h2>Module <code class="docutils literal notranslate"><span class="pre">fffserial</span></code><a class="headerlink" href="#module-fffserial" title="Link to this heading"></a></h2>
 <p>The serial module relies on an ardiuno connected to the display that runs
-the <a class="reference download internal" href="_downloads/fffarduino_nano.ino" download=""><code class="xref download docutils literal notranslate"><span class="pre">firmware</span></code></a>.</p>
-<span class="target" id="module-fffserial"></span><p>Module for communicating with the display using a serial interface. The display
+the <a class="reference download internal" download="" href="_downloads/4b27c9e838d0f9d6e9a834f43165c618/fffarduino_nano.ino"><code class="xref download docutils literal notranslate"><span class="pre">firmware</span></code></a>.</p>
+<p id="module-2">Module for communicating with the display using a serial interface. The display
 is connected to an arduino. This packages helps during the
 communication with the device over a serial interface.</p>
-<dl class="class">
-<dt id="fffserial.SerialDisplay">
-<em class="property">class </em><code class="descclassname">fffserial.</code><code class="descname">SerialDisplay</code><span class="sig-paren">(</span><em>width=4</em>, <em>height=3</em>, <em>serial_device='/dev/ttyUSB0'</em>, <em>baud=9600</em>, <em>buffered=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.SerialDisplay" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="attribute">
-<dt id="fffserial.SerialDisplay.DIMENSION">
-<code class="descname">DIMENSION</code><em class="property"> = 144</em><a class="headerlink" href="#fffserial.SerialDisplay.DIMENSION" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fffserial.</span></span><span class="sig-name descname"><span class="pre">SerialDisplay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serial_device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/dev/ttyUSB0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baud</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.SerialDisplay" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.DIMENSION">
+<span class="sig-name descname"><span class="pre">DIMENSION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">144</span></em><a class="headerlink" href="#fffserial.SerialDisplay.DIMENSION" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="fffserial.SerialDisplay.ECHO">
-<code class="descname">ECHO</code><em class="property"> = 240</em><a class="headerlink" href="#fffserial.SerialDisplay.ECHO" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.ECHO">
+<span class="sig-name descname"><span class="pre">ECHO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">240</span></em><a class="headerlink" href="#fffserial.SerialDisplay.ECHO" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="fffserial.SerialDisplay.PICTURE">
-<code class="descname">PICTURE</code><em class="property"> = 129</em><a class="headerlink" href="#fffserial.SerialDisplay.PICTURE" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.PICTURE">
+<span class="sig-name descname"><span class="pre">PICTURE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">129</span></em><a class="headerlink" href="#fffserial.SerialDisplay.PICTURE" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="fffserial.SerialDisplay.PXRESET">
-<code class="descname">PXRESET</code><em class="property"> = 130</em><a class="headerlink" href="#fffserial.SerialDisplay.PXRESET" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.PXRESET">
+<span class="sig-name descname"><span class="pre">PXRESET</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">130</span></em><a class="headerlink" href="#fffserial.SerialDisplay.PXRESET" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="fffserial.SerialDisplay.PXSET">
-<code class="descname">PXSET</code><em class="property"> = 131</em><a class="headerlink" href="#fffserial.SerialDisplay.PXSET" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.PXSET">
+<span class="sig-name descname"><span class="pre">PXSET</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">131</span></em><a class="headerlink" href="#fffserial.SerialDisplay.PXSET" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="fffserial.SerialDisplay.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>width=4</em>, <em>height=3</em>, <em>serial_device='/dev/ttyUSB0'</em>, <em>baud=9600</em>, <em>buffered=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.SerialDisplay.__init__" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.__annotations__">
+<span class="sig-name descname"><span class="pre">__annotations__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#fffserial.SerialDisplay.__annotations__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serial_device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/dev/ttyUSB0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baud</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.SerialDisplay.__init__" title="Link to this definition"></a></dt>
 <dd><p>Create serial display with given dimension. If buffered is True, all 
 calls to px() will write into an internal buffer until a call to 
 show() will send the data.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="fffserial.SerialDisplay.__module__">
-<code class="descname">__module__</code><em class="property"> = 'fffserial'</em><a class="headerlink" href="#fffserial.SerialDisplay.__module__" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.__module__">
+<span class="sig-name descname"><span class="pre">__module__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'fffserial'</span></em><a class="headerlink" href="#fffserial.SerialDisplay.__module__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="fffserial.SerialDisplay.close">
-<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.SerialDisplay.close" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.SerialDisplay.close" title="Link to this definition"></a></dt>
 <dd><p>Close the serial device</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="fffserial.SerialDisplay.px">
-<code class="descname">px</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>val</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.px"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.SerialDisplay.px" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.px">
+<span class="sig-name descname"><span class="pre">px</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.px"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.SerialDisplay.px" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="fffserial.SerialDisplay.show">
-<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.SerialDisplay.show" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.SerialDisplay.show" title="Link to this definition"></a></dt>
 <dd><p>Send the content of the buffer to the display using serial interface.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="fffserial.demo">
-<code class="descclassname">fffserial.</code><code class="descname">demo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#demo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.demo" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="fffserial.demo">
+<span class="sig-prename descclassname"><span class="pre">fffserial.</span></span><span class="sig-name descname"><span class="pre">demo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#demo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.demo" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="fffserial.demo_simple">
-<code class="descclassname">fffserial.</code><code class="descname">demo_simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#demo_simple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fffserial.demo_simple" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="fffserial.demo_simple">
+<span class="sig-prename descclassname"><span class="pre">fffserial.</span></span><span class="sig-name descname"><span class="pre">demo_simple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#demo_simple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.demo_simple" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-</div>
-<div class="section" id="text-on-the-display">
-<h2>Text On The Display<a class="headerlink" href="#text-on-the-display" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="fffserial.test_serial">
+<span class="sig-prename descclassname"><span class="pre">fffserial.</span></span><span class="sig-name descname"><span class="pre">test_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#test_serial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.test_serial" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="text-on-the-display">
+<h2>Text On The Display<a class="headerlink" href="#text-on-the-display" title="Link to this heading"></a></h2>
 <p>The class <a class="reference internal" href="#flipdotfont.TextScroller" title="flipdotfont.TextScroller"><code class="xref py py-class docutils literal notranslate"><span class="pre">flipdotfont.TextScroller</span></code></a> can be used to write text onto the display.
 Another way to bring text onto the dispoay is by using <a class="reference internal" href="#util.draw_text_on_fdd" title="util.draw_text_on_fdd"><code class="xref py py-func docutils literal notranslate"><span class="pre">util.draw_text_on_fdd()</span></code></a>.</p>
-<span class="target" id="module-flipdotfont"></span><dl class="class">
-<dt id="flipdotfont.Font">
-<em class="property">class </em><code class="descclassname">flipdotfont.</code><code class="descname">Font</code><span class="sig-paren">(</span><em>filename</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#Font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.Font" title="Permalink to this definition">¶</a></dt>
+<dl class="py class" id="module-flipdotfont">
+<dt class="sig sig-object py" id="flipdotfont.Font">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flipdotfont.</span></span><span class="sig-name descname"><span class="pre">Font</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#Font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.Font" title="Link to this definition"></a></dt>
 <dd><p>read a .bdf font file
 letter() gets a character and returns a list of 8-bit-integers.</p>
 <p>example 3x4 “T”
 [0b11110000,</p>
 <blockquote>
-<div>0b01100000,
-0b01100000]</div></blockquote>
-<dl class="method">
-<dt id="flipdotfont.Font.letter">
-<code class="descname">letter</code><span class="sig-paren">(</span><em>l</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#Font.letter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.Font.letter" title="Permalink to this definition">¶</a></dt>
+<div><p>0b01100000,
+0b01100000]</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotfont.Font.letter">
+<span class="sig-name descname"><span class="pre">letter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#Font.letter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.Font.letter" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="flipdotfont.TextScroller">
-<em class="property">class </em><code class="descclassname">flipdotfont.</code><code class="descname">TextScroller</code><span class="sig-paren">(</span><em>flipdotdisplay</em>, <em>text</em>, <em>font</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="flipdotfont.TextScroller">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flipdotfont.</span></span><span class="sig-name descname"><span class="pre">TextScroller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flipdotdisplay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.TextScroller" title="Link to this definition"></a></dt>
 <dd><p>Write Text on Flipdotdisplays. A simple usage with a FlipDot-Simulator
 is shown in the following.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flipdotfont</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flipdotfont</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flipdotsim</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">time</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="n">fds</span><span class="p">,</span> <span class="s2">&quot;Hello world.&quot;</span><span class="p">,</span> 
 <span class="gp">... </span>                                <span class="n">flipdotfont</span><span class="o">.</span><span class="n">big_font</span><span class="p">())</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">t</span><span class="o">.</span><span class="n">scrolltext</span><span class="p">()</span>
 <span class="gp">... </span>    <span class="n">fds</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="gp">... </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="method">
-<dt id="flipdotfont.TextScroller.changetext">
-<code class="descname">changetext</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.changetext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller.changetext" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotfont.TextScroller.changetext">
+<span class="sig-name descname"><span class="pre">changetext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.changetext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.TextScroller.changetext" title="Link to this definition"></a></dt>
 <dd><p>Change the text and add some spaces.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="flipdotfont.TextScroller.scrolltext">
-<code class="descname">scrolltext</code><span class="sig-paren">(</span><em>step=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.scrolltext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller.scrolltext" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotfont.TextScroller.scrolltext">
+<span class="sig-name descname"><span class="pre">scrolltext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.scrolltext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.TextScroller.scrolltext" title="Link to this definition"></a></dt>
 <dd><p>Scroll the text (one step).</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="flipdotfont.TextScroller.statictext">
-<code class="descname">statictext</code><span class="sig-paren">(</span><em>text</em>, <em>font</em>, <em>start=(0</em>, <em>0)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.statictext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.TextScroller.statictext" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotfont.TextScroller.statictext">
+<span class="sig-name descname"><span class="pre">statictext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#TextScroller.statictext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.TextScroller.statictext" title="Link to this definition"></a></dt>
 <dd><p>Show the given given text with the given font on the display.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="flipdotfont.big_font">
-<code class="descclassname">flipdotfont.</code><code class="descname">big_font</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#big_font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.big_font" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="flipdotfont.big_font">
+<span class="sig-prename descclassname"><span class="pre">flipdotfont.</span></span><span class="sig-name descname"><span class="pre">big_font</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#big_font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.big_font" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="flipdotfont.small_font">
-<code class="descclassname">flipdotfont.</code><code class="descname">small_font</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#small_font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotfont.small_font" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="flipdotfont.small_font">
+<span class="sig-prename descclassname"><span class="pre">flipdotfont.</span></span><span class="sig-name descname"><span class="pre">small_font</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#small_font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.small_font" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-</div>
-</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="flipdotfont.test_text_scroller">
+<span class="sig-prename descclassname"><span class="pre">flipdotfont.</span></span><span class="sig-name descname"><span class="pre">test_text_scroller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#test_text_scroller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.test_text_scroller" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="simulator.html" class="btn btn-neutral float-right" title="FlipDot-Simulator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral" title="flipflapflop - FlipDot-Anzeigen ansteuern" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="flipflapflop - FlipDot-Anzeigen ansteuern" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simulator.html" class="btn btn-neutral float-right" title="FlipDot-Simulator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2019, Marco Bakera, Reinhard Gummlich.
-
-    </p>
+    <p>&#169; Copyright 2018-2023, Marco Bakera, Reinhard Gummlich.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });

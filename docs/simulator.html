@@ -1,87 +1,67 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FlipDot-Simulator &mdash; flipflapflop 0.1 documentation</title>
-  
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
   
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-  
-  
-
-  
-
-  
-  
-    
-
-  
-
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=2709fde1"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Net" href="net.html" />
     <link rel="prev" title="FlipDotDisplay" href="fdd.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
+        <div class="wy-side-nav-search" >
 
           
-            <a href="index.html" class="icon icon-home"> flipflapflop
           
-
-          
+          <a href="index.html" class="icon icon-home">
+            flipflapflop
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="fdd.html">FlipDotDisplay</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FlipDot-Simulator</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-flipdotsim">Module Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-flipdotsim">Module Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flipdotsim.FlipDotSim"><code class="docutils literal notranslate"><span class="pre">FlipDotSim</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotsim.FlipDotSim.clear"><code class="docutils literal notranslate"><span class="pre">FlipDotSim.clear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotsim.FlipDotSim.close"><code class="docutils literal notranslate"><span class="pre">FlipDotSim.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotsim.FlipDotSim.px"><code class="docutils literal notranslate"><span class="pre">FlipDotSim.px()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotsim.FlipDotSim.reset"><code class="docutils literal notranslate"><span class="pre">FlipDotSim.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotsim.FlipDotSim.set"><code class="docutils literal notranslate"><span class="pre">FlipDotSim.set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotsim.FlipDotSim.show"><code class="docutils literal notranslate"><span class="pre">FlipDotSim.show()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#flipdotsim.test_flipdot_sim"><code class="docutils literal notranslate"><span class="pre">test_flipdot_sim()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#simulator-godot-version">Simulator (godot version)</a></li>
 </ul>
 </li>
@@ -90,75 +70,37 @@
 <li class="toctree-l1"><a class="reference internal" href="developer.html">Developer Documentation</a></li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">flipflapflop</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>FlipDot-Simulator</li>
-    
-    
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">FlipDot-Simulator</li>
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="_sources/simulator.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="flipdot-simulator">
-<h1>FlipDot-Simulator<a class="headerlink" href="#flipdot-simulator" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="flipdot-simulator">
+<h1>FlipDot-Simulator<a class="headerlink" href="#flipdot-simulator" title="Link to this heading"></a></h1>
 <p>See the simulator in action in the following videos.</p>
 <a class="reference external image-reference" href="https://www.youtube-nocookie.com/embed/ed5-gVciz3I?rel=0"><img alt="_images/simulator_video_thumbnail.png" src="_images/simulator_video_thumbnail.png" /></a>
 <a class="reference external image-reference" href="https://www.youtube-nocookie.com/embed/2X3LfF__rnQ?rel=0"><img alt="_images/clock_video_thumbnail.png" src="_images/clock_video_thumbnail.png" /></a>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
 <p>The simulator relies on the
 <a class="reference external" href="https://www.pygame.org/docs/">pygame framework</a>.
 Therefore this has to be installed before - <code class="docutils literal notranslate"><span class="pre">pip</span></code> can be used for this.:</p>
@@ -171,110 +113,101 @@ Therefore this has to be installed before - <code class="docutils literal notran
 The archive must be extracted into an empty directory. Create a file
 <code class="docutils literal notranslate"><span class="pre">flipdotsim_example.py</span></code> with the content listed in the example section
 below and run it with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">flipdotsim_example.py</span></code>.</p>
-</div>
-<div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">flipdotsim</span>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="c1"># Create a Simulator with the given dimension</span>
-<span class="n">display</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-
-<span class="c1"># turn some pixels on in the top left corner</span>
-<span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-<span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-<span class="c1"># The display will not change until the show method is invoked</span>
-<span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># Lets run one dot from top left to bottom right</span>
-<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
-   <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
-       <span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-       <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-       <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-       <span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">flipdotsim</span>
+<span class="linenos"> 2</span><span class="kn">import</span> <span class="nn">time</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Create a Simulator with the given dimension</span>
+<span class="linenos"> 5</span><span class="n">display</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># turn some pixels on in the top left corner</span>
+<span class="linenos"> 8</span><span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="linenos">11</span><span class="c1"># The display will not change until the show method is invoked</span>
+<span class="linenos">12</span><span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="linenos">13</span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="c1"># Lets run one dot from top left to bottom right</span>
+<span class="linenos">16</span><span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
+<span class="linenos">17</span>   <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
+<span class="linenos">18</span>       <span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="linenos">19</span>       <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="linenos">20</span>       <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="linenos">21</span>       <span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 </pre></div>
-</td></tr></table></div>
 </div>
-<div class="section" id="module-flipdotsim">
-<span id="module-description"></span><h2>Module Description<a class="headerlink" href="#module-flipdotsim" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-flipdotsim">
+<span id="module-description"></span><h2>Module Description<a class="headerlink" href="#module-flipdotsim" title="Link to this heading"></a></h2>
 <p>A package that allows for simulating the display without the need of a physical
 display. It relies on the pygame-package.</p>
 <p>The simulator can be used in the following way.
 Creating a display with specific dimensions.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flipdotsim</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flipdotsim</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Set two pixels at the top left to be turned on.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Actually turn on or off all pixels.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<dl class="class">
-<dt id="flipdotsim.FlipDotSim">
-<em class="property">class </em><code class="descclassname">flipdotsim.</code><code class="descname">FlipDotSim</code><span class="sig-paren">(</span><em>width=28</em>, <em>height=13</em>, <em>fps=30</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="flipdotsim.FlipDotSim">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flipdotsim.</span></span><span class="sig-name descname"><span class="pre">FlipDotSim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">13</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotsim.FlipDotSim" title="Link to this definition"></a></dt>
 <dd><p>Simulator class that shows the display in a pygame GUI.</p>
-<dl class="method">
-<dt id="flipdotsim.FlipDotSim.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><em>invert=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.clear" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotsim.FlipDotSim.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.clear" title="Link to this definition"></a></dt>
 <dd><p>Set all pixels to false.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="flipdotsim.FlipDotSim.px">
-<code class="descname">px</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>val</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.px"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.px" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotsim.FlipDotSim.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.close" title="Link to this definition"></a></dt>
+<dd><p>Deinitialize pygame and close open windows.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotsim.FlipDotSim.px">
+<span class="sig-name descname"><span class="pre">px</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.px"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.px" title="Link to this definition"></a></dt>
 <dd><p>Set a pixel to on or off at (X|Y). The dot will not be displayed 
 immediately.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="flipdotsim.FlipDotSim.reset">
-<code class="descname">reset</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.reset" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotsim.FlipDotSim.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.reset" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="flipdotsim.FlipDotSim.set">
-<code class="descname">set</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.set" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotsim.FlipDotSim.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.set" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="flipdotsim.FlipDotSim.show">
-<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.show" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="flipdotsim.FlipDotSim.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#FlipDotSim.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotsim.FlipDotSim.show" title="Link to this definition"></a></dt>
 <dd><p>Show the current state of all pixels on the display.</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="simulator-godot-version">
-<h2>Simulator (godot version)<a class="headerlink" href="#simulator-godot-version" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="flipdotsim.test_flipdot_sim">
+<span class="sig-prename descclassname"><span class="pre">flipdotsim.</span></span><span class="sig-name descname"><span class="pre">test_flipdot_sim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#test_flipdot_sim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotsim.test_flipdot_sim" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="simulator-godot-version">
+<h2>Simulator (godot version)<a class="headerlink" href="#simulator-godot-version" title="Link to this heading"></a></h2>
 <p>There is another simulator that relies on the <a class="reference external" href="https://www.godotengine.org/">godot game engine</a>. A standalone version for Windows
 and Linux is available from the <a class="reference external" href="https://github.com/tbs1-bo/flipflapflop/releases">projects releases page</a>.</p>
 <p>After startup the simulator can be controlled by cursor keys
@@ -282,71 +215,34 @@ and Linux is available from the <a class="reference external" href="https://gith
 <p>The simulator conforms to the protocol described in the
 <a class="reference internal" href="net.html"><span class="doc">Net</span></a> module: send a sequence of 1s and 0s (in ASCII)
 to port 10101 of the server.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="net.html" class="btn btn-neutral float-right" title="Net" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="fdd.html" class="btn btn-neutral" title="FlipDotDisplay" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fdd.html" class="btn btn-neutral float-left" title="FlipDotDisplay" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="net.html" class="btn btn-neutral float-right" title="Net" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2019, Marco Bakera, Reinhard Gummlich.
-
-    </p>
+    <p>&#169; Copyright 2018-2023, Marco Bakera, Reinhard Gummlich.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
