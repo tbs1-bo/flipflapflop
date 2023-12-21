@@ -30,8 +30,8 @@ display.
 /display (POST) expects a JSON with a single image or a list of images to 
 display. Each image is a dictionary with the keys "pixels" and "duration_ms".
 The value of "pixels" is a string of 0s and 1s. The value of "duration_ms" is
-the duration of the image in milliseconds. For instance:
-    
+the duration of the image in milliseconds. For instance::    
+
         {
             "images": [
                 {   
@@ -41,6 +41,7 @@ the duration of the image in milliseconds. For instance:
                 ...
             ]            
         }
+
 '''
 
 from flask import Flask, request, render_template
@@ -180,24 +181,25 @@ def route_display_get():
 @app.route("/display", methods=['POST'])
 def route_display_post():    
     """
-    Send a new display. Expecting json of the form
+    Send a new display. Expecting json of the form::
 
-    {
-        "pixels": "00001100..."
-    }
+        {
+            "pixels": "00001100..."
+        }
 
     To send a sequence of images, send a list of images including duration in 
-    ms:
-    {
-        "images": [
-            {   
-                "pixels": "00001100...",
-                "duration_ms": 1000
-            },
-            ...
-        ]
-        
-    }
+    ms::
+
+        {
+            "images": [
+                {   
+                    "pixels": "00001100...",
+                    "duration_ms": 1000
+                },
+                ...
+            ]
+        }
+
     """
     data = request.get_json()
 
