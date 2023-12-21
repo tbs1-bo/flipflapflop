@@ -1,244 +1,368 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>web &mdash; flipflapflop 0.1 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
-  
-  
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
 
           
-            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> flipflapflop
           
-
-          
+          <a href="../index.html" class="icon icon-home">
+            flipflapflop
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../fdd.html">FlipDotDisplay</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../simulator.html">FlipDot-Simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../net.html">Net</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../web.html">Web</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../game.html">Games</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developer.html">Developer Documentation</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">flipflapflop</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="index.html">Module code</a> &raquo;</li>
-        
-      <li>web</li>
-    
-    
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">web</li>
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for web</h1><div class="highlight"><pre>
 <span></span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">Web-Interface for the display.</span>
 
 <span class="sd">Start with</span>
-<span class="sd">FLASK_APP=web.py</span>
-<span class="sd">flask run --host=0.0.0.0</span>
+
+<span class="sd">    $ flask --app web.py run --host=0.0.0.0</span>
 
 <span class="sd">Use FLASK_ENV=development for a development server.</span>
 
+<span class="sd">The webserver provides an address at location &#39;/px/&lt;x&gt;/&lt;y&gt;/&lt;on or off&gt;&#39; with</span>
+<span class="sd">coordinate values for &lt;x&gt; and &lt;y&gt; and a status value for &lt;on or off&gt; which</span>
+<span class="sd">must &quot;on&quot; or &quot;off&quot;. You can send a GET or POST request to this addres.</span>
+
+<span class="sd">For instance to turn pixel at location (2,3) on you can use</span>
+
+<span class="sd">    $ curl HOSTNAME/px/2/3/on</span>
+
+<span class="sd">Route /page can be read with method GET or changed with methode POST.</span>
+
+<span class="sd">/page (GET) returns a list of 1s and 0s the represent the current display.</span>
+
+<span class="sd">/page (POST) expects a parameter data of 1s and 0s to change the current </span>
+<span class="sd">display. Entries with x are ignored and allow for partial updates of the</span>
+<span class="sd">display.</span>
+
+<span class="sd">/txt (POST) expects a text to display.</span>
+
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">render_template</span>
 <span class="kn">import</span> <span class="nn">displayprovider</span>
-<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">configuration</span>
+<span class="kn">import</span> <span class="nn">flipdotfont</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-<span class="n">display</span> <span class="o">=</span> <span class="n">displayprovider</span><span class="o">.</span><span class="n">get_display</span><span class="p">()</span>
 
-<div class="viewcode-block" id="px"><a class="viewcode-back" href="../net.html#web.px">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/px/&lt;int:x&gt;/&lt;int:y&gt;/&lt;string:onoff&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-<span class="k">def</span> <span class="nf">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">onoff</span><span class="p">):</span>
+<div class="viewcode-block" id="get_display">
+<a class="viewcode-back" href="../web.html#web.get_display">[docs]</a>
+<span class="k">def</span> <span class="nf">get_display</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s1">&#39;display&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;display&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">displayprovider</span><span class="o">.</span><span class="n">get_display</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;display&#39;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="get_buffer">
+<a class="viewcode-back" href="../web.html#web.get_buffer">[docs]</a>
+<span class="k">def</span> <span class="nf">get_buffer</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s1">&#39;buffer&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>
+        <span class="n">buffersize</span> <span class="o">=</span> <span class="n">get_display</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">get_display</span><span class="p">()</span><span class="o">.</span><span class="n">height</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;buffer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">buffersize</span>
+
+    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;buffer&#39;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="set_px">
+<a class="viewcode-back" href="../web.html#web.set_px">[docs]</a>
+<span class="k">def</span> <span class="nf">set_px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="n">get_display</span><span class="p">()</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+
+    <span class="c1"># update buffer</span>
+    <span class="n">buffer</span> <span class="o">=</span> <span class="n">get_buffer</span><span class="p">()</span>
+    <span class="n">buffer</span><span class="p">[</span><span class="n">y</span> <span class="o">*</span> <span class="n">get_display</span><span class="p">()</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span></div>
+
+
+<div class="viewcode-block" id="route_index">
+<a class="viewcode-back" href="../web.html#web.route_index">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">route_index</span><span class="p">():</span>
+    <span class="n">display</span> <span class="o">=</span> <span class="n">get_display</span><span class="p">()</span>
+    <span class="n">dimension</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">width</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; x &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span>
+        <span class="s1">&#39;index.html&#39;</span><span class="p">,</span>
+        <span class="n">dimension</span><span class="o">=</span><span class="n">dimension</span><span class="p">,</span>
+        <span class="n">web_conference_url</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">web_conference_url</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="route_px">
+<a class="viewcode-back" href="../web.html#web.route_px">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/px/&lt;int:x&gt;/&lt;int:y&gt;/&lt;string:onoff&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">route_px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">onoff</span><span class="p">):</span>
+    <span class="n">display</span> <span class="o">=</span> <span class="n">get_display</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">display</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;x too big&#39;</span><span class="p">,</span> <span class="mi">400</span>
     <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">display</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;y too big&#39;</span><span class="p">,</span> <span class="mi">400</span>
 
     <span class="k">if</span> <span class="n">onoff</span> <span class="o">==</span> <span class="s1">&#39;on&#39;</span><span class="p">:</span>
-        <span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">set_px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="k">elif</span> <span class="n">onoff</span> <span class="o">==</span> <span class="s1">&#39;off&#39;</span><span class="p">:</span>
-        <span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">set_px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="s1">&#39;value must be &quot;on&quot; or &quot;off&quot;&#39;</span><span class="p">,</span> <span class="mi">400</span>
 
     <span class="k">return</span> <span class="s1">&#39;ok&#39;</span><span class="p">,</span> <span class="mi">200</span></div>
 
-<div class="viewcode-block" id="test_px"><a class="viewcode-back" href="../net.html#web.test_px">[docs]</a><span class="k">def</span> <span class="nf">test_px</span><span class="p">():</span>
+
+<div class="viewcode-block" id="route_txt_post">
+<a class="viewcode-back" href="../web.html#web.route_txt_post">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/txt&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">route_txt_post</span><span class="p">():</span>
+    <span class="s2">&quot;Expect POST request with text to display&quot;</span>
+    <span class="n">txt</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">as_text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">display</span> <span class="o">=</span> <span class="n">get_display</span><span class="p">()</span>
+    <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="n">display</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">small_font</span><span class="p">())</span>
+
+    <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;ok&#39;</span><span class="p">,</span> <span class="mi">200</span></div>
+
+
+<div class="viewcode-block" id="route_page_post">
+<a class="viewcode-back" href="../web.html#web.route_page_post">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/page&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">route_page_post</span><span class="p">():</span>
+    <span class="n">display</span> <span class="o">=</span> <span class="n">get_display</span><span class="p">()</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">as_text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+            <span class="n">onoff</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">d</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+            <span class="n">onoff</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">]:</span>
+            <span class="n">onoff</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;data must be 0 or 1 or x&#39;</span><span class="p">,</span> <span class="mi">400</span>
+
+        <span class="k">if</span> <span class="n">onoff</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">display</span><span class="o">.</span><span class="n">width</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">display</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
+                <span class="n">set_px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">onoff</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;image too big&#39;</span><span class="p">,</span> <span class="mi">400</span>
+
+        <span class="k">if</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">display</span><span class="o">.</span><span class="n">width</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="s1">&#39;ok&#39;</span><span class="p">,</span> <span class="mi">200</span></div>
+
+
+<span class="c1"># TODO Splitting the display into areas /page1, /page2, ...</span>
+<div class="viewcode-block" id="route_page_get">
+<a class="viewcode-back" href="../web.html#web.route_page_get">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/page&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">route_page_get</span><span class="p">():</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">get_buffer</span><span class="p">():</span>
+        <span class="n">response</span> <span class="o">+=</span> <span class="s1">&#39;1&#39;</span> <span class="k">if</span> <span class="n">b</span> <span class="k">else</span> <span class="s1">&#39;0&#39;</span>
+
+    <span class="k">return</span> <span class="n">response</span><span class="p">,</span> <span class="mi">200</span></div>
+
+
+<div class="viewcode-block" id="test_px">
+<a class="viewcode-back" href="../web.html#web.test_px">[docs]</a>
+<span class="k">def</span> <span class="nf">test_px</span><span class="p">():</span>
     <span class="n">client</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span>
+
     <span class="k">for</span> <span class="n">onoff</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;on&#39;</span><span class="p">,</span> <span class="s1">&#39;off&#39;</span><span class="p">]:</span>
         <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">9</span><span class="p">)]:</span>
-            <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;/px/</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">onoff</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/px/</span><span class="si">{x}</span><span class="s1">/</span><span class="si">{y}</span><span class="s1">/</span><span class="si">{onoff}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">onoff</span><span class="o">=</span><span class="n">onoff</span><span class="p">))</span>
             <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
             <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;ok&#39;</span>
     
     <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;px/1000/1000/on&#39;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">400</span></div>
+
+
+<div class="viewcode-block" id="test_page">
+<a class="viewcode-back" href="../web.html#web.test_page">[docs]</a>
+<span class="k">def</span> <span class="nf">test_page</span><span class="p">():</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span>
+
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/page&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span><span class="s1">&#39;000abc&#39;</span><span class="p">})</span>
+    <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">400</span>
+
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/page&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">9</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;000000000&#39;</span>
+
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/page&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span><span class="s1">&#39;110110110&#39;</span><span class="p">})</span>
+    <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
+
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/page&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">9</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;110110110&#39;</span>
+    <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">9</span><span class="p">:]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;000000000&#39;</span>
+
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/page&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="s1">&#39;000xxxXXx&#39;</span><span class="p">})</span>
+    <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/page&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">9</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;000110110&#39;</span>
+    <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">9</span><span class="p">:]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;000000000&#39;</span></div>
+
+
+<div class="viewcode-block" id="test_index">
+<a class="viewcode-back" href="../web.html#web.test_index">[docs]</a>
+<span class="k">def</span> <span class="nf">test_index</span><span class="p">():</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span></div>
+
+
+<div class="viewcode-block" id="test_plasmademo">
+<a class="viewcode-back" href="../web.html#web.test_plasmademo">[docs]</a>
+<span class="k">def</span> <span class="nf">test_plasmademo</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span>
+
+    <span class="n">client</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">test_client</span><span class="p">()</span>
+    <span class="n">display</span> <span class="o">=</span> <span class="n">get_display</span><span class="p">()</span>
+
+    <span class="n">ticks</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">frames</span><span class="p">):</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
+                <span class="n">ticks</span> <span class="o">+=</span> <span class="mf">0.001</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">ticks</span> <span class="o">/</span> <span class="mf">50.0</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">6.0</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.3</span> <span class="o">*</span> <span class="n">sin</span><span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="n">ticks</span> <span class="o">/</span> <span class="mf">4.0</span><span class="p">)</span> <span class="o">*</span>
+                        <span class="n">cos</span><span class="p">((</span><span class="n">y</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="n">ticks</span> <span class="o">/</span> <span class="mf">4.0</span><span class="p">))</span>
+                <span class="n">show_px</span> <span class="o">=</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="mf">0.3</span>
+                <span class="n">payload</span> <span class="o">+=</span> <span class="s1">&#39;1&#39;</span> <span class="k">if</span> <span class="n">show_px</span> <span class="k">else</span> <span class="s1">&#39;0&#39;</span>
+                
+        <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/page&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">payload</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="test_plasmademo_remote">
+<a class="viewcode-back" href="../web.html#web.test_plasmademo_remote">[docs]</a>
+<span class="k">def</span> <span class="nf">test_plasmademo_remote</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span>
+    <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+
+    <span class="k">if</span> <span class="s1">&#39;FFF_IP&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+        <span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;FFF_IP&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No Public ip given in FFF_IP. Ignoring test.&#39;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">13</span>
+    <span class="n">ticks</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">frames</span><span class="p">):</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
+                <span class="n">ticks</span> <span class="o">+=</span> <span class="mf">0.005</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">ticks</span> <span class="o">/</span> <span class="mf">50.0</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">6.0</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.3</span> <span class="o">*</span> <span class="n">sin</span><span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="n">ticks</span> <span class="o">/</span> <span class="mf">4.0</span><span class="p">)</span> <span class="o">*</span>
+                        <span class="n">cos</span><span class="p">((</span><span class="n">y</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="n">ticks</span> <span class="o">/</span> <span class="mf">4.0</span><span class="p">))</span>
+                <span class="n">show_px</span> <span class="o">=</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="mf">0.3</span>
+                <span class="n">payload</span> <span class="o">+=</span> <span class="s1">&#39;1&#39;</span> <span class="k">if</span> <span class="n">show_px</span> <span class="k">else</span> <span class="s1">&#39;0&#39;</span>
+
+        <span class="n">urlopen</span><span class="p">(</span><span class="n">host</span> <span class="o">+</span> <span class="s1">&#39;/page&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;data=&#39;</span> <span class="o">+</span> <span class="n">payload</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span></div>
+
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright 2019, Marco Bakera, Reinhard Gummlich
-
-    </p>
+    <p>&#169; Copyright 2018-2023, Marco Bakera, Reinhard Gummlich.</p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
