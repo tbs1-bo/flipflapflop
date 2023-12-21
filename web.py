@@ -63,6 +63,8 @@ def route_index():
         dimension=dimension,
         web_conference_url=configuration.web_conference_url)
 
+# TODO change to json based web api
+
 @app.route('/px/<int:x>/<int:y>/<string:onoff>', methods=['GET', 'POST'])
 def route_px(x, y, onoff):
     display = get_display()
