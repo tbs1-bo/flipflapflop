@@ -3,8 +3,7 @@ Web-Interface for the display.
 
 Start with
 
-    $ FLASK_APP=web.py
-    $ flask run --host=0.0.0.0
+    $ flask --app web.py run --host=0.0.0.0
 
 Use FLASK_ENV=development for a development server.
 
@@ -23,6 +22,8 @@ Route /page can be read with method GET or changed with methode POST.
 /page (POST) expects a parameter data of 1s and 0s to change the current 
 display. Entries with x are ignored and allow for partial updates of the
 display.
+
+/txt (POST) expects a text to display.
 
 '''
 
@@ -83,6 +84,7 @@ def route_px(x, y, onoff):
 
 @app.route('/txt', methods=['POST'])
 def route_txt_post():
+    "Expect POST request with text to display"
     txt = request.get_data(as_text=True)
 
     display = get_display()
