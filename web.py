@@ -99,6 +99,7 @@ def route_page_post():
     return _show(data)
 
 def _show(data):
+    "Show data (string of 0s and 1s) on the display)."
     display = get_display()
     x, y = 0, 0
     for d in data:
@@ -126,9 +127,9 @@ def _show(data):
     display.show()
     return 'ok', 200
 
-# TODO Splitting the display into areas /page1, /page2, ...
 @app.route('/page', methods=['GET'])
 def route_page_get():
+    "Return the current display as string of 0s and 1s."
     response = ''
     for b in get_buffer():
         response += '1' if b else '0'
@@ -137,7 +138,7 @@ def route_page_get():
 
 @app.route("/display", methods=['GET'])
 def route_display_get():
-    "Return the current display: width, height, data"
+    "Return the current display (in JSON): width, height, data"
     pixels = ""
     for b in get_buffer():
         pixels += "1" if b else "0"
@@ -151,7 +152,8 @@ def route_display_get():
 
 @app.route("/display", methods=['POST'])
 def route_display_post():    
-    """send a new display. Expecting json of the form
+    """
+    Send a new display. Expecting json of the form
 
     {
         "pixels": "00001100..."
