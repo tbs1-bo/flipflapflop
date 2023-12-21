@@ -36,7 +36,7 @@ app = Flask(__name__)
 
 def get_display():
     if 'display' not in app.config:
-        app.config['display'] = displayprovider.get_display()
+        app.config['display'] = displayprovider.get_display(width=configuration.WIDTH, height=configuration.HEIGHT)
     
     return app.config['display']
 
