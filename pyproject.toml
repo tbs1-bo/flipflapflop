@@ -7,16 +7,16 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-pygame = "^2.1.2"
-PyTMX = "^3.31"
+pygame = "^2.1.2" # for the simulator
+PyTMX = "^3.31" # reading Tiled maps for rogueflip and the presenter
 paho-mqtt = "^1.6.1"
 zeroconf = "^0.39.3"
-pyserial = "^3.5"
-flask = "^3.0.0"
+pyserial = "^3.5" # for the serial interface
+flask = "^3.0.0" # for the web interface
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
-pylint = "^3.0.3"
+pylint = "^3.0.3" # for class diagrams (pyreverse)
 
 [build-system]
 requires = ["poetry-core"]
