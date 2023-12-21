@@ -95,10 +95,11 @@ def route_txt_post():
 
 @app.route('/page', methods=['POST'])
 def route_page_post():
-    display = get_display()
-
     data = request.get_data(as_text=True)
+    return _show(data)
 
+def _show(data):
+    display = get_display()
     x, y = 0, 0
     for d in data:
         if d == '1':
@@ -137,13 +138,13 @@ def route_page_get():
 @app.route("/display", methods=['GET'])
 def route_display_get():
     "Return the current display: width, height, data"
-    data = ""
+    pixels = ""
     for b in get_buffer():
-        data += "1" if b else "0"
+        pixels += "1" if b else "0"
     js = {
         "width": get_display().width,
         "height": get_display().height,
-        "data": data
+        "pixels": pixels
     }
     return js, 200
 
@@ -153,9 +154,11 @@ def route_display_post():
     """send a new display. Expecting json of the form
 
     {
-        "data": "00001100..."
+        "pixels": "00001100..."
     }
     """
+    data = request.get_json()
+    return _show(data["pixels"])
     # TODO use route_page_post or common method
 
 def test_display_get():
@@ -164,15 +167,21 @@ def test_display_get():
     assert response.status_code == 200
     js = response.get_json()
     assert "width" in js
+    assert int(js["width"]) == configuration.WIDTH
     assert "height" in js
-    for d in js["data"]:
+    assert int(js["height"]) == configuration.HEIGHT
+
+    for d in js["pixels"]:
         assert d in ["0", "1"]
 
 def test_display_post():
     client = app.test_client()
-    data = "00001100"
-    response = client.post("/display", json={"data": data})
-    # assert response.status_code == 200, response.data
+    pixels = "00001100"
+    response = client.post("/display", json={"pixels": pixels})
+    assert response.status_code == 200
+    js = client.get("/display").json
+
+    assert js["pixels"][0:len(pixels)] == pixels
 
 def test_px():
     client = app.test_client()
@@ -192,8 +201,11 @@ def test_page():
     resp = client.post('/page', data='000abc')
     assert resp.status_code == 400
 
+    resp = client.post('/page', data='000000')
+    assert resp.status_code == 200
+
     resp = client.get('/page')
-    assert resp.data[:9] == b'000000000'
+    assert resp.data[:9] == b'000000000', resp.data
 
     resp = client.post('/page', data='110110110')
     assert resp.status_code == 200
