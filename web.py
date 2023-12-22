@@ -15,9 +15,9 @@ For instance to turn pixel at location (2,3) on you can use
 
     $ curl HOSTNAME/px/2/3/on
 
-Route /page can be read with method GET or changed with methode POST.
+Route /page can be read with method GET or changed with method POST.
 
-/page (GET) returns a list of 1s and 0s the represent the current display.
+/page (GET) returns a list of 1s and 0s that represent the current display.
 
 /page (POST) expects a parameter data of 1s and 0s to change the current 
 display. Entries with x are ignored and allow for partial updates of the
