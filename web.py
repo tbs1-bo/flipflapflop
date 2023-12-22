@@ -23,8 +23,6 @@ Route /page can be read with method GET or changed with methode POST.
 display. Entries with x are ignored and allow for partial updates of the
 display.
 
-/txt (POST) expects a text to display.
-
 /display (GET) returns the current display as JSON.
 
 /display (POST) expects a JSON with a single image or a list of images to 
@@ -108,13 +106,6 @@ def route_px(x, y, onoff):
         return 'value must be "on" or "off"', 400
 
     return 'ok', 200
-
-@app.route('/txt', methods=['POST'])
-def route_txt_post():
-    "Expect POST request with text to display"
-    txt = request.get_data(as_text=True)
-    _display_text(txt)
-    return f'ok', 200
 
 def _display_text(txt, scrolling=False, fps=10, duration_ms=1000):
     "Display text on display."
