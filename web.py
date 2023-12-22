@@ -42,6 +42,15 @@ the duration of the image in milliseconds. For instance::
             ]            
         }
 
+To show text, send a json with the text::
+    
+        {
+            "text": "Hello World",
+            "scrolling": true,     (optional, default false)
+            "fps": 10,             (optional, default 10)
+            "duration_ms": 1000    (optional, default 1000)
+        }
+
 '''
 
 from flask import Flask, request, render_template
@@ -104,12 +113,25 @@ def route_px(x, y, onoff):
 def route_txt_post():
     "Expect POST request with text to display"
     txt = request.get_data(as_text=True)
-
-    display = get_display()
-    flipdotfont.TextScroller(display, txt, flipdotfont.small_font())
-
-    display.show()
+    _display_text(txt)
     return f'ok', 200
+
+def _display_text(txt, scrolling=False, fps=10, duration_ms=1000):
+    "Display text on display."
+    display = get_display()
+    scroller = flipdotfont.TextScroller(display, txt, flipdotfont.small_font())
+    duration_ms = min(duration_ms, configuration.web_max_show_time_ms)
+
+    if scrolling:
+        start = time.time()
+        while True:
+            scroller.scrolltext()
+            display.show()
+            time.sleep(1/fps)
+            if time.time() - start > duration_ms / 1000:
+                break
+    else:
+        display.show()
 
 @app.route('/page', methods=['POST'])
 def route_page_post():
@@ -205,6 +227,15 @@ def route_display_post():
             ]
         }
 
+    To show text, send a json with the text::
+
+        {
+            "text": "Hello World",
+            "scrolling": true,     (optional, default false)
+            "fps": 10,             (optional, default 10)
+            "duration_ms": 1000    (optional, default 1000)
+        }
+    
     """
     data = request.get_json()
 
@@ -212,8 +243,14 @@ def route_display_post():
         return _show(data["pixels"])
     if "images" in data:        
         return _show_sequence(data["images"])
+    if "text" in data:
+        _display_text(data["text"], 
+                      data.get("scrolling", False), 
+                      data.get("fps", 10), 
+                      data.get("duration_ms", 1000))
+        return "ok", 200
     
-    return "no pixels or images in json", 400
+    return "no text, pixels or images in json", 400
 
 def test_display_get():
     client = app.test_client()
@@ -255,6 +292,16 @@ def test_display_post():
     assert response.status_code == 400, response.get_data(as_text=True)
     configuration.web_max_show_time_ms = old_config_value
 
+    # show text
+    response = client.post("/display", json={"text": "Hello World"})
+    assert response.status_code == 200, response.get_data(as_text=True)
+    response = client.post("/display", 
+        json={
+            "text": "Hello World", 
+            "scrolling": True,
+            "fps": 10,
+            "duration_ms": 1000})
+    assert response.status_code == 200, response.get_data(as_text=True)
 
 def test_px():
     client = app.test_client()
