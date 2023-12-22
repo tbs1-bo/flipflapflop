@@ -21,23 +21,17 @@
 
     <p>Dimension: {{ dimension }}</p>
 
-    <p><code>{{ request.host }}/px/x/y/onoff</code><br> 
-      setzt (onoff ist 'on') oder löscht 
-        (onoff ist 'off') einen Pixel an der Stelle (x|y):
-        <code>http://{{ request.host }}/px/3/2/on</code>
-    </p>
+    <p><code>{{ request.host }}/display</code><br>
+      erwartet einen POST-Request mit einem JSON-Objekt, der
+      einen Text enthält, der auf dem Display dargestellt werden soll.
+      (<a href="https://tbs1-bo.github.io/flipflapflop/web.html#web.route_display_post">Details</a>):
+      <br>
+      <code>
+        {
+          "text": "Hallo Welt"
+        }
+      </code>
 
-    <p><code>{{ request.host }}/page</code><br> 
-      erwartet einen POST-Request, 
-      welcher aus 0en, 1en oder xen besteht, die wiederum die 
-      Pixel setzen (1) oder löschen (0) oder den Wert nicht ändern (x): 
-      <code>$ curl -d 110110 {{ request.host }}/page</code>
-    </p>
-
-    <p><code>{{ request.host }}/txt</code><br>
-      erwartet einen POST-Request,
-      welcher einen Text enthält, der auf dem Display dargestellt werden soll: 
-      <code>$ curl -d Hallo {{ request.host }}/txt</code>
   </p>
   <form>
       <input type="text" id='data' name='data'>
@@ -46,11 +40,16 @@
 
     <script>
       function showTxt() {
-        let data = document.getElementById('data').value;
-      
-        fetch('{{ request.host_url }}/txt', {
-          method: 'POST',
-          body: data
+        let data = {
+          "text": document.getElementById('data').value
+        };
+
+        fetch('{{ request.host_url }}/display', {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',          
+          body: JSON.stringify(data)
         })
         .then(data => {
           console.log('Success:', data);
