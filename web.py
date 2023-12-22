@@ -212,6 +212,8 @@ def route_display_post():
         return _show(data["pixels"])
     if "images" in data:        
         return _show_sequence(data["images"])
+    
+    return "no pixels or images in json", 400
 
 def test_display_get():
     client = app.test_client()
