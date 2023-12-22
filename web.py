@@ -85,8 +85,7 @@ def route_index():
     dimension = str(display.width) + ' x ' + str(display.height)
     return render_template(
         'index.html',
-        dimension=dimension,
-        web_conference_url=configuration.web_conference_url)
+        dimension=dimension)
 
 @app.route('/px/<int:x>/<int:y>/<string:onoff>', methods=['GET', 'POST'])
 def route_px(x, y, onoff):
