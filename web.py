@@ -147,7 +147,12 @@ def _show(data):
 
 def _show_sequence(list_of_images):
     "Show a sequence of images."
+    showtime_ms = 0
     for image in list_of_images:
+        showtime_ms += image["duration_ms"]
+        if showtime_ms > configuration.web_max_show_time_ms:
+            return "showtime too long", 400
+        
         desc, code = _show(image["pixels"])
         if code != 200:
             return "Error in image: " + desc, code
@@ -237,6 +242,16 @@ def test_display_post():
 
     response = client.post("/display", json={"images": images})
     assert response.status_code == 200
+
+    # too many images
+    old_config_value = configuration.web_max_show_time_ms
+    configuration.web_max_show_time_ms = 100
+    images = []
+    for pxs in ["00001100", "11110000", "00000000"]:
+        images.append({"pixels": pxs, "duration_ms": 1000})
+    response = client.post("/display", json={"images": images})
+    assert response.status_code == 400, response.get_data(as_text=True)
+    configuration.web_max_show_time_ms = old_config_value
 
 
 def test_px():

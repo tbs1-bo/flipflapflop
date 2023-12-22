@@ -35,3 +35,6 @@ mqtt_topic_display = 'fff_display'
 mqtt_topic_info = 'fff_display_info'
 
 web_conference_url = 'https://meet.ffmuc.net/flipflapflop'
+
+# maximum time to allow for showing suquence of images in milliseconds
+web_max_show_time_ms = 10000
