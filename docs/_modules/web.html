@@ -119,6 +119,15 @@
 <span class="sd">            ]            </span>
 <span class="sd">        }</span>
 
+<span class="sd">To show text, send a json with the text::</span>
+<span class="sd">    </span>
+<span class="sd">        {</span>
+<span class="sd">            &quot;text&quot;: &quot;Hello World&quot;,</span>
+<span class="sd">            &quot;scrolling&quot;: true,     (optional, default false)</span>
+<span class="sd">            &quot;fps&quot;: 10,             (optional, default 10)</span>
+<span class="sd">            &quot;duration_ms&quot;: 1000    (optional, default 1000)</span>
+<span class="sd">        }</span>
+
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">render_template</span>
@@ -198,13 +207,26 @@
 <span class="k">def</span> <span class="nf">route_txt_post</span><span class="p">():</span>
     <span class="s2">&quot;Expect POST request with text to display&quot;</span>
     <span class="n">txt</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">as_text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="n">display</span> <span class="o">=</span> <span class="n">get_display</span><span class="p">()</span>
-    <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="n">display</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">small_font</span><span class="p">())</span>
-
-    <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">_display_text</span><span class="p">(</span><span class="n">txt</span><span class="p">)</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;ok&#39;</span><span class="p">,</span> <span class="mi">200</span></div>
 
+
+<span class="k">def</span> <span class="nf">_display_text</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="n">scrolling</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">duration_ms</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="s2">&quot;Display text on display.&quot;</span>
+    <span class="n">display</span> <span class="o">=</span> <span class="n">get_display</span><span class="p">()</span>
+    <span class="n">scroller</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="n">display</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">small_font</span><span class="p">())</span>
+    <span class="n">duration_ms</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">duration_ms</span><span class="p">,</span> <span class="n">configuration</span><span class="o">.</span><span class="n">web_max_show_time_ms</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">scrolling</span><span class="p">:</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">scroller</span><span class="o">.</span><span class="n">scrolltext</span><span class="p">()</span>
+            <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">fps</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">duration_ms</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <div class="viewcode-block" id="route_page_post">
 <a class="viewcode-back" href="../web.html#web.route_page_post">[docs]</a>
@@ -245,7 +267,12 @@
 
 <span class="k">def</span> <span class="nf">_show_sequence</span><span class="p">(</span><span class="n">list_of_images</span><span class="p">):</span>
     <span class="s2">&quot;Show a sequence of images.&quot;</span>
+    <span class="n">showtime_ms</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">list_of_images</span><span class="p">:</span>
+        <span class="n">showtime_ms</span> <span class="o">+=</span> <span class="n">image</span><span class="p">[</span><span class="s2">&quot;duration_ms&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">showtime_ms</span> <span class="o">&gt;</span> <span class="n">configuration</span><span class="o">.</span><span class="n">web_max_show_time_ms</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;showtime too long&quot;</span><span class="p">,</span> <span class="mi">400</span>
+        
         <span class="n">desc</span><span class="p">,</span> <span class="n">code</span> <span class="o">=</span> <span class="n">_show</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="s2">&quot;pixels&quot;</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;Error in image: &quot;</span> <span class="o">+</span> <span class="n">desc</span><span class="p">,</span> <span class="n">code</span>
@@ -306,13 +333,30 @@
 <span class="sd">            ]</span>
 <span class="sd">        }</span>
 
+<span class="sd">    To show text, send a json with the text::</span>
+
+<span class="sd">        {</span>
+<span class="sd">            &quot;text&quot;: &quot;Hello World&quot;,</span>
+<span class="sd">            &quot;scrolling&quot;: true,     (optional, default false)</span>
+<span class="sd">            &quot;fps&quot;: 10,             (optional, default 10)</span>
+<span class="sd">            &quot;duration_ms&quot;: 1000    (optional, default 1000)</span>
+<span class="sd">        }</span>
+<span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="s2">&quot;pixels&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_show</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pixels&quot;</span><span class="p">])</span>
     <span class="k">if</span> <span class="s2">&quot;images&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>        
-        <span class="k">return</span> <span class="n">_show_sequence</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;images&quot;</span><span class="p">])</span></div>
+        <span class="k">return</span> <span class="n">_show_sequence</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;images&quot;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="s2">&quot;text&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">_display_text</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> 
+                      <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;scrolling&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> 
+                      <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;fps&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> 
+                      <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;duration_ms&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="mi">200</span>
+    
+    <span class="k">return</span> <span class="s2">&quot;no text, pixels or images in json&quot;</span><span class="p">,</span> <span class="mi">400</span></div>
 
 
 <div class="viewcode-block" id="test_display_get">
@@ -348,8 +392,28 @@
         <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;pixels&quot;</span><span class="p">:</span> <span class="n">pxs</span><span class="p">,</span> <span class="s2">&quot;duration_ms&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
 
     <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/display&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;images&quot;</span><span class="p">:</span> <span class="n">images</span><span class="p">})</span>
-    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span></div>
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
 
+    <span class="c1"># too many images</span>
+    <span class="n">old_config_value</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">web_max_show_time_ms</span>
+    <span class="n">configuration</span><span class="o">.</span><span class="n">web_max_show_time_ms</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">pxs</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;00001100&quot;</span><span class="p">,</span> <span class="s2">&quot;11110000&quot;</span><span class="p">,</span> <span class="s2">&quot;00000000&quot;</span><span class="p">]:</span>
+        <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;pixels&quot;</span><span class="p">:</span> <span class="n">pxs</span><span class="p">,</span> <span class="s2">&quot;duration_ms&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">})</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/display&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;images&quot;</span><span class="p">:</span> <span class="n">images</span><span class="p">})</span>
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">400</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">as_text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">configuration</span><span class="o">.</span><span class="n">web_max_show_time_ms</span> <span class="o">=</span> <span class="n">old_config_value</span>
+
+    <span class="c1"># show text</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/display&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">})</span>
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">as_text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/display&quot;</span><span class="p">,</span> 
+        <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">,</span> 
+            <span class="s2">&quot;scrolling&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;fps&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="s2">&quot;duration_ms&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">})</span>
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">as_text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="test_px">
