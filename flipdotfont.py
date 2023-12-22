@@ -82,7 +82,7 @@ class TextScroller:
             self.x = 0
         else:
             self.x = self.x-step
-        self.statictext(self.text, self.font, (self.x, self.y))
+        self.statictext(self.text, (self.x, self.y))
 
     def changetext(self, text):
         """Change the text and add some spaces."""
