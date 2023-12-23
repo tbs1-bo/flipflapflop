@@ -33,7 +33,7 @@ the duration of the image in milliseconds. For instance::
         {
             "images": [
                 {   
-                    "pixels": "00001100...",
+                    "pixels": "000011x0...",  # values of x are ignored
                     "duration_ms": 1000
                 },
                 ...
