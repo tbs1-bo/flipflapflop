@@ -12,6 +12,12 @@ Checkout the repository to ``/home/pi/flipflapflop``::
   $ cd /home/pi
   $ git clone https://github.com/tbs1-bo/flipflapflop.git
 
+Having `poetry <https://python-poetry.org/>`_ installed, you can install the package 
+and its dependencies::
+
+  $ cd flipflapflop
+  $ poetry install
+
 The deployment scenario described here relies on a Raspberry Pi that acts as an 
 access point. To setup a Pi this way you can follow the `instructions from raspberrypi.org 
 <https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md>`_. We
