@@ -1,6 +1,7 @@
 #!/bin/sh
 
-make venv
+# TODO rm
+# make venv
 make configuration.py
 
 # running doctests
@@ -8,7 +9,7 @@ FILES="flipdotsim.py flipdotfont.py displayprovider.py net.py rogueflip.py fffmq
 echo testing $FILES
 # turn off pygame greeting upon first import
 PYGAME_HIDE_SUPPORT_PROMPT=1
-venv/bin/python -m doctest $FILES
+poetry run python -m doctest $FILES
 
 # running tests using pytest
 ls *py | \
@@ -16,4 +17,4 @@ ls *py | \
     grep -v displayserver_service.py | \
     grep -v flipdotdisplay.py | \
     grep -v MCP23017.py | \
-    xargs venv/bin/pytest -v 
+    xargs poetry run pytest -v 
