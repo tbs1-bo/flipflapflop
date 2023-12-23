@@ -92,15 +92,13 @@
 
 <span class="sd">    $ curl HOSTNAME/px/2/3/on</span>
 
-<span class="sd">Route /page can be read with method GET or changed with methode POST.</span>
+<span class="sd">Route /page can be read with method GET or changed with method POST.</span>
 
-<span class="sd">/page (GET) returns a list of 1s and 0s the represent the current display.</span>
+<span class="sd">/page (GET) returns a list of 1s and 0s that represent the current display.</span>
 
 <span class="sd">/page (POST) expects a parameter data of 1s and 0s to change the current </span>
 <span class="sd">display. Entries with x are ignored and allow for partial updates of the</span>
 <span class="sd">display.</span>
-
-<span class="sd">/txt (POST) expects a text to display.</span>
 
 <span class="sd">/display (GET) returns the current display as JSON.</span>
 
@@ -175,8 +173,7 @@
     <span class="n">dimension</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">width</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; x &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">display</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span>
         <span class="s1">&#39;index.html&#39;</span><span class="p">,</span>
-        <span class="n">dimension</span><span class="o">=</span><span class="n">dimension</span><span class="p">,</span>
-        <span class="n">web_conference_url</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">web_conference_url</span><span class="p">)</span></div>
+        <span class="n">dimension</span><span class="o">=</span><span class="n">dimension</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="route_px">
@@ -199,16 +196,6 @@
         <span class="k">return</span> <span class="s1">&#39;value must be &quot;on&quot; or &quot;off&quot;&#39;</span><span class="p">,</span> <span class="mi">400</span>
 
     <span class="k">return</span> <span class="s1">&#39;ok&#39;</span><span class="p">,</span> <span class="mi">200</span></div>
-
-
-<div class="viewcode-block" id="route_txt_post">
-<a class="viewcode-back" href="../web.html#web.route_txt_post">[docs]</a>
-<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/txt&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-<span class="k">def</span> <span class="nf">route_txt_post</span><span class="p">():</span>
-    <span class="s2">&quot;Expect POST request with text to display&quot;</span>
-    <span class="n">txt</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">as_text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">_display_text</span><span class="p">(</span><span class="n">txt</span><span class="p">)</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;ok&#39;</span><span class="p">,</span> <span class="mi">200</span></div>
 
 
 <span class="k">def</span> <span class="nf">_display_text</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="n">scrolling</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">duration_ms</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>

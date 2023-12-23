@@ -57,7 +57,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#web.route_page_get"><code class="docutils literal notranslate"><span class="pre">route_page_get()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#web.route_page_post"><code class="docutils literal notranslate"><span class="pre">route_page_post()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#web.route_px"><code class="docutils literal notranslate"><span class="pre">route_px()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#web.route_txt_post"><code class="docutils literal notranslate"><span class="pre">route_txt_post()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#web.set_px"><code class="docutils literal notranslate"><span class="pre">set_px()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#web.test_display_get"><code class="docutils literal notranslate"><span class="pre">test_display_get()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#web.test_display_post"><code class="docutils literal notranslate"><span class="pre">test_display_post()</span></code></a></li>
@@ -111,12 +110,11 @@ must “on” or “off”. You can send a GET or POST request to this addres.</
 <blockquote>
 <div><p>$ curl HOSTNAME/px/2/3/on</p>
 </div></blockquote>
-<p>Route /page can be read with method GET or changed with methode POST.</p>
-<p>/page (GET) returns a list of 1s and 0s the represent the current display.</p>
+<p>Route /page can be read with method GET or changed with method POST.</p>
+<p>/page (GET) returns a list of 1s and 0s that represent the current display.</p>
 <p>/page (POST) expects a parameter data of 1s and 0s to change the current 
 display. Entries with x are ignored and allow for partial updates of the
 display.</p>
-<p>/txt (POST) expects a text to display.</p>
 <p>/display (GET) returns the current display as JSON.</p>
 <p>/display (POST) expects a JSON with a single image or a list of images to 
 display. Each image is a dictionary with the keys “pixels” and “duration_ms”.
@@ -211,12 +209,6 @@ ms:</p>
 <dt class="sig sig-object py" id="web.route_px">
 <span class="sig-prename descclassname"><span class="pre">web.</span></span><span class="sig-name descname"><span class="pre">route_px</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onoff</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/web.html#route_px"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#web.route_px" title="Link to this definition"></a></dt>
 <dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="web.route_txt_post">
-<span class="sig-prename descclassname"><span class="pre">web.</span></span><span class="sig-name descname"><span class="pre">route_txt_post</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/web.html#route_txt_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#web.route_txt_post" title="Link to this definition"></a></dt>
-<dd><p>Expect POST request with text to display</p>
-</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="web.set_px">

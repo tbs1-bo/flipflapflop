@@ -44,7 +44,7 @@ must be installed.
 
 .. code-block:: bash
 
-   $ pip install -r docgen/requirements.txt
+   $ pip install sphinx sphinx-rtd-theme
 
 The documentation is created with sphinx and is configured in folder ``docgen``. 
 You can use ``make html`` or ``make.bat html`` to create the docucmentation
