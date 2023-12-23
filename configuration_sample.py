@@ -30,7 +30,7 @@ simulator = {
 }
 
 
-mqtt_broker = 'mqtt.eclipse.org'
+mqtt_broker = 'test.mosquitto.org'
 mqtt_topic_display = 'fff_display'
 mqtt_topic_info = 'fff_display_info'
 

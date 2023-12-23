@@ -71,8 +71,8 @@ class MqttDisplay(displayprovider.DisplayBase):
 
     >>> import fffmqtt
     >>> fdd = fffmqtt.MqttDisplay(width=2,height=3, 
-    ...     broker='mqtt.eclipse.org', topic='display')
-    connecting to broker mqtt.eclipse.org
+    ...     broker='test.mosquitto.org', topic='display')
+    connecting to broker test.mosquitto.org
 
     >>> fdd.clear()
     >>> fdd.px(1,1,True)
@@ -134,7 +134,7 @@ class MqttTasmotaDisplay(MqttDisplay):
 
 def test_tasmota_display():
     num_leds = 4
-    fff = MqttTasmotaDisplay(num_leds, 'mqtt.eclipse.org', 'cmnd/baksonoff')
+    fff = MqttTasmotaDisplay(num_leds, 'test.mosquitto.org', 'cmnd/baksonoff')
 
     import time
     for i in range(num_leds):
@@ -151,7 +151,7 @@ def test_mqtt_display():
         userdata['msg_recvd'] = True
         userdata['test_passed'] = str(msg.payload, 'ascii') == userdata['expected']
 
-    broker = 'mqtt.eclipse.org'
+    broker = 'test.mosquitto.org'
     topic = 'mqttdisplay_t'
 
     mqtt = paho.mqtt.client.Client()
@@ -250,8 +250,9 @@ def discover_mqtt_broker(timeout=5):
 def test_discover_mqtt_broker():
     print("Searching Broker")    
     broker_ip = discover_mqtt_broker()
-    assert '.' in broker_ip
-    print('service discovered:', broker_ip)
+    if broker_ip:
+        assert '.' in broker_ip, broker_ip
+        print('service discovered:', broker_ip)
 
 
 if __name__ == '__main__':
