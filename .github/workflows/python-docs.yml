@@ -29,7 +29,6 @@ jobs:
         pip install flake8 pytest
         pip install -r requirements.txt
         pip install -r docgen/requirements.txt
-    - name: build docs
+    - name: Run tests
       run: |
-        cd docgen
-        make html
+        ./tests.sh
