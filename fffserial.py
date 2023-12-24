@@ -83,13 +83,20 @@ def test_serial():
         serial_device='loop://?logging=debug', 
         buffered=False)
     fdd.px(10, 10, True)
+    assert fdd.width == 28
+    assert fdd.height == 13
 
     # turning buffering on
     fdd.buffered = True
     fdd.px(10, 10, True)
+    assert fdd.buffer[10 * fdd.width + 10] == True
+    for i in [-1, +1]:
+        assert fdd.buffer[10 * fdd.width + 10 + i] == False
     fdd.show()
 
     fdd.close()
+
+test_serial()
 
 def demo():
     import demos
