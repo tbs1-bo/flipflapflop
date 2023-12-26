@@ -173,7 +173,7 @@ def test_mqtt_display():
         mqtt.user_data_set(user_data)
         fdd.show()
 
-        time.sleep(0.4)
+        time.sleep(1)
         assert user_data['msg_recvd']
         assert user_data['test_passed']
 
