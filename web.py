@@ -110,7 +110,10 @@ def _display_text(txt, scrolling=False, fps=10, duration_ms=1000):
     "Display text on display."
     display = get_display()
     scroller = flipdotfont.TextScroller(display, txt, flipdotfont.small_font())
-    duration_ms = min(duration_ms, configuration.web_max_show_time_ms)
+    if duration_ms > configuration.web_max_show_time_ms:
+        return "duration too long", 400
+    if fps < 0:
+        return "fps must be positive", 400    
 
     if scrolling:
         start = time.time()
@@ -122,6 +125,8 @@ def _display_text(txt, scrolling=False, fps=10, duration_ms=1000):
                 break
     else:
         display.show()
+
+    return "ok", 200
 
 @app.route('/page', methods=['POST'])
 def route_page_post():
@@ -163,7 +168,7 @@ def _show_sequence(list_of_images):
     for image in list_of_images:
         showtime_ms += image["duration_ms"]
         if showtime_ms > configuration.web_max_show_time_ms:
-            return "showtime too long", 400
+            return "overall duration_ms too long", 400
         
         desc, code = _show(image["pixels"])
         if code != 200:
@@ -234,11 +239,10 @@ def route_display_post():
     if "images" in data:        
         return _show_sequence(data["images"])
     if "text" in data:
-        _display_text(data["text"], 
+        return _display_text(data["text"], 
                       data.get("scrolling", False), 
                       data.get("fps", 10), 
                       data.get("duration_ms", 1000))
-        return "ok", 200
     
     return "no text, pixels or images in json", 400
 
