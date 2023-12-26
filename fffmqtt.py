@@ -146,13 +146,14 @@ def test_tasmota_display():
 
 def test_mqtt_display():
     import time
+    import random
 
     def on_msg(client, userdata, msg:paho.mqtt.client.MQTTMessage):
         userdata['msg_recvd'] = True
         userdata['test_passed'] = str(msg.payload, 'ascii') == userdata['expected']
 
     broker = 'test.mosquitto.org'
-    topic = 'mqttdisplay_t'
+    topic = 'mqttdisplay_t' + str(random.randint(1000,10000))
 
     mqtt = paho.mqtt.client.Client()
     mqtt.on_message = on_msg
