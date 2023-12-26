@@ -10,5 +10,4 @@ ii/ii:
 	cd ii && make
 
 run: ii/ii
-	cd .. && make venv
-	cd .. && ./venv/bin/python -m gamejamdo_2020-05
+	cd .. && python -m gamejamdo_2020-05
