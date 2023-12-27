@@ -18,6 +18,7 @@ class SerialDisplay(displayprovider.DisplayBase):
     PXSET = 0b10000011  # Es folgen zwei Bytes X, Y mit Positionsinformationen 
     PXRESET = 0b10000010 # Es folgen zwei Bytes X, y mit Positionsinformationen 
     ECHO = 0b11110000  # Das gesendete Byte wird zurückgesendet.
+    LED_BRIGTHNESS = 0b10000100  # Setzt die Hellifgkeit der  Erwartet ein zweites Byte it der Helligkeit
 
     def __init__(self, width=4, height=3, serial_device="/dev/ttyUSB0", baud=9600, buffered=True):
         '''
@@ -33,6 +34,16 @@ class SerialDisplay(displayprovider.DisplayBase):
         self.ser = serial.serial_for_url(serial_device, baudrate=baud, timeout=1)
         self.buffered = buffered        
         self.buffer = [False] * (width * height)
+
+    def led(self, on_off):
+        'Turn LED of the display on or off'
+        # TODO add support for brightness
+        if on_off:
+            bs = [SerialDisplay.LED_BRIGTHNESS, 1]
+        else:
+            bs = [SerialDisplay.LED_BRIGTHNESS, 0]
+
+        self.ser.write(bs)
 
     def px(self, x, y, val):
         assert 0 <= x < self.width
@@ -76,6 +87,30 @@ def demo_simple():
     ffd.show()
     #ffd.close()
 
+def demo_all_onoff():
+    import time
+
+    fdd = SerialDisplay(width=28, height=13, 
+                        serial_device=DEVICE, baud=BAUD)
+
+    for _ in range(10):
+        print("all on")
+        for i in range(len(fdd.buffer)):
+            fdd.buffer[i] = True
+        fdd.show()
+        fdd.led(True)
+
+        time.sleep(1)
+
+        print("all off")
+        for i in range(len(fdd.buffer)):
+            fdd.buffer[i] = False
+        fdd.show()
+        fdd.led(False)
+
+        time.sleep(1)
+
+
 def test_serial():
     fdd = SerialDisplay(width=28, height=13, 
         # using a serial dummy device for debugging
@@ -96,7 +131,6 @@ def test_serial():
 
     fdd.close()
 
-test_serial()
 
 def demo():
     import demos
@@ -110,4 +144,5 @@ def demo():
 
 if __name__ == '__main__':
     demo()
+    demo_all_onoff()
     #demo_simple()
