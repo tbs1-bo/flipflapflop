@@ -7,7 +7,7 @@ no further request, the clock will be shown again.
 """
 
 import net
-import flipdotdisplay
+import displayprovider
 import binclock
 import threading
 
@@ -42,8 +42,8 @@ timer = threading.Timer(0, time_over)
 
 
 def main():
-    fdd = flipdotdisplay.FlipDotDisplay(
-        width=WIDTH, height=HEIGHT, module=MODULES)
+    fdd = displayprovider.get_display()
+    print("starting display", fdd)
     displayserver = net.DisplayServer(fdd)
     displayserver.on_request = on_request
 
