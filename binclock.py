@@ -61,3 +61,12 @@ class BinClock:
         for y in range(self.fdd.height):
             for x in range(self.fdd.width):
                 self.fdd.px(x, y, False)
+
+def main():
+    import displayprovider
+    fdd = displayprovider.get_display()
+    bc = BinClock(fdd)
+    bc.run()
+
+if __name__ == "__main__":
+    main()
