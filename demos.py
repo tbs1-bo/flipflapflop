@@ -442,7 +442,7 @@ class BinaryClock(DemoBase):
         return (x, y) in self.pixels
 
 class LinesDemo(DemoBase):
-    "Lines Demo"
+    "Lines Demo: run 1 line hor and vert"
     def __init__(self, flipdotdisplay, fps=FPS):
         super().__init__(flipdotdisplay, fps)
         self.t = 0
