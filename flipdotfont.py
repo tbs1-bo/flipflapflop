@@ -108,3 +108,19 @@ def test_text_scroller():
     fdd.show()
     time.sleep(0.5)
     fdd.close()
+
+def demo_text_lower():
+    print("starting text scoller")
+    import displayprovider
+    import time
+    fdd = displayprovider.get_display()
+    print("using display", fdd)
+    txt = TextScroller(fdd, "", small_font())
+    #time.sleep(1)    
+    txt.statictext("labor", (0,8))
+    fdd.show()
+    #time.sleep(5)
+
+if __name__ == "__main__":
+    #test_text_scroller()
+    demo_text_lower()
