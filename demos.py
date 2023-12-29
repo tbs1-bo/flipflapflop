@@ -441,6 +441,26 @@ class BinaryClock(DemoBase):
     def handle_px(self, x, y):
         return (x, y) in self.pixels
 
+class LinesDemo(DemoBase):
+    "Lines Demo"
+    def __init__(self, flipdotdisplay, fps=FPS):
+        super().__init__(flipdotdisplay, fps)
+        self.t = 0
+        self.horizontal = True
+
+    def prepare(self):
+        self.t += 1
+        maxval = self.fdd.width if self.horizontal else self.fdd.height
+        if self.t > maxval:
+            self.t = 0
+            self.horizontal = not self.horizontal
+
+    def handle_px(self, x, y):
+        if self.horizontal:
+            return self.t == x
+        else:
+            return self.t == y
+
 def test_demos():
     import flipdotsim
     fdd = flipdotsim.FlipDotSim()
@@ -448,7 +468,7 @@ def test_demos():
              RotatingPlasmaDemo(fdd), GameOfLife(fdd), # SnakeGame(fdd),
              # FlappyDot(fdd), 
              BinaryClock(fdd), # rogueflip.Game(fdd),
-             PygameSurfaceDemo(fdd)]
+             PygameSurfaceDemo(fdd), LinesDemo(fdd)]
     for demo in demos:
         print(demo)
         demo.run(runtime=2)
@@ -465,9 +485,9 @@ def main():
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd),
              FlappyDot(fdd), BinaryClock(fdd), rogueflip.Game(fdd),
-             PygameSurfaceDemo(fdd)]
+             PygameSurfaceDemo(fdd), LinesDemo(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
-    num = int(input(">"))
+    num = 11# int(input(">"))
     print("Running demo. CTRL-C to abort.")
     demos[num].run()
 
