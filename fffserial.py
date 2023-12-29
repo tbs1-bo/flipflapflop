@@ -18,7 +18,7 @@ class SerialDisplay(displayprovider.DisplayBase):
     PXSET = 0b10000011  # Es folgen zwei Bytes X, Y mit Positionsinformationen 
     PXRESET = 0b10000010 # Es folgen zwei Bytes X, y mit Positionsinformationen 
     ECHO = 0b11110000  # Das gesendete Byte wird zurückgesendet.
-    LED_BRIGTHNESS = 0b10000100  # Setzt die Hellifgkeit der  Erwartet ein zweites Byte it der Helligkeit
+    LED_BRIGTHNESS = 0b10000100  # Setzt die Helligkeit der LED. Erwartet ein zweites Byte it der Helligkeit
 
     def __init__(self, width=4, height=3, serial_device="/dev/ttyUSB0", baud=9600, buffered=True):
         '''
@@ -34,6 +34,8 @@ class SerialDisplay(displayprovider.DisplayBase):
         self.ser = serial.serial_for_url(serial_device, baudrate=baud, timeout=1)
         self.buffered = buffered        
         self.buffer = [False] * (width * height)
+        if not self.display_available():
+            print("WARNING: display not available")
 
     def led(self, on_off):
         'Turn LED of the display on or off'
@@ -75,10 +77,18 @@ class SerialDisplay(displayprovider.DisplayBase):
             byte_sequence.append(int(byte, base=2))
    
         self.ser.write(bytes(byte_sequence))
+    
+    def display_available(self):
+        test_byte = 42
+        self.ser.write(bytes([SerialDisplay.ECHO, test_byte]))
+        bs = self.ser.read(2)
+        # TODO firmware should not return a string
+        return len(bs) == 2 and str(bs, encoding="UTF8") == str(test_byte)
 
     def close(self):
         'Close the serial device'
         self.ser.close()
+
 
 def demo_simple():
     ffd = SerialDisplay(width=28, height=13, serial_device=DEVICE, baud=BAUD, buffered=True)
@@ -143,6 +153,6 @@ def demo():
         ffd.close()
 
 if __name__ == '__main__':
-    demo()
+    #demo()
     demo_all_onoff()
     #demo_simple()
