@@ -212,6 +212,25 @@
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
     <span class="n">fdd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
+
+<div class="viewcode-block" id="demo_text_lower">
+<a class="viewcode-back" href="../fdd.html#flipdotfont.demo_text_lower">[docs]</a>
+<span class="k">def</span> <span class="nf">demo_text_lower</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;starting text scoller&quot;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">displayprovider</span>
+    <span class="kn">import</span> <span class="nn">time</span>
+    <span class="n">fdd</span> <span class="o">=</span> <span class="n">displayprovider</span><span class="o">.</span><span class="n">get_display</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;using display&quot;</span><span class="p">,</span> <span class="n">fdd</span><span class="p">)</span>
+    <span class="n">txt</span> <span class="o">=</span> <span class="n">TextScroller</span><span class="p">(</span><span class="n">fdd</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">small_font</span><span class="p">())</span>
+    <span class="c1">#time.sleep(1)    </span>
+    <span class="n">txt</span><span class="o">.</span><span class="n">statictext</span><span class="p">(</span><span class="s2">&quot;labor&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+    <span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+    <span class="c1">#time.sleep(5)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1">#test_text_scroller()</span>
+    <span class="n">demo_text_lower</span><span class="p">()</span>
 </pre></div>
 
            </div>

@@ -54,6 +54,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#net.RemoteDisplay"><code class="docutils literal notranslate"><span class="pre">RemoteDisplay</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#net.RemoteDisplay.led"><code class="docutils literal notranslate"><span class="pre">RemoteDisplay.led()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#net.RemoteDisplay.px"><code class="docutils literal notranslate"><span class="pre">RemoteDisplay.px()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#net.RemoteDisplay.show"><code class="docutils literal notranslate"><span class="pre">RemoteDisplay.show()</span></code></a></li>
 </ul>
@@ -153,6 +154,12 @@ started directly.</p>
 <dt class="sig sig-object py" id="net.RemoteDisplay">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">net.</span></span><span class="sig-name descname"><span class="pre">RemoteDisplay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.0.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10101</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">13</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#RemoteDisplay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.RemoteDisplay" title="Link to this definition"></a></dt>
 <dd><p>Remote class to connect with a running display server.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="net.RemoteDisplay.led">
+<span class="sig-name descname"><span class="pre">led</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_off</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#RemoteDisplay.led"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.RemoteDisplay.led" title="Link to this definition"></a></dt>
+<dd><p>Turn LED of the display on (True) or off (False)</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="net.RemoteDisplay.px">
 <span class="sig-name descname"><span class="pre">px</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#RemoteDisplay.px"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.RemoteDisplay.px" title="Link to this definition"></a></dt>

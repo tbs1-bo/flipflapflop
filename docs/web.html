@@ -123,7 +123,7 @@ the duration of the image in milliseconds. For instance:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;images&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>   
-            <span class="s2">&quot;pixels&quot;</span><span class="p">:</span> <span class="s2">&quot;00001100...&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;pixels&quot;</span><span class="p">:</span> <span class="s2">&quot;000011x0...&quot;</span><span class="p">,</span>  <span class="c1"># values of x are ignored</span>
             <span class="s2">&quot;duration_ms&quot;</span><span class="p">:</span> <span class="mi">1000</span>
         <span class="p">},</span>
         <span class="o">...</span>
@@ -184,6 +184,12 @@ ms:</p>
     <span class="s2">&quot;scrolling&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>     <span class="p">(</span><span class="n">optional</span><span class="p">,</span> <span class="n">default</span> <span class="n">false</span><span class="p">)</span>
     <span class="s2">&quot;fps&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>             <span class="p">(</span><span class="n">optional</span><span class="p">,</span> <span class="n">default</span> <span class="mi">10</span><span class="p">)</span>
     <span class="s2">&quot;duration_ms&quot;</span><span class="p">:</span> <span class="mi">1000</span>    <span class="p">(</span><span class="n">optional</span><span class="p">,</span> <span class="n">default</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To set the led brightness, send a json with the led value:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;led&quot;</span><span class="p">:</span> <span class="s2">&quot;on&quot;</span>  <span class="c1"># or &quot;off&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>

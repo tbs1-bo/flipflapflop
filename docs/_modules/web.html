@@ -110,7 +110,7 @@
 <span class="sd">        {</span>
 <span class="sd">            &quot;images&quot;: [</span>
 <span class="sd">                {   </span>
-<span class="sd">                    &quot;pixels&quot;: &quot;00001100...&quot;,</span>
+<span class="sd">                    &quot;pixels&quot;: &quot;000011x0...&quot;,  # values of x are ignored</span>
 <span class="sd">                    &quot;duration_ms&quot;: 1000</span>
 <span class="sd">                },</span>
 <span class="sd">                ...</span>
@@ -202,7 +202,10 @@
     <span class="s2">&quot;Display text on display.&quot;</span>
     <span class="n">display</span> <span class="o">=</span> <span class="n">get_display</span><span class="p">()</span>
     <span class="n">scroller</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="n">display</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">small_font</span><span class="p">())</span>
-    <span class="n">duration_ms</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">duration_ms</span><span class="p">,</span> <span class="n">configuration</span><span class="o">.</span><span class="n">web_max_show_time_ms</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">duration_ms</span> <span class="o">&gt;</span> <span class="n">configuration</span><span class="o">.</span><span class="n">web_max_show_time_ms</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;duration too long&quot;</span><span class="p">,</span> <span class="mi">400</span>
+    <span class="k">if</span> <span class="n">fps</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;fps must be positive&quot;</span><span class="p">,</span> <span class="mi">400</span>    
 
     <span class="k">if</span> <span class="n">scrolling</span><span class="p">:</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -214,6 +217,8 @@
                 <span class="k">break</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="mi">200</span>
 
 <div class="viewcode-block" id="route_page_post">
 <a class="viewcode-back" href="../web.html#web.route_page_post">[docs]</a>
@@ -258,7 +263,7 @@
     <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">list_of_images</span><span class="p">:</span>
         <span class="n">showtime_ms</span> <span class="o">+=</span> <span class="n">image</span><span class="p">[</span><span class="s2">&quot;duration_ms&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">showtime_ms</span> <span class="o">&gt;</span> <span class="n">configuration</span><span class="o">.</span><span class="n">web_max_show_time_ms</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;showtime too long&quot;</span><span class="p">,</span> <span class="mi">400</span>
+            <span class="k">return</span> <span class="s2">&quot;overall duration_ms too long&quot;</span><span class="p">,</span> <span class="mi">400</span>
         
         <span class="n">desc</span><span class="p">,</span> <span class="n">code</span> <span class="o">=</span> <span class="n">_show</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="s2">&quot;pixels&quot;</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
@@ -295,7 +300,7 @@
     <span class="k">return</span> <span class="n">js</span><span class="p">,</span> <span class="mi">200</span></div>
 
 
-
+<span class="c1"># TODO add support for led brightness</span>
 <div class="viewcode-block" id="route_display_post">
 <a class="viewcode-back" href="../web.html#web.route_display_post">[docs]</a>
 <span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/display&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
@@ -328,6 +333,12 @@
 <span class="sd">            &quot;fps&quot;: 10,             (optional, default 10)</span>
 <span class="sd">            &quot;duration_ms&quot;: 1000    (optional, default 1000)</span>
 <span class="sd">        }</span>
+
+<span class="sd">    To set the led brightness, send a json with the led value::</span>
+<span class="sd">    </span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;led&quot;: &quot;on&quot;  # or &quot;off&quot;</span>
+<span class="sd">            }</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
@@ -337,14 +348,23 @@
     <span class="k">if</span> <span class="s2">&quot;images&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>        
         <span class="k">return</span> <span class="n">_show_sequence</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;images&quot;</span><span class="p">])</span>
     <span class="k">if</span> <span class="s2">&quot;text&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-        <span class="n">_display_text</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> 
+        <span class="k">return</span> <span class="n">_display_text</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> 
                       <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;scrolling&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> 
                       <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;fps&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> 
                       <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;duration_ms&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
-        <span class="k">return</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="mi">200</span>
+    <span class="k">if</span> <span class="s2">&quot;led&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_set_led</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;led&quot;</span><span class="p">])</span>
     
-    <span class="k">return</span> <span class="s2">&quot;no text, pixels or images in json&quot;</span><span class="p">,</span> <span class="mi">400</span></div>
+    <span class="k">return</span> <span class="s2">&quot;no text, pixels, led brightness or images in json&quot;</span><span class="p">,</span> <span class="mi">400</span></div>
 
+
+<span class="k">def</span> <span class="nf">_set_led</span><span class="p">(</span><span class="n">onoff</span><span class="p">):</span>
+    <span class="s2">&quot;Set led on or off.&quot;</span>
+    <span class="k">if</span> <span class="n">onoff</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;off&quot;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="s2">&quot;led must be on or off&quot;</span><span class="p">,</span> <span class="mi">400</span>
+
+    <span class="n">get_display</span><span class="p">()</span><span class="o">.</span><span class="n">led</span><span class="p">(</span><span class="n">onoff</span> <span class="o">==</span> <span class="s2">&quot;on&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="mi">200</span>
 
 <div class="viewcode-block" id="test_display_get">
 <a class="viewcode-back" href="../web.html#web.test_display_get">[docs]</a>
@@ -400,7 +420,12 @@
             <span class="s2">&quot;scrolling&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
             <span class="s2">&quot;fps&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
             <span class="s2">&quot;duration_ms&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">})</span>
-    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">as_text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">as_text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># set led brightness</span>
+    <span class="k">for</span> <span class="n">onoff</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;off&quot;</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/display&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;led&quot;</span><span class="p">:</span> <span class="n">onoff</span><span class="p">})</span>
+        <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">as_text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="test_px">

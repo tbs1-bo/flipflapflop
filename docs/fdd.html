@@ -51,6 +51,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.__init__"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.__module__"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.__module__</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.flipdot"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.flipdot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.led"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.led()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.printbuffer"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.printbuffer()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.px"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.px()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.show"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.show()</span></code></a></li>
@@ -68,6 +69,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#fffserial.SerialDisplay"><code class="docutils literal notranslate"><span class="pre">SerialDisplay</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.DIMENSION"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.DIMENSION</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.ECHO"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.ECHO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.LED_BRIGTHNESS"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.LED_BRIGTHNESS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.PICTURE"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.PICTURE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.PXRESET"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.PXRESET</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.PXSET"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.PXSET</span></code></a></li>
@@ -75,11 +77,14 @@
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.__init__"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.__module__"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.__module__</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.close"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.display_available"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.display_available()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.led"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.led()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.px"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.px()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.show"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.show()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#fffserial.demo"><code class="docutils literal notranslate"><span class="pre">demo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fffserial.demo_all_onoff"><code class="docutils literal notranslate"><span class="pre">demo_all_onoff()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fffserial.demo_simple"><code class="docutils literal notranslate"><span class="pre">demo_simple()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fffserial.test_serial"><code class="docutils literal notranslate"><span class="pre">test_serial()</span></code></a></li>
 </ul>
@@ -96,6 +101,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#flipdotfont.big_font"><code class="docutils literal notranslate"><span class="pre">big_font()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flipdotfont.demo_text_lower"><code class="docutils literal notranslate"><span class="pre">demo_text_lower()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#flipdotfont.small_font"><code class="docutils literal notranslate"><span class="pre">small_font()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#flipdotfont.test_text_scroller"><code class="docutils literal notranslate"><span class="pre">test_text_scroller()</span></code></a></li>
 </ul>
@@ -203,6 +209,12 @@ the RaspberryPi with the the module in the display.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay.led">
+<span class="sig-name descname"><span class="pre">led</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_off</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.led"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.led" title="Link to this definition"></a></dt>
+<dd><p>Turn LED of the display on (True) or off (False)</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay.printbuffer">
 <span class="sig-name descname"><span class="pre">printbuffer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay.printbuffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.printbuffer" title="Link to this definition"></a></dt>
 <dd><p>Print the buffer onto the terminal.</p>
@@ -281,6 +293,11 @@ communication with the device over a serial interface.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.LED_BRIGTHNESS">
+<span class="sig-name descname"><span class="pre">LED_BRIGTHNESS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">132</span></em><a class="headerlink" href="#fffserial.SerialDisplay.LED_BRIGTHNESS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="fffserial.SerialDisplay.PICTURE">
 <span class="sig-name descname"><span class="pre">PICTURE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">129</span></em><a class="headerlink" href="#fffserial.SerialDisplay.PICTURE" title="Link to this definition"></a></dt>
 <dd></dd></dl>
@@ -320,6 +337,17 @@ show() will send the data.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.display_available">
+<span class="sig-name descname"><span class="pre">display_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.display_available"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.SerialDisplay.display_available" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fffserial.SerialDisplay.led">
+<span class="sig-name descname"><span class="pre">led</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_off</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.led"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.SerialDisplay.led" title="Link to this definition"></a></dt>
+<dd><p>Turn LED of the display on or off</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="fffserial.SerialDisplay.px">
 <span class="sig-name descname"><span class="pre">px</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#SerialDisplay.px"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.SerialDisplay.px" title="Link to this definition"></a></dt>
 <dd></dd></dl>
@@ -335,6 +363,11 @@ show() will send the data.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="fffserial.demo">
 <span class="sig-prename descclassname"><span class="pre">fffserial.</span></span><span class="sig-name descname"><span class="pre">demo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#demo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.demo" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fffserial.demo_all_onoff">
+<span class="sig-prename descclassname"><span class="pre">fffserial.</span></span><span class="sig-name descname"><span class="pre">demo_all_onoff</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#demo_all_onoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.demo_all_onoff" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -410,6 +443,11 @@ is shown in the following.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="flipdotfont.big_font">
 <span class="sig-prename descclassname"><span class="pre">flipdotfont.</span></span><span class="sig-name descname"><span class="pre">big_font</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#big_font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.big_font" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flipdotfont.demo_text_lower">
+<span class="sig-prename descclassname"><span class="pre">flipdotfont.</span></span><span class="sig-name descname"><span class="pre">demo_text_lower</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#demo_text_lower"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.demo_text_lower" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
