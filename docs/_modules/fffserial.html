@@ -93,13 +93,29 @@
 <div class="viewcode-block" id="SerialDisplay">
 <a class="viewcode-back" href="../fdd.html#fffserial.SerialDisplay">[docs]</a>
 <span class="k">class</span> <span class="nc">SerialDisplay</span><span class="p">(</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">DisplayBase</span><span class="p">):</span>
-    <span class="n">DIMENSION</span> <span class="o">=</span> <span class="mb">0b10010000</span> <span class="c1"># Es folgen zwei Bytes mit BREITE und HÖHE.</span>
-    <span class="n">PICTURE</span> <span class="o">=</span> <span class="mb">0b10000001</span> <span class="c1"># Es folgen Breite*Höhe Datenbits (zeilenweise)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Serial Display sending commands to an arduino connected to the display.</span>
+<span class="sd">    Each command starts with a byte with a command identifier. The following</span>
+<span class="sd">    bytes are the command parameters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">PXSET</span> <span class="o">=</span> <span class="mb">0b10000011</span>  <span class="c1"># Es folgen zwei Bytes X, Y mit Positionsinformationen </span>
-    <span class="n">PXRESET</span> <span class="o">=</span> <span class="mb">0b10000010</span> <span class="c1"># Es folgen zwei Bytes X, y mit Positionsinformationen </span>
-    <span class="n">ECHO</span> <span class="o">=</span> <span class="mb">0b11110000</span>  <span class="c1"># Das gesendete Byte wird zurückgesendet.</span>
-    <span class="n">LED_BRIGTHNESS</span> <span class="o">=</span> <span class="mb">0b10000100</span>  <span class="c1"># Setzt die Helligkeit der LED. Erwartet ein zweites Byte it der Helligkeit</span>
+    <span class="n">DIMENSION</span> <span class="o">=</span> <span class="mb">0b10010000</span> 
+    <span class="s2">&quot;The following two bytes are the width and height of the display.&quot;</span>
+
+    <span class="n">PICTURE</span> <span class="o">=</span> <span class="mb">0b10000001</span>
+    <span class="s2">&quot;The following bytes are the picture data (row by row).&quot;</span>
+
+    <span class="n">PXSET</span> <span class="o">=</span> <span class="mb">0b10000011</span>
+    <span class="s2">&quot;The following two Bytes X, Y with information about the pixel to set.&quot;</span>
+
+    <span class="n">PXRESET</span> <span class="o">=</span> <span class="mb">0b10000010</span> 
+    <span class="s2">&quot;Removing a pixel. The following two Bytes X, Y with information about the pixel to reset.&quot;</span>    
+
+    <span class="n">ECHO</span> <span class="o">=</span> <span class="mb">0b11110000</span>
+    <span class="s2">&quot;The following byte is returned.&quot;</span>
+
+    <span class="n">LED_BRIGTHNESS</span> <span class="o">=</span> <span class="mb">0b10000100</span>
+    <span class="s2">&quot;Set the brightness of the LED. The following byte is the brightness.&quot;</span>
 
 <div class="viewcode-block" id="SerialDisplay.__init__">
 <a class="viewcode-back" href="../fdd.html#fffserial.SerialDisplay.__init__">[docs]</a>
