@@ -145,6 +145,10 @@ class RemoteDisplay(displayprovider.DisplayBase):
                 payload += "1" if self.buffer[x][y] else "0"
 
         return bytes(payload, "utf8")
+    
+    def led(self, on_off):
+        pass
+        # TODO led support for remote display
 
 def test_networking():
     import flipdotsim

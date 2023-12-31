@@ -77,6 +77,11 @@ class FlipDotSim(displayprovider.DisplayBase):
         'Deinitialize pygame and close open windows.'
         pygame.quit()
 
+    def led(self, on_off):
+        'does notging'
+        # TODO led support for simulator
+        pass
+
 
 def test_flipdot_sim():
     import time

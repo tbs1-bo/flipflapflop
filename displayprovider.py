@@ -34,6 +34,10 @@ class DisplayBase:
             for y in range(self.height):
                 self.px(x, y, False)
 
+    def led(self, on_off):
+        "Turn LED of the display on (True) or off (False)"
+        pass
+
 
 def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
     try:

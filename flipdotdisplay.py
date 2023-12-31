@@ -140,3 +140,6 @@ class FlipDotDisplay(displayprovider.DisplayBase):
                 #self.ioexp.write_value('A', 0x00)
                 GPIO.output(self.module[mod], GPIO.LOW)
 
+    def led(self, on_off):
+        pass
+        # TODO led support for flipdotdisplay - or not?

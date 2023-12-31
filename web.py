@@ -230,6 +230,12 @@ def route_display_post():
             "fps": 10,             (optional, default 10)
             "duration_ms": 1000    (optional, default 1000)
         }
+
+    To set the led brightness, send a json with the led value::
+    
+            {
+                "led": "on"  # or "off"
+            }
     
     """
     data = request.get_json()
@@ -243,8 +249,18 @@ def route_display_post():
                       data.get("scrolling", False), 
                       data.get("fps", 10), 
                       data.get("duration_ms", 1000))
+    if "led" in data:
+        return _set_led(data["led"])
     
-    return "no text, pixels or images in json", 400
+    return "no text, pixels, led brightness or images in json", 400
+
+def _set_led(onoff):
+    "Set led on or off."
+    if onoff not in ["on", "off"]:
+        return "led must be on or off", 400
+
+    get_display().led(onoff == "on")
+    return "ok", 200
 
 def test_display_get():
     client = app.test_client()
@@ -296,6 +312,11 @@ def test_display_post():
             "fps": 10,
             "duration_ms": 1000})
     assert response.status_code == 200, response.get_data(as_text=True)
+
+    # set led brightness
+    for onoff in ("on", "off"):
+        response = client.post("/display", json={"led": onoff})
+        assert response.status_code == 200, response.get_data(as_text=True)
 
 def test_px():
     client = app.test_client()
