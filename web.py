@@ -199,7 +199,6 @@ def route_display_get():
     }
     return js, 200
 
-# TODO add support for led brightness
 @app.route("/display", methods=['POST'])
 def route_display_post():    
     """
@@ -233,9 +232,9 @@ def route_display_post():
 
     To set the led brightness, send a json with the led value::
     
-            {
-                "led": "on"  # or "off"
-            }
+        {
+            "led": "on"  # or "off"
+        }
     
     """
     data = request.get_json()
