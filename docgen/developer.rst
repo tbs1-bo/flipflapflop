@@ -58,9 +58,6 @@ in ``docgen/_build/html``. It will automaticall be copied to ``docs``.
 After pushing to github it will be available 
 `there <https://tbs1-bo.github.io/flipflapflop/>`_.
 
-
-TODO: maybe switch to readthedocs.io
-
 Class Diagram
 -------------
 
