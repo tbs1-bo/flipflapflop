@@ -199,7 +199,7 @@ def route_display_get():
     }
     return js, 200
 
-
+# TODO add support for led brightness
 @app.route("/display", methods=['POST'])
 def route_display_post():    
     """
