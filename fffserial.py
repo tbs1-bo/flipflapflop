@@ -85,7 +85,12 @@ class SerialDisplay(displayprovider.DisplayBase):
         self.ser.write(bytes([SerialDisplay.ECHO, test_byte]))
         bs = self.ser.read(2)
         # TODO firmware should not return a string
-        return len(bs) == 2 and str(bs, encoding="UTF8") == str(test_byte)
+        try:
+            return len(bs) == 2 and str(bs, encoding="UTF8") == str(test_byte)
+        except UnicodeDecodeError:
+            # no decoding possible if display is not present.
+            # mainly during testing
+            return False
 
     def close(self):
         'Close the serial device'
