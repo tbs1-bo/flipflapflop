@@ -63,6 +63,7 @@ hosted on a gitlab server. The script automatically deploys the documentation
 on every commit onto the master branch. An examples can be found 
 `here <https://tbs1-bo.gitlab.io/flipflapflop/>`_.
 
+TODO: maybe switch to readthedocs.io
 
 Class Diagram
 -------------
