@@ -78,8 +78,8 @@ class FlipDotSim(displayprovider.DisplayBase):
         pygame.quit()
 
     def led(self, on_off):
-        'does notging'
-        # TODO led support for simulator #9
+        'does nothing'
+        # TODO led support for simulator #10
         pass
 
 
