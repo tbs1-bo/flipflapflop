@@ -300,7 +300,6 @@
     <span class="k">return</span> <span class="n">js</span><span class="p">,</span> <span class="mi">200</span></div>
 
 
-<span class="c1"># TODO add support for led brightness</span>
 <div class="viewcode-block" id="route_display_post">
 <a class="viewcode-back" href="../web.html#web.route_display_post">[docs]</a>
 <span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/display&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
@@ -336,9 +335,9 @@
 
 <span class="sd">    To set the led brightness, send a json with the led value::</span>
 <span class="sd">    </span>
-<span class="sd">            {</span>
-<span class="sd">                &quot;led&quot;: &quot;on&quot;  # or &quot;off&quot;</span>
-<span class="sd">            }</span>
+<span class="sd">        {</span>
+<span class="sd">            &quot;led&quot;: &quot;on&quot;  # or &quot;off&quot;</span>
+<span class="sd">        }</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
