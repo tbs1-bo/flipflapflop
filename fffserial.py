@@ -14,13 +14,29 @@ BAUD = configuration.flipdotdisplay["serialbaudrate"]
 # TODO handle serial errors
 
 class SerialDisplay(displayprovider.DisplayBase):
-    DIMENSION = 0b10010000 # Es folgen zwei Bytes mit BREITE und HÖHE.
-    PICTURE = 0b10000001 # Es folgen Breite*Höhe Datenbits (zeilenweise)
+    """
+    Serial Display sending commands to an arduino connected to the display.
+    Each command starts with a byte with a command identifier. The following
+    bytes are the command parameters.
+    """
 
-    PXSET = 0b10000011  # Es folgen zwei Bytes X, Y mit Positionsinformationen 
-    PXRESET = 0b10000010 # Es folgen zwei Bytes X, y mit Positionsinformationen 
-    ECHO = 0b11110000  # Das gesendete Byte wird zurückgesendet.
-    LED_BRIGTHNESS = 0b10000100  # Setzt die Helligkeit der LED. Erwartet ein zweites Byte it der Helligkeit
+    DIMENSION = 0b10010000 
+    "The following two bytes are the width and height of the display."
+
+    PICTURE = 0b10000001
+    "The following bytes are the picture data (row by row)."
+
+    PXSET = 0b10000011
+    "The following two Bytes X, Y with information about the pixel to set."
+
+    PXRESET = 0b10000010 
+    "Removing a pixel. The following two Bytes X, Y with information about the pixel to reset."    
+
+    ECHO = 0b11110000
+    "The following byte is returned."
+
+    LED_BRIGTHNESS = 0b10000100
+    "Set the brightness of the LED. The following byte is the brightness."
 
     def __init__(self, width=4, height=3, serial_device="/dev/ttyUSB0", baud=9600, buffered=True):
         '''
