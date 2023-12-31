@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# TODO rm
-# make venv
 make configuration.py
 
 # running doctests
