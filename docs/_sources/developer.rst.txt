@@ -58,10 +58,6 @@ in ``docgen/_build/html``. It will automaticall be copied to ``docs``.
 After pushing to github it will be available 
 `there <https://tbs1-bo.github.io/flipflapflop/>`_.
 
-There is a ``gitlab-ci.yml`` script that will only be executed if the project is 
-hosted on a gitlab server. The script automatically deploys the documentation
-on every commit onto the master branch. An examples can be found 
-`here <https://tbs1-bo.gitlab.io/flipflapflop/>`_.
 
 TODO: maybe switch to readthedocs.io
 
