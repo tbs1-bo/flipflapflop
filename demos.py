@@ -487,7 +487,7 @@ def main():
              FlappyDot(fdd), BinaryClock(fdd), rogueflip.Game(fdd),
              PygameSurfaceDemo(fdd), LinesDemo(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
-    num = 11# int(input(">"))
+    num = int(input(">"))
     print("Running demo. CTRL-C to abort.")
     demos[num].run()
 
