@@ -48,7 +48,7 @@ class SerialDisplay(displayprovider.DisplayBase):
         assert width < 128 and height < 128, "Serial display dimension is too big!"
         super().__init__(width, height)
         # TODO add support for auto configuring dimensions
-        print('open serial device', serial_device)      
+        print('open serial device', serial_device, "Baudrate", baud)      
         self.ser = serial.serial_for_url(serial_device, baudrate=baud, timeout=1)
         self.buffered = buffered        
         self.buffer = [False] * (width * height)
