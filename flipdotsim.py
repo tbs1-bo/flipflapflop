@@ -117,8 +117,10 @@ if __name__ == '__main__':
         width=configuration.WIDTH, 
         height=configuration.HEIGHT,
         fps=configuration.simulator["fps"])
-    fdw = flipdotfont.TextScroller(fds, "Test 12345!", flipdotfont.big_font())
+    scroller = flipdotfont.TextScroller(fds, 
+                                        "Test 12345!", flipdotfont.big_font())
     for _ in range(20):
-        fdw.scrolltext()
+        scroller.scrolltext()
         fds.show()
         time.sleep(0.1)
+        
