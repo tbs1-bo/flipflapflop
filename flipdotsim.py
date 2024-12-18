@@ -112,9 +112,13 @@ def test_flipdot_sim():
 if __name__ == '__main__':
     import flipdotfont
     import configuration
+    import time
     fds = FlipDotSim(
         width=configuration.WIDTH, 
         height=configuration.HEIGHT,
         fps=configuration.simulator["fps"])
-    fdw = flipdotfont.TextScroller(fds)
-    fdw.scrolltext('Test 12345!', flipdotfont.big_font(), 1)
+    fdw = flipdotfont.TextScroller(fds, "Test 12345!", flipdotfont.big_font())
+    for _ in range(20):
+        fdw.scrolltext()
+        fds.show()
+        time.sleep(0.1)
