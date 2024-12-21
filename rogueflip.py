@@ -255,6 +255,6 @@ def test_roguegame():
 if __name__ == "__main__":
     import displayprovider
     while True:
-        #game_world_file = "ressources/rogueflip_38c3.tmx"
+        #game_world_file = "ressources/38c3/rogueflip_38c3.tmx"
         fdd = displayprovider.get_display()
         run_with_flipdotdisplay(fdd) #, game_world_file)
