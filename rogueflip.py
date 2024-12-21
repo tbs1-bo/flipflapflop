@@ -215,6 +215,7 @@ def run_remote_display():
 
 
 def run_with_flipdotdisplay(fdd, gameworld=DEFAULT_TMX_WORLD_FILE):
+    print("running with display", fdd.__class__, "and world", gameworld)
     g = Game(fdd, gameworld)
     g.run()
 
@@ -251,5 +252,5 @@ if __name__ == "__main__":
     fdd = displayprovider.get_display()
     run_with_flipdotdisplay(fdd, game_world_file)
 
-    #run_simulator()
-    #run_remote_display()
+    run_simulator()
+    run_remote_display()
