@@ -33,6 +33,8 @@ class Game:
         print("Found", len(self.coins), "coins.")
 
         self.fdd = flipdotdisplay
+        # default win message shown wjen all coins are collected
+        self.win_message = "you win"
 
     def run(self):
         """Start the game running in an endless loop."""
@@ -98,18 +100,17 @@ class Game:
                 self.player_try_collect_coin()
                 if len(self.coins) == 0:
                     self.show_win_message()
+                    self.game_running = False
+
             if not self.player_in_window():
                 self.move_window(dx, dy)
 
     def show_win_message(self):
         font = flipdotfont.big_font()
-        flipdotfont.TextScroller(self.fdd, "you", font)
-        self.fdd.show()
-        time.sleep(2)
-
-        flipdotfont.TextScroller(self.fdd, "win", font)
-        self.fdd.show()
-        time.sleep(2)
+        for word in self.win_message.split():
+            flipdotfont.TextScroller(self.fdd, word, font)
+            self.fdd.show()
+            time.sleep(2)
 
     def player_try_collect_coin(self):
         # remove coin under player
@@ -248,9 +249,7 @@ def test_roguegame():
 
 if __name__ == "__main__":
     import displayprovider
-    game_world_file = "ressources/rogueflip_38c3.tmx"
-    fdd = displayprovider.get_display()
-    run_with_flipdotdisplay(fdd, game_world_file)
-
-    run_simulator()
-    run_remote_display()
+    while True:
+        #game_world_file = "ressources/rogueflip_38c3.tmx"
+        fdd = displayprovider.get_display()
+        run_with_flipdotdisplay(fdd) #, game_world_file)
