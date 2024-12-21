@@ -12,13 +12,14 @@ DEFAULT_TMX_WORLD_FILE="ressources/rogueflip_world.tmx"
 
 class Game:
     """A roguelike for a flipdot display."""
+    JOSTICK_SELECT_BUTTON = 8
 
     def __init__(self, flipdotdisplay, worldfile=DEFAULT_TMX_WORLD_FILE):
         self.fdd = flipdotdisplay
         self.game_running = False
         pygame.init()
         if pygame.joystick.get_count() > 0:
-            print("Joystick found")
+            print(pygame.joystick.get_count(), "Joystick(s) found")
             self.joystick = pygame.joystick.Joystick(0)
             self.joystick.init()
 
@@ -89,8 +90,12 @@ class Game:
 
             elif event.type == pygame.JOYAXISMOTION:
                 # handle joystick
-                dx += round(self.joystick.get_axis(0))
-                dy += round(self.joystick.get_axis(1))
+                dx = min(1, max(-1, round(self.joystick.get_axis(0))))
+                dy = min(1, max(-1, round(self.joystick.get_axis(1))))
+            elif event.type == pygame.JOYBUTTONUP:
+                if event.button==Game.JOSTICK_SELECT_BUTTON:
+                    print("game aborted")
+                    self.game_running = False
             else:
                 # ignore other events
                 continue
