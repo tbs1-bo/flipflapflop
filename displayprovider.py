@@ -38,8 +38,7 @@ class DisplayBase:
         "Turn LED of the display on (True) or off (False)"
         pass
 
-
-def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
+def get_display(width=configuration.WIDTH, height=configuration.HEIGHT, fallback=Fallback.SIMULATOR):
     try:
         import fffserial
         return fffserial.SerialDisplay(
