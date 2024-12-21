@@ -117,6 +117,9 @@ class Game:
             self.fdd.show()
             time.sleep(2)
 
+        # clear events that happened while showing the win message
+        pygame.event.clear()
+
     def player_try_collect_coin(self):
         # remove coin under player
         self.coins = [c for c in self.coins if c.pos != self.player.pos]
@@ -255,6 +258,6 @@ def test_roguegame():
 if __name__ == "__main__":
     import displayprovider
     while True:
-        #game_world_file = "ressources/38c3/rogueflip_38c3.tmx"
+        game_world_file = "ressources/38c3/rogueflip_38c3.tmx"
         fdd = displayprovider.get_display()
         run_with_flipdotdisplay(fdd) #, game_world_file)
