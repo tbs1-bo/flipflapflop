@@ -246,5 +246,9 @@ def test_roguegame():
 
 
 if __name__ == "__main__":
-    run_simulator()
+    import displayprovider
+    fdd = displayprovider.get_display()
+    run_with_flipdotdisplay(fdd)
+    
+    #run_simulator()
     #run_remote_display()
