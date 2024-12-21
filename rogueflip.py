@@ -214,8 +214,8 @@ def run_remote_display():
     run_with_flipdotdisplay(fdd)
 
 
-def run_with_flipdotdisplay(fdd):
-    g = Game(fdd, DEFAULT_TMX_WORLD_FILE)
+def run_with_flipdotdisplay(fdd, gameworld=DEFAULT_TMX_WORLD_FILE):
+    g = Game(fdd, gameworld)
     g.run()
 
 
@@ -247,8 +247,9 @@ def test_roguegame():
 
 if __name__ == "__main__":
     import displayprovider
+    game_world_file = "ressources/rogueflip_38c3.tmx"
     fdd = displayprovider.get_display()
-    run_with_flipdotdisplay(fdd)
-    
+    run_with_flipdotdisplay(fdd, game_world_file)
+
     #run_simulator()
     #run_remote_display()
