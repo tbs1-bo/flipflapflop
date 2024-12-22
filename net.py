@@ -159,7 +159,7 @@ def test_networking():
     ds = DisplayServer(fdd)
     th = threading.Thread(target=ds.start,
                           kwargs={'host':'127.0.0.1'})
-    th.setDaemon(True)
+    th.daemon = True
     th.start()
     time.sleep(0.2)  # wait for server to start
     
