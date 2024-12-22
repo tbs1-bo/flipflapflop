@@ -8,5 +8,5 @@ CURENT_DIR=$(pwd)
 # starting rogueflip
 cd ../..
 # start rogueflip and log output
-python -u rogueflip.py | tee -a $CURENT_DIR/rogueflip.log
+python -u rogueflip.py 2>&1 | tee -a $CURENT_DIR/rogueflip.log
 
