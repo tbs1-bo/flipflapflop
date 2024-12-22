@@ -181,7 +181,9 @@ class World:
         return gobjs
 
     def find_player(self):
-        return self._find_game_objects(World.PLAYER)[0]
+        player = self._find_game_objects(World.PLAYER)
+        assert len(player) == 1, "More or less than one player found on map."
+        return player[0]
 
     def find_coins(self):
         return self._find_game_objects(World.COIN)
