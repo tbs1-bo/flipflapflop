@@ -214,29 +214,10 @@ class GameObject:
         return self.blink_on
 
 
-def run_simulator():
-    print("running a sample game in the simulator")
-    import configuration as conf
-    import flipdotsim
-    fdd = flipdotsim.FlipDotSim(width=conf.WIDTH, height=conf.HEIGHT)
-    run_with_flipdotdisplay(fdd)
-
-
-def run_remote_display():
-    print("running a sample game on a remote display")
-    import configuration as conf
-    import net
-    fdd = net.RemoteDisplay(host=conf.remote_display["host"],
-        port=conf.remote_display["port"], 
-        width=conf.WIDTH, height=conf.HEIGHT)
-    run_with_flipdotdisplay(fdd)
-
-
 def run_with_flipdotdisplay(fdd, gameworld=DEFAULT_TMX_WORLD_FILE):
     print("running with display", fdd.__class__, "and world", gameworld)
     g = Game(fdd, gameworld)
     g.run()
-
 
 def test_roguegame():
     import flipdotsim
