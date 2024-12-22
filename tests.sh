@@ -17,5 +17,5 @@ ls *py | \
     grep -v displayserver_service.py | \
     grep -v flipdotdisplay.py | \
     grep -v MCP23017.py | \
-    grep -v fffmqtt.py | \ 
+    grep -v fffmqtt.py | \
     xargs poetry run pytest -v 
