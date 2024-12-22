@@ -334,7 +334,7 @@ class SnakeGame(DemoBase):
 
 
 class FlappyDot(DemoBase):
-    """Flappy Dot. Control the bird with the w-key."""
+    """Flappy Dot. Control the bird with the w-key or an attached joystick."""
 
     def __init__(self, flipdotdisplay, max_lines=3):
         super().__init__(flipdotdisplay)
