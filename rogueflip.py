@@ -10,7 +10,7 @@ import flipdotfont
 import pytmx  # https://github.com/bitcraft/PyTMX
 import logging
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s %(message)s')
 log = logging.getLogger(__name__)
 
 DEFAULT_TMX_WORLD_FILE="ressources/rogueflip_world.tmx"
