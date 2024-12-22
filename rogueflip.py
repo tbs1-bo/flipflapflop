@@ -214,11 +214,6 @@ class GameObject:
         return self.blink_on
 
 
-def run_with_flipdotdisplay(fdd, gameworld=DEFAULT_TMX_WORLD_FILE):
-    print("running with display", fdd.__class__, "and world", gameworld)
-    g = Game(fdd, gameworld)
-    g.run()
-
 def test_roguegame():
     import flipdotsim
     import threading
@@ -244,10 +239,15 @@ def test_roguegame():
 
     g.run()
 
-
-if __name__ == "__main__":
+def main():
     import displayprovider
     while True:
-        game_world_file = "ressources/38c3/rogueflip_38c3.tmx"
-        fdd = displayprovider.get_display()
-        run_with_flipdotdisplay(fdd) #, game_world_file)
+        game_world_file = DEFAULT_TMX_WORLD_FILE
+        #game_world_file = "ressources/38c3/rogueflip_38c3.tmx"
+        fdd = displayprovider.get_display()        
+        print("running with display", fdd.__class__, "and world", game_world_file)
+        g = Game(fdd, game_world_file)
+        g.run()
+
+if __name__ == "__main__":
+    main()
