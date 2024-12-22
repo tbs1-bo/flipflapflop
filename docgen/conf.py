@@ -59,7 +59,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'flipflapflop'
-copyright = '2018-2023, Marco Bakera, Reinhard Gummlich'
+copyright = '2018-2025, Marco Bakera, Reinhard Gummlich'
 author = 'Marco Bakera, Reinhard Gummlich'
 
 # The version info for the project you're documenting, acts as replacement for
