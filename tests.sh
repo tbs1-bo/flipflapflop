@@ -2,7 +2,7 @@
 
 make configuration.py
 
-# running doctests
+echo "running doctests"
 FILES="flipdotsim.py flipdotfont.py displayprovider.py net.py rogueflip.py"
 # Bakera, 2024-12-22: Disabling fffmqtt.py because of timeout issues with public mqtt test broker
 echo testing $FILES
@@ -10,7 +10,7 @@ echo testing $FILES
 PYGAME_HIDE_SUPPORT_PROMPT=1
 poetry run python -m doctest $FILES
 
-# running tests using pytest
+echo "running tests using pytest"
 ls *py | \
     # ignoring some files for tests because of missing dependencies
     # Bakera, 2024-12-22: Disabled fffmqtt.py because of timeout issues with public mqtt test broker
