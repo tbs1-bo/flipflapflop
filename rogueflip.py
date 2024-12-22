@@ -3,6 +3,7 @@ Rogueflip is a roguelike dungeon crawler for the flipdot display. Levels can
 be created with the tiled map editor (https://www.mapeditor.org/) and a corresponding tileset.
 """
 
+import os
 import time
 import pygame
 import flipdotfont
@@ -239,21 +240,21 @@ def test_roguegame():
 
     g.run()
 
+
+def __check_env_var(varname, default_value):
+    print("checking for", varname, "in environment")
+    return os.environ.get(varname, default_value)
+
 def main():
     import displayprovider
-    import sys
 
     while True:
-        # check if a world file is given as argument
-        if len(sys.argv) > 1:
-            game_world_file = sys.argv[1]
-        else:
-            print("No world file given, using default world", DEFAULT_TMX_WORLD_FILE)
-            game_world_file = DEFAULT_TMX_WORLD_FILE
+        game_world_file = __check_env_var("ROGUEFLIP_WORLD_FILE", DEFAULT_TMX_WORLD_FILE)
 
-        fdd = displayprovider.get_display()        
+        fdd = displayprovider.get_display()
         print("running with display", fdd.__class__, "and world", game_world_file)
         g = Game(fdd, game_world_file)
+        g.win_message = __check_env_var("ROGUEFLIP_WIN_MESSAGE", g.win_message)
         g.run()
 
 if __name__ == "__main__":
