@@ -121,7 +121,7 @@ class Game:
         pygame.event.clear()
 
     def player_try_collect_coin(self):
-        # remove coin under player
+        """Check if the player is on a coin and remove it from the coins list."""
         self.coins = [c for c in self.coins if c.pos != self.player.pos]
 
     def player_in_window(self):
