@@ -248,11 +248,10 @@ def __check_env_var(varname, default_value):
 def main():
     import displayprovider
 
+    fdd = displayprovider.get_display()
+    game_world_file = __check_env_var("ROGUEFLIP_WORLD_FILE", DEFAULT_TMX_WORLD_FILE)
+    print("running with display", fdd.__class__, "and world", game_world_file)
     while True:
-        game_world_file = __check_env_var("ROGUEFLIP_WORLD_FILE", DEFAULT_TMX_WORLD_FILE)
-
-        fdd = displayprovider.get_display()
-        print("running with display", fdd.__class__, "and world", game_world_file)
         g = Game(fdd, game_world_file)
         g.win_message = __check_env_var("ROGUEFLIP_WIN_MESSAGE", g.win_message)
         g.run()
