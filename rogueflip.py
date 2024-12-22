@@ -241,9 +241,16 @@ def test_roguegame():
 
 def main():
     import displayprovider
+    import sys
+
     while True:
-        game_world_file = DEFAULT_TMX_WORLD_FILE
-        #game_world_file = "ressources/38c3/rogueflip_38c3.tmx"
+        # check if a world file is given as argument
+        if len(sys.argv) > 1:
+            game_world_file = sys.argv[1]
+        else:
+            print("No world file given, using default world", DEFAULT_TMX_WORLD_FILE)
+            game_world_file = DEFAULT_TMX_WORLD_FILE
+
         fdd = displayprovider.get_display()        
         print("running with display", fdd.__class__, "and world", game_world_file)
         g = Game(fdd, game_world_file)
