@@ -34,7 +34,7 @@ class Game:
         print("Found", len(self.coins), "coins.")
 
         self.fdd = flipdotdisplay
-        # default win message shown wjen all coins are collected
+        # default win message shown when all coins are collected
         self.win_message = "you win"
 
     def run(self):
@@ -101,6 +101,7 @@ class Game:
                 continue
 
             if not self.world.is_wall(plx+dx, ply+dy):
+                # move player if no wall is in the way
                 self.player.pos = [plx + dx, ply + dy]
                 self.player_try_collect_coin()
                 self.check_win_condition()
@@ -157,6 +158,7 @@ class World:
         self.map = pytmx.TiledMap(worldfile)
         self.default_layer = 0
         assert len(self.map.layers) == 1, "Assuming everything in one layer."
+        print("Loaded map with size", self.map.width, "x", self.map.height)
 
     def get_type(self, x, y):
         return self.map.get_tile_properties(x, y, self.default_layer)['type']
