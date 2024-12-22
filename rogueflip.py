@@ -8,6 +8,10 @@ import time
 import pygame
 import flipdotfont
 import pytmx  # https://github.com/bitcraft/PyTMX
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s')
+log = logging.getLogger(__name__)
 
 DEFAULT_TMX_WORLD_FILE="ressources/rogueflip_world.tmx"
 
@@ -20,7 +24,7 @@ class Game:
         self.game_running = False
         pygame.init()
         if pygame.joystick.get_count() > 0:
-            print(pygame.joystick.get_count(), "Joystick(s) found")
+            log.debug(f"{pygame.joystick.get_count()} Joystick(s) found")
             self.joystick = pygame.joystick.Joystick(0)
             self.joystick.init()
 
@@ -30,9 +34,9 @@ class Game:
         self.window_top_left = [0, 0]
 
         self.player = self.world.find_player()
-        print("Player placed at", self.player.pos)
+        log.debug(f"Player placed at {self.player.pos}")
         self.coins = self.world.find_coins()
-        print("Found", len(self.coins), "coins.")
+        log.debug(f"Found {len(self.coins)} coins.")
 
         self.fdd = flipdotdisplay
         # default win message shown when all coins are collected
@@ -95,7 +99,7 @@ class Game:
                 dy = min(1, max(-1, round(self.joystick.get_axis(1))))
             elif event.type == pygame.JOYBUTTONUP:
                 if event.button==Game.JOSTICK_SELECT_BUTTON:
-                    print("game aborted")
+                    log.info("game aborted")
                     self.game_running = False
             else:
                 # ignore other events
@@ -113,7 +117,7 @@ class Game:
     def check_win_condition(self):
         """Check if the player has collected all coins and show the win message."""
         if len(self.coins) == 0:
-            print("All coins collected")
+            log.info("All coins collected")
             self.show_win_message()
             self.game_running = False
 
@@ -159,7 +163,7 @@ class World:
         self.map = pytmx.TiledMap(worldfile)
         self.default_layer = 0
         assert len(self.map.layers) == 1, "Assuming everything in one layer."
-        print("Loaded map with size", self.map.width, "x", self.map.height)
+        log.debug(f"Loaded map with size {self.map.width} x {self.map.height}")
 
     def get_type(self, x, y):
         return self.map.get_tile_properties(x, y, self.default_layer)['type']
@@ -242,7 +246,7 @@ def test_roguegame():
 
 
 def __check_env_var(varname, default_value):
-    print("checking for", varname, "in environment")
+    log.debug(f"checking for {varname} in environment")
     return os.environ.get(varname, default_value)
 
 def main():
@@ -250,7 +254,7 @@ def main():
 
     fdd = displayprovider.get_display()
     game_world_file = __check_env_var("ROGUEFLIP_WORLD_FILE", DEFAULT_TMX_WORLD_FILE)
-    print("running with display", fdd.__class__, "and world", game_world_file)
+    log.debug(f"running with display {fdd.__class__} and world {game_world_file}")
     while True:
         g = Game(fdd, game_world_file)
         g.win_message = __check_env_var("ROGUEFLIP_WIN_MESSAGE", g.win_message)
