@@ -343,12 +343,14 @@ class FlappyDot(DemoBase):
         self.lines = []
         self.score = 0
         self.max_lines = max_lines
+        self.start_time = time.time()
         self.reset()
 
     def add_line(self, x, gap_start, gap_end):
         self.lines.append({"x": x, "gap_start": gap_start, "gap_end": gap_end})
 
     def reset(self):
+        self.start_time = time.time()
         self.pos = (1, 1)
         self.lines = []
         for i in range(self.max_lines):
@@ -373,6 +375,7 @@ class FlappyDot(DemoBase):
         self.handle_input()
         self.move_lines()
         if not self.bird_is_alive():
+            print("Game Over. Time elapsed:", time.time()-self.start_time)
             self.reset()
 
     def bird_is_alive(self):
