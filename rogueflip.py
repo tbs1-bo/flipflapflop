@@ -103,12 +103,17 @@ class Game:
             if not self.world.is_wall(plx+dx, ply+dy):
                 self.player.pos = [plx + dx, ply + dy]
                 self.player_try_collect_coin()
-                if len(self.coins) == 0:
-                    self.show_win_message()
-                    self.game_running = False
+                self.check_win_condition()
 
             if not self.player_in_window():
                 self.move_window(dx, dy)
+
+    def check_win_condition(self):
+        """Check if the player has collected all coins and show the win message."""
+        if len(self.coins) == 0:
+            print("All coins collected")
+            self.show_win_message()
+            self.game_running = False
 
     def show_win_message(self):
         font = flipdotfont.big_font()
