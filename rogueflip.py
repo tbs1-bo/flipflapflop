@@ -227,12 +227,12 @@ def test_roguegame():
     def user_event_generator():
         print("creating events")
         # run to the next screen
-        for k in 'waaasssssdssssasssssssssssssddddddddd':
+        for k in 'waaasssssdssssasssssssssssssdddddddddddddsdddddddd':
             key = ord(k)
             print("posting key event", key)
             pygame.event.post(
                 pygame.event.Event(pygame.KEYDOWN, key=key))
-            time.sleep(0.1)
+            time.sleep(0.08)
 
         g.game_running = False
 
