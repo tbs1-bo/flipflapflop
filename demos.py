@@ -333,7 +333,6 @@ class SnakeGame(DemoBase):
         return (x, y) in self.snake_body or (x, y) in self.pills
 
 
-# TODO add support for joystick
 class FlappyDot(DemoBase):
     """Flappy Dot. Control the bird with the w-key."""
 
@@ -359,7 +358,9 @@ class FlappyDot(DemoBase):
     def handle_input(self):
         newx, newy = self.pos
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
+            # check if keyboard or joystick was used to control the bird
+            if (event.type == pygame.KEYDOWN and event.key == pygame.K_w) or \
+               (event.type == pygame.JOYBUTTONDOWN and event.button == 0):
                 newy -= 1
                 self.pos = (newx, newy)
                 return
@@ -368,7 +369,7 @@ class FlappyDot(DemoBase):
         self.pos = (newx, newy)
 
     def prepare(self):
-        time.sleep(0.1)     # TODO remove this when display handles framerate
+        time.sleep(0.2)     # TODO remove this when display handles framerate
         self.handle_input()
         self.move_lines()
         if not self.bird_is_alive():
