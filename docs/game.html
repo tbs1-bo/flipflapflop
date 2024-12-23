@@ -16,13 +16,13 @@
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="_static/documentation_options.js?v=2709fde1"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Developer Documentation" href="developer.html" />
-    <link rel="prev" title="Net" href="net.html" /> 
+    <link rel="prev" title="Web" href="web.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="fdd.html">FlipDotDisplay</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simulator.html">FlipDot-Simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="net.html">Net</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web.html">Web</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Games</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#rogueflip">Rogueflip</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#level-description">Level Description</a></li>
@@ -55,9 +56,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#rogueflip.Game"><code class="docutils literal notranslate"><span class="pre">Game</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#rogueflip.GameObject"><code class="docutils literal notranslate"><span class="pre">GameObject</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#rogueflip.World"><code class="docutils literal notranslate"><span class="pre">World</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#rogueflip.run_remote_display"><code class="docutils literal notranslate"><span class="pre">run_remote_display()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#rogueflip.run_simulator"><code class="docutils literal notranslate"><span class="pre">run_simulator()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#rogueflip.run_with_flipdotdisplay"><code class="docutils literal notranslate"><span class="pre">run_with_flipdotdisplay()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rogueflip.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#rogueflip.test_roguegame"><code class="docutils literal notranslate"><span class="pre">test_roguegame()</span></code></a></li>
 </ul>
 </li>
@@ -120,6 +119,17 @@ be created with the tiled map editor (<a class="reference external" href="https:
 <dt class="sig sig-object py" id="rogueflip.Game">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">Game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flipdotdisplay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worldfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ressources/rogueflip_world.tmx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game" title="Link to this definition"></a></dt>
 <dd><p>A roguelike for a flipdot display.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rogueflip.Game.JOSTICK_SELECT_BUTTON">
+<span class="sig-name descname"><span class="pre">JOSTICK_SELECT_BUTTON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#rogueflip.Game.JOSTICK_SELECT_BUTTON" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Game.check_win_condition">
+<span class="sig-name descname"><span class="pre">check_win_condition</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.check_win_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.check_win_condition" title="Link to this definition"></a></dt>
+<dd><p>Check if the player has collected all coins and show the win message.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="rogueflip.Game.handle_input">
 <span class="sig-name descname"><span class="pre">handle_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.handle_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.handle_input" title="Link to this definition"></a></dt>
@@ -147,7 +157,8 @@ the flipdotdisplay.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="rogueflip.Game.player_try_collect_coin">
 <span class="sig-name descname"><span class="pre">player_try_collect_coin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.player_try_collect_coin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.player_try_collect_coin" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Check if the player is on a coin and remove it from the coins list.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="rogueflip.Game.run">
@@ -245,18 +256,8 @@ the flipdotdisplay.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="rogueflip.run_remote_display">
-<span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">run_remote_display</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#run_remote_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.run_remote_display" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rogueflip.run_simulator">
-<span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">run_simulator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#run_simulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.run_simulator" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="rogueflip.run_with_flipdotdisplay">
-<span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">run_with_flipdotdisplay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fdd</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#run_with_flipdotdisplay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.run_with_flipdotdisplay" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="rogueflip.main">
+<span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.main" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -272,14 +273,14 @@ the flipdotdisplay.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="net.html" class="btn btn-neutral float-left" title="Net" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="web.html" class="btn btn-neutral float-left" title="Web" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="developer.html" class="btn btn-neutral float-right" title="Developer Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2018-2023, Marco Bakera, Reinhard Gummlich.</p>
+    <p>&#169; Copyright 2018-2025, Marco Bakera, Reinhard Gummlich.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

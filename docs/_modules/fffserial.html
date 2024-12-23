@@ -15,7 +15,7 @@
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -129,7 +129,7 @@
         <span class="k">assert</span> <span class="n">width</span> <span class="o">&lt;</span> <span class="mi">128</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;Serial display dimension is too big!&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
         <span class="c1"># TODO add support for auto configuring dimensions</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;open serial device&#39;</span><span class="p">,</span> <span class="n">serial_device</span><span class="p">)</span>      
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;open serial device&#39;</span><span class="p">,</span> <span class="n">serial_device</span><span class="p">,</span> <span class="s2">&quot;Baudrate&quot;</span><span class="p">,</span> <span class="n">baud</span><span class="p">)</span>      
         <span class="bp">self</span><span class="o">.</span><span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">serial_for_url</span><span class="p">(</span><span class="n">serial_device</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="n">baud</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">buffered</span> <span class="o">=</span> <span class="n">buffered</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span><span class="p">)</span>
@@ -298,7 +298,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2018-2023, Marco Bakera, Reinhard Gummlich.</p>
+    <p>&#169; Copyright 2018-2025, Marco Bakera, Reinhard Gummlich.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
