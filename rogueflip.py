@@ -19,7 +19,7 @@ class Game:
     """A roguelike for a flipdot display."""
 
     # button to abort the game as defined by pygames joystick
-    JOSTICK_SELECT_BUTTON = 8
+    JOSTICK_ABORT_BUTTON = 8
 
     def __init__(self, flipdotdisplay, worldfile=DEFAULT_TMX_WORLD_FILE):
         self.fdd = flipdotdisplay
@@ -100,7 +100,7 @@ class Game:
                 dx = min(1, max(-1, round(self.joystick.get_axis(0))))
                 dy = min(1, max(-1, round(self.joystick.get_axis(1))))
             elif event.type == pygame.JOYBUTTONUP:
-                if event.button==Game.JOSTICK_SELECT_BUTTON:
+                if event.button==Game.JOSTICK_ABORT_BUTTON:
                     log.info("game aborted")
                     self.game_running = False
             else:
