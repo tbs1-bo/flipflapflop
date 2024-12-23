@@ -17,6 +17,8 @@ DEFAULT_TMX_WORLD_FILE="ressources/rogueflip_world.tmx"
 
 class Game:
     """A roguelike for a flipdot display."""
+
+    # button to abort the game as defined by pygames joystick
     JOSTICK_SELECT_BUTTON = 8
 
     def __init__(self, flipdotdisplay, worldfile=DEFAULT_TMX_WORLD_FILE):
