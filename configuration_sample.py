@@ -3,8 +3,11 @@ Some default configuration options with default values.
 Copy this file to configuration.py and change the values as needed.
 """
 
-WIDTH = 28
-HEIGHT = 13
+# the small one
+WIDTH, HEIGHT = 28, 13
+
+# the medium one
+#WIDTH, HEIGHT = 126, 16
 
 flipdotdisplay = {
     #"serialdevice": "spy:///dev/ttyUSB0",  # use this for debugging
