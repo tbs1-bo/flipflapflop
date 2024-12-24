@@ -39,6 +39,7 @@ class DisplayBase:
         pass
 
 def get_display(width=configuration.WIDTH, height=configuration.HEIGHT, fallback=Fallback.SIMULATOR):
+    print("Creating display with width", width, "and height", height)
     try:
         import fffserial
         return fffserial.SerialDisplay(
