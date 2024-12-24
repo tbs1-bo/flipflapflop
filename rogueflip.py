@@ -42,7 +42,12 @@ class Game:
 
         self.fdd = flipdotdisplay
         # default win message shown when all coins are collected
-        self.win_message = "you win"
+        self.win_message = "you win\nanother game?"
+        if self.fdd.height > flipdotfont.big_font().height:
+            self.font = flipdotfont.big_font()
+        else:
+            self.font = flipdotfont.small_font()
+        log.debug(f"Using font with letter size {self.font.width}x{self.font.height}")
 
     def run(self):
         """Start the game running in an endless loop."""
