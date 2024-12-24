@@ -123,11 +123,10 @@ class Game:
             self.show_win_message()
             self.game_running = False
 
-    def show_win_message(self):
-        font = flipdotfont.small_font()
+    def show_win_message(self):        
         self.fdd.clear()
-        for word in self.win_message.split():
-            flipdotfont.TextScroller(self.fdd, word, font)
+        for word in self.win_message.split('\n'):
+            flipdotfont.TextScroller(self.fdd, word, self.font)
             self.fdd.show()
             time.sleep(2)
 
