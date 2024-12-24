@@ -53,6 +53,8 @@ class Game:
 
     def run(self):
         """Start the game running in an endless loop."""
+        # TODO refactor to update and draw methods to separate concerns
+
         assert self.world.map.width % self.fdd.width == 0 and \
                self.world.map.height % self.fdd.height == 0, \
                "Width and height of the map must be a multiple of display width and height"
