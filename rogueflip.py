@@ -257,6 +257,8 @@ def __check_env_var(varname, default_value):
 def main():
     import displayprovider
 
+    log.info("Starting rogueflip")
+
     fdd = displayprovider.get_display()
     game_world_file = __check_env_var("ROGUEFLIP_WORLD_FILE", DEFAULT_TMX_WORLD_FILE)
     log.debug(f"running with display {fdd.__class__} and world {game_world_file}")
