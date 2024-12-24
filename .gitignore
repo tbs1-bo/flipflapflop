@@ -37,5 +37,6 @@ poetry.lock
 # test cache
 .pytest_cache/
 
-# ignoring rogueflip log
+# ignoring log files
 ressources/38c3/rogueflip.log
+ressources/38c3/mqtt2display.log
