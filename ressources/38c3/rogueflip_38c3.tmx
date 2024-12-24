@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="56" height="26" tilewidth="20" tileheight="20" infinite="0" nextlayerid="5" nextobjectid="1">
  <tileset firstgid="1" name="ff" tilewidth="20" tileheight="20" tilecount="4" columns="4">
-  <image source="rogueflip_tiles.jpg" width="80" height="20"/>
+  <image source="../rogueflip_tiles.jpg" width="80" height="20"/>
   <tile id="0">
    <properties>
     <property name="blink_interval" type="float" value="0"/>
