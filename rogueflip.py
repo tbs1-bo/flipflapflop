@@ -168,8 +168,10 @@ class World:
         assert len(self.map.layers) == 1, "Assuming everything in one layer."
         log.debug(f"Loaded map with size {self.map.width} x {self.map.height}")
 
-    def get_type(self, x, y):
-        return self.map.get_tile_properties(x, y, self.default_layer)['type']
+    def get_type(self, x, y):        
+        tile = self.map.get_tile_properties(x, y, self.default_layer)
+        assert tile, f"Tile type at {x} {y} must be set in the map."
+        return tile['type']
 
     def is_onboard(self, x, y):
         return 0 <= x < self.map.width and 0 <= y < self.map.height
