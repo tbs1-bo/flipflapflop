@@ -49,6 +49,8 @@ class Game:
             self.font = flipdotfont.small_font()
         log.debug(f"Using font with letter size {self.font.width}x{self.font.height}")
 
+        self.menu = Menu(self.fdd)
+
     def run(self):
         """Start the game running in an endless loop."""
         assert self.world.map.width % self.fdd.width == 0 and \
@@ -57,12 +59,16 @@ class Game:
 
         self.game_running = True
         while self.game_running:
-            self.tick()
-            for x in range(self.fdd.width):
-                for y in range(self.fdd.height):
-                    val = self.handle_px(x, y)
-                    self.fdd.px(x, y, val)
-            self.fdd.show()
+            if self.menu.is_shown:
+                self.menu.update()
+                self.menu.draw()
+            else:
+                self.tick()
+                for x in range(self.fdd.width):
+                    for y in range(self.fdd.height):
+                        val = self.handle_px(x, y)
+                        self.fdd.px(x, y, val)
+                self.fdd.show()
 
     def handle_px(self, x, y):
         x_, y_ = self.window_top_left[0] + x, self.window_top_left[1] + y
@@ -99,6 +105,8 @@ class Game:
                     dy = +1
                 elif event.key == pygame.K_d:
                     dx = +1
+                elif event.key == pygame.K_ESCAPE:
+                    self.menu.is_shown = True
 
             elif event.type == pygame.JOYAXISMOTION:
                 # handle joystick
@@ -157,6 +165,38 @@ class Game:
         the flipdotdisplay."""
         self.window_top_left[0] += self.fdd.width * dx
         self.window_top_left[1] += self.fdd.height * dy
+
+
+class Menu:
+    def __init__(self, fdd):
+        self.fdd = fdd
+        self.font = flipdotfont.big_font()
+        self.items = ["Start", "Quit"]
+        self.selected = 0
+        self.is_shown = True
+
+    def update(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w:
+                    self.selected = (self.selected - 1) % len(self.items)
+                elif event.key == pygame.K_s:
+                    self.selected = (self.selected + 1) % len(self.items)
+
+                elif event.key == pygame.K_RETURN:
+                    if self.selected == 0:
+                        self.is_shown = False
+                    else:
+                        exit()
+
+    def draw(self):
+        self.fdd.clear()
+        menu_item = self.items[self.selected]        
+        flipdotfont.TextScroller(self.fdd, menu_item, self.font)
+        self.fdd.show()
 
 
 class World:
