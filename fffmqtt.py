@@ -1,3 +1,4 @@
+import json
 import paho.mqtt.client
 import configuration
 import displayprovider
@@ -33,10 +34,14 @@ class Mqtt2Display:
 
         # publishing info about the display
         print("publishing display info to topic", self.topic_info)
-        self.mqtt.publish(self.topic_info+'/width', self.fdd.width, retain=True)
-        self.mqtt.publish(self.topic_info+'/height', self.fdd.height, retain=True)
-        infotxt = 'Send pixel information to topic "%s".' % self.topic_display
-        self.mqtt.publish(self.topic_info+'/info', infotxt, retain=True)
+        js = {
+            'width': self.fdd.width,
+            'height': self.fdd.height,
+            'implementation class': self.fdd.__class__.__name__,
+            'displaytopic': self.topic_display,
+            'info': f'Send pixel information (1s and 0s) to topic {self.topic_display}'
+        }
+        self.mqtt.publish(self.topic_info, json.dumps(js), retain=True)
 
     def _on_message(self, client, userdata, msg: paho.mqtt.client.MQTTMessage):
         self.draw_on_display(str(msg.payload, 'ascii'))
