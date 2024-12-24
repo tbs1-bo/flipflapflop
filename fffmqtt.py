@@ -6,7 +6,7 @@ BROKER = configuration.mqtt_broker
 TOPIC_DISPLAY = configuration.mqtt_topic_display
 TOPIC_INFO = configuration.mqtt_topic_info
 
-class Mqtt2Display:
+class Mqtt2Display:    
     def __init__(self, broker, topic_display, topic_info, 
                  fdd: displayprovider.DisplayBase):
         '''
@@ -18,6 +18,7 @@ class Mqtt2Display:
         self.mqtt = paho.mqtt.client.Client()
         self.mqtt.on_connect = self._on_connect
         self.mqtt.on_message = self._on_message
+        print("connecting to broker", broker)
         self.mqtt.connect(broker)
         self.topic_display = topic_display
         self.topic_info = topic_info
@@ -31,6 +32,7 @@ class Mqtt2Display:
             print("Unable to connect. error", rc)
 
         # publishing info about the display
+        print("publishing display info to topic", self.topic_info)
         self.mqtt.publish(self.topic_info+'/width', self.fdd.width, retain=True)
         self.mqtt.publish(self.topic_info+'/height', self.fdd.height, retain=True)
         infotxt = 'Send pixel information to topic "%s".' % self.topic_display
@@ -255,7 +257,15 @@ def test_discover_mqtt_broker():
         assert '.' in broker_ip, broker_ip
         print('service discovered:', broker_ip)
 
+def main():
+    fdd = displayprovider.get_display()
+    print("using display", fdd.__class__.__name__, 
+          "with size", fdd.width, fdd.height)
+    print("Starting bridge from MQTT broker to display")
+    mqtt2disp = Mqtt2Display(BROKER, TOPIC_DISPLAY, TOPIC_INFO, fdd)
+    mqtt2disp.run(background=False)
 
 if __name__ == '__main__':
+    main()
     #test_discover_mqtt_broker()
-    test_rotating_plasma()
+    #test_rotating_plasma()
