@@ -30,7 +30,7 @@ jobs:
         poetry update
     - name: Install broker
       run: |
-        apt install mosquitto
+        sudo apt install mosquitto
     - name: Run tests
       run: |
         poetry run ./tests.sh
