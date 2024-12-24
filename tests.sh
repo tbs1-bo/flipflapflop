@@ -3,7 +3,7 @@
 make configuration.py
 
 echo "running doctests"
-FILES="flipdotsim.py flipdotfont.py displayprovider.py net.py rogueflip.py"
+FILES="flipdotsim.py flipdotfont.py displayprovider.py net.py rogueflip.py fffmqtt.py"
 # Bakera, 2024-12-22: Disabling fffmqtt.py because of timeout issues with public mqtt test broker
 echo testing $FILES
 # turn off pygame greeting upon first import
@@ -17,5 +17,5 @@ ls *py | \
     grep -v displayserver_service.py | \
     grep -v flipdotdisplay.py | \
     grep -v MCP23017.py | \
-    grep -v fffmqtt.py | \
     xargs poetry run pytest -v 
+#grep -v fffmqtt.py | \

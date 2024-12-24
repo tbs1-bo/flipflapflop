@@ -33,7 +33,7 @@ simulator = {
 }
 
 
-mqtt_broker = 'test.mosquitto.org'
+mqtt_broker = 'localhost' # 'test.mosquitto.org'
 mqtt_topic_display = 'fff_display'
 mqtt_topic_info = 'fff_display_info'
 
