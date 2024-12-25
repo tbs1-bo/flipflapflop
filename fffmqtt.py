@@ -2,6 +2,10 @@ import json
 import paho.mqtt.client
 import configuration
 import displayprovider
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s %(message)s')
+log = logging.getLogger(__name__)
 
 BROKER = configuration.mqtt_broker
 TOPIC_DISPLAY = configuration.mqtt_topic_display
@@ -19,7 +23,7 @@ class Mqtt2Display:
         self.mqtt = paho.mqtt.client.Client()
         self.mqtt.on_connect = self._on_connect
         self.mqtt.on_message = self._on_message
-        print("connecting to broker", broker)
+        log.info(f"connecting to broker {broker}")
         self.mqtt.connect(broker)
         self.topic_display = topic_display
         self.topic_info = topic_info
@@ -27,13 +31,13 @@ class Mqtt2Display:
 
     def _on_connect(self, client, userdata, flags, rc):
         if rc == 0:  # connection successful
-            print("Connected. Subscribing to topic", self.topic_display)
+            log.info(f"Connected. Subscribing to topic {self.topic_display}")
             self.mqtt.subscribe(self.topic_display)
         else:
-            print("Unable to connect. error", rc)
+            log.error(f"Unable to connect. error {rc}")
 
         # publishing info about the display
-        print("publishing display info to topic", self.topic_info)
+        log.info(f"publishing display info to topic {self.topic_info}")
         js = {
             'width': self.fdd.width,
             'height': self.fdd.height,
@@ -264,9 +268,8 @@ def test_discover_mqtt_broker():
 
 def main():
     fdd = displayprovider.get_display()
-    print("using display", fdd.__class__.__name__, 
-          "with size", fdd.width, fdd.height)
-    print("Starting bridge from MQTT broker to display")
+    log.info(f"using display {fdd.__class__.__name__} with size {fdd.width, fdd.height}")
+    log.info("Starting bridge from MQTT broker to display")
     mqtt2disp = Mqtt2Display(BROKER, TOPIC_DISPLAY, TOPIC_INFO, fdd)
     mqtt2disp.run(background=False)
 
