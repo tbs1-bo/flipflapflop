@@ -69,14 +69,21 @@ class Game:
 
     def draw(self):
         self.fdd.clear()
-        self.world.draw()
-        self.player.draw()
+
+        self.world.draw(self.window_top_left)
+        
+        # draw player
+        tlx, tly = self.window_top_left
+        self.fdd.px(self.player.pos[0] - tlx, self.player.pos[1] - tly, 
+                    self.player.is_draw())
+        
+        # draw coins
         for coin in self.coins:
-            coin.draw()
+            self.fdd.px(coin.pos[0] - tlx, coin.pos[1] - tly, coin.is_draw())
 
         self.fdd.show()
 
-    def handle_px(self, x, y):
+    def handle_px(self, x, y): # TODO unused -> remove
         x_, y_ = self.window_top_left[0] + x, self.window_top_left[1] + y
         if self.player.pos == [x_, y_]:
             return self.player.draw()
@@ -212,8 +219,8 @@ class World:
     BACK = 'back'
 
     def __init__(self, worldfile, fdd):
+        # TODO add list of game object to be drawn
         self.fdd = fdd
-        self.pixels = []  # list of tile types
         self.map = pytmx.TiledMap(worldfile)
         self.default_layer = 0
         assert len(self.map.layers) == 1, "Assuming everything in one layer."
@@ -243,7 +250,7 @@ class World:
                 if self.get_type(x, y) == typ:
                     blink_int = self.map.get_tile_properties(
                         x, y, self.default_layer)['blink_interval']
-                    en = GameObject(self.fdd, x, y, blink_int)
+                    en = GameObject(x, y, blink_int)
                     gobjs.append(en)
 
         return gobjs
@@ -256,15 +263,15 @@ class World:
     def find_coins(self):
         return self._find_game_objects(World.COIN)
 
-    def draw(self):
+    def draw(self, topleft_xy):
+        tlx, tly = topleft_xy
         for x in range(self.fdd.width):
             for y in range(self.fdd.height):
-                if self.is_wall(x, y):
+                if self.is_wall(tlx + x, tly + y):
                     self.fdd.px(x, y, True)
 
 class GameObject:
-    def __init__(self, fdd, x, y, blink_interval=0.5):
-        self.fdd = fdd
+    def __init__(self, x, y, blink_interval=0.5):
         self.pos = [x, y]
         self.blink_interval = blink_interval
         self.last_updated = time.time()
@@ -276,10 +283,9 @@ class GameObject:
             self.blink_on = not self.blink_on
             self.last_updated = time.time()
 
-    def draw(self):
+    def is_draw(self):
         """Determine whether the character should be drawn now."""
-        self.fdd.px(self.pos[0], self.pos[1], self.blink_on)
-        #return self.blink_on
+        return self.blink_on
 
 
 def test_roguegame():
