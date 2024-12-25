@@ -24,6 +24,7 @@ class Game:
     def __init__(self, flipdotdisplay, worldfile=DEFAULT_TMX_WORLD_FILE):
         self.fdd = flipdotdisplay
         self.game_running = False
+        self.game_paused = False
         pygame.init()
         if pygame.joystick.get_count() > 0:
             log.debug(f"{pygame.joystick.get_count()} Joystick(s) found")
@@ -96,6 +97,8 @@ class Game:
 
     def update(self):
         self.handle_input()
+        if self.game_paused:
+            return
         self.player.update()
         for coin in self.coins:
             coin.update()
@@ -120,6 +123,9 @@ class Game:
                     dx = +1
                 elif event.key == pygame.K_ESCAPE:
                     self.menu.is_shown = True
+                elif event.key == pygame.K_p:
+                    self.game_paused = not self.game_paused
+                    log.debug(f"game paused {self.game_paused}")
 
             elif event.type == pygame.JOYAXISMOTION:
                 # handle joystick
