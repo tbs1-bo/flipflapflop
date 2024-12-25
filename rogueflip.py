@@ -114,6 +114,7 @@ class Game:
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
+                    log.debug("show menu")
                     self.menu.is_shown = True
                 elif event.key == pygame.K_p:
                     self.game_paused = not self.game_paused
@@ -140,13 +141,13 @@ class Game:
         """Determine the new direction from the event."""
         dx, dy = 0, 0
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w:
+            if event.key in [pygame.K_w, pygame.K_UP]:
                 dy = -1
-            elif event.key == pygame.K_a:
+            elif event.key in [pygame.K_a, pygame.K_LEFT]:
                 dx = -1
-            elif event.key == pygame.K_s:
+            elif event.key in [pygame.K_s, pygame.K_DOWN]:
                 dy = +1
-            elif event.key == pygame.K_d:
+            elif event.key in [pygame.K_d, pygame.K_RIGHT]:
                 dx = +1
 
         elif event.type == pygame.JOYAXISMOTION:
@@ -208,9 +209,9 @@ class Menu:
                 exit()
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w:
+                if event.key in [pygame.K_w, pygame.K_UP]:
                     self.selected = (self.selected - 1) % len(self.items)
-                elif event.key == pygame.K_s:
+                elif event.key in [pygame.K_s, pygame.K_DOWN]:
                     self.selected = (self.selected + 1) % len(self.items)
 
                 elif event.key == pygame.K_RETURN:
