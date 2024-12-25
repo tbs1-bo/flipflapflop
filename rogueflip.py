@@ -30,14 +30,14 @@ class Game:
             self.joystick = pygame.joystick.Joystick(0)
             self.joystick.init()
 
-        self.world = World(worldfile)
+        self.world = World(worldfile, flipdotdisplay)
 
         # top left position of current view inside the world
         self.window_top_left = [0, 0]
 
-        self.player = self.world.find_player()
+        self.player: GameObject = self.world.find_player()
         log.debug(f"Player placed at {self.player.pos}")
-        self.coins = self.world.find_coins()
+        self.coins: GameObject = self.world.find_coins()
         log.debug(f"Found {len(self.coins)} coins.")
 
         self.fdd = flipdotdisplay
@@ -53,7 +53,6 @@ class Game:
 
     def run(self):
         """Start the game running in an endless loop."""
-        # TODO refactor to update and draw methods to separate concerns
 
         assert self.world.map.width % self.fdd.width == 0 and \
                self.world.map.height % self.fdd.height == 0, \
@@ -65,16 +64,27 @@ class Game:
                 self.menu.update()
                 self.menu.draw()
             else:
-                self.tick()
-                for x in range(self.fdd.width):
-                    for y in range(self.fdd.height):
-                        val = self.handle_px(x, y)
-                        self.fdd.px(x, y, val)
-                self.fdd.show()
+                self.update()
+                self.draw()
 
-    def handle_px(self, x, y):
+    def draw(self):
+        self.fdd.clear()
+
+        self.world.draw(self.window_top_left)
+        
+        # draw player
+        tlx, tly = self.window_top_left
+        self.fdd.px(self.player.pos[0] - tlx, self.player.pos[1] - tly, 
+                    self.player.is_draw())
+        
+        # draw coins
+        for coin in self.coins:
+            self.fdd.px(coin.pos[0] - tlx, coin.pos[1] - tly, coin.is_draw())
+
+        self.fdd.show()
+
+    def __handle_px(self, x, y): # TODO unused -> remove
         x_, y_ = self.window_top_left[0] + x, self.window_top_left[1] + y
-        self.handle_input()
         if self.player.pos == [x_, y_]:
             return self.player.draw()
 
@@ -84,10 +94,11 @@ class Game:
 
         return self.world.is_wall(x_, y_)
 
-    def tick(self):
-        self.player.tick()
-        for coin in self.coins:            
-            coin.tick()
+    def update(self):
+        self.handle_input()
+        self.player.update()
+        for coin in self.coins:
+            coin.update()
 
     def handle_input(self):
         """Handle user input from keyboard or joystick."""
@@ -135,7 +146,7 @@ class Game:
         """Check if the player has collected all coins and show the win message."""
         if len(self.coins) == 0:
             log.info("All coins collected")
-            self.show_win_message()
+            self.show_win_message() # TODO move to draw method
             self.game_running = False
 
     def show_win_message(self):        
@@ -207,8 +218,9 @@ class World:
     COIN = 'coin'
     BACK = 'back'
 
-    def __init__(self, worldfile):
-        self.pixels = []  # list of tile types
+    def __init__(self, worldfile, fdd):
+        # TODO add list of game object to be drawn
+        self.fdd = fdd
         self.map = pytmx.TiledMap(worldfile)
         self.default_layer = 0
         assert len(self.map.layers) == 1, "Assuming everything in one layer."
@@ -251,6 +263,12 @@ class World:
     def find_coins(self):
         return self._find_game_objects(World.COIN)
 
+    def draw(self, topleft_xy):
+        tlx, tly = topleft_xy
+        for x in range(self.fdd.width):
+            for y in range(self.fdd.height):
+                if self.is_wall(tlx + x, tly + y):
+                    self.fdd.px(x, y, True)
 
 class GameObject:
     def __init__(self, x, y, blink_interval=0.5):
@@ -259,13 +277,13 @@ class GameObject:
         self.last_updated = time.time()
         self.blink_on = False
 
-    def tick(self):
+    def update(self):
         """A method that should be invoked each frame."""
         if time.time() - self.last_updated > self.blink_interval:
             self.blink_on = not self.blink_on
             self.last_updated = time.time()
 
-    def draw(self):
+    def is_draw(self):
         """Determine whether the character should be drawn now."""
         return self.blink_on
 
