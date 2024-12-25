@@ -83,7 +83,7 @@ class Game:
 
         self.fdd.show()
 
-    def handle_px(self, x, y): # TODO unused -> remove
+    def __handle_px(self, x, y): # TODO unused -> remove
         x_, y_ = self.window_top_left[0] + x, self.window_top_left[1] + y
         if self.player.pos == [x_, y_]:
             return self.player.draw()
