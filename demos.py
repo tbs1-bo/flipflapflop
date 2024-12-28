@@ -35,13 +35,17 @@ class DemoBase(abc.ABC):
         clock = pygame.time.Clock()
 
         while (runtime is None) or (time.time()-start_time) < runtime:
-            self.prepare()
-            for x in range(self.fdd.width):
-                for y in range(self.fdd.height):
-                    val = self.handle_px(x, y)
-                    self.fdd.px(x, y, val)
-            self.fdd.show()
+            self.one_cycle()
             clock.tick(self.fps)
+
+    def one_cycle(self):
+        """Run one cycle of the demo."""
+        self.prepare()
+        for x in range(self.fdd.width):
+            for y in range(self.fdd.height):
+                val = self.handle_px(x, y)
+                self.fdd.px(x, y, val)
+        self.fdd.show()
 
     @abc.abstractmethod
     def handle_px(self, x, y):
