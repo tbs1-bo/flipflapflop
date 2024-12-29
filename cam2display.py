@@ -17,18 +17,18 @@ def main():
             print("Failed to capture frame")
             break
 
-        #resized_frame = cv2.resize(frame, (configuration.WIDTH, configuration.HEIGHT))
+        resized_frame = cv2.resize(frame, (configuration.WIDTH, configuration.HEIGHT))
 
         # Crop the frame
-        height, width = frame.shape[:2]
-        start_x = 0
-        start_y = 0
-        end_x = start_x + configuration.WIDTH
-        end_y = start_y + configuration.HEIGHT
-        cropped_frame = frame[start_y:end_y, start_x:end_x]
+        #height, width = frame.shape[:2]
+        #start_x = 0
+        #start_y = 0
+        #end_x = start_x + configuration.WIDTH
+        #end_y = start_y + configuration.HEIGHT
+        #cropped_frame = frame[start_y:end_y, start_x:end_x]
 
         # Convert the frame to grayscale
-        gray_frame = cv2.cvtColor(cropped_frame, cv2.COLOR_BGR2GRAY)
+        gray_frame = cv2.cvtColor(resized_frame, cv2.COLOR_BGR2GRAY)
 
         # Apply binary thresholding
         _, bw_frame = cv2.threshold(gray_frame, 100, 255, cv2.THRESH_BINARY)
@@ -42,7 +42,7 @@ def main():
         fdd.show()
 
         # Display the resulting frame
-        cv2.imshow('Webcam', cropped_frame)
+        cv2.imshow('Webcam', gray_frame)
 
         # Break the loop on 'q' key press
         if cv2.waitKey(1) & 0xFF == ord('q'):
