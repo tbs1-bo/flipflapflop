@@ -68,7 +68,7 @@ def test_flipdot_sim():
     fdd.close()
 
 def main():
-    PyxelSim(28, 13, "ressources/pyxel_resources.pyxres")
+    PyxelSim(28, 13, "ressources/pyxel_resources.pyxres", fps=30)
 
 if __name__ == "__main__":
     main()
