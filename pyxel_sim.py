@@ -54,8 +54,6 @@ def test_flipdot_sim():
     fdd.show()
     time.sleep(0.3)
 
-    #fdd.reset(0, 0)
-    #fdd.set(1, 0)
     fdd.show()
     time.sleep(0.3)
 
