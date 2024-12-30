@@ -28,9 +28,9 @@ jobs:
     - name: Install dependencies
       run: |
         poetry update
-    - name: Install broker
+    - name: Install apt packages
       run: |
-        sudo apt install mosquitto xvfb
+        sudo apt install mosquitto libsdl2-dev
     - name: Run tests
       run: |
-        xvfb-run poetry run ./tests.sh
+        poetry run ./tests.sh
