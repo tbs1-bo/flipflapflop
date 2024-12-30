@@ -30,7 +30,7 @@ jobs:
         poetry update
     - name: Install broker
       run: |
-        sudo apt install mosquitto
+        sudo apt install mosquitto xvfb
     - name: Run tests
       run: |
-        poetry run ./tests.sh
+        xvfb-run poetry run ./tests.sh
