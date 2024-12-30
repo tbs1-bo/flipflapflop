@@ -29,7 +29,8 @@ remote_display = {
 }
 
 simulator = {
-    "fps": 60
+    "fps": 60,
+    "implementation": "pygame" # or "pyxel"
 }
 
 
