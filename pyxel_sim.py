@@ -47,7 +47,7 @@ class PyxelSim(displayprovider.DisplayBase):
 def test_flipdot_sim():
     import time
 
-    fdd = PyxelSim(width=3, height=2, resources="ressources/pyxel_resources.pyxres", fps=30)
+    fdd = PyxelSim(width=28, height=13, resources="ressources/pyxel_resources.pyxres", fps=30)
 
     fdd.px(0, 0, True)
     fdd.px(1, 1, True)
