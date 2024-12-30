@@ -3,6 +3,14 @@ import displayprovider
 import threading
 
 class PyxelSim(displayprovider.DisplayBase):
+    """
+    Simulator for the flipdot display using Pyxel. The simulator will run in a 
+    separate thread listening for updates to the display buffer. The display
+    buffer is a 2D array of booleans, where True represents a yellow pixel and
+    False represents a black pixel.
+
+    https://github.com/kitao/pyxel
+    """
     def __init__(self, width, height, resources, fps):
         super().__init__(width, height)
         self.fps = fps
@@ -14,6 +22,7 @@ class PyxelSim(displayprovider.DisplayBase):
         self.buffer = [[False for x in range(self.width)] for y in range(self.height)]
     
     def _run(self):
+        'start the pyxel app. This function is called in a separate thread'
         pyxel.init(8*self.width, 8*self.height)
         pyxel.load(self.resources)
         pyxel.run(self.update, self.draw)
@@ -22,6 +31,7 @@ class PyxelSim(displayprovider.DisplayBase):
         pass
 
     def draw(self):
+        'clear the screen and draw the buffer using images in the resources file.'
         pyxel.cls(0)
         for y in range(self.height):
             for x in range(self.width):
