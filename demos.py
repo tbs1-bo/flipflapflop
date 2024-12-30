@@ -348,6 +348,12 @@ class FlappyDot(DemoBase):
         self.score = 0
         self.max_lines = max_lines
         self.start_time = time.time()
+        pygame.init()
+        if pygame.joystick.get_count() > 0:
+            print("Joystick(s) found")
+            self.joystick = pygame.joystick.Joystick(0)
+            self.joystick.init()
+
         self.reset()
 
     def add_line(self, x, gap_start, gap_end):
