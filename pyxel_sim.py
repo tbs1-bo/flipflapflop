@@ -9,11 +9,11 @@ class PyxelSim(displayprovider.DisplayBase):
         self.resources = resources
         self.yellow_tile_coords = (8,0)
         self.black_tile_coords = (0,8)
-        self.thread = threading.Thread(target=self.run)
+        self.thread = threading.Thread(target=self._run)
         self.thread.start()
         self.buffer = [[False for x in range(self.width)] for y in range(self.height)]
     
-    def run(self):
+    def _run(self):
         pyxel.init(8*self.width, 8*self.height)
         pyxel.load(self.resources)
         pyxel.run(self.update, self.draw)
