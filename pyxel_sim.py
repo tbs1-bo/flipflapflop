@@ -40,8 +40,34 @@ class PyxelSim(displayprovider.DisplayBase):
     def px(self, x, y, val):
         self.buffer[y][x] = True if val else False
 
-    def show(self):
-        pass
+    def close(self):
+        pyxel.quit()
+
+
+def test_flipdot_sim():
+    import time
+
+    fdd = PyxelSim(width=3, height=2, resources="ressources/pyxel_resources.pyxres", fps=30)
+
+    fdd.px(0, 0, True)
+    fdd.px(1, 1, True)
+    fdd.show()
+    time.sleep(0.3)
+
+    #fdd.reset(0, 0)
+    #fdd.set(1, 0)
+    fdd.show()
+    time.sleep(0.3)
+
+    fdd.clear()
+    fdd.show()
+    time.sleep(0.3)
+
+    fdd.clear()
+    fdd.show()
+    time.sleep(0.3)
+
+    fdd.close()
 
 def main():
     PyxelSim(28, 13, "ressources/pyxel_resources.pyxres")
