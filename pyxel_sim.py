@@ -3,15 +3,19 @@ import displayprovider
 import threading
 
 class PyxelSim(displayprovider.DisplayBase):
-    def __init__(self, width, height):
+    def __init__(self, width, height, resources, fps):
         super().__init__(width, height)
-        self.fps = 60
+        self.fps = fps
+        self.resources = resources
+        self.yellow_tile_coords = (8,0)
+        self.black_tile_coords = (0,8)
         self.thread = threading.Thread(target=self.run)
         self.thread.start()
-        self.buffer = [[0 for x in range(self.width)] for y in range(self.height)]
+        self.buffer = [[False for x in range(self.width)] for y in range(self.height)]
     
     def run(self):
-        pyxel.init(self.width, self.height)
+        pyxel.init(8*self.width, 8*self.height)
+        pyxel.load(self.resources)
         pyxel.run(self.update, self.draw)
     
     def update(self):
@@ -21,16 +25,26 @@ class PyxelSim(displayprovider.DisplayBase):
         pyxel.cls(0)
         for y in range(self.height):
             for x in range(self.width):
-                pyxel.pset(x, y, self.buffer[y][x])
+
+                if self.buffer[y][x]:
+                    tx, ty = self.yellow_tile_coords
+                else:
+                    tx, ty = self.black_tile_coords
+
+                pyxel.blt(
+                    x * 8, y * 8, 
+                    0,
+                    ty, tx, 
+                    8, 8)
 
     def px(self, x, y, val):
-        self.buffer[y][x] = 7 if val else 0
+        self.buffer[y][x] = True if val else False
 
     def show(self):
         pass
 
 def main():
-    PyxelSim(28, 13)
+    PyxelSim(28, 13, "ressources/pyxel_resources.pyxres")
 
 if __name__ == "__main__":
     main()
