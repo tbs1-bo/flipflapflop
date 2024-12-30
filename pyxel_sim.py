@@ -51,10 +51,12 @@ class PyxelSim(displayprovider.DisplayBase):
         self.buffer[y][x] = True if val else False
 
     def close(self):
+        'close the simulator'
         pyxel.quit()
 
 
 def test_flipdot_sim():
+    'test the flipdot simulator'
     import time
 
     fdd = PyxelSim(width=28, height=13, resources="ressources/pyxel_resources.pyxres", fps=30)
@@ -78,6 +80,7 @@ def test_flipdot_sim():
     fdd.close()
 
 def main():
+    'start a simulator'
     PyxelSim(28, 13, "ressources/pyxel_resources.pyxres", fps=30)
 
 if __name__ == "__main__":
