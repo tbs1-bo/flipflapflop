@@ -54,10 +54,14 @@ def get_display(width=configuration.WIDTH, height=configuration.HEIGHT, fallback
 
         if fallback == Fallback.SIMULATOR:
             fps = configuration.simulator['fps']
-            import flipdotsim
-            return flipdotsim.FlipDotSim(width, height, fps)
-            #import pyxel_sim
-            #return pyxel_sim.PyxelSim(width, height, "ressources/pyxel_resources.pyxres", fps)
+            impl = configuration.simulator.get('implementation', 'pygame')
+            print("Using simulator with", impl, "implementation and", fps, "fps")
+            if impl == "pygame":
+                import flipdotsim
+                return flipdotsim.FlipDotSim(width, height, fps)
+            elif impl == "pyxel":
+                import pyxel_sim
+                return pyxel_sim.PyxelSim(width, height, "ressources/pyxel_resources.pyxres", fps)
 
         elif fallback == Fallback.REMOTE_DISPLAY:
             import net
