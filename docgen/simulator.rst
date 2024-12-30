@@ -54,3 +54,14 @@ After startup the simulator can be controlled by cursor keys
 The simulator conforms to the protocol described in the 
 :doc:`net` module: send a sequence of 1s and 0s (in ASCII)
 to port 10101 of the server.
+
+Simulator (pyxel version)
+-------------------------
+
+There is another simulator that relies on the `pyxel game engine
+<https://github.com/kitao/pyxel>`_. 
+
+.. automodule:: pyxel_sim
+   :members:
+   :undoc-members:
+
