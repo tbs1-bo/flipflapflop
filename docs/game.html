@@ -55,6 +55,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-rogueflip">Module Description</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#rogueflip.Game"><code class="docutils literal notranslate"><span class="pre">Game</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#rogueflip.GameObject"><code class="docutils literal notranslate"><span class="pre">GameObject</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rogueflip.Menu"><code class="docutils literal notranslate"><span class="pre">Menu</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#rogueflip.World"><code class="docutils literal notranslate"><span class="pre">World</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#rogueflip.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#rogueflip.test_roguegame"><code class="docutils literal notranslate"><span class="pre">test_roguegame()</span></code></a></li>
@@ -120,8 +121,8 @@ be created with the tiled map editor (<a class="reference external" href="https:
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">Game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flipdotdisplay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worldfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ressources/rogueflip_world.tmx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game" title="Link to this definition"></a></dt>
 <dd><p>A roguelike for a flipdot display.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="rogueflip.Game.JOSTICK_SELECT_BUTTON">
-<span class="sig-name descname"><span class="pre">JOSTICK_SELECT_BUTTON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#rogueflip.Game.JOSTICK_SELECT_BUTTON" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="rogueflip.Game.JOSTICK_ABORT_BUTTON">
+<span class="sig-name descname"><span class="pre">JOSTICK_ABORT_BUTTON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#rogueflip.Game.JOSTICK_ABORT_BUTTON" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -131,21 +132,27 @@ be created with the tiled map editor (<a class="reference external" href="https:
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Game.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.draw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="rogueflip.Game.handle_input">
 <span class="sig-name descname"><span class="pre">handle_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.handle_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.handle_input" title="Link to this definition"></a></dt>
 <dd><p>Handle user input from keyboard or joystick.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="rogueflip.Game.handle_px">
-<span class="sig-name descname"><span class="pre">handle_px</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.handle_px"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.handle_px" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="rogueflip.Game.move_window">
 <span class="sig-name descname"><span class="pre">move_window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.move_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.move_window" title="Link to this definition"></a></dt>
 <dd><p>Move the visible window by the amount of dx*width and dy*height of
 the flipdotdisplay.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Game.new_direction">
+<span class="sig-name descname"><span class="pre">new_direction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.new_direction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.new_direction" title="Link to this definition"></a></dt>
+<dd><p>Determine the new direction from the event.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -172,8 +179,8 @@ the flipdotdisplay.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="rogueflip.Game.tick">
-<span class="sig-name descname"><span class="pre">tick</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.tick"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.tick" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="rogueflip.Game.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.update" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -182,22 +189,37 @@ the flipdotdisplay.</p>
 <dt class="sig sig-object py" id="rogueflip.GameObject">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">GameObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blink_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.GameObject" title="Link to this definition"></a></dt>
 <dd><dl class="py method">
-<dt class="sig sig-object py" id="rogueflip.GameObject.draw">
-<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.GameObject.draw" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="rogueflip.GameObject.is_draw">
+<span class="sig-name descname"><span class="pre">is_draw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject.is_draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.GameObject.is_draw" title="Link to this definition"></a></dt>
 <dd><p>Determine whether the character should be drawn now.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="rogueflip.GameObject.tick">
-<span class="sig-name descname"><span class="pre">tick</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject.tick"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.GameObject.tick" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="rogueflip.GameObject.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.GameObject.update" title="Link to this definition"></a></dt>
 <dd><p>A method that should be invoked each frame.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="rogueflip.Menu">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">Menu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fdd</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Menu" title="Link to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Menu.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Menu.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Menu.draw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Menu.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Menu.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Menu.update" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="rogueflip.World">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">World</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worldfile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.World" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">World</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worldfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fdd</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.World" title="Link to this definition"></a></dt>
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="rogueflip.World.BACK">
 <span class="sig-name descname"><span class="pre">BACK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'back'</span></em><a class="headerlink" href="#rogueflip.World.BACK" title="Link to this definition"></a></dt>
@@ -216,6 +238,11 @@ the flipdotdisplay.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="rogueflip.World.WALL">
 <span class="sig-name descname"><span class="pre">WALL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'wall'</span></em><a class="headerlink" href="#rogueflip.World.WALL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.World.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topleft_xy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.World.draw" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">

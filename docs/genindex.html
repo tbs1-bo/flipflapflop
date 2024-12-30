@@ -148,6 +148,8 @@
       <ul>
         <li><a href="simulator.html#flipdotsim.FlipDotSim.close">(flipdotsim.FlipDotSim method)</a>
 </li>
+        <li><a href="simulator.html#pyxel_sim.PyxelSim.close">(pyxel_sim.PyxelSim method)</a>
+</li>
       </ul></li>
       <li><a href="game.html#rogueflip.World.COIN">COIN (rogueflip.World attribute)</a>
 </li>
@@ -167,14 +169,22 @@
 </li>
       <li><a href="fdd.html#fffserial.SerialDisplay.DIMENSION">DIMENSION (fffserial.SerialDisplay attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="fdd.html#fffserial.SerialDisplay.display_available">display_available() (fffserial.SerialDisplay method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="net.html#net.DisplayServer">DisplayServer (class in net)</a>
 </li>
-      <li><a href="game.html#rogueflip.GameObject.draw">draw() (rogueflip.GameObject method)</a>
+      <li><a href="simulator.html#pyxel_sim.PyxelSim.draw">draw() (pyxel_sim.PyxelSim method)</a>
+
+      <ul>
+        <li><a href="game.html#rogueflip.Game.draw">(rogueflip.Game method)</a>
 </li>
+        <li><a href="game.html#rogueflip.Menu.draw">(rogueflip.Menu method)</a>
+</li>
+        <li><a href="game.html#rogueflip.World.draw">(rogueflip.World method)</a>
+</li>
+      </ul></li>
       <li><a href="fdd.html#util.draw_surface_on_fdd">draw_surface_on_fdd() (in module util)</a>
 </li>
       <li><a href="fdd.html#util.draw_text_on_fdd">draw_text_on_fdd() (in module util)</a>
@@ -263,8 +273,6 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="game.html#rogueflip.Game.handle_px">handle_px() (rogueflip.Game method)</a>
-</li>
       <li><a href="net.html#net.DisplayServer.handle_request">handle_request() (net.DisplayServer method)</a>
 </li>
   </ul></td>
@@ -275,10 +283,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="game.html#rogueflip.World.is_coin">is_coin() (rogueflip.World method)</a>
 </li>
-      <li><a href="game.html#rogueflip.World.is_onboard">is_onboard() (rogueflip.World method)</a>
+      <li><a href="game.html#rogueflip.GameObject.is_draw">is_draw() (rogueflip.GameObject method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="game.html#rogueflip.World.is_onboard">is_onboard() (rogueflip.World method)</a>
+</li>
       <li><a href="game.html#rogueflip.World.is_player">is_player() (rogueflip.World method)</a>
 </li>
       <li><a href="game.html#rogueflip.World.is_wall">is_wall() (rogueflip.World method)</a>
@@ -289,7 +299,7 @@
 <h2 id="J">J</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="game.html#rogueflip.Game.JOSTICK_SELECT_BUTTON">JOSTICK_SELECT_BUTTON (rogueflip.Game attribute)</a>
+      <li><a href="game.html#rogueflip.Game.JOSTICK_ABORT_BUTTON">JOSTICK_ABORT_BUTTON (rogueflip.Game attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -322,9 +332,13 @@
       <li><a href="net.html#net.main">main() (in module net)</a>
 
       <ul>
+        <li><a href="simulator.html#pyxel_sim.main">(in module pyxel_sim)</a>
+</li>
         <li><a href="game.html#rogueflip.main">(in module rogueflip)</a>
 </li>
       </ul></li>
+      <li><a href="game.html#rogueflip.Menu">Menu (class in rogueflip)</a>
+</li>
       <li>
     module
 
@@ -338,6 +352,8 @@
         <li><a href="simulator.html#module-flipdotsim">flipdotsim</a>
 </li>
         <li><a href="net.html#module-net">net</a>
+</li>
+        <li><a href="simulator.html#module-pyxel_sim">pyxel_sim</a>
 </li>
         <li><a href="game.html#module-rogueflip">rogueflip</a>
 </li>
@@ -364,6 +380,10 @@
 </li>
       </ul></li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="game.html#rogueflip.Game.new_direction">new_direction() (rogueflip.Game method)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="P">P</h2>
@@ -379,8 +399,6 @@
 </li>
       <li><a href="fdd.html#flipdotdisplay.FlipDotDisplay.printbuffer">printbuffer() (flipdotdisplay.FlipDotDisplay method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="fdd.html#fffserial.SerialDisplay.px">px() (fffserial.SerialDisplay method)</a>
 
       <ul>
@@ -390,10 +408,23 @@
 </li>
         <li><a href="net.html#net.RemoteDisplay.px">(net.RemoteDisplay method)</a>
 </li>
+        <li><a href="simulator.html#pyxel_sim.PyxelSim.px">(pyxel_sim.PyxelSim method)</a>
+</li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="fdd.html#fffserial.SerialDisplay.PXRESET">PXRESET (fffserial.SerialDisplay attribute)</a>
 </li>
       <li><a href="fdd.html#fffserial.SerialDisplay.PXSET">PXSET (fffserial.SerialDisplay attribute)</a>
+</li>
+      <li>
+    pyxel_sim
+
+      <ul>
+        <li><a href="simulator.html#module-pyxel_sim">module</a>
+</li>
+      </ul></li>
+      <li><a href="simulator.html#pyxel_sim.PyxelSim">PyxelSim (class in pyxel_sim)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -475,17 +506,21 @@
       <li><a href="web.html#web.test_display_post">test_display_post() (in module web)</a>
 </li>
       <li><a href="simulator.html#flipdotsim.test_flipdot_sim">test_flipdot_sim() (in module flipdotsim)</a>
+
+      <ul>
+        <li><a href="simulator.html#pyxel_sim.test_flipdot_sim">(in module pyxel_sim)</a>
 </li>
+      </ul></li>
       <li><a href="web.html#web.test_index">test_index() (in module web)</a>
 </li>
       <li><a href="net.html#net.test_networking">test_networking() (in module net)</a>
 </li>
       <li><a href="web.html#web.test_page">test_page() (in module web)</a>
 </li>
-      <li><a href="web.html#web.test_plasmademo">test_plasmademo() (in module web)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="web.html#web.test_plasmademo">test_plasmademo() (in module web)</a>
+</li>
       <li><a href="web.html#web.test_plasmademo_remote">test_plasmademo_remote() (in module web)</a>
 </li>
       <li><a href="web.html#web.test_px">test_px() (in module web)</a>
@@ -498,17 +533,23 @@
 </li>
       <li><a href="fdd.html#flipdotfont.TextScroller">TextScroller (class in flipdotfont)</a>
 </li>
-      <li><a href="game.html#rogueflip.Game.tick">tick() (rogueflip.Game method)</a>
-
-      <ul>
-        <li><a href="game.html#rogueflip.GameObject.tick">(rogueflip.GameObject method)</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="simulator.html#pyxel_sim.PyxelSim.update">update() (pyxel_sim.PyxelSim method)</a>
+
+      <ul>
+        <li><a href="game.html#rogueflip.Game.update">(rogueflip.Game method)</a>
+</li>
+        <li><a href="game.html#rogueflip.GameObject.update">(rogueflip.GameObject method)</a>
+</li>
+        <li><a href="game.html#rogueflip.Menu.update">(rogueflip.Menu method)</a>
+</li>
+      </ul></li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     util

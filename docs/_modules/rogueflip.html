@@ -96,54 +96,81 @@
 <a class="viewcode-back" href="../game.html#rogueflip.Game">[docs]</a>
 <span class="k">class</span> <span class="nc">Game</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A roguelike for a flipdot display.&quot;&quot;&quot;</span>
-    <span class="n">JOSTICK_SELECT_BUTTON</span> <span class="o">=</span> <span class="mi">8</span>
+
+    <span class="c1"># button to abort the game as defined by pygames joystick</span>
+    <span class="n">JOSTICK_ABORT_BUTTON</span> <span class="o">=</span> <span class="mi">8</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flipdotdisplay</span><span class="p">,</span> <span class="n">worldfile</span><span class="o">=</span><span class="n">DEFAULT_TMX_WORLD_FILE</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span> <span class="o">=</span> <span class="n">flipdotdisplay</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game_paused</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">get_count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pygame</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">get_count</span><span class="p">()</span><span class="si">}</span><span class="s2"> Joystick(s) found&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">joystick</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">Joystick</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">world</span> <span class="o">=</span> <span class="n">World</span><span class="p">(</span><span class="n">worldfile</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">world</span> <span class="o">=</span> <span class="n">World</span><span class="p">(</span><span class="n">worldfile</span><span class="p">,</span> <span class="n">flipdotdisplay</span><span class="p">)</span>
 
         <span class="c1"># top left position of current view inside the world</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window_top_left</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">find_player</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">:</span> <span class="n">GameObject</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">find_player</span><span class="p">()</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Player placed at </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">pos</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">coins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">find_coins</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coins</span><span class="p">:</span> <span class="n">GameObject</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">find_coins</span><span class="p">()</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coins</span><span class="p">)</span><span class="si">}</span><span class="s2"> coins.&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span> <span class="o">=</span> <span class="n">flipdotdisplay</span>
         <span class="c1"># default win message shown when all coins are collected</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">win_message</span> <span class="o">=</span> <span class="s2">&quot;you win&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">win_message</span> <span class="o">=</span> <span class="s2">&quot;you win</span><span class="se">\n</span><span class="s2">another game?&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">height</span> <span class="o">&gt;</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">big_font</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">big_font</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">small_font</span><span class="p">()</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using font with letter size </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">width</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu</span> <span class="o">=</span> <span class="n">Menu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Game.run">
 <a class="viewcode-back" href="../game.html#rogueflip.Game.run">[docs]</a>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Start the game running in an endless loop.&quot;&quot;&quot;</span>
+
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">width</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> \
                <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">height</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">height</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> \
                <span class="s2">&quot;Width and height of the map must be a multiple of display width and height&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">game_running</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_running</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
-                    <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">menu</span><span class="o">.</span><span class="n">is_shown</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">menu</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">menu</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="Game.handle_px">
-<a class="viewcode-back" href="../game.html#rogueflip.Game.handle_px">[docs]</a>
-    <span class="k">def</span> <span class="nf">handle_px</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="Game.draw">
+<a class="viewcode-back" href="../game.html#rogueflip.Game.draw">[docs]</a>
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window_top_left</span><span class="p">)</span>
+        
+        <span class="c1"># draw player</span>
+        <span class="n">tlx</span><span class="p">,</span> <span class="n">tly</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_top_left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">tlx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">tly</span><span class="p">,</span> 
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">is_draw</span><span class="p">())</span>
+        
+        <span class="c1"># draw coins</span>
+        <span class="k">for</span> <span class="n">coin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coins</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">coin</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">tlx</span><span class="p">,</span> <span class="n">coin</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">tly</span><span class="p">,</span> <span class="n">coin</span><span class="o">.</span><span class="n">is_draw</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span> <span class="nf">__handle_px</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span> <span class="c1"># TODO unused -&gt; remove</span>
         <span class="n">x_</span><span class="p">,</span> <span class="n">y_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_top_left</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_top_left</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">handle_input</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">pos</span> <span class="o">==</span> <span class="p">[</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">]:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
@@ -151,15 +178,17 @@
             <span class="k">if</span> <span class="n">coin</span><span class="o">.</span><span class="n">pos</span> <span class="o">==</span> <span class="p">[</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">coin</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">is_wall</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">is_wall</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
 
-
-<div class="viewcode-block" id="Game.tick">
-<a class="viewcode-back" href="../game.html#rogueflip.Game.tick">[docs]</a>
-    <span class="k">def</span> <span class="nf">tick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">coin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coins</span><span class="p">:</span>            
-            <span class="n">coin</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span></div>
+<div class="viewcode-block" id="Game.update">
+<a class="viewcode-back" href="../game.html#rogueflip.Game.update">[docs]</a>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handle_input</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_paused</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">coin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coins</span><span class="p">:</span>
+            <span class="n">coin</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Game.handle_input">
@@ -167,28 +196,22 @@
     <span class="k">def</span> <span class="nf">handle_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle user input from keyboard or joystick.&quot;&quot;&quot;</span>
         <span class="n">plx</span><span class="p">,</span> <span class="n">ply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">pos</span>
-        <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
                 <span class="n">exit</span><span class="p">()</span>
-                
-            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
-                <span class="c1"># handle keyboard input</span>
-                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_w</span><span class="p">:</span> 
-                    <span class="n">dy</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-                <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_a</span><span class="p">:</span>
-                    <span class="n">dx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-                <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_s</span><span class="p">:</span>
-                    <span class="n">dy</span> <span class="o">=</span> <span class="o">+</span><span class="mi">1</span>
-                <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_d</span><span class="p">:</span>
-                    <span class="n">dx</span> <span class="o">=</span> <span class="o">+</span><span class="mi">1</span>
 
-            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">JOYAXISMOTION</span><span class="p">:</span>
-                <span class="c1"># handle joystick</span>
-                <span class="n">dx</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">get_axis</span><span class="p">(</span><span class="mi">0</span><span class="p">))))</span>
-                <span class="n">dy</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">get_axis</span><span class="p">(</span><span class="mi">1</span><span class="p">))))</span>
+            <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_direction</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_ESCAPE</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;show menu&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">menu</span><span class="o">.</span><span class="n">is_shown</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_p</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">game_paused</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_paused</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;game paused </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">game_paused</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
             <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">JOYBUTTONUP</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="o">==</span><span class="n">Game</span><span class="o">.</span><span class="n">JOSTICK_SELECT_BUTTON</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="o">==</span><span class="n">Game</span><span class="o">.</span><span class="n">JOSTICK_ABORT_BUTTON</span><span class="p">:</span>
                     <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;game aborted&quot;</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">game_running</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">else</span><span class="p">:</span>
@@ -205,23 +228,45 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">move_window</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="Game.new_direction">
+<a class="viewcode-back" href="../game.html#rogueflip.Game.new_direction">[docs]</a>
+    <span class="k">def</span> <span class="nf">new_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine the new direction from the event.&quot;&quot;&quot;</span>
+        <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">K_w</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_UP</span><span class="p">]:</span>
+                <span class="n">dy</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">K_a</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_LEFT</span><span class="p">]:</span>
+                <span class="n">dx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">K_s</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_DOWN</span><span class="p">]:</span>
+                <span class="n">dy</span> <span class="o">=</span> <span class="o">+</span><span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">K_d</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RIGHT</span><span class="p">]:</span>
+                <span class="n">dx</span> <span class="o">=</span> <span class="o">+</span><span class="mi">1</span>
+
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">JOYAXISMOTION</span><span class="p">:</span>
+            <span class="c1"># handle joystick</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">get_axis</span><span class="p">(</span><span class="mi">0</span><span class="p">))))</span>
+            <span class="n">dy</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">joystick</span><span class="o">.</span><span class="n">get_axis</span><span class="p">(</span><span class="mi">1</span><span class="p">))))</span>
+
+        <span class="k">return</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span></div>
+
+
 <div class="viewcode-block" id="Game.check_win_condition">
 <a class="viewcode-back" href="../game.html#rogueflip.Game.check_win_condition">[docs]</a>
     <span class="k">def</span> <span class="nf">check_win_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the player has collected all coins and show the win message.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;All coins collected&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">show_win_message</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_win_message</span><span class="p">()</span> <span class="c1"># TODO move to draw method</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">game_running</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 
 <div class="viewcode-block" id="Game.show_win_message">
 <a class="viewcode-back" href="../game.html#rogueflip.Game.show_win_message">[docs]</a>
-    <span class="k">def</span> <span class="nf">show_win_message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">font</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">small_font</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">show_win_message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">win_message</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
-            <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">win_message</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+            <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
@@ -260,6 +305,47 @@
 
 
 
+<div class="viewcode-block" id="Menu">
+<a class="viewcode-back" href="../game.html#rogueflip.Menu">[docs]</a>
+<span class="k">class</span> <span class="nc">Menu</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fdd</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span> <span class="o">=</span> <span class="n">fdd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">big_font</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Start&quot;</span><span class="p">,</span> <span class="s2">&quot;Quit&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_shown</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="Menu.update">
+<a class="viewcode-back" href="../game.html#rogueflip.Menu.update">[docs]</a>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+                <span class="n">exit</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">K_w</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_UP</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">K_s</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_DOWN</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">)</span>
+
+                <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RETURN</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">is_shown</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">exit</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Menu.draw">
+<a class="viewcode-back" href="../game.html#rogueflip.Menu.draw">[docs]</a>
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">menu_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected</span><span class="p">]</span>        
+        <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="p">,</span> <span class="n">menu_item</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+</div>
+
+
+
 <div class="viewcode-block" id="World">
 <a class="viewcode-back" href="../game.html#rogueflip.World">[docs]</a>
 <span class="k">class</span> <span class="nc">World</span><span class="p">:</span>
@@ -268,8 +354,9 @@
     <span class="n">COIN</span> <span class="o">=</span> <span class="s1">&#39;coin&#39;</span>
     <span class="n">BACK</span> <span class="o">=</span> <span class="s1">&#39;back&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">worldfile</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pixels</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># list of tile types</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">worldfile</span><span class="p">,</span> <span class="n">fdd</span><span class="p">):</span>
+        <span class="c1"># TODO add list of game object to be drawn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span> <span class="o">=</span> <span class="n">fdd</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">map</span> <span class="o">=</span> <span class="n">pytmx</span><span class="o">.</span><span class="n">TiledMap</span><span class="p">(</span><span class="n">worldfile</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_layer</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Assuming everything in one layer.&quot;</span>
@@ -277,8 +364,10 @@
 
 <div class="viewcode-block" id="World.get_type">
 <a class="viewcode-back" href="../game.html#rogueflip.World.get_type">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">get_tile_properties</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_layer</span><span class="p">)[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span></div>
+    <span class="k">def</span> <span class="nf">get_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>        
+        <span class="n">tile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">get_tile_properties</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_layer</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">tile</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Tile type at </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> must be set in the map.&quot;</span>
+        <span class="k">return</span> <span class="n">tile</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="World.is_onboard">
@@ -329,8 +418,17 @@
 <a class="viewcode-back" href="../game.html#rogueflip.World.find_coins">[docs]</a>
     <span class="k">def</span> <span class="nf">find_coins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_game_objects</span><span class="p">(</span><span class="n">World</span><span class="o">.</span><span class="n">COIN</span><span class="p">)</span></div>
-</div>
 
+
+<div class="viewcode-block" id="World.draw">
+<a class="viewcode-back" href="../game.html#rogueflip.World.draw">[docs]</a>
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topleft_xy</span><span class="p">):</span>
+        <span class="n">tlx</span><span class="p">,</span> <span class="n">tly</span> <span class="o">=</span> <span class="n">topleft_xy</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_wall</span><span class="p">(</span><span class="n">tlx</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="n">tly</span> <span class="o">+</span> <span class="n">y</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+</div>
 
 
 <div class="viewcode-block" id="GameObject">
@@ -342,18 +440,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_updated</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blink_on</span> <span class="o">=</span> <span class="kc">False</span>
 
-<div class="viewcode-block" id="GameObject.tick">
-<a class="viewcode-back" href="../game.html#rogueflip.GameObject.tick">[docs]</a>
-    <span class="k">def</span> <span class="nf">tick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GameObject.update">
+<a class="viewcode-back" href="../game.html#rogueflip.GameObject.update">[docs]</a>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;A method that should be invoked each frame.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_updated</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">blink_interval</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">blink_on</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">blink_on</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">last_updated</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="GameObject.draw">
-<a class="viewcode-back" href="../game.html#rogueflip.GameObject.draw">[docs]</a>
-    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GameObject.is_draw">
+<a class="viewcode-back" href="../game.html#rogueflip.GameObject.is_draw">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine whether the character should be drawn now.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">blink_on</span></div>
 </div>
@@ -397,6 +495,8 @@
 <a class="viewcode-back" href="../game.html#rogueflip.main">[docs]</a>
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="kn">import</span> <span class="nn">displayprovider</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting rogueflip&quot;</span><span class="p">)</span>
 
     <span class="n">fdd</span> <span class="o">=</span> <span class="n">displayprovider</span><span class="o">.</span><span class="n">get_display</span><span class="p">()</span>
     <span class="n">game_world_file</span> <span class="o">=</span> <span class="n">__check_env_var</span><span class="p">(</span><span class="s2">&quot;ROGUEFLIP_WORLD_FILE&quot;</span><span class="p">,</span> <span class="n">DEFAULT_TMX_WORLD_FILE</span><span class="p">)</span>
