@@ -7,7 +7,7 @@ Module ``fffserial``
 --------------------
 
 The serial module relies on an ardiuno connected to the display that runs
-the :download:`firmware <../arduino/fffarduino_nano/fffarduino_nano.ino>`:: 
+the :download:`firmware <../hardware/arduino/fffarduino_nano_v2/fffarduino_nano_v2.ino>`:: 
 
   +----------+              +---------+     +-----------------+
   |Raspberry |--[serial]----| Arduino |-----| flipdot-display |
