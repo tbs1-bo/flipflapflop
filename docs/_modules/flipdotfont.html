@@ -15,7 +15,7 @@
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -82,11 +82,12 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    read a .bdf font file</span>
 <span class="sd">    letter() gets a character and returns a list of 8-bit-integers.</span>
-
+<span class="sd">    </span>
 <span class="sd">    example 3x4 &quot;T&quot;</span>
-<span class="sd">    [0b11110000,</span>
-<span class="sd">     0b01100000,</span>
-<span class="sd">     0b01100000]</span>
+
+<span class="sd">        [0b11110000,</span>
+<span class="sd">         0b01100000,</span>
+<span class="sd">         0b01100000]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
 
@@ -199,8 +200,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="test_text_scroller">
-<a class="viewcode-back" href="../fdd.html#flipdotfont.test_text_scroller">[docs]</a>
 <span class="k">def</span> <span class="nf">test_text_scroller</span><span class="p">():</span>
     <span class="kn">import</span> <span class="nn">flipdotsim</span>
     <span class="kn">import</span> <span class="nn">time</span>
@@ -210,11 +209,8 @@
     <span class="n">tsc</span> <span class="o">=</span> <span class="n">TextScroller</span><span class="p">(</span><span class="n">fdd</span><span class="p">,</span> <span class="s2">&quot;Hallo&quot;</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
     <span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">fdd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+    <span class="n">fdd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-
-<div class="viewcode-block" id="demo_text_lower">
-<a class="viewcode-back" href="../fdd.html#flipdotfont.demo_text_lower">[docs]</a>
 <span class="k">def</span> <span class="nf">demo_text_lower</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;starting text scoller&quot;</span><span class="p">)</span>
     <span class="kn">import</span> <span class="nn">displayprovider</span>
@@ -224,8 +220,7 @@
     <span class="n">txt</span> <span class="o">=</span> <span class="n">TextScroller</span><span class="p">(</span><span class="n">fdd</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">small_font</span><span class="p">())</span>
     <span class="c1">#time.sleep(1)    </span>
     <span class="n">txt</span><span class="o">.</span><span class="n">statictext</span><span class="p">(</span><span class="s2">&quot;labor&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
-    <span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
-
+    <span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="c1">#time.sleep(5)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -240,7 +235,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2018-2023, Marco Bakera, Reinhard Gummlich.</p>
+    <p>&#169; Copyright 2018-2025, Marco Bakera, Reinhard Gummlich.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

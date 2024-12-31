@@ -63,10 +63,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.show"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.show()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#fffserial.demo"><code class="docutils literal notranslate"><span class="pre">demo()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fffserial.demo_all_onoff"><code class="docutils literal notranslate"><span class="pre">demo_all_onoff()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fffserial.demo_simple"><code class="docutils literal notranslate"><span class="pre">demo_simple()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fffserial.test_serial"><code class="docutils literal notranslate"><span class="pre">test_serial()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-flipdotdisplay">Module <code class="docutils literal notranslate"><span class="pre">flipdotdisplay</span></code></a><ul>
@@ -101,9 +97,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#flipdotfont.big_font"><code class="docutils literal notranslate"><span class="pre">big_font()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#flipdotfont.demo_text_lower"><code class="docutils literal notranslate"><span class="pre">demo_text_lower()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#flipdotfont.small_font"><code class="docutils literal notranslate"><span class="pre">small_font()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#flipdotfont.test_text_scroller"><code class="docutils literal notranslate"><span class="pre">test_text_scroller()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -145,7 +139,7 @@
 <section id="module-fffserial">
 <h2>Module <code class="docutils literal notranslate"><span class="pre">fffserial</span></code><a class="headerlink" href="#module-fffserial" title="Link to this heading"></a></h2>
 <p>The serial module relies on an ardiuno connected to the display that runs
-the <code class="xref download docutils literal notranslate"><span class="pre">firmware</span></code>:</p>
+the <a class="reference download internal" download="" href="_downloads/d9a25765ba2c966455b8836322f97bfa/fffarduino_nano_v2.ino"><code class="xref download docutils literal notranslate"><span class="pre">firmware</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+----------+</span>              <span class="o">+---------+</span>     <span class="o">+-----------------+</span>
 <span class="o">|</span><span class="n">Raspberry</span> <span class="o">|--</span><span class="p">[</span><span class="n">serial</span><span class="p">]</span><span class="o">----|</span> <span class="n">Arduino</span> <span class="o">|-----|</span> <span class="n">flipdot</span><span class="o">-</span><span class="n">display</span> <span class="o">|</span>
 <span class="o">|</span><span class="n">Pi</span>        <span class="o">|</span>              <span class="o">|</span>         <span class="o">|</span>     <span class="o">|</span>                 <span class="o">|</span>
@@ -239,26 +233,6 @@ show() will send the data.</p>
 </dd></dl>
 
 </dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="fffserial.demo">
-<span class="sig-prename descclassname"><span class="pre">fffserial.</span></span><span class="sig-name descname"><span class="pre">demo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#demo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.demo" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="fffserial.demo_all_onoff">
-<span class="sig-prename descclassname"><span class="pre">fffserial.</span></span><span class="sig-name descname"><span class="pre">demo_all_onoff</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#demo_all_onoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.demo_all_onoff" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="fffserial.demo_simple">
-<span class="sig-prename descclassname"><span class="pre">fffserial.</span></span><span class="sig-name descname"><span class="pre">demo_simple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#demo_simple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.demo_simple" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="fffserial.test_serial">
-<span class="sig-prename descclassname"><span class="pre">fffserial.</span></span><span class="sig-name descname"><span class="pre">test_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fffserial.html#test_serial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fffserial.test_serial" title="Link to this definition"></a></dt>
-<dd></dd></dl>
 
 </section>
 <section id="module-flipdotdisplay">
@@ -405,11 +379,13 @@ Another way to bring text onto the dispoay is by using <a class="reference inter
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flipdotfont.</span></span><span class="sig-name descname"><span class="pre">Font</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#Font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.Font" title="Link to this definition"></a></dt>
 <dd><p>read a .bdf font file
 letter() gets a character and returns a list of 8-bit-integers.</p>
-<p>example 3x4 “T”
-[0b11110000,</p>
+<p>example 3x4 “T”</p>
 <blockquote>
-<div><p>0b01100000,
+<div><dl class="simple">
+<dt>[0b11110000,</dt><dd><p>0b01100000,
 0b01100000]</p>
+</dd>
+</dl>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="flipdotfont.Font.letter">
@@ -461,18 +437,8 @@ is shown in the following.</p>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="flipdotfont.demo_text_lower">
-<span class="sig-prename descclassname"><span class="pre">flipdotfont.</span></span><span class="sig-name descname"><span class="pre">demo_text_lower</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#demo_text_lower"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.demo_text_lower" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="flipdotfont.small_font">
 <span class="sig-prename descclassname"><span class="pre">flipdotfont.</span></span><span class="sig-name descname"><span class="pre">small_font</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#small_font"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.small_font" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="flipdotfont.test_text_scroller">
-<span class="sig-prename descclassname"><span class="pre">flipdotfont.</span></span><span class="sig-name descname"><span class="pre">test_text_scroller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotfont.html#test_text_scroller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotfont.test_text_scroller" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </section>

@@ -60,7 +60,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#flipdotsim.FlipDotSim.show"><code class="docutils literal notranslate"><span class="pre">FlipDotSim.show()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#flipdotsim.test_flipdot_sim"><code class="docutils literal notranslate"><span class="pre">test_flipdot_sim()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#simulator-godot-version">Simulator (godot version)</a></li>
@@ -73,8 +72,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#pyxel_sim.PyxelSim.update"><code class="docutils literal notranslate"><span class="pre">PyxelSim.update()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#pyxel_sim.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyxel_sim.test_flipdot_sim"><code class="docutils literal notranslate"><span class="pre">test_flipdot_sim()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -221,11 +218,6 @@ immediately.</p>
 
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="flipdotsim.test_flipdot_sim">
-<span class="sig-prename descclassname"><span class="pre">flipdotsim.</span></span><span class="sig-name descname"><span class="pre">test_flipdot_sim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotsim.html#test_flipdot_sim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotsim.test_flipdot_sim" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </section>
 <section id="simulator-godot-version">
 <h2>Simulator (godot version)<a class="headerlink" href="#simulator-godot-version" title="Link to this heading"></a></h2>
@@ -239,7 +231,11 @@ to port 10101 of the server.</p>
 </section>
 <section id="simulator-pyxel-version">
 <h2>Simulator (pyxel version)<a class="headerlink" href="#simulator-pyxel-version" title="Link to this heading"></a></h2>
-<p>There is another simulator that relies on the <a class="reference external" href="https://github.com/kitao/pyxel">pyxel game engine</a>.</p>
+<p>There is another simulator that relies on the <a class="reference external" href="https://github.com/kitao/pyxel">pyxel game engine</a>. Therefore in order to use it
+pyxel must be installed.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install pyxel
+</pre></div>
+</div>
 <dl class="py class" id="module-pyxel_sim">
 <dt class="sig sig-object py" id="pyxel_sim.PyxelSim">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyxel_sim.</span></span><span class="sig-name descname"><span class="pre">PyxelSim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ressources/pyxel_sim.pyxres'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyxel_sim.html#PyxelSim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyxel_sim.PyxelSim" title="Link to this definition"></a></dt>
@@ -275,18 +271,6 @@ False represents a black pixel.</p>
 <span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyxel_sim.html#PyxelSim.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyxel_sim.PyxelSim.update" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyxel_sim.main">
-<span class="sig-prename descclassname"><span class="pre">pyxel_sim.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyxel_sim.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyxel_sim.main" title="Link to this definition"></a></dt>
-<dd><p>start a simulator</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyxel_sim.test_flipdot_sim">
-<span class="sig-prename descclassname"><span class="pre">pyxel_sim.</span></span><span class="sig-name descname"><span class="pre">test_flipdot_sim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyxel_sim.html#test_flipdot_sim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyxel_sim.test_flipdot_sim" title="Link to this definition"></a></dt>
-<dd><p>test the flipdot simulator</p>
 </dd></dl>
 
 </section>

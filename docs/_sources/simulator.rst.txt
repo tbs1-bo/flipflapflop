@@ -39,6 +39,7 @@ Module Description
 .. automodule:: flipdotsim
    :members:
    :undoc-members:
+   :exclude-members: test_flipdot_sim, main
 
 Simulator (godot version)
 -------------------------
@@ -59,9 +60,12 @@ Simulator (pyxel version)
 -------------------------
 
 There is another simulator that relies on the `pyxel game engine
-<https://github.com/kitao/pyxel>`_. 
+<https://github.com/kitao/pyxel>`_. Therefore in order to use it 
+pyxel must be installed.::
+
+    $ pip install pyxel
 
 .. automodule:: pyxel_sim
    :members:
    :undoc-members:
-
+   :exclude-members: test_flipdot_sim, main
