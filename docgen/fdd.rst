@@ -18,6 +18,7 @@ the :download:`firmware <../arduino/fffarduino_nano/fffarduino_nano.ino>`::
    :members:
    :undoc-members:
    :special-members:
+   :exclude-members: demo, demo_simple, demo_all_onoff, test_serial
 
 
 Module ``flipdotdisplay``
@@ -58,3 +59,4 @@ Another way to bring text onto the dispoay is by using :func:`util.draw_text_on_
 .. automodule:: flipdotfont
    :members:
    :undoc-members:
+   :exclude-members: test_text_scroller, demo_text_lower
