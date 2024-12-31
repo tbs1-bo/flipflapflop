@@ -3,11 +3,12 @@ class Font:
     """
     read a .bdf font file
     letter() gets a character and returns a list of 8-bit-integers.
-
+    
     example 3x4 "T"
-    [0b11110000,
-     0b01100000,
-     0b01100000]
+
+        [0b11110000,
+         0b01100000,
+         0b01100000]
     """
     def __init__(self, filename, width, height):
 
