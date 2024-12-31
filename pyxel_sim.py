@@ -11,7 +11,9 @@ class PyxelSim(displayprovider.DisplayBase):
 
     https://github.com/kitao/pyxel
     """
-    def __init__(self, width, height, resources, fps):
+    DEFAULT_PYXEL_RESOURCES = "ressources/pyxel_sim.pyxres"
+
+    def __init__(self, width, height, resources=DEFAULT_PYXEL_RESOURCES, fps=30):
         super().__init__(width, height)
         self.fps = fps
         self.resources = resources
@@ -59,7 +61,7 @@ def test_flipdot_sim():
     'test the flipdot simulator'
     import time
 
-    fdd = PyxelSim(width=28, height=13, resources="ressources/pyxel_resources.pyxres", fps=30)
+    fdd = PyxelSim(width=28, height=13)
 
     fdd.px(0, 0, True)
     fdd.px(1, 1, True)
@@ -81,7 +83,7 @@ def test_flipdot_sim():
 
 def main():
     'start a simulator'
-    PyxelSim(28, 13, "ressources/pyxel_resources.pyxres", fps=30)
+    PyxelSim(28, 13)
 
 if __name__ == "__main__":
     main()

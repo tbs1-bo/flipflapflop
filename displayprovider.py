@@ -61,7 +61,7 @@ def get_display(width=configuration.WIDTH, height=configuration.HEIGHT, fallback
                 return flipdotsim.FlipDotSim(width, height, fps)
             elif impl == "pyxel":
                 import pyxel_sim
-                return pyxel_sim.PyxelSim(width, height, "ressources/pyxel_resources.pyxres", fps)
+                return pyxel_sim.PyxelSim(width, height, fps=fps)
 
         elif fallback == Fallback.REMOTE_DISPLAY:
             import net
