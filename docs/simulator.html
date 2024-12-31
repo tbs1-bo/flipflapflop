@@ -66,6 +66,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#simulator-godot-version">Simulator (godot version)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#simulator-pyxel-version">Simulator (pyxel version)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#pyxel_sim.PyxelSim"><code class="docutils literal notranslate"><span class="pre">PyxelSim</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyxel_sim.PyxelSim.DEFAULT_PYXEL_RESOURCES"><code class="docutils literal notranslate"><span class="pre">PyxelSim.DEFAULT_PYXEL_RESOURCES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pyxel_sim.PyxelSim.close"><code class="docutils literal notranslate"><span class="pre">PyxelSim.close()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pyxel_sim.PyxelSim.draw"><code class="docutils literal notranslate"><span class="pre">PyxelSim.draw()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pyxel_sim.PyxelSim.px"><code class="docutils literal notranslate"><span class="pre">PyxelSim.px()</span></code></a></li>
@@ -241,12 +242,17 @@ to port 10101 of the server.</p>
 <p>There is another simulator that relies on the <a class="reference external" href="https://github.com/kitao/pyxel">pyxel game engine</a>.</p>
 <dl class="py class" id="module-pyxel_sim">
 <dt class="sig sig-object py" id="pyxel_sim.PyxelSim">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyxel_sim.</span></span><span class="sig-name descname"><span class="pre">PyxelSim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyxel_sim.html#PyxelSim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyxel_sim.PyxelSim" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyxel_sim.</span></span><span class="sig-name descname"><span class="pre">PyxelSim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ressources/pyxel_sim.pyxres'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyxel_sim.html#PyxelSim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyxel_sim.PyxelSim" title="Link to this definition"></a></dt>
 <dd><p>Simulator for the flipdot display using Pyxel. The simulator will run in a 
 separate thread listening for updates to the display buffer. The display
 buffer is a 2D array of booleans, where True represents a yellow pixel and
 False represents a black pixel.</p>
 <p><a class="reference external" href="https://github.com/kitao/pyxel">https://github.com/kitao/pyxel</a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyxel_sim.PyxelSim.DEFAULT_PYXEL_RESOURCES">
+<span class="sig-name descname"><span class="pre">DEFAULT_PYXEL_RESOURCES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ressources/pyxel_sim.pyxres'</span></em><a class="headerlink" href="#pyxel_sim.PyxelSim.DEFAULT_PYXEL_RESOURCES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="pyxel_sim.PyxelSim.close">
 <span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyxel_sim.html#PyxelSim.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyxel_sim.PyxelSim.close" title="Link to this definition"></a></dt>
