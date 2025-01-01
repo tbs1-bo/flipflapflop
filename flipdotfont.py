@@ -104,9 +104,13 @@ def test_text_scroller():
     import flipdotsim
     import time
 
-    fonts = [small_font(), big_font()]
+    fonts = [small_font(), big_font(),
+             Font("ressources/fonts/6x9.bdf", 6, 9),
+             Font("ressources/fonts/7x13.bdf", 7, 13)]
+        
     fdd = flipdotsim.FlipDotSim()
     for font in fonts:
+        fdd.clear()
         TextScroller(fdd, "Hallo", font)
         fdd.show()
         time.sleep(0.5)
