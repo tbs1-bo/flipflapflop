@@ -30,10 +30,10 @@ class Font:
         return letter
 
 def small_font():
-    return Font("ressources/4x6.bdf", 4, 6)
+    return Font("ressources/fonts/4x6.bdf", 4, 6)
 
 def big_font():
-    return Font("ressources/clR6x12.bdf", 6, 12)
+    return Font("ressources/fonts/clR6x12.bdf", 6, 12)
 
 class TextScroller:
     """Write Text on Flipdotdisplays. A simple usage with a FlipDot-Simulator
@@ -103,12 +103,13 @@ def test_text_scroller():
     import flipdotsim
     import time
 
-    fdd = flipdotsim.FlipDotSim()
-    font = small_font()
-    tsc = TextScroller(fdd, "Hallo", font)
-    fdd.show()
-    time.sleep(0.5)
-    fdd.close()
+    fonts = [small_font(), big_font()]
+    for font in fonts:
+        fdd = flipdotsim.FlipDotSim()
+        tsc = TextScroller(fdd, "Hallo", font)
+        fdd.show()
+        time.sleep(0.5)
+        fdd.close()
 
 def demo_text_lower():
     print("starting text scoller")
