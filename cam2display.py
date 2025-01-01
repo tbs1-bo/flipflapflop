@@ -1,19 +1,19 @@
 import cv2 # pip install opencv-python
 import configuration
 import displayprovider
-import pyxel
+import time 
 
-# Open webcam
 
 class App:
     def __init__(self):
         self.cap = cv2.VideoCapture(0)
         self.fdd = displayprovider.get_display()
-        pyxel.init(configuration.WIDTH, configuration.HEIGHT, fps=60)
-        pyxel.run(self.update, self.draw)
+        self.fps = 30
 
-    def update(self):
-        ...
+    def run(self):
+        while True:
+            self.draw()
+            time.sleep(1/self.fps)
 
     def draw(self):        
         # Capture frame-by-frame
@@ -39,16 +39,14 @@ class App:
 
         # Iterate over each pixel and send to filipdotdisplay
         self.fdd.clear()
-        pyxel.cls(0)
         for y in range(configuration.HEIGHT):
             for x in range(configuration.WIDTH):
                 pixel_value = bw_frame[y, x]
                 self.fdd.px(x, y, pixel_value != 0)
-                pyxel.pset(x, y, 7 if pixel_value != 0 else 0)
         self.fdd.show()
 
         # Display the resulting frame
-        cv2.imshow('Webcam', gray_frame)
+        cv2.imshow('Webcam', frame)
 
         # Release the capture and close windows
         #cap.release()
@@ -56,4 +54,4 @@ class App:
 
 
 if __name__ == "__main__":
-    App()
+    App().run()
