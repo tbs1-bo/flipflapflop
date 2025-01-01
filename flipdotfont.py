@@ -106,7 +106,10 @@ def test_text_scroller():
     fonts = [small_font(), big_font()]
     for font in fonts:
         fdd = flipdotsim.FlipDotSim()
-        tsc = TextScroller(fdd, "Hallo", font)
+        TextScroller(fdd, "Hallo", font)
+        fdd.show()
+        time.sleep(0.5)
+        fdd.close()
         fdd.show()
         time.sleep(0.5)
         fdd.close()
