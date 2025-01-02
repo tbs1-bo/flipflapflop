@@ -155,15 +155,17 @@ def test_networking():
     import threading
     import time
 
+    TEST_PORT = 1212
+
     fdd = flipdotsim.FlipDotSim(width=15, height=15)
     ds = DisplayServer(fdd)
     th = threading.Thread(target=ds.start,
-                          kwargs={'host':'127.0.0.1'})
+                          kwargs={'host':'127.0.0.1', 'port':TEST_PORT})
     th.daemon = True
     th.start()
     time.sleep(0.2)  # wait for server to start
     
-    remote_display = RemoteDisplay(host="127.0.0.1", width=15, height=15)
+    remote_display = RemoteDisplay(host="127.0.0.1", port=TEST_PORT, width=15, height=15)
     remote_display.px(1, 1, True)
     remote_display.px(2, 1, True)
     remote_display.show()
