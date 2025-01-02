@@ -150,6 +150,114 @@ class RemoteDisplay(displayprovider.DisplayBase):
         pass
         # TODO led support for remote display
 
+
+class PixelflutServer(displayprovider.DisplayBase):
+    """
+    PixeflutServer that conforms to the Pixelflut protocol outlined at
+    https://c3pixelflut.de/how.html
+    """
+    def __init__(self, display):
+        self.width = display.width
+        self.height = display.height
+        self.display = display
+        self.offset_x = 0
+        self.offset_y = 0
+        self.server_running = False
+
+    def start(self, host="0.0.0.0", port=DEFAULT_PORT):
+        print("Starting Pixelflut server for dimension", self.width, "x", self.height,
+              "on", host, "at port", port)
+
+        addr = (host, port)
+        self.server_running = True
+        with socket.socket() as sock:
+            sock.bind(addr)
+            print("Listening on", host, "at port", port)
+            sock.listen(10)
+
+            while self.server_running:
+                remote_sock, _ = sock.accept()
+                with remote_sock:
+                    while True:
+                        buf = remote_sock.recv(1024)
+                        if not buf:
+                            break
+                        try:
+                            ans = self.handle_request(buf)
+                            if ans:
+                                remote_sock.send(bytes(ans, "ascii"))
+                        except Exception as e:
+                            print("ERROR", e)
+
+    def handle_request(self, payload):
+        """
+        Handle incoming requests and execute commands based on the payload.
+        The payload is expected to be a string of ASCII-encoded commands 
+        separated by newlines.
+        Each command is processed and appropriate actions are taken.
+        Commands:
+        - PX x y color: Set the pixel at (x, y) to the specified color.
+        - PX x y: Get the color of the pixel at (x, y).
+        - SIZE: Get the dimensions of the grid.
+        - OFFSET x y: Set the offset for the grid coordinates.
+        Args:
+            payload (bytes): The ASCII-encoded command string.
+        Returns:
+            str: The responses to the commands, joined by newlines.
+        """
+
+        commands = str(payload, "ascii").strip().split('\n')
+        responses = []
+
+        for command in commands:
+            parts = command.strip().split()
+            if not parts:
+                continue
+
+            cmd = parts[0].upper()
+            if cmd == "PX":
+                if len(parts) == 4: # PX x y color
+                    x = int(parts[1]) + self.offset_x
+                    y = int(parts[2]) + self.offset_y
+                    color = parts[3]
+                    self.set_pixel(x, y, color)
+                elif len(parts) == 3: # PX x y
+                    x = int(parts[1]) + self.offset_x
+                    y = int(parts[2]) + self.offset_y
+                    responses.append(self.get_pixel(x, y))
+            elif cmd == "SIZE":
+                responses.append(f"{self.width} {self.height}")
+            elif cmd == "OFFSET": # OFFSET x y
+                if len(parts) == 3:
+                    self.offset_x = int(parts[1])
+                    self.offset_y = int(parts[2])
+
+        return "\n".join(responses)
+
+    def set_pixel(self, x, y, color):
+        """
+        Set the color of a specific pixel on the display.
+        Parameters:
+        x (int): The x-coordinate of the pixel.
+        y (int): The y-coordinate of the pixel.
+        color (str): The color to set the pixel to, represented as a hex string. 
+                 If the color is "000000", the pixel will be turned off. 
+                 Otherwise it will be turned on.
+        """
+
+        if 0 <= x < self.width and 0 <= y < self.height:
+            self.display.px(x, y, color != "000000")
+            self.display.show()
+
+    def get_pixel(self, x, y):
+        """
+        Get the color of a specific pixel on the display. Will return the color
+        of the pixel at the specified coordinates as a hex string.
+        """
+        if 0 <= x < self.width and 0 <= y < self.height:
+            return "FFFFFF" if self.display.buffer[y][x] else "000000"
+        return "000000"
+
 def test_networking():
     import flipdotsim
     import threading
@@ -181,6 +289,39 @@ def test_networking():
     fdd.close()
     #exit()
 
+def test_networking_pixelflut():
+    import flipdotsim
+    import threading
+    import time
+
+    TEST_PORT = 1234
+
+    fdd = flipdotsim.FlipDotSim(width=15, height=15)
+    ps = PixelflutServer(fdd)
+    th = threading.Thread(target=ps.start,
+                          kwargs={'host':'127.0.0.1', 'port':TEST_PORT})
+    th.daemon = True
+    th.start()
+    time.sleep(0.2)  # wait for server to start
+    
+    remote_display = RemoteDisplay(host="127.0.0.1", port=TEST_PORT, width=15, height=15)
+    remote_display.px(1, 1, True)
+    remote_display.px(2, 1, True)
+    remote_display.show()
+    time.sleep(0.5)
+
+    import demos
+    demo = demos.RotatingPlasmaDemo(remote_display)
+    demo.fps = 30  # reduce fps for networking
+    demo.run(2)
+    
+    ps.server_running = False
+    th.join(2)
+    fdd.close()
+
+
+
+
 def main():
     import displayprovider
     import configuration
@@ -188,10 +329,13 @@ def main():
     disp = displayprovider.get_display(
         width=configuration.WIDTH, height=configuration.HEIGHT,
         fallback=displayprovider.Fallback.SIMULATOR)
-    ds = DisplayServer(disp)
-    ds.start(host=configuration.display_server["host"],
-        port=configuration.display_server["port"])
+    #ds = DisplayServer(disp)
+    #ds.start(host=configuration.display_server["host"],
+    #    port=configuration.display_server["port"])
 
+    server = PixelflutServer(disp)
+    server.start(host=configuration.display_server["host"],
+                 port=configuration.display_server["port"])
 
 if __name__ == "__main__":
     main()
