@@ -1,54 +1,4 @@
-"""
-TCP-Server that listens on a specified port for
-TCP-Connections. Every request sent to the server has to be one of the special
-commands described later on or a string of 0s and 1s each specifying a dot to
-be turned on or off respectively. For instance, to display the letter 'T'
-on a 4x3 display of this form
 
-::
-
-    1111
-    0110
-    0110
-
-
-the following request must be sent to the server: 111101100110.
-
-A simple command line client like nc can send this request to 'server'
-listening on port 10101:
-
-.. code-block:: bash
-
-   $ echo 111101100110 | nc server 10101
-
-If the request contains the string 'SIZE' (ignoring case), the server
-will respond with the dimensions of the display (width x height).
-
-Lets start a server. Here we use a thread in order to be able to run the client
-afterwards. In practice the server will run on a different platform and can be
-started directly.
-
-    >>> import net
-    >>> import displayprovider
-    >>> import threading
-    >>> ds = net.DisplayServer(displayprovider.DisplayBase())
-    >>> th = threading.Thread(target=ds.start)
-    >>> th.setDaemon(True)
-    >>> th.start()
-    Starting server for dimension 4 x 3 on 0.0.0.0 at port 10101
-
-Now we can start a client and send some pixels to the server.
-
-    >>> cl = net.RemoteDisplay(host="0.0.0.0")
-    Remote display will send data to 0.0.0.0 on port 10101
-    >>> cl.px(1, 1, True)
-    >>> cl.px(2, 3, True)
-    >>> cl.show()
-    Listening on 0.0.0.0 at port 10101
-
-The output lines after show() are coming from the server.
-
-"""
 
 import socket
 import displayprovider
@@ -58,6 +8,57 @@ DEFAULT_PORT = 10101
 
 
 class DisplayServer:
+    """
+    TCP-Server that listens on a specified port for
+    TCP-Connections. Every request sent to the server has to be one of the special
+    commands described later on or a string of 0s and 1s each specifying a dot to
+    be turned on or off respectively. For instance, to display the letter 'T'
+    on a 4x3 display of this form
+
+    ::
+
+        1111
+        0110
+        0110
+
+
+    the following request must be sent to the server: 111101100110.
+
+    A simple command line client like nc can send this request to 'server'
+    listening on port 10101:
+
+    .. code-block:: bash
+
+    $ echo 111101100110 | nc server 10101
+
+    If the request contains the string 'SIZE' (ignoring case), the server
+    will respond with the dimensions of the display (width x height).
+
+    Lets start a server. Here we use a thread in order to be able to run the client
+    afterwards. In practice the server will run on a different platform and can be
+    started directly.
+
+        >>> import net
+        >>> import displayprovider
+        >>> import threading
+        >>> ds = net.DisplayServer(displayprovider.DisplayBase())
+        >>> th = threading.Thread(target=ds.start)
+        >>> th.setDaemon(True)
+        >>> th.start()
+        Starting server for dimension 4 x 3 on 0.0.0.0 at port 10101
+
+    Now we can start a client and send some pixels to the server.
+
+        >>> cl = net.RemoteDisplay(host="0.0.0.0")
+        Remote display will send data to 0.0.0.0 on port 10101
+        >>> cl.px(1, 1, True)
+        >>> cl.px(2, 3, True)
+        >>> cl.show()
+        Listening on 0.0.0.0 at port 10101
+
+    The output lines after show() are coming from the server.
+
+    """
     def __init__(self, display):
         self.width = display.width
         self.height = display.height
@@ -117,7 +118,8 @@ class DisplayServer:
 
 
 class RemoteDisplay(displayprovider.DisplayBase):
-    """Remote class to connect with a running display server."""
+    "Remote class to connect with a running DisplayServer instance."
+
     def __init__(self, host="0.0.0.0", port=DEFAULT_PORT, width=28, height=13):
         super().__init__(width, height)
         print("Remote display will send data to", host, "on port", port)
@@ -155,6 +157,11 @@ class PixelflutServer(displayprovider.DisplayBase):
     """
     PixeflutServer that conforms to the Pixelflut protocol outlined at
     https://c3pixelflut.de/how.html
+
+    PX <x> <y> <rrggbb|aarrggbb> # set pixel at x,y with color rrggbb
+    PX <x> <y>                   # get pixel color info for pixel at x,y
+    SIZE                         # get size of the display
+    OFFSET <x> <y>               # set offset for following commands
     """
     def __init__(self, display):
         self.width = display.width
