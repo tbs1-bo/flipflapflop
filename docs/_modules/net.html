@@ -75,57 +75,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for net</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">TCP-Server that listens on a specified port for</span>
-<span class="sd">TCP-Connections. Every request sent to the server has to be one of the special</span>
-<span class="sd">commands described later on or a string of 0s and 1s each specifying a dot to</span>
-<span class="sd">be turned on or off respectively. For instance, to display the letter &#39;T&#39;</span>
-<span class="sd">on a 4x3 display of this form</span>
-
-<span class="sd">::</span>
-
-<span class="sd">    1111</span>
-<span class="sd">    0110</span>
-<span class="sd">    0110</span>
-
-
-<span class="sd">the following request must be sent to the server: 111101100110.</span>
-
-<span class="sd">A simple command line client like nc can send this request to &#39;server&#39;</span>
-<span class="sd">listening on port 10101:</span>
-
-<span class="sd">.. code-block:: bash</span>
-
-<span class="sd">   $ echo 111101100110 | nc server 10101</span>
-
-<span class="sd">If the request contains the string &#39;SIZE&#39; (ignoring case), the server</span>
-<span class="sd">will respond with the dimensions of the display (width x height).</span>
-
-<span class="sd">Lets start a server. Here we use a thread in order to be able to run the client</span>
-<span class="sd">afterwards. In practice the server will run on a different platform and can be</span>
-<span class="sd">started directly.</span>
-
-<span class="sd">    &gt;&gt;&gt; import net</span>
-<span class="sd">    &gt;&gt;&gt; import displayprovider</span>
-<span class="sd">    &gt;&gt;&gt; import threading</span>
-<span class="sd">    &gt;&gt;&gt; ds = net.DisplayServer(displayprovider.DisplayBase())</span>
-<span class="sd">    &gt;&gt;&gt; th = threading.Thread(target=ds.start)</span>
-<span class="sd">    &gt;&gt;&gt; th.setDaemon(True)</span>
-<span class="sd">    &gt;&gt;&gt; th.start()</span>
-<span class="sd">    Starting server for dimension 4 x 3 on 0.0.0.0 at port 10101</span>
-
-<span class="sd">Now we can start a client and send some pixels to the server.</span>
-
-<span class="sd">    &gt;&gt;&gt; cl = net.RemoteDisplay(host=&quot;0.0.0.0&quot;)</span>
-<span class="sd">    Remote display will send data to 0.0.0.0 on port 10101</span>
-<span class="sd">    &gt;&gt;&gt; cl.px(1, 1, True)</span>
-<span class="sd">    &gt;&gt;&gt; cl.px(2, 3, True)</span>
-<span class="sd">    &gt;&gt;&gt; cl.show()</span>
-<span class="sd">    Listening on 0.0.0.0 at port 10101</span>
-
-<span class="sd">The output lines after show() are coming from the server.</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span>
 
 <span class="kn">import</span> <span class="nn">socket</span>
 <span class="kn">import</span> <span class="nn">displayprovider</span>
@@ -137,6 +87,57 @@
 <div class="viewcode-block" id="DisplayServer">
 <a class="viewcode-back" href="../net.html#net.DisplayServer">[docs]</a>
 <span class="k">class</span> <span class="nc">DisplayServer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TCP-Server that listens on a specified port for</span>
+<span class="sd">    TCP-Connections. Every request sent to the server has to be one of the special</span>
+<span class="sd">    commands described later on or a string of 0s and 1s each specifying a dot to</span>
+<span class="sd">    be turned on or off respectively. For instance, to display the letter &#39;T&#39;</span>
+<span class="sd">    on a 4x3 display of this form</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        1111</span>
+<span class="sd">        0110</span>
+<span class="sd">        0110</span>
+
+
+<span class="sd">    the following request must be sent to the server: 111101100110.</span>
+
+<span class="sd">    A simple command line client like nc can send this request to &#39;server&#39;</span>
+<span class="sd">    listening on port 10101:</span>
+
+<span class="sd">    .. code-block:: bash</span>
+
+<span class="sd">    $ echo 111101100110 | nc server 10101</span>
+
+<span class="sd">    If the request contains the string &#39;SIZE&#39; (ignoring case), the server</span>
+<span class="sd">    will respond with the dimensions of the display (width x height).</span>
+
+<span class="sd">    Lets start a server. Here we use a thread in order to be able to run the client</span>
+<span class="sd">    afterwards. In practice the server will run on a different platform and can be</span>
+<span class="sd">    started directly.</span>
+
+<span class="sd">        &gt;&gt;&gt; import net</span>
+<span class="sd">        &gt;&gt;&gt; import displayprovider</span>
+<span class="sd">        &gt;&gt;&gt; import threading</span>
+<span class="sd">        &gt;&gt;&gt; ds = net.DisplayServer(displayprovider.DisplayBase())</span>
+<span class="sd">        &gt;&gt;&gt; th = threading.Thread(target=ds.start)</span>
+<span class="sd">        &gt;&gt;&gt; th.setDaemon(True)</span>
+<span class="sd">        &gt;&gt;&gt; th.start()</span>
+<span class="sd">        Starting server for dimension 4 x 3 on 0.0.0.0 at port 10101</span>
+
+<span class="sd">    Now we can start a client and send some pixels to the server.</span>
+
+<span class="sd">        &gt;&gt;&gt; cl = net.RemoteDisplay(host=&quot;0.0.0.0&quot;)</span>
+<span class="sd">        Remote display will send data to 0.0.0.0 on port 10101</span>
+<span class="sd">        &gt;&gt;&gt; cl.px(1, 1, True)</span>
+<span class="sd">        &gt;&gt;&gt; cl.px(2, 3, True)</span>
+<span class="sd">        &gt;&gt;&gt; cl.show()</span>
+<span class="sd">        Listening on 0.0.0.0 at port 10101</span>
+
+<span class="sd">    The output lines after show() are coming from the server.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">width</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">height</span>
@@ -205,7 +206,8 @@
 <div class="viewcode-block" id="RemoteDisplay">
 <a class="viewcode-back" href="../net.html#net.RemoteDisplay">[docs]</a>
 <span class="k">class</span> <span class="nc">RemoteDisplay</span><span class="p">(</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">DisplayBase</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remote class to connect with a running display server.&quot;&quot;&quot;</span>
+    <span class="s2">&quot;Remote class to connect with a running DisplayServer instance.&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_PORT</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remote display will send data to&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="s2">&quot;on port&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
@@ -248,22 +250,150 @@
 
         <span class="c1"># TODO led support for remote display</span>
 
-<div class="viewcode-block" id="test_networking">
-<a class="viewcode-back" href="../net.html#net.test_networking">[docs]</a>
+
+<div class="viewcode-block" id="PixelflutServer">
+<a class="viewcode-back" href="../net.html#net.PixelflutServer">[docs]</a>
+<span class="k">class</span> <span class="nc">PixelflutServer</span><span class="p">(</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">DisplayBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    PixeflutServer that conforms to the Pixelflut protocol outlined at</span>
+<span class="sd">    https://c3pixelflut.de/how.html</span>
+
+<span class="sd">    PX &lt;x&gt; &lt;y&gt; &lt;rrggbb|aarrggbb&gt; # set pixel at x,y with color rrggbb</span>
+<span class="sd">    PX &lt;x&gt; &lt;y&gt;                   # get pixel color info for pixel at x,y</span>
+<span class="sd">    SIZE                         # get size of the display</span>
+<span class="sd">    OFFSET &lt;x&gt; &lt;y&gt;               # set offset for following commands</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display</span> <span class="o">=</span> <span class="n">display</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offset_x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offset_y</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_running</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="PixelflutServer.start">
+<a class="viewcode-back" href="../net.html#net.PixelflutServer.start">[docs]</a>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_PORT</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting Pixelflut server for dimension&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+              <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="s2">&quot;at port&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+
+        <span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_running</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">with</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span> <span class="k">as</span> <span class="n">sock</span><span class="p">:</span>
+            <span class="n">sock</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Listening on&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="s2">&quot;at port&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+            <span class="n">sock</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+            <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_running</span><span class="p">:</span>
+                <span class="n">remote_sock</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sock</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+                <span class="k">with</span> <span class="n">remote_sock</span><span class="p">:</span>
+                    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                        <span class="n">buf</span> <span class="o">=</span> <span class="n">remote_sock</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">buf</span><span class="p">:</span>
+                            <span class="k">break</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">ans</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_request</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">ans</span><span class="p">:</span>
+                                <span class="n">remote_sock</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="s2">&quot;ascii&quot;</span><span class="p">))</span>
+                        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PixelflutServer.handle_request">
+<a class="viewcode-back" href="../net.html#net.PixelflutServer.handle_request">[docs]</a>
+    <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle incoming requests and execute commands based on the payload.</span>
+<span class="sd">        The payload is expected to be a string of ASCII-encoded commands </span>
+<span class="sd">        separated by newlines.</span>
+<span class="sd">        Each command is processed and appropriate actions are taken.</span>
+<span class="sd">        Commands:</span>
+<span class="sd">        - PX x y color: Set the pixel at (x, y) to the specified color.</span>
+<span class="sd">        - PX x y: Get the color of the pixel at (x, y).</span>
+<span class="sd">        - SIZE: Get the dimensions of the grid.</span>
+<span class="sd">        - OFFSET x y: Set the offset for the grid coordinates.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            payload (bytes): The ASCII-encoded command string.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The responses to the commands, joined by newlines.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">commands</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s2">&quot;ascii&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">:</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">parts</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">cmd</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;PX&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span> <span class="c1"># PX x y color</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset_x</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset_y</span>
+                    <span class="n">color</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span> <span class="c1"># PX x y</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset_x</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset_y</span>
+                    <span class="n">responses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_pixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;SIZE&quot;</span><span class="p">:</span>
+                <span class="n">responses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;OFFSET&quot;</span><span class="p">:</span> <span class="c1"># OFFSET x y</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">offset_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">offset_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">responses</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PixelflutServer.set_pixel">
+<a class="viewcode-back" href="../net.html#net.PixelflutServer.set_pixel">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_pixel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the color of a specific pixel on the display.</span>
+<span class="sd">        Parameters:</span>
+<span class="sd">        x (int): The x-coordinate of the pixel.</span>
+<span class="sd">        y (int): The y-coordinate of the pixel.</span>
+<span class="sd">        color (str): The color to set the pixel to, represented as a hex string. </span>
+<span class="sd">                 If the color is &quot;000000&quot;, the pixel will be turned off. </span>
+<span class="sd">                 Otherwise it will be turned on.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span> <span class="o">!=</span> <span class="s2">&quot;000000&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="PixelflutServer.get_pixel">
+<a class="viewcode-back" href="../net.html#net.PixelflutServer.get_pixel">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_pixel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the color of a specific pixel on the display. Will return the color</span>
+<span class="sd">        of the pixel at the specified coordinates as a hex string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;FFFFFF&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">buffer</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;000000&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;000000&quot;</span></div>
+</div>
+
+
 <span class="k">def</span> <span class="nf">test_networking</span><span class="p">():</span>
     <span class="kn">import</span> <span class="nn">flipdotsim</span>
     <span class="kn">import</span> <span class="nn">threading</span>
     <span class="kn">import</span> <span class="nn">time</span>
 
+    <span class="n">TEST_PORT</span> <span class="o">=</span> <span class="mi">1212</span>
+
     <span class="n">fdd</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
     <span class="n">ds</span> <span class="o">=</span> <span class="n">DisplayServer</span><span class="p">(</span><span class="n">fdd</span><span class="p">)</span>
     <span class="n">th</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
-                          <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;host&#39;</span><span class="p">:</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">})</span>
+                          <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;host&#39;</span><span class="p">:</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="s1">&#39;port&#39;</span><span class="p">:</span><span class="n">TEST_PORT</span><span class="p">})</span>
     <span class="n">th</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">th</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>  <span class="c1"># wait for server to start</span>
     
-    <span class="n">remote_display</span> <span class="o">=</span> <span class="n">RemoteDisplay</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">remote_display</span> <span class="o">=</span> <span class="n">RemoteDisplay</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">TEST_PORT</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
     <span class="n">remote_display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
     <span class="n">remote_display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
     <span class="n">remote_display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -276,12 +406,42 @@
     
     <span class="n">ds</span><span class="o">.</span><span class="n">server_running</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">th</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">fdd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
-
+    <span class="n">fdd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="c1">#exit()</span>
 
-<div class="viewcode-block" id="main">
-<a class="viewcode-back" href="../net.html#net.main">[docs]</a>
+<span class="k">def</span> <span class="nf">test_networking_pixelflut</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">flipdotsim</span>
+    <span class="kn">import</span> <span class="nn">threading</span>
+    <span class="kn">import</span> <span class="nn">time</span>
+
+    <span class="n">TEST_PORT</span> <span class="o">=</span> <span class="mi">1234</span>
+
+    <span class="n">fdd</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">ps</span> <span class="o">=</span> <span class="n">PixelflutServer</span><span class="p">(</span><span class="n">fdd</span><span class="p">)</span>
+    <span class="n">th</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">ps</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+                          <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;host&#39;</span><span class="p">:</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="s1">&#39;port&#39;</span><span class="p">:</span><span class="n">TEST_PORT</span><span class="p">})</span>
+    <span class="n">th</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">th</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>  <span class="c1"># wait for server to start</span>
+    
+    <span class="n">remote_display</span> <span class="o">=</span> <span class="n">RemoteDisplay</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">TEST_PORT</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">remote_display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">remote_display</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">remote_display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="kn">import</span> <span class="nn">demos</span>
+    <span class="n">demo</span> <span class="o">=</span> <span class="n">demos</span><span class="o">.</span><span class="n">RotatingPlasmaDemo</span><span class="p">(</span><span class="n">remote_display</span><span class="p">)</span>
+    <span class="n">demo</span><span class="o">.</span><span class="n">fps</span> <span class="o">=</span> <span class="mi">30</span>  <span class="c1"># reduce fps for networking</span>
+    <span class="n">demo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="n">ps</span><span class="o">.</span><span class="n">server_running</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">th</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">fdd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+
+
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="kn">import</span> <span class="nn">displayprovider</span>
     <span class="kn">import</span> <span class="nn">configuration</span>
@@ -289,11 +449,13 @@
     <span class="n">disp</span> <span class="o">=</span> <span class="n">displayprovider</span><span class="o">.</span><span class="n">get_display</span><span class="p">(</span>
         <span class="n">width</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">,</span>
         <span class="n">fallback</span><span class="o">=</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">Fallback</span><span class="o">.</span><span class="n">SIMULATOR</span><span class="p">)</span>
-    <span class="n">ds</span> <span class="o">=</span> <span class="n">DisplayServer</span><span class="p">(</span><span class="n">disp</span><span class="p">)</span>
-    <span class="n">ds</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">display_server</span><span class="p">[</span><span class="s2">&quot;host&quot;</span><span class="p">],</span>
-        <span class="n">port</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">display_server</span><span class="p">[</span><span class="s2">&quot;port&quot;</span><span class="p">])</span></div>
+    <span class="c1">#ds = DisplayServer(disp)</span>
+    <span class="c1">#ds.start(host=configuration.display_server[&quot;host&quot;],</span>
+    <span class="c1">#    port=configuration.display_server[&quot;port&quot;])</span>
 
-
+    <span class="n">server</span> <span class="o">=</span> <span class="n">PixelflutServer</span><span class="p">(</span><span class="n">disp</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">display_server</span><span class="p">[</span><span class="s2">&quot;host&quot;</span><span class="p">],</span>
+                 <span class="n">port</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">display_server</span><span class="p">[</span><span class="s2">&quot;port&quot;</span><span class="p">])</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>

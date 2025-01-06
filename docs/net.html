@@ -53,13 +53,19 @@
 <li class="toctree-l3"><a class="reference internal" href="#net.DisplayServer.start"><code class="docutils literal notranslate"><span class="pre">DisplayServer.start()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#net.PixelflutServer"><code class="docutils literal notranslate"><span class="pre">PixelflutServer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#net.PixelflutServer.get_pixel"><code class="docutils literal notranslate"><span class="pre">PixelflutServer.get_pixel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#net.PixelflutServer.handle_request"><code class="docutils literal notranslate"><span class="pre">PixelflutServer.handle_request()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#net.PixelflutServer.set_pixel"><code class="docutils literal notranslate"><span class="pre">PixelflutServer.set_pixel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#net.PixelflutServer.start"><code class="docutils literal notranslate"><span class="pre">PixelflutServer.start()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#net.RemoteDisplay"><code class="docutils literal notranslate"><span class="pre">RemoteDisplay</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#net.RemoteDisplay.led"><code class="docutils literal notranslate"><span class="pre">RemoteDisplay.led()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#net.RemoteDisplay.px"><code class="docutils literal notranslate"><span class="pre">RemoteDisplay.px()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#net.RemoteDisplay.show"><code class="docutils literal notranslate"><span class="pre">RemoteDisplay.show()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#net.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="web.html">Web</a></li>
@@ -93,7 +99,10 @@
              
   <section id="module-net">
 <span id="net"></span><h1>Net<a class="headerlink" href="#module-net" title="Link to this heading"></a></h1>
-<p>TCP-Server that listens on a specified port for
+<dl class="py class">
+<dt class="sig sig-object py" id="net.DisplayServer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">net.</span></span><span class="sig-name descname"><span class="pre">DisplayServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#DisplayServer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.DisplayServer" title="Link to this definition"></a></dt>
+<dd><p>TCP-Server that listens on a specified port for
 TCP-Connections. Every request sent to the server has to be one of the special
 commands described later on or a string of 0s and 1s each specifying a dot to
 be turned on or off respectively. For instance, to display the letter ‘T’
@@ -106,9 +115,10 @@ on a 4x3 display of this form</p>
 <p>the following request must be sent to the server: 111101100110.</p>
 <p>A simple command line client like nc can send this request to ‘server’
 listening on port 10101:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">111101100110</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>nc<span class="w"> </span>server<span class="w"> </span><span class="m">10101</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
+<p>$ echo 111101100110 | nc server 10101</p>
 <p>If the request contains the string ‘SIZE’ (ignoring case), the server
 will respond with the dimensions of the display (width x height).</p>
 <p>Lets start a server. Here we use a thread in order to be able to run the client
@@ -134,10 +144,7 @@ started directly.</p>
 </pre></div>
 </div>
 <p>The output lines after show() are coming from the server.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="net.DisplayServer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">net.</span></span><span class="sig-name descname"><span class="pre">DisplayServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#DisplayServer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.DisplayServer" title="Link to this definition"></a></dt>
-<dd><dl class="py method">
+<dl class="py method">
 <dt class="sig sig-object py" id="net.DisplayServer.handle_request">
 <span class="sig-name descname"><span class="pre">handle_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#DisplayServer.handle_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.DisplayServer.handle_request" title="Link to this definition"></a></dt>
 <dd></dd></dl>
@@ -150,9 +157,68 @@ started directly.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="net.PixelflutServer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">net.</span></span><span class="sig-name descname"><span class="pre">PixelflutServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#PixelflutServer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.PixelflutServer" title="Link to this definition"></a></dt>
+<dd><p>PixeflutServer that conforms to the Pixelflut protocol outlined at
+<a class="reference external" href="https://c3pixelflut.de/how.html">https://c3pixelflut.de/how.html</a></p>
+<p>PX &lt;x&gt; &lt;y&gt; &lt;rrggbb|aarrggbb&gt; # set pixel at x,y with color rrggbb
+PX &lt;x&gt; &lt;y&gt;                   # get pixel color info for pixel at x,y
+SIZE                         # get size of the display
+OFFSET &lt;x&gt; &lt;y&gt;               # set offset for following commands</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="net.PixelflutServer.get_pixel">
+<span class="sig-name descname"><span class="pre">get_pixel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#PixelflutServer.get_pixel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.PixelflutServer.get_pixel" title="Link to this definition"></a></dt>
+<dd><p>Get the color of a specific pixel on the display. Will return the color
+of the pixel at the specified coordinates as a hex string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="net.PixelflutServer.handle_request">
+<span class="sig-name descname"><span class="pre">handle_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#PixelflutServer.handle_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.PixelflutServer.handle_request" title="Link to this definition"></a></dt>
+<dd><p>Handle incoming requests and execute commands based on the payload.
+The payload is expected to be a string of ASCII-encoded commands 
+separated by newlines.
+Each command is processed and appropriate actions are taken.
+Commands:
+- PX x y color: Set the pixel at (x, y) to the specified color.
+- PX x y: Get the color of the pixel at (x, y).
+- SIZE: Get the dimensions of the grid.
+- OFFSET x y: Set the offset for the grid coordinates.
+Args:</p>
+<blockquote>
+<div><p>payload (bytes): The ASCII-encoded command string.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>str: The responses to the commands, joined by newlines.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="net.PixelflutServer.set_pixel">
+<span class="sig-name descname"><span class="pre">set_pixel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#PixelflutServer.set_pixel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.PixelflutServer.set_pixel" title="Link to this definition"></a></dt>
+<dd><p>Set the color of a specific pixel on the display.
+Parameters:
+x (int): The x-coordinate of the pixel.
+y (int): The y-coordinate of the pixel.
+color (str): The color to set the pixel to, represented as a hex string.</p>
+<blockquote>
+<div><p>If the color is “000000”, the pixel will be turned off. 
+Otherwise it will be turned on.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="net.PixelflutServer.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.0.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10101</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#PixelflutServer.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.PixelflutServer.start" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="net.RemoteDisplay">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">net.</span></span><span class="sig-name descname"><span class="pre">RemoteDisplay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.0.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10101</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">13</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#RemoteDisplay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.RemoteDisplay" title="Link to this definition"></a></dt>
-<dd><p>Remote class to connect with a running display server.</p>
+<dd><p>Remote class to connect with a running DisplayServer instance.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="net.RemoteDisplay.led">
 <span class="sig-name descname"><span class="pre">led</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_off</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#RemoteDisplay.led"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.RemoteDisplay.led" title="Link to this definition"></a></dt>
@@ -170,11 +236,6 @@ started directly.</p>
 <dd></dd></dl>
 
 </dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="net.main">
-<span class="sig-prename descclassname"><span class="pre">net.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.main" title="Link to this definition"></a></dt>
-<dd></dd></dl>
 
 </section>
 

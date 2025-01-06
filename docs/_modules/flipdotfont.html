@@ -75,7 +75,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for flipdotfont</h1><div class="highlight"><pre>
-<span></span>
+<span></span><span class="c1"># A lot of bdf fonts can be found at https://github.com/olikraus/u8g2/tree/master/tools/font/bdf</span>
+
 <div class="viewcode-block" id="Font">
 <a class="viewcode-back" href="../fdd.html#flipdotfont.Font">[docs]</a>
 <span class="k">class</span> <span class="nc">Font</span><span class="p">:</span>
@@ -115,13 +116,13 @@
 <div class="viewcode-block" id="small_font">
 <a class="viewcode-back" href="../fdd.html#flipdotfont.small_font">[docs]</a>
 <span class="k">def</span> <span class="nf">small_font</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">Font</span><span class="p">(</span><span class="s2">&quot;ressources/4x6.bdf&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Font</span><span class="p">(</span><span class="s2">&quot;ressources/fonts/4x6.bdf&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="big_font">
 <a class="viewcode-back" href="../fdd.html#flipdotfont.big_font">[docs]</a>
 <span class="k">def</span> <span class="nf">big_font</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">Font</span><span class="p">(</span><span class="s2">&quot;ressources/clR6x12.bdf&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Font</span><span class="p">(</span><span class="s2">&quot;ressources/fonts/clR6x12.bdf&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TextScroller">
@@ -204,12 +205,16 @@
     <span class="kn">import</span> <span class="nn">flipdotsim</span>
     <span class="kn">import</span> <span class="nn">time</span>
 
+    <span class="n">fonts</span> <span class="o">=</span> <span class="p">[</span><span class="n">small_font</span><span class="p">(),</span> <span class="n">big_font</span><span class="p">(),</span>
+             <span class="n">Font</span><span class="p">(</span><span class="s2">&quot;ressources/fonts/6x9.bdf&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+             <span class="n">Font</span><span class="p">(</span><span class="s2">&quot;ressources/fonts/7x13.bdf&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">13</span><span class="p">)]</span>
+        
     <span class="n">fdd</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">()</span>
-    <span class="n">font</span> <span class="o">=</span> <span class="n">small_font</span><span class="p">()</span>
-    <span class="n">tsc</span> <span class="o">=</span> <span class="n">TextScroller</span><span class="p">(</span><span class="n">fdd</span><span class="p">,</span> <span class="s2">&quot;Hallo&quot;</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
-    <span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">fdd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">font</span> <span class="ow">in</span> <span class="n">fonts</span><span class="p">:</span>
+        <span class="n">fdd</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">TextScroller</span><span class="p">(</span><span class="n">fdd</span><span class="p">,</span> <span class="s2">&quot;Hallo&quot;</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+        <span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">demo_text_lower</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;starting text scoller&quot;</span><span class="p">)</span>
