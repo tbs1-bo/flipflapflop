@@ -21,14 +21,20 @@ class Font:
 
     def letter(self, l):
         try:
-            index = self.fontlist.index('ENCODING '+str(ord(l))+'\n') + 5
-        except:
+            letter_index = self.fontlist.index('ENCODING '+str(ord(l))+'\n')
+        except ValueError:
             # character not found, return a space (ASCII 32)
             letter_index = self.fontlist.index('ENCODING '+str(32)+'\n')
+
+        # find the next BITMAP section that belongs to the character
+        bitmap_data = self.fontlist.index('BITMAP\n', letter_index) + 1
+
+        # read the bitmap data of the character (hey values) and convert it to 
+        # a list of integers
         letter = []
         for i in range(self.height):
-            letter.append(int(self.fontlist[index+i], 16))
-            #print(bin(int(self.fontlist[index+i], 16)))
+            letter.append(int(self.fontlist[bitmap_data+i], 16))
+
         return letter
 
 def small_font():
