@@ -20,6 +20,7 @@ class Font:
         self.height = height
 
     def letter(self, l):
+        "returns a list of 8-bit-integers that represent the letter"
         try:
             letter_index = self.fontlist.index('ENCODING '+str(ord(l))+'\n')
         except ValueError:
@@ -118,7 +119,7 @@ def test_text_scroller():
     fdd = flipdotsim.FlipDotSim()
     for font in fonts:
         fdd.clear()
-        TextScroller(fdd, "Hallo", font)
+        TextScroller(fdd, "Ha llo", font)
         fdd.show()
         time.sleep(0.5)
 
