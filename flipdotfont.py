@@ -23,7 +23,8 @@ class Font:
         try:
             index = self.fontlist.index('ENCODING '+str(ord(l))+'\n') + 5
         except:
-            index = self.fontlist.index('ENCODING '+str(32)+'\n') + 5
+            # character not found, return a space (ASCII 32)
+            letter_index = self.fontlist.index('ENCODING '+str(32)+'\n')
         letter = []
         for i in range(self.height):
             letter.append(int(self.fontlist[index+i], 16))
