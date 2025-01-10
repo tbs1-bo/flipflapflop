@@ -38,6 +38,8 @@ Das folgende Video zeigt das Display in Aktion
 .. image:: ../media/video_thumbnail.png
    :target: https://www.youtube-nocookie.com/embed/a97wuYli1_Q?rel=0
 
+Weitere Inhalte sind über das Hashtag `#FlipFlapFlop <https://chaos.social/tags/flipflapflop>`_	
+im Fediverse zu finden.
 
 Schaltplan
 ----------
