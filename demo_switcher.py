@@ -2,6 +2,7 @@ import pygame
 from demos import PlasmaDemo, RotatingPlasmaDemo, SwirlDemo, PingPong, RandomDot, GameOfLife
 
 class DemoSwitcher:
+    'Run a series of demos and switch between them using keyboard or joystick'
     def __init__(self, demos):
         print("Starting demo switcher")
         self.demos = demos
