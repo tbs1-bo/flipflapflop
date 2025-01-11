@@ -14,7 +14,7 @@ class PyxelSim(displayprovider.DisplayBase):
     DEFAULT_PYXEL_RESOURCES = "ressources/pyxel_sim.pyxres"
 
     def __init__(self, width, height, resources=DEFAULT_PYXEL_RESOURCES, fps=30):
-        super().__init__(width, height)
+        super().__init__(width, height)        
         self.fps = fps
         self.resources = resources
         self.yellow_tile_coords = (8,0)
@@ -26,6 +26,7 @@ class PyxelSim(displayprovider.DisplayBase):
     def _run(self):
         'start the pyxel app. This function is called in a separate thread'
         pyxel.init(8*self.width, 8*self.height)
+        print(f"loading resources from {self.resources}")
         pyxel.load(self.resources)
         pyxel.run(self.update, self.draw)
     
