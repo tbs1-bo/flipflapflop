@@ -1,4 +1,9 @@
 """
+ATTENTION: The following implementation of a flipdotdisplay was the first 
+attempt that used a portexpander to control the display. It was replaced by a 
+arduino based solution that is more reliable and faster. The code is still here 
+for reference but is no longer supported.
+
 The flipdotdisplay package allows for controlling a physical flipdotdisplay. 
 It relies on a portexpander that is connected to the display via I²C or SPI
 on one hand and to a RaspberryPi on the other hand.
