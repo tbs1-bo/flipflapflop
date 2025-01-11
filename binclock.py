@@ -23,8 +23,8 @@ class BinClock:
                 self.fdd.px(4*dx+x, 4*dy+y, pat[y][x])
 
     def run(self):
-        while(True):
-            if(self.visible):
+        while True:
+            if self.visible:
                 t = time.localtime()
                 ihour = t[3]
                 imin = t[4]
