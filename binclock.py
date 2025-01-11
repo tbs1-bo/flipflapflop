@@ -64,6 +64,12 @@ class BinClock:
             for x in range(self.fdd.width):
                 self.fdd.px(x, y, False)
 
+def test_binclock():
+    import flipdotsim
+    fdd = flipdotsim.FlipDotSim(28, 13)
+    bc = BinClock(fdd)
+    bc.run(runtime=2)
+
 def main():
     import displayprovider
     fdd = displayprovider.get_display()
