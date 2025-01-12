@@ -11,15 +11,9 @@ import displayprovider
 import binclock
 import threading
 
-# dimension of the display
-WIDTH, HEIGHT = 28, 13
-
-# list of GPIO-pins connected to the modules
-MODULES = [14]
 
 # time to wait for request before clock should be turned on again
 REQUEST_TIMEOUT = 5  # seconds
-
 
 def on_request():
     """Turn off the clock on a request and wait for some time."""
