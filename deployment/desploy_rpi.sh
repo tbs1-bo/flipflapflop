@@ -2,6 +2,10 @@
 
 # This script will install the necessary packages and the flipflapflop project 
 # on a Raspberry Pi.
+#
+# 2025-01-14 Bakera
+# tested on a Raspberry Pi 3 Model B v1.2 with Raspbian GNU/Linux 12 (bookworm)
+# using raspi os lite
 
 echo "installing packages"
 sudo apt install -y tmux unattended-upgrades git pipx
