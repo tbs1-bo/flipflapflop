@@ -8,7 +8,7 @@
 # using raspi os lite
 
 echo "installing packages"
-sudo apt install -y tmux unattended-upgrades git pipx
+sudo apt-get install -y tmux unattended-upgrades git pipx
 
 echo "installing poetry"
 pipx install poetry
@@ -23,6 +23,7 @@ $HOME/.local/bin/poetry update
 make configuration.py
 
 echo "add systemd service"
+cd $HOME/flipflapflop
 sudo cp deployment/flipflapflop.service /etc/systemd/system/flipflapflop.service
 sudo systemctl daemon-reload
 sudo systemctl enable flipflapflop
