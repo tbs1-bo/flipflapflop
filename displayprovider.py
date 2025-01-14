@@ -34,8 +34,12 @@ class DisplayBase:
             for y in range(self.height):
                 self.px(x, y, False)
 
+    def led(self, on_off):
+        "Turn LED of the display on (True) or off (False)"
+        pass
 
-def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
+def get_display(width=configuration.WIDTH, height=configuration.HEIGHT, fallback=Fallback.SIMULATOR):
+    print("Creating display with width", width, "and height", height)
     try:
         import fffserial
         return fffserial.SerialDisplay(
@@ -49,8 +53,15 @@ def get_display(width=28, height=13, fallback=Fallback.SIMULATOR):
               "\nFalling back to", fallback.name)
 
         if fallback == Fallback.SIMULATOR:
-            import flipdotsim
-            return flipdotsim.FlipDotSim(width=width, height=height)
+            fps = configuration.simulator['fps']
+            impl = configuration.simulator.get('implementation', 'pygame')
+            print("Using simulator with", impl, "implementation and", fps, "fps")
+            if impl == "pygame":
+                import flipdotsim
+                return flipdotsim.FlipDotSim(width, height, fps)
+            elif impl == "pyxel":
+                import pyxel_sim
+                return pyxel_sim.PyxelSim(width, height, fps=fps)
 
         elif fallback == Fallback.REMOTE_DISPLAY:
             import net

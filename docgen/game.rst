@@ -37,3 +37,4 @@ Module Description
 .. automodule:: rogueflip
    :members:
    :undoc-members:
+   :exclude-members: test_roguegame

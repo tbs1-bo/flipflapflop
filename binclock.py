@@ -22,9 +22,11 @@ class BinClock:
             for y in range(4):
                 self.fdd.px(4*dx+x, 4*dy+y, pat[y][x])
 
-    def run(self):
-        while(True):
-            if(self.visible):
+    def run(self, runtime=0):
+        start_time = time.time()
+
+        while runtime==0 or time.time() - start_time < runtime:
+            if self.visible:
                 t = time.localtime()
                 ihour = t[3]
                 imin = t[4]
@@ -61,3 +63,18 @@ class BinClock:
         for y in range(self.fdd.height):
             for x in range(self.fdd.width):
                 self.fdd.px(x, y, False)
+
+def test_binclock():
+    import flipdotsim
+    fdd = flipdotsim.FlipDotSim(28, 13)
+    bc = BinClock(fdd)
+    bc.run(runtime=2)
+
+def main():
+    import displayprovider
+    fdd = displayprovider.get_display()
+    bc = BinClock(fdd)
+    bc.run()
+
+if __name__ == "__main__":
+    main()

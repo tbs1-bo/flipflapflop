@@ -77,6 +77,11 @@ class FlipDotSim(displayprovider.DisplayBase):
         'Deinitialize pygame and close open windows.'
         pygame.quit()
 
+    def led(self, on_off):
+        'does nothing'
+        # TODO led support for simulator #10
+        pass
+
 
 def test_flipdot_sim():
     import time
@@ -107,9 +112,15 @@ def test_flipdot_sim():
 if __name__ == '__main__':
     import flipdotfont
     import configuration
+    import time
     fds = FlipDotSim(
         width=configuration.WIDTH, 
         height=configuration.HEIGHT,
         fps=configuration.simulator["fps"])
-    fdw = flipdotfont.TextScroller(fds)
-    fdw.scrolltext('Test 12345!', flipdotfont.big_font(), 1)
+    scroller = flipdotfont.TextScroller(fds, 
+                                        "Test 12345!", flipdotfont.big_font())
+    for _ in range(20):
+        scroller.scrolltext()
+        fds.show()
+        time.sleep(0.1)
+        

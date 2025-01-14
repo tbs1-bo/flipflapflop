@@ -35,13 +35,17 @@ class DemoBase(abc.ABC):
         clock = pygame.time.Clock()
 
         while (runtime is None) or (time.time()-start_time) < runtime:
-            self.prepare()
-            for x in range(self.fdd.width):
-                for y in range(self.fdd.height):
-                    val = self.handle_px(x, y)
-                    self.fdd.px(x, y, val)
-            self.fdd.show()
+            self.one_cycle()
             clock.tick(self.fps)
+
+    def one_cycle(self):
+        """Run one cycle of the demo."""
+        self.prepare()
+        for x in range(self.fdd.width):
+            for y in range(self.fdd.height):
+                val = self.handle_px(x, y)
+                self.fdd.px(x, y, val)
+        self.fdd.show()
 
     @abc.abstractmethod
     def handle_px(self, x, y):
@@ -333,9 +337,8 @@ class SnakeGame(DemoBase):
         return (x, y) in self.snake_body or (x, y) in self.pills
 
 
-# TODO add support for joystick
 class FlappyDot(DemoBase):
-    """Flappy Dot. Control the bird with the w-key."""
+    """Flappy Dot. Control the bird with the w-key or an attached joystick."""
 
     def __init__(self, flipdotdisplay, max_lines=3):
         super().__init__(flipdotdisplay)
@@ -344,12 +347,20 @@ class FlappyDot(DemoBase):
         self.lines = []
         self.score = 0
         self.max_lines = max_lines
+        self.start_time = time.time()
+        pygame.init()
+        if pygame.joystick.get_count() > 0:
+            print("Joystick(s) found")
+            self.joystick = pygame.joystick.Joystick(0)
+            self.joystick.init()
+
         self.reset()
 
     def add_line(self, x, gap_start, gap_end):
         self.lines.append({"x": x, "gap_start": gap_start, "gap_end": gap_end})
 
     def reset(self):
+        self.start_time = time.time()
         self.pos = (1, 1)
         self.lines = []
         for i in range(self.max_lines):
@@ -359,7 +370,9 @@ class FlappyDot(DemoBase):
     def handle_input(self):
         newx, newy = self.pos
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
+            # check if keyboard or joystick was used to control the bird
+            if (event.type == pygame.KEYDOWN and event.key == pygame.K_w) or \
+               (event.type == pygame.JOYBUTTONDOWN and event.button == 0):
                 newy -= 1
                 self.pos = (newx, newy)
                 return
@@ -368,10 +381,11 @@ class FlappyDot(DemoBase):
         self.pos = (newx, newy)
 
     def prepare(self):
-        time.sleep(0.1)     # TODO remove this when display handles framerate
+        time.sleep(0.2)     # TODO remove this when display handles framerate
         self.handle_input()
         self.move_lines()
         if not self.bird_is_alive():
+            print("Game Over. Time elapsed:", time.time()-self.start_time)
             self.reset()
 
     def bird_is_alive(self):
@@ -441,6 +455,26 @@ class BinaryClock(DemoBase):
     def handle_px(self, x, y):
         return (x, y) in self.pixels
 
+class LinesDemo(DemoBase):
+    "Lines Demo: run 1 line hor and vert"
+    def __init__(self, flipdotdisplay, fps=FPS):
+        super().__init__(flipdotdisplay, fps)
+        self.t = 0
+        self.horizontal = True
+
+    def prepare(self):
+        self.t += 1
+        maxval = self.fdd.width if self.horizontal else self.fdd.height
+        if self.t > maxval:
+            self.t = 0
+            self.horizontal = not self.horizontal
+
+    def handle_px(self, x, y):
+        if self.horizontal:
+            return self.t == x
+        else:
+            return self.t == y
+
 def test_demos():
     import flipdotsim
     fdd = flipdotsim.FlipDotSim()
@@ -448,7 +482,7 @@ def test_demos():
              RotatingPlasmaDemo(fdd), GameOfLife(fdd), # SnakeGame(fdd),
              # FlappyDot(fdd), 
              BinaryClock(fdd), # rogueflip.Game(fdd),
-             PygameSurfaceDemo(fdd)]
+             PygameSurfaceDemo(fdd), LinesDemo(fdd)]
     for demo in demos:
         print(demo)
         demo.run(runtime=2)
@@ -465,7 +499,7 @@ def main():
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd),
              FlappyDot(fdd), BinaryClock(fdd), rogueflip.Game(fdd),
-             PygameSurfaceDemo(fdd)]
+             PygameSurfaceDemo(fdd), LinesDemo(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
     num = int(input(">"))
     print("Running demo. CTRL-C to abort.")

@@ -12,6 +12,12 @@ Checkout the repository to ``/home/pi/flipflapflop``::
   $ cd /home/pi
   $ git clone https://github.com/tbs1-bo/flipflapflop.git
 
+Having `poetry <https://python-poetry.org/>`_ installed, you can install the package 
+and its dependencies::
+
+  $ cd flipflapflop
+  $ poetry install
+
 The deployment scenario described here relies on a Raspberry Pi that acts as an 
 access point. To setup a Pi this way you can follow the `instructions from raspberrypi.org 
 <https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md>`_. We
@@ -44,19 +50,13 @@ must be installed.
 
 .. code-block:: bash
 
-   $ pip install -r docgen/requirements.txt
+   $ pip install sphinx sphinx-rtd-theme
 
 The documentation is created with sphinx and is configured in folder ``docgen``. 
 You can use ``make html`` or ``make.bat html`` to create the docucmentation
 in ``docgen/_build/html``. It will automaticall be copied to ``docs``.
 After pushing to github it will be available 
 `there <https://tbs1-bo.github.io/flipflapflop/>`_.
-
-There is a ``gitlab-ci.yml`` script that will only be executed if the project is 
-hosted on a gitlab server. The script automatically deploys the documentation
-on every commit onto the master branch. An examples can be found 
-`here <https://tbs1-bo.gitlab.io/flipflapflop/>`_.
-
 
 Class Diagram
 -------------

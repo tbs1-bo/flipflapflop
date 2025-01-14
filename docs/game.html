@@ -1,89 +1,65 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Games &mdash; flipflapflop 0.1 documentation</title>
-  
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
   
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-  
-  
-
-  
-
-  
-  
-    
-
-  
-
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=2709fde1"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Developer Documentation" href="developer.html" />
-    <link rel="prev" title="Net" href="net.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+    <link rel="prev" title="Web" href="web.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
+        <div class="wy-side-nav-search" >
 
           
-            <a href="index.html" class="icon icon-home"> flipflapflop
           
-
-          
+          <a href="index.html" class="icon icon-home">
+            flipflapflop
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="fdd.html">FlipDotDisplay</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simulator.html">FlipDot-Simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="net.html">Net</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web.html">Web</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Games</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#rogueflip">Rogueflip</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#level-description">Level Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-rogueflip">Module Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-rogueflip">Module Description</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rogueflip.Game"><code class="docutils literal notranslate"><span class="pre">Game</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rogueflip.GameObject"><code class="docutils literal notranslate"><span class="pre">GameObject</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rogueflip.Menu"><code class="docutils literal notranslate"><span class="pre">Menu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rogueflip.World"><code class="docutils literal notranslate"><span class="pre">World</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rogueflip.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -91,301 +67,254 @@
 <li class="toctree-l1"><a class="reference internal" href="developer.html">Developer Documentation</a></li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">flipflapflop</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>Games</li>
-    
-    
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Games</li>
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="_sources/game.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="games">
-<h1>Games<a class="headerlink" href="#games" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="games">
+<h1>Games<a class="headerlink" href="#games" title="Link to this heading"></a></h1>
 <p>FlipDot-Displays can be used to play funny games on.</p>
-<div class="section" id="rogueflip">
-<h2>Rogueflip<a class="headerlink" href="#rogueflip" title="Permalink to this headline">¶</a></h2>
+<section id="rogueflip">
+<h2>Rogueflip<a class="headerlink" href="#rogueflip" title="Link to this heading"></a></h2>
 <p>The demo game <em>rogueflip</em> is inspired by text-console based dungeon games
 named ‘roguelike’. The following video shows the game in action.</p>
 <a class="reference external image-reference" href="https://www.youtube-nocookie.com/embed/ed5-gVciz3I?rel=0"><img alt="_images/simulator_video_thumbnail.png" src="_images/simulator_video_thumbnail.png" /></a>
-<div class="section" id="level-description">
-<h3>Level Description<a class="headerlink" href="#level-description" title="Permalink to this headline">¶</a></h3>
+<section id="level-description">
+<h3>Level Description<a class="headerlink" href="#level-description" title="Link to this heading"></a></h3>
 <p>Each Level can be created with the <a class="reference external" href="https://www.mapeditor.org/">tiled map editor</a>.
 The map
 dimensions must be a multiple of the dimension of the flipdot display.</p>
-<p>This <a class="reference download internal" href="_downloads/rogueflip_world.tmx" download=""><code class="xref download docutils literal notranslate"><span class="pre">example</span> <span class="pre">game</span> <span class="pre">world</span></code></a> can be
+<p>This <a class="reference download internal" download="" href="_downloads/07c0c67a2705eafd69f0ff8f61921667/rogueflip_world.tmx"><code class="xref download docutils literal notranslate"><span class="pre">example</span> <span class="pre">game</span> <span class="pre">world</span></code></a> can be
 opened with tiled using the following tileset. The tiles labeled P and C
 represent the player and a collectable coin respectively.</p>
 <img alt="_images/rogueflip_tiles.jpg" src="_images/rogueflip_tiles.jpg" />
 <p>An example world looks like the following.</p>
 <img alt="_images/rogueflip_world.png" src="_images/rogueflip_world.png" />
-</div>
-<div class="section" id="module-rogueflip">
-<span id="module-description"></span><h3>Module Description<a class="headerlink" href="#module-rogueflip" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="module-rogueflip">
+<span id="module-description"></span><h3>Module Description<a class="headerlink" href="#module-rogueflip" title="Link to this heading"></a></h3>
 <p>Rogueflip is a roguelike dungeon crawler for the flipdot display. Levels can
 be created with the tiled map editor (<a class="reference external" href="https://www.mapeditor.org/">https://www.mapeditor.org/</a>) and a corresponding tileset.</p>
-<dl class="class">
-<dt id="rogueflip.Game">
-<em class="property">class </em><code class="descclassname">rogueflip.</code><code class="descname">Game</code><span class="sig-paren">(</span><em>flipdotdisplay</em>, <em>worldfile='ressources/rogueflip_world.tmx'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="rogueflip.Game">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">Game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flipdotdisplay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worldfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ressources/rogueflip_world.tmx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game" title="Link to this definition"></a></dt>
 <dd><p>A roguelike for a flipdot display.</p>
-<dl class="method">
-<dt id="rogueflip.Game.handle_input">
-<code class="descname">handle_input</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.handle_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.handle_input" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rogueflip.Game.JOSTICK_ABORT_BUTTON">
+<span class="sig-name descname"><span class="pre">JOSTICK_ABORT_BUTTON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#rogueflip.Game.JOSTICK_ABORT_BUTTON" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Game.check_win_condition">
+<span class="sig-name descname"><span class="pre">check_win_condition</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.check_win_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.check_win_condition" title="Link to this definition"></a></dt>
+<dd><p>Check if the player has collected all coins and show the win message.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Game.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.draw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Game.handle_input">
+<span class="sig-name descname"><span class="pre">handle_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.handle_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.handle_input" title="Link to this definition"></a></dt>
 <dd><p>Handle user input from keyboard or joystick.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="rogueflip.Game.handle_px">
-<code class="descname">handle_px</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.handle_px"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.handle_px" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="rogueflip.Game.move_window">
-<code class="descname">move_window</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.move_window"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.move_window" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Game.move_window">
+<span class="sig-name descname"><span class="pre">move_window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.move_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.move_window" title="Link to this definition"></a></dt>
 <dd><p>Move the visible window by the amount of dx*width and dy*height of
 the flipdotdisplay.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="rogueflip.Game.player_in_window">
-<code class="descname">player_in_window</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.player_in_window"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.player_in_window" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Game.new_direction">
+<span class="sig-name descname"><span class="pre">new_direction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.new_direction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.new_direction" title="Link to this definition"></a></dt>
+<dd><p>Determine the new direction from the event.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Game.player_in_window">
+<span class="sig-name descname"><span class="pre">player_in_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.player_in_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.player_in_window" title="Link to this definition"></a></dt>
 <dd><p>Check if the player is inside the windows.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="rogueflip.Game.player_try_collect_coin">
-<code class="descname">player_try_collect_coin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.player_try_collect_coin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.player_try_collect_coin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Game.player_try_collect_coin">
+<span class="sig-name descname"><span class="pre">player_try_collect_coin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.player_try_collect_coin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.player_try_collect_coin" title="Link to this definition"></a></dt>
+<dd><p>Check if the player is on a coin and remove it from the coins list.</p>
+</dd></dl>
 
-<dl class="method">
-<dt id="rogueflip.Game.run">
-<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.run" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Game.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.run" title="Link to this definition"></a></dt>
 <dd><p>Start the game running in an endless loop.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="rogueflip.Game.show_win_message">
-<code class="descname">show_win_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.show_win_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.show_win_message" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Game.show_win_message">
+<span class="sig-name descname"><span class="pre">show_win_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.show_win_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.show_win_message" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="rogueflip.Game.tick">
-<code class="descname">tick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.tick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.Game.tick" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Game.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Game.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Game.update" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="rogueflip.GameObject">
-<em class="property">class </em><code class="descclassname">rogueflip.</code><code class="descname">GameObject</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>blink_interval=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.GameObject" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="rogueflip.GameObject.draw">
-<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.GameObject.draw" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="rogueflip.GameObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">GameObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blink_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.GameObject" title="Link to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.GameObject.is_draw">
+<span class="sig-name descname"><span class="pre">is_draw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject.is_draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.GameObject.is_draw" title="Link to this definition"></a></dt>
 <dd><p>Determine whether the character should be drawn now.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="rogueflip.GameObject.tick">
-<code class="descname">tick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject.tick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.GameObject.tick" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.GameObject.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#GameObject.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.GameObject.update" title="Link to this definition"></a></dt>
 <dd><p>A method that should be invoked each frame.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="rogueflip.World">
-<em class="property">class </em><code class="descclassname">rogueflip.</code><code class="descname">World</code><span class="sig-paren">(</span><em>worldfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="attribute">
-<dt id="rogueflip.World.BACK">
-<code class="descname">BACK</code><em class="property"> = 'back'</em><a class="headerlink" href="#rogueflip.World.BACK" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="rogueflip.Menu">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">Menu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fdd</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Menu" title="Link to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Menu.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Menu.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Menu.draw" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="rogueflip.World.COIN">
-<code class="descname">COIN</code><em class="property"> = 'coin'</em><a class="headerlink" href="#rogueflip.World.COIN" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="rogueflip.World.PLAYER">
-<code class="descname">PLAYER</code><em class="property"> = 'player'</em><a class="headerlink" href="#rogueflip.World.PLAYER" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="rogueflip.World.WALL">
-<code class="descname">WALL</code><em class="property"> = 'wall'</em><a class="headerlink" href="#rogueflip.World.WALL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="rogueflip.World.find_coins">
-<code class="descname">find_coins</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.find_coins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.find_coins" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="rogueflip.World.find_player">
-<code class="descname">find_player</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.find_player"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.find_player" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="rogueflip.World.get_type">
-<code class="descname">get_type</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.get_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.get_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="rogueflip.World.is_coin">
-<code class="descname">is_coin</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_coin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.is_coin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="rogueflip.World.is_onboard">
-<code class="descname">is_onboard</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_onboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.is_onboard" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="rogueflip.World.is_player">
-<code class="descname">is_player</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_player"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.is_player" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="rogueflip.World.is_wall">
-<code class="descname">is_wall</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_wall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.World.is_wall" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.Menu.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#Menu.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.Menu.update" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="rogueflip.run_remote_display">
-<code class="descclassname">rogueflip.</code><code class="descname">run_remote_display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#run_remote_display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.run_remote_display" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="rogueflip.World">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">World</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worldfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fdd</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.World" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="rogueflip.World.BACK">
+<span class="sig-name descname"><span class="pre">BACK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'back'</span></em><a class="headerlink" href="#rogueflip.World.BACK" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="rogueflip.run_simulator">
-<code class="descclassname">rogueflip.</code><code class="descname">run_simulator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#run_simulator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.run_simulator" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rogueflip.World.COIN">
+<span class="sig-name descname"><span class="pre">COIN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'coin'</span></em><a class="headerlink" href="#rogueflip.World.COIN" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="rogueflip.run_width_flipdotdisplay">
-<code class="descclassname">rogueflip.</code><code class="descname">run_width_flipdotdisplay</code><span class="sig-paren">(</span><em>fdd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#run_width_flipdotdisplay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rogueflip.run_width_flipdotdisplay" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rogueflip.World.PLAYER">
+<span class="sig-name descname"><span class="pre">PLAYER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'player'</span></em><a class="headerlink" href="#rogueflip.World.PLAYER" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-</div>
-</div>
-</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rogueflip.World.WALL">
+<span class="sig-name descname"><span class="pre">WALL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'wall'</span></em><a class="headerlink" href="#rogueflip.World.WALL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.World.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topleft_xy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.World.draw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.World.find_coins">
+<span class="sig-name descname"><span class="pre">find_coins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.find_coins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.World.find_coins" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.World.find_player">
+<span class="sig-name descname"><span class="pre">find_player</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.find_player"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.World.find_player" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.World.get_type">
+<span class="sig-name descname"><span class="pre">get_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.get_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.World.get_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.World.is_coin">
+<span class="sig-name descname"><span class="pre">is_coin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_coin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.World.is_coin" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.World.is_onboard">
+<span class="sig-name descname"><span class="pre">is_onboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_onboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.World.is_onboard" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.World.is_player">
+<span class="sig-name descname"><span class="pre">is_player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_player"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.World.is_player" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rogueflip.World.is_wall">
+<span class="sig-name descname"><span class="pre">is_wall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#World.is_wall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.World.is_wall" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rogueflip.main">
+<span class="sig-prename descclassname"><span class="pre">rogueflip.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rogueflip.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rogueflip.main" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="developer.html" class="btn btn-neutral float-right" title="Developer Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="net.html" class="btn btn-neutral" title="Net" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="web.html" class="btn btn-neutral float-left" title="Web" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="developer.html" class="btn btn-neutral float-right" title="Developer Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2019, Marco Bakera, Reinhard Gummlich.
-
-    </p>
+    <p>&#169; Copyright 2018-2025, Marco Bakera, Reinhard Gummlich.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });

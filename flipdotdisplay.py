@@ -1,4 +1,9 @@
 """
+ATTENTION: The following implementation of a flipdotdisplay was the first 
+attempt that used a portexpander to control the display. It was replaced by a 
+arduino based solution that is more reliable and faster. The code is still here 
+for reference but is no longer supported.
+
 The flipdotdisplay package allows for controlling a physical flipdotdisplay. 
 It relies on a portexpander that is connected to the display via I²C or SPI
 on one hand and to a RaspberryPi on the other hand.
@@ -140,3 +145,6 @@ class FlipDotDisplay(displayprovider.DisplayBase):
                 #self.ioexp.write_value('A', 0x00)
                 GPIO.output(self.module[mod], GPIO.LOW)
 
+    def led(self, on_off):
+        pass
+        # TODO led support for flipdotdisplay - or not?

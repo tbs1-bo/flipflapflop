@@ -3,6 +3,27 @@ FlipDotDisplay
 
 .. image:: ../media/display_in_action.jpg
 
+Module ``fffserial``
+--------------------
+
+The serial module relies on an ardiuno connected to the display that runs
+the :download:`firmware <../hardware/arduino/fffarduino_nano_v2/fffarduino_nano_v2.ino>`:: 
+
+  +----------+              +---------+     +-----------------+
+  |Raspberry |--[serial]----| Arduino |-----| flipdot-display |
+  |Pi        |              |         |     |                 |
+  +----------+              +---------+     +-----------------+
+
+.. automodule:: fffserial
+   :members:
+   :undoc-members:
+   :special-members:
+   :exclude-members: demo, demo_simple, demo_all_onoff, test_serial
+
+
+Module ``flipdotdisplay``
+-------------------------
+
 The module must be connected to a RaspberryPi which in turn is connected to 
 a port expander. The port expander itself is controlling the flipdot display. 
 Each display is segmentd into modules. Each of these modules must be connected 
@@ -16,10 +37,6 @@ seperately to one GPIO port on the Raspberry Pi. ::
       |||                                      |    |     |
       +++---------[one wire per module]--------+----+-----+
 
-
-Module ``flipdotdisplay``
--------------------------
-
 .. automodule:: flipdotdisplay
    :members:
    :undoc-members:
@@ -32,17 +49,6 @@ Module ``util``
    :members:
    
 
-Module ``fffserial``
---------------------
-
-The serial module relies on an ardiuno connected to the display that runs
-the :download:`firmware <../arduino/fffarduino_nano/fffarduino_nano.ino>`. 
-
-
-.. automodule:: fffserial
-   :members:
-   :undoc-members:
-   :special-members:
 
 Text On The Display
 -------------------
@@ -53,3 +59,4 @@ Another way to bring text onto the dispoay is by using :func:`util.draw_text_on_
 .. automodule:: flipdotfont
    :members:
    :undoc-members:
+   :exclude-members: test_text_scroller, demo_text_lower

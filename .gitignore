@@ -29,5 +29,14 @@ godot_client/export/
 .ipynb_checkpoints/
 
 # ignoring dir of ii
-gamejamdo_2020-05/iidir/
-gamejamdo_2020-05/ii/
+ressources/gamejamdo_2020-05/iidir/
+ressources/gamejamdo_2020-05/ii/
+
+poetry.lock
+
+# test cache
+.pytest_cache/
+
+# ignoring log files
+ressources/38c3/rogueflip.log
+ressources/38c3/mqtt2display.log

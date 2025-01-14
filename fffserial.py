@@ -11,13 +11,32 @@ import configuration
 DEVICE = configuration.flipdotdisplay["serialdevice"]
 BAUD = configuration.flipdotdisplay["serialbaudrate"]
 
-class SerialDisplay(displayprovider.DisplayBase):
-    DIMENSION = 0b10010000 # Es folgen zwei Bytes mit BREITE und HÖHE.
-    PICTURE = 0b10000001 # Es folgen Breite*Höhe Datenbits (zeilenweise)
+# TODO handle serial errors
 
-    PXSET = 0b10000011  # Es folgen zwei Bytes X, Y mit Positionsinformationen 
-    PXRESET = 0b10000010 # Es folgen zwei Bytes X, y mit Positionsinformationen 
-    ECHO = 0b11110000  # Das gesendete Byte wird zurückgesendet.
+class SerialDisplay(displayprovider.DisplayBase):
+    """
+    Serial Display sending commands to an arduino connected to the display.
+    Each command starts with a byte with a command identifier. The following
+    bytes are the command parameters.
+    """
+
+    DIMENSION = 0b10010000 
+    "The following two bytes are the width and height of the display."
+
+    PICTURE = 0b10000001
+    "The following bytes are the picture data (row by row)."
+
+    PXSET = 0b10000011
+    "The following two Bytes X, Y with information about the pixel to set."
+
+    PXRESET = 0b10000010 
+    "Removing a pixel. The following two Bytes X, Y with information about the pixel to reset."    
+
+    ECHO = 0b11110000
+    "The following byte is returned."
+
+    LED_BRIGTHNESS = 0b10000100
+    "Set the brightness of the LED. The following byte is the brightness."
 
     def __init__(self, width=4, height=3, serial_device="/dev/ttyUSB0", baud=9600, buffered=True):
         '''
@@ -29,10 +48,22 @@ class SerialDisplay(displayprovider.DisplayBase):
         assert width < 128 and height < 128, "Serial display dimension is too big!"
         super().__init__(width, height)
         # TODO add support for auto configuring dimensions
-        print('open serial device', serial_device)      
+        print('open serial device', serial_device, "Baudrate", baud)      
         self.ser = serial.serial_for_url(serial_device, baudrate=baud, timeout=1)
         self.buffered = buffered        
         self.buffer = [False] * (width * height)
+        if not self.display_available():
+            print("WARNING: display not available")
+
+    def led(self, on_off):
+        'Turn LED of the display on or off'
+        # TODO add support for brightness
+        if on_off:
+            bs = [SerialDisplay.LED_BRIGTHNESS, 1]
+        else:
+            bs = [SerialDisplay.LED_BRIGTHNESS, 0]
+
+        self.ser.write(bs)
 
     def px(self, x, y, val):
         assert 0 <= x < self.width
@@ -64,10 +95,23 @@ class SerialDisplay(displayprovider.DisplayBase):
             byte_sequence.append(int(byte, base=2))
    
         self.ser.write(bytes(byte_sequence))
+    
+    def display_available(self):
+        test_byte = 42
+        self.ser.write(bytes([SerialDisplay.ECHO, test_byte]))
+        bs = self.ser.read(2)
+        # TODO firmware should not return a string
+        try:
+            return len(bs) == 2 and str(bs, encoding="UTF8") == str(test_byte)
+        except UnicodeDecodeError:
+            # no decoding possible if display is not present.
+            # mainly during testing
+            return False
 
     def close(self):
         'Close the serial device'
         self.ser.close()
+
 
 def demo_simple():
     ffd = SerialDisplay(width=28, height=13, serial_device=DEVICE, baud=BAUD, buffered=True)
@@ -76,6 +120,30 @@ def demo_simple():
     ffd.show()
     #ffd.close()
 
+def demo_all_onoff():
+    import time
+
+    fdd = SerialDisplay(width=28, height=13, 
+                        serial_device=DEVICE, baud=BAUD)
+
+    for _ in range(10):
+        print("all on")
+        for i in range(len(fdd.buffer)):
+            fdd.buffer[i] = True
+        fdd.show()
+        fdd.led(True)
+
+        time.sleep(1)
+
+        print("all off")
+        for i in range(len(fdd.buffer)):
+            fdd.buffer[i] = False
+        fdd.show()
+        fdd.led(False)
+
+        time.sleep(1)
+
+
 def test_serial():
     fdd = SerialDisplay(width=28, height=13, 
         # using a serial dummy device for debugging
@@ -83,13 +151,19 @@ def test_serial():
         serial_device='loop://?logging=debug', 
         buffered=False)
     fdd.px(10, 10, True)
+    assert fdd.width == 28
+    assert fdd.height == 13
 
     # turning buffering on
     fdd.buffered = True
     fdd.px(10, 10, True)
+    assert fdd.buffer[10 * fdd.width + 10] == True
+    for i in [-1, +1]:
+        assert fdd.buffer[10 * fdd.width + 10 + i] == False
     fdd.show()
 
     fdd.close()
+
 
 def demo():
     import demos
@@ -102,5 +176,6 @@ def demo():
         ffd.close()
 
 if __name__ == '__main__':
-    demo()
+    #demo()
+    demo_all_onoff()
     #demo_simple()

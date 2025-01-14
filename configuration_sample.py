@@ -3,8 +3,11 @@ Some default configuration options with default values.
 Copy this file to configuration.py and change the values as needed.
 """
 
-WIDTH = 28
-HEIGHT = 13
+# the small one
+WIDTH, HEIGHT = 28, 13
+
+# the medium one
+#WIDTH, HEIGHT = 126, 16
 
 flipdotdisplay = {
     #"serialdevice": "spy:///dev/ttyUSB0",  # use this for debugging
@@ -26,12 +29,14 @@ remote_display = {
 }
 
 simulator = {
-    "fps": 60
+    "fps": 60,
+    "implementation": "pygame" # or "pyxel"
 }
 
 
-mqtt_broker = 'mqtt.eclipse.org'
+mqtt_broker = 'localhost' # 'test.mosquitto.org'
 mqtt_topic_display = 'fff_display'
 mqtt_topic_info = 'fff_display_info'
 
-web_conference_url = 'https://meet.ffmuc.net/flipflapflop'
+# maximum time to allow for blocking the display
+web_max_show_time_ms = 10000

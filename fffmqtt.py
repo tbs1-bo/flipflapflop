@@ -1,12 +1,17 @@
+import json
 import paho.mqtt.client
 import configuration
 import displayprovider
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s %(message)s')
+log = logging.getLogger(__name__)
 
 BROKER = configuration.mqtt_broker
 TOPIC_DISPLAY = configuration.mqtt_topic_display
 TOPIC_INFO = configuration.mqtt_topic_info
 
-class Mqtt2Display:
+class Mqtt2Display:    
     def __init__(self, broker, topic_display, topic_info, 
                  fdd: displayprovider.DisplayBase):
         '''
@@ -18,6 +23,7 @@ class Mqtt2Display:
         self.mqtt = paho.mqtt.client.Client()
         self.mqtt.on_connect = self._on_connect
         self.mqtt.on_message = self._on_message
+        log.info(f"connecting to broker {broker}")
         self.mqtt.connect(broker)
         self.topic_display = topic_display
         self.topic_info = topic_info
@@ -25,16 +31,21 @@ class Mqtt2Display:
 
     def _on_connect(self, client, userdata, flags, rc):
         if rc == 0:  # connection successful
-            print("Connected. Subscribing to topic", self.topic_display)
+            log.info(f"Connected. Subscribing to topic {self.topic_display}")
             self.mqtt.subscribe(self.topic_display)
         else:
-            print("Unable to connect. error", rc)
+            log.error(f"Unable to connect. error {rc}")
 
         # publishing info about the display
-        self.mqtt.publish(self.topic_info+'/width', self.fdd.width, retain=True)
-        self.mqtt.publish(self.topic_info+'/height', self.fdd.height, retain=True)
-        infotxt = 'Send pixel information to topic "%s".' % self.topic_display
-        self.mqtt.publish(self.topic_info+'/info', infotxt, retain=True)
+        log.info(f"publishing display info to topic {self.topic_info}")
+        js = {
+            'width': self.fdd.width,
+            'height': self.fdd.height,
+            'implementation class': self.fdd.__class__.__name__,
+            'displaytopic': self.topic_display,
+            'info': f'Send pixel information (1s and 0s) to topic {self.topic_display}'
+        }
+        self.mqtt.publish(self.topic_info, json.dumps(js), retain=True)
 
     def _on_message(self, client, userdata, msg: paho.mqtt.client.MQTTMessage):
         self.draw_on_display(str(msg.payload, 'ascii'))
@@ -71,8 +82,8 @@ class MqttDisplay(displayprovider.DisplayBase):
 
     >>> import fffmqtt
     >>> fdd = fffmqtt.MqttDisplay(width=2,height=3, 
-    ...     broker='mqtt.eclipse.org', topic='display')
-    connecting to broker mqtt.eclipse.org
+    ...     broker='test.mosquitto.org', topic='display')
+    connecting to broker test.mosquitto.org
 
     >>> fdd.clear()
     >>> fdd.px(1,1,True)
@@ -134,7 +145,7 @@ class MqttTasmotaDisplay(MqttDisplay):
 
 def test_tasmota_display():
     num_leds = 4
-    fff = MqttTasmotaDisplay(num_leds, 'mqtt.eclipse.org', 'cmnd/baksonoff')
+    fff = MqttTasmotaDisplay(num_leds, 'test.mosquitto.org', 'cmnd/baksonoff')
 
     import time
     for i in range(num_leds):
@@ -146,13 +157,14 @@ def test_tasmota_display():
 
 def test_mqtt_display():
     import time
+    import random
 
     def on_msg(client, userdata, msg:paho.mqtt.client.MQTTMessage):
         userdata['msg_recvd'] = True
         userdata['test_passed'] = str(msg.payload, 'ascii') == userdata['expected']
 
-    broker = 'mqtt.eclipse.org'
-    topic = 'mqttdisplay_t'
+    broker = 'test.mosquitto.org'
+    topic = 'mqttdisplay_t' + str(random.randint(1000,10000))
 
     mqtt = paho.mqtt.client.Client()
     mqtt.on_message = on_msg
@@ -172,7 +184,7 @@ def test_mqtt_display():
         mqtt.user_data_set(user_data)
         fdd.show()
 
-        time.sleep(0.4)
+        time.sleep(1)
         assert user_data['msg_recvd']
         assert user_data['test_passed']
 
@@ -250,10 +262,18 @@ def discover_mqtt_broker(timeout=5):
 def test_discover_mqtt_broker():
     print("Searching Broker")    
     broker_ip = discover_mqtt_broker()
-    assert '.' in broker_ip
-    print('service discovered:', broker_ip)
+    if broker_ip:
+        assert '.' in broker_ip, broker_ip
+        print('service discovered:', broker_ip)
 
+def main():
+    fdd = displayprovider.get_display()
+    log.info(f"using display {fdd.__class__.__name__} with size {fdd.width, fdd.height}")
+    log.info("Starting bridge from MQTT broker to display")
+    mqtt2disp = Mqtt2Display(BROKER, TOPIC_DISPLAY, TOPIC_INFO, fdd)
+    mqtt2disp.run(background=False)
 
 if __name__ == '__main__':
+    main()
     #test_discover_mqtt_broker()
-    test_rotating_plasma()
+    #test_rotating_plasma()

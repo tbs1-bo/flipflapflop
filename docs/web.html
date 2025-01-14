@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web &mdash; flipflapflop 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=2709fde1"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Games" href="game.html" />
+    <link rel="prev" title="Net" href="net.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            flipflapflop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="fdd.html">FlipDotDisplay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulator.html">FlipDot-Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="net.html">Net</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Web</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#web.get_buffer"><code class="docutils literal notranslate"><span class="pre">get_buffer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#web.get_display"><code class="docutils literal notranslate"><span class="pre">get_display()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#web.route_display_get"><code class="docutils literal notranslate"><span class="pre">route_display_get()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#web.route_display_post"><code class="docutils literal notranslate"><span class="pre">route_display_post()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#web.route_index"><code class="docutils literal notranslate"><span class="pre">route_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#web.route_page_get"><code class="docutils literal notranslate"><span class="pre">route_page_get()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#web.route_page_post"><code class="docutils literal notranslate"><span class="pre">route_page_post()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#web.route_px"><code class="docutils literal notranslate"><span class="pre">route_px()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#web.set_px"><code class="docutils literal notranslate"><span class="pre">set_px()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Games</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">Developer Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">flipflapflop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Web</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/web.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-web">
+<span id="web"></span><h1>Web<a class="headerlink" href="#module-web" title="Link to this heading"></a></h1>
+<p>Web-Interface for the display.</p>
+<p>Start with</p>
+<blockquote>
+<div><p>$ flask –app web.py run –host=0.0.0.0</p>
+</div></blockquote>
+<p>Use FLASK_ENV=development for a development server.</p>
+<p>The webserver provides an address at location ‘/px/&lt;x&gt;/&lt;y&gt;/&lt;on or off&gt;’ with
+coordinate values for &lt;x&gt; and &lt;y&gt; and a status value for &lt;on or off&gt; which
+must “on” or “off”. You can send a GET or POST request to this addres.</p>
+<p>For instance to turn pixel at location (2,3) on you can use</p>
+<blockquote>
+<div><p>$ curl HOSTNAME/px/2/3/on</p>
+</div></blockquote>
+<p>Route /page can be read with method GET or changed with method POST.</p>
+<p>/page (GET) returns a list of 1s and 0s that represent the current display.</p>
+<p>/page (POST) expects a parameter data of 1s and 0s to change the current 
+display. Entries with x are ignored and allow for partial updates of the
+display.</p>
+<p>/display (GET) returns the current display as JSON.</p>
+<p>/display (POST) expects a JSON with a single image or a list of images to 
+display. Each image is a dictionary with the keys “pixels” and “duration_ms”.
+The value of “pixels” is a string of 0s and 1s. The value of “duration_ms” is
+the duration of the image in milliseconds. For instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;images&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>   
+            <span class="s2">&quot;pixels&quot;</span><span class="p">:</span> <span class="s2">&quot;000011x0...&quot;</span><span class="p">,</span>  <span class="c1"># values of x are ignored</span>
+            <span class="s2">&quot;duration_ms&quot;</span><span class="p">:</span> <span class="mi">1000</span>
+        <span class="p">},</span>
+        <span class="o">...</span>
+    <span class="p">]</span>            
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To show text, send a json with the text:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;scrolling&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>     <span class="p">(</span><span class="n">optional</span><span class="p">,</span> <span class="n">default</span> <span class="n">false</span><span class="p">)</span>
+    <span class="s2">&quot;fps&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>             <span class="p">(</span><span class="n">optional</span><span class="p">,</span> <span class="n">default</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="s2">&quot;duration_ms&quot;</span><span class="p">:</span> <span class="mi">1000</span>    <span class="p">(</span><span class="n">optional</span><span class="p">,</span> <span class="n">default</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="web.get_buffer">
+<span class="sig-prename descclassname"><span class="pre">web.</span></span><span class="sig-name descname"><span class="pre">get_buffer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/web.html#get_buffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#web.get_buffer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="web.get_display">
+<span class="sig-prename descclassname"><span class="pre">web.</span></span><span class="sig-name descname"><span class="pre">get_display</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/web.html#get_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#web.get_display" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="web.route_display_get">
+<span class="sig-prename descclassname"><span class="pre">web.</span></span><span class="sig-name descname"><span class="pre">route_display_get</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/web.html#route_display_get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#web.route_display_get" title="Link to this definition"></a></dt>
+<dd><p>Return the current display (in JSON): width, height, data</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="web.route_display_post">
+<span class="sig-prename descclassname"><span class="pre">web.</span></span><span class="sig-name descname"><span class="pre">route_display_post</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/web.html#route_display_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#web.route_display_post" title="Link to this definition"></a></dt>
+<dd><p>Send a new display. Expecting json of the form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;pixels&quot;</span><span class="p">:</span> <span class="s2">&quot;00001100...&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To send a sequence of images, send a list of images including duration in 
+ms:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;images&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>   
+            <span class="s2">&quot;pixels&quot;</span><span class="p">:</span> <span class="s2">&quot;00001100...&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;duration_ms&quot;</span><span class="p">:</span> <span class="mi">1000</span>
+        <span class="p">},</span>
+        <span class="o">...</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To show text, send a json with the text:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;scrolling&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>     <span class="p">(</span><span class="n">optional</span><span class="p">,</span> <span class="n">default</span> <span class="n">false</span><span class="p">)</span>
+    <span class="s2">&quot;fps&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>             <span class="p">(</span><span class="n">optional</span><span class="p">,</span> <span class="n">default</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="s2">&quot;duration_ms&quot;</span><span class="p">:</span> <span class="mi">1000</span>    <span class="p">(</span><span class="n">optional</span><span class="p">,</span> <span class="n">default</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To set the led brightness, send a json with the led value:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;led&quot;</span><span class="p">:</span> <span class="s2">&quot;on&quot;</span>  <span class="c1"># or &quot;off&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="web.route_index">
+<span class="sig-prename descclassname"><span class="pre">web.</span></span><span class="sig-name descname"><span class="pre">route_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/web.html#route_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#web.route_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="web.route_page_get">
+<span class="sig-prename descclassname"><span class="pre">web.</span></span><span class="sig-name descname"><span class="pre">route_page_get</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/web.html#route_page_get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#web.route_page_get" title="Link to this definition"></a></dt>
+<dd><p>Return the current display as string of 0s and 1s.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="web.route_page_post">
+<span class="sig-prename descclassname"><span class="pre">web.</span></span><span class="sig-name descname"><span class="pre">route_page_post</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/web.html#route_page_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#web.route_page_post" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="web.route_px">
+<span class="sig-prename descclassname"><span class="pre">web.</span></span><span class="sig-name descname"><span class="pre">route_px</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onoff</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/web.html#route_px"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#web.route_px" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="web.set_px">
+<span class="sig-prename descclassname"><span class="pre">web.</span></span><span class="sig-name descname"><span class="pre">set_px</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/web.html#set_px"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#web.set_px" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="net.html" class="btn btn-neutral float-left" title="Net" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="game.html" class="btn btn-neutral float-right" title="Games" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018-2025, Marco Bakera, Reinhard Gummlich.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

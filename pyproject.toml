@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "flipflapflop"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pygame = "^2.1.2" # for the simulator
+PyTMX = "^3.31" # reading Tiled maps for rogueflip and the presenter
+paho-mqtt = "^1.6.1"  # for MQTT communication
+zeroconf = "^0.131.0" # for mDNS discovery of the MQTT broker
+pyserial = "^3.5" # for the serial interface
+flask = "^3.0.0" # for the web interface
+gunicorn = "^21.2.0" # for the web interface
+opencv-python = "^4.10.0.84" # for web to display
+pyxel = "^2.2.10"
+jupyterlab = "^4.3.4"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+pylint = "^3.0.3" # for class diagrams (pyreverse)
+sphinx = "^7.2.6"
+sphinx-rtd-theme = "^2.0.0"
+pytmx = "^3.32" # reading tiled maps for rogueflip and the presenter
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
