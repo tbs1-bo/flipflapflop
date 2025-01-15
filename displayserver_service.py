@@ -36,6 +36,7 @@ timer = threading.Timer(0, time_over)
 
 
 def main():
+    print("starting display service. Request timeout is", REQUEST_TIMEOUT, "seconds")
     fdd = displayprovider.get_display()
     print("starting display", fdd)
     displayserver = net.DisplayServer(fdd)
