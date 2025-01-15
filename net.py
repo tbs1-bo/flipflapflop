@@ -67,7 +67,7 @@ class DisplayServer:
         self.server_running = False
 
     def start(self, host="0.0.0.0", port=DEFAULT_PORT):
-        print("Starting server for dimension", self.width, "x", self.height,
+        print("Starting display server for dimension", self.width, "x", self.height,
               "on", host, "at port", port)
         addr = (host, port)
         self.server_running = True
