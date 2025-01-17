@@ -17,7 +17,7 @@ pipx ensurepath
 
 echo "installing flipflapflop"
 cd $HOME
-git clone https://github.com/tbs1-bo/flipflapflop.git
+git clone --depth 1 https://github.com/tbs1-bo/flipflapflop.git
 cd flipflapflop
 $HOME/.local/bin/poetry update
 make configuration.py
