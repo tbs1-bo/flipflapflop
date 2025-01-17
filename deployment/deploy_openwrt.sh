@@ -2,12 +2,7 @@
 #
 # Install script for OpenWRT - e.g. running on an Orange Pi Zero.
 #
-
-echo "Installing packages"
-opkg update
-opkg install python3-light python3-pyserial nano
-
-# There is a firmware selector that allows to name packages to be installed
+# There is a firmware selector that allows to define included packages
 # https://firmware-selector.openwrt.org/
 #
 # DHCP client mode could be setup there as well:
@@ -15,6 +10,11 @@ opkg install python3-light python3-pyserial nano
 # uci commit network
 #
 # https://openwrt.org/docs/guide-user/network/openwrt_as_clientdevice#command-line_instructions
+
+echo "Installing packages"
+opkg update
+opkg install python3-light python3-pyserial nano
+
 
 # using download instead of git clone to save space
 
