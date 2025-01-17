@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>net &mdash; flipflapflop 0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
@@ -77,8 +77,8 @@
   <h1>Source code for net</h1><div class="highlight"><pre>
 <span></span>
 
-<span class="kn">import</span> <span class="nn">socket</span>
-<span class="kn">import</span> <span class="nn">displayprovider</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">displayprovider</span>
 
 
 <span class="n">DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">10101</span>
@@ -86,7 +86,7 @@
 
 <div class="viewcode-block" id="DisplayServer">
 <a class="viewcode-back" href="../net.html#net.DisplayServer">[docs]</a>
-<span class="k">class</span> <span class="nc">DisplayServer</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DisplayServer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    TCP-Server that listens on a specified port for</span>
 <span class="sd">    TCP-Connections. Every request sent to the server has to be one of the special</span>
@@ -138,7 +138,7 @@
 <span class="sd">    The output lines after show() are coming from the server.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">width</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">height</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display</span> <span class="o">=</span> <span class="n">display</span>
@@ -147,8 +147,8 @@
 
 <div class="viewcode-block" id="DisplayServer.start">
 <a class="viewcode-back" href="../net.html#net.DisplayServer.start">[docs]</a>
-    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_PORT</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting server for dimension&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_PORT</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting display server for dimension&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
               <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="s2">&quot;at port&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
         <span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">server_running</span> <span class="o">=</span> <span class="kc">True</span>
@@ -174,7 +174,7 @@
 
 <div class="viewcode-block" id="DisplayServer.handle_request">
 <a class="viewcode-back" href="../net.html#net.DisplayServer.handle_request">[docs]</a>
-    <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
 
         <span class="c1"># answer with display dimension if desired</span>
@@ -186,7 +186,7 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_display_update_request</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_handle_display_update_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_display_update_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
                 <span class="n">index</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span>
@@ -205,10 +205,10 @@
 
 <div class="viewcode-block" id="RemoteDisplay">
 <a class="viewcode-back" href="../net.html#net.RemoteDisplay">[docs]</a>
-<span class="k">class</span> <span class="nc">RemoteDisplay</span><span class="p">(</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">DisplayBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RemoteDisplay</span><span class="p">(</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">DisplayBase</span><span class="p">):</span>
     <span class="s2">&quot;Remote class to connect with a running DisplayServer instance.&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_PORT</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_PORT</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remote display will send data to&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="s2">&quot;on port&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
@@ -221,20 +221,20 @@
 
 <div class="viewcode-block" id="RemoteDisplay.px">
 <a class="viewcode-back" href="../net.html#net.RemoteDisplay.px">[docs]</a>
-    <span class="k">def</span> <span class="nf">px</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">px</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span></div>
 
 
 <div class="viewcode-block" id="RemoteDisplay.show">
 <a class="viewcode-back" href="../net.html#net.RemoteDisplay.show">[docs]</a>
-    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span> <span class="k">as</span> <span class="n">sock</span><span class="p">:</span>
             <span class="n">sock</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">))</span>
             <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_to_payload</span><span class="p">()</span>
             <span class="n">sock</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_buffer_to_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_buffer_to_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">payload</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
@@ -244,7 +244,7 @@
     
 <div class="viewcode-block" id="RemoteDisplay.led">
 <a class="viewcode-back" href="../net.html#net.RemoteDisplay.led">[docs]</a>
-    <span class="k">def</span> <span class="nf">led</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on_off</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">led</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on_off</span><span class="p">):</span>
         <span class="k">pass</span></div>
 </div>
 
@@ -253,7 +253,7 @@
 
 <div class="viewcode-block" id="PixelflutServer">
 <a class="viewcode-back" href="../net.html#net.PixelflutServer">[docs]</a>
-<span class="k">class</span> <span class="nc">PixelflutServer</span><span class="p">(</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">DisplayBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PixelflutServer</span><span class="p">(</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">DisplayBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    PixeflutServer that conforms to the Pixelflut protocol outlined at</span>
 <span class="sd">    https://c3pixelflut.de/how.html</span>
@@ -263,7 +263,7 @@
 <span class="sd">    SIZE                         # get size of the display</span>
 <span class="sd">    OFFSET &lt;x&gt; &lt;y&gt;               # set offset for following commands</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">width</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">height</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display</span> <span class="o">=</span> <span class="n">display</span>
@@ -273,7 +273,7 @@
 
 <div class="viewcode-block" id="PixelflutServer.start">
 <a class="viewcode-back" href="../net.html#net.PixelflutServer.start">[docs]</a>
-    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_PORT</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_PORT</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting Pixelflut server for dimension&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
               <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="s2">&quot;at port&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
 
@@ -301,7 +301,7 @@
 
 <div class="viewcode-block" id="PixelflutServer.handle_request">
 <a class="viewcode-back" href="../net.html#net.PixelflutServer.handle_request">[docs]</a>
-    <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Handle incoming requests and execute commands based on the payload.</span>
 <span class="sd">        The payload is expected to be a string of ASCII-encoded commands </span>
@@ -349,7 +349,7 @@
 
 <div class="viewcode-block" id="PixelflutServer.set_pixel">
 <a class="viewcode-back" href="../net.html#net.PixelflutServer.set_pixel">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_pixel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_pixel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the color of a specific pixel on the display.</span>
 <span class="sd">        Parameters:</span>
@@ -367,7 +367,7 @@
 
 <div class="viewcode-block" id="PixelflutServer.get_pixel">
 <a class="viewcode-back" href="../net.html#net.PixelflutServer.get_pixel">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_pixel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_pixel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the color of a specific pixel on the display. Will return the color</span>
 <span class="sd">        of the pixel at the specified coordinates as a hex string.</span>
@@ -378,10 +378,10 @@
 </div>
 
 
-<span class="k">def</span> <span class="nf">test_networking</span><span class="p">():</span>
-    <span class="kn">import</span> <span class="nn">flipdotsim</span>
-    <span class="kn">import</span> <span class="nn">threading</span>
-    <span class="kn">import</span> <span class="nn">time</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_networking</span><span class="p">():</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">flipdotsim</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
     <span class="n">TEST_PORT</span> <span class="o">=</span> <span class="mi">1212</span>
 
@@ -399,7 +399,7 @@
     <span class="n">remote_display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
-    <span class="kn">import</span> <span class="nn">demos</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">demos</span>
     <span class="n">demo</span> <span class="o">=</span> <span class="n">demos</span><span class="o">.</span><span class="n">RotatingPlasmaDemo</span><span class="p">(</span><span class="n">remote_display</span><span class="p">)</span>
     <span class="n">demo</span><span class="o">.</span><span class="n">fps</span> <span class="o">=</span> <span class="mi">30</span>  <span class="c1"># reduce fps for networking</span>
     <span class="n">demo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -409,10 +409,10 @@
     <span class="n">fdd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="c1">#exit()</span>
 
-<span class="k">def</span> <span class="nf">test_networking_pixelflut</span><span class="p">():</span>
-    <span class="kn">import</span> <span class="nn">flipdotsim</span>
-    <span class="kn">import</span> <span class="nn">threading</span>
-    <span class="kn">import</span> <span class="nn">time</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_networking_pixelflut</span><span class="p">():</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">flipdotsim</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
     <span class="n">TEST_PORT</span> <span class="o">=</span> <span class="mi">1234</span>
 
@@ -430,7 +430,7 @@
     <span class="n">remote_display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
-    <span class="kn">import</span> <span class="nn">demos</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">demos</span>
     <span class="n">demo</span> <span class="o">=</span> <span class="n">demos</span><span class="o">.</span><span class="n">RotatingPlasmaDemo</span><span class="p">(</span><span class="n">remote_display</span><span class="p">)</span>
     <span class="n">demo</span><span class="o">.</span><span class="n">fps</span> <span class="o">=</span> <span class="mi">30</span>  <span class="c1"># reduce fps for networking</span>
     <span class="n">demo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -442,9 +442,9 @@
 
 
 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="kn">import</span> <span class="nn">displayprovider</span>
-    <span class="kn">import</span> <span class="nn">configuration</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">displayprovider</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">configuration</span>
 
     <span class="n">disp</span> <span class="o">=</span> <span class="n">displayprovider</span><span class="o">.</span><span class="n">get_display</span><span class="p">(</span>
         <span class="n">width</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">,</span>

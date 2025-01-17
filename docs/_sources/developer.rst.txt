@@ -39,6 +39,11 @@ The display server runs on the default port 10101 and can be configured further 
 :download:`displayserver_service.py <../displayserver_service.py>`. You can specify 
 dimensions of the display as well as module configuration here.
 
+There is a setup script :download:`deploy_rpi.sh <../deployment/deploy_rpi.sh>`
+that configures the Pi and installs the necessary software.
+
+The setup script :download:`deploy_openwrt.sh <../deployment/deploy_openwrt.sh>` 
+will setup the software to run on a OpenWRT OS.
 
 Creating the documentation
 --------------------------
