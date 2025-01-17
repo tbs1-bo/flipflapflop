@@ -14,5 +14,7 @@ start_service() {
     procd_set_param command /bin/sh -c 'cd /root/flipflapflop && /usr/bin/python -u displayserver_service.py'
     procd_set_param stdout 1
     procd_set_param stderr 1
+    #  respawn threshold timeout retry
+    procd_set_param respawn 3600 5 5
     procd_close_instance
 }
