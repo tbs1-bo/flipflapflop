@@ -5,20 +5,18 @@
 
 echo "Installing packages"
 opkg update
-opkg install python3-light python3-pyserial git nano
+opkg install python3-light python3-pyserial nano
 
-echo "Cloning the repository with a depth of 1"
-git clone --depth 1 https://github.com/tbs1-bo/flipflapflop
-
-# Alternative: Download the repository as a zip file
-#wget -v https://github.com/tbs1-bo/flipflapflop/archive/refs/heads/master.zip
-#unzip master.zip
-#mv -v flipflapflop-master flipflapflop
-#rm -v master.zip
+echo "Download files from GitHub"
+FILES="fffserial.py binclock.py displayprovider.py net.py configuration_sample.py displayserver_service.py deployment/openwrt_service.sh"
+BASE_URL="https://raw.githubusercontent.com/tbs1-bo/flipflapflop/refs/heads/master/"
+mkdir -p flipflapflop/deployment
+for f in $FILES; do wget $BASE_URL/$f -O flipflapflop/$f; done
 
 echo "copy default configuration"
 cp -v flipflapflop/configuration_sample.py flipflapflop/configuration.py
 
 echo "copy service file and enable service"
 cp -v flipflapflop/deployment/openwrt_service.sh /etc/init.d/flipflapflop
+chmod +x /etc/init.d/flipflapflop
 /etc/init.d/flipflapflop enable
