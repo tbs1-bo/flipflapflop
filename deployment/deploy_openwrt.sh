@@ -5,7 +5,7 @@
 
 echo "Installing packages"
 opkg update
-opkg install python3-light python3-pyserial git
+opkg install python3-light python3-pyserial git nano
 
 echo "Cloning the repository with a depth of 1"
 git clone --depth 1 https://github.com/tbs1-bo/flipflapflop
