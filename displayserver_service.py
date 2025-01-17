@@ -7,6 +7,7 @@ no further request wihtin a specified time period, the clock will be shown again
 """
 
 import net
+import time
 import displayprovider
 import binclock
 import threading
@@ -37,7 +38,15 @@ timer = threading.Timer(0, time_over)
 
 def main():
     print("starting display service. Request timeout is", REQUEST_TIMEOUT, "seconds")
-    fdd = displayprovider.get_display()
+    fdd = None
+    while fdd is None:
+        try:
+            fdd = displayprovider.get_display(fallback=None)          
+        except Exception as e:
+            print("Unable to create display:", e)
+            time.sleep(5)
+            
+
     print("starting display", fdd)
     displayserver = net.DisplayServer(fdd)
     displayserver.on_request = on_request
