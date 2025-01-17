@@ -18,3 +18,7 @@ git clone --depth 1 https://github.com/tbs1-bo/flipflapflop
 
 echo "copy default configuration"
 cp -v flipflapflop/configuration_sample.py flipflapflop/configuration.py
+
+echo "copy service file and enable service"
+cp -v flipflapflop/deployment/openwrt_service.sh /etc/init.d/flipflapflop
+/etc/init.d/flipflapflop enable
