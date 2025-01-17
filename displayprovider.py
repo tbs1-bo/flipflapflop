@@ -50,7 +50,7 @@ def get_display(width=configuration.WIDTH, height=configuration.HEIGHT, fallback
 
     except Exception as e:
         print("Unable to create FlipDotDisplay:", e,
-              "\nFalling back to", fallback.name)
+              "\nFalling back to", fallback)
 
         if fallback == Fallback.SIMULATOR:
             fps = configuration.simulator['fps']
