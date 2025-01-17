@@ -7,6 +7,9 @@ echo "Installing packages"
 opkg update
 opkg install python3-light python3-pyserial nano
 
+# There is a firmware selector that allows to name packages to be installed
+# https://firmware-selector.openwrt.org/
+
 # using download instead of git clone to save space
 
 echo "Download files from GitHub"
