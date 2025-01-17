@@ -9,6 +9,12 @@ opkg install python3-light python3-pyserial nano
 
 # There is a firmware selector that allows to name packages to be installed
 # https://firmware-selector.openwrt.org/
+#
+# DHCP client mode could be setup there as well:
+# uci set network.lan.proto="dhcp"
+# uci commit network
+#
+# https://openwrt.org/docs/guide-user/network/openwrt_as_clientdevice#command-line_instructions
 
 # using download instead of git clone to save space
 
