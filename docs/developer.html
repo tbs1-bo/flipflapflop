@@ -50,7 +50,10 @@
 <li class="toctree-l1"><a class="reference internal" href="web.html">Web</a></li>
 <li class="toctree-l1"><a class="reference internal" href="game.html">Games</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deployment-scripts">Deployment Scripts</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-the-documentation">Creating the documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#class-diagram">Class Diagram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#video-backups">Video Backups</a></li>
@@ -117,10 +120,13 @@ must be copied to <code class="docutils literal notranslate"><span class="pre">/
 <p>The display server runs on the default port 10101 and can be configured further in
 <a class="reference download internal" download="" href="_downloads/baf508c3b52dc1879f59809fdbb02f1c/displayserver_service.py"><code class="xref download docutils literal notranslate"><span class="pre">displayserver_service.py</span></code></a>. You can specify
 dimensions of the display as well as module configuration here.</p>
+<section id="deployment-scripts">
+<h3>Deployment Scripts<a class="headerlink" href="#deployment-scripts" title="Link to this heading"></a></h3>
 <p>There is a setup script <a class="reference download internal" download="" href="_downloads/6f98b6395cbfa37f835cd59d1ddad4c0/deploy_rpi.sh"><code class="xref download docutils literal notranslate"><span class="pre">deploy_rpi.sh</span></code></a>
 that configures the Pi and installs the necessary software.</p>
 <p>The setup script <a class="reference download internal" download="" href="_downloads/6a57827c233b4c00be6ee51855ed53d7/deploy_openwrt.sh"><code class="xref download docutils literal notranslate"><span class="pre">deploy_openwrt.sh</span></code></a>
 will setup the software to run on a OpenWRT OS.</p>
+</section>
 </section>
 <section id="creating-the-documentation">
 <h2>Creating the documentation<a class="headerlink" href="#creating-the-documentation" title="Link to this heading"></a></h2>
