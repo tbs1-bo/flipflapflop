@@ -13,7 +13,7 @@
 
 echo "Installing packages"
 opkg update
-opkg install python3-light python3-pyserial nano
+opkg install python3-light python3-pyserial nano umdns
 
 
 # using download instead of git clone to save space
