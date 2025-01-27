@@ -26,6 +26,10 @@ BASE_URL="https://raw.githubusercontent.com/tbs1-bo/flipflapflop/refs/heads/mast
 mkdir -p flipflapflop/deployment
 for f in $FILES; do wget $BASE_URL/$f -O flipflapflop/$f; done
 
+# Altnative: checkout with git
+#opkg install git git-http
+#git clone https://github.com/tbs1-bo/flipflapflop
+
 echo "copy default configuration"
 cp -v flipflapflop/configuration_sample.py flipflapflop/configuration.py
 
