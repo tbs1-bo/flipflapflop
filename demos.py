@@ -56,6 +56,9 @@ class DemoBase(abc.ABC):
         """Do some preparation before update."""
         pass
 
+# TODO make more general class for displaying images on the flipdotdisplay
+# e.g. can be used to show operator logo from old mobile phones
+# find a collection here https://www.oocities.org/wolfitdown/
 
 class PygameSurfaceDemo:
     """Demo for testing the drawing on the display with a pygame Surface 
