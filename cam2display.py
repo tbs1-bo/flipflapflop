@@ -3,6 +3,7 @@ import configuration
 import displayprovider
 import time 
 
+# Created during 38c3
 
 class App:
     def __init__(self):
