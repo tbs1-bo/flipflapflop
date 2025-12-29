@@ -68,11 +68,18 @@ class SerialDisplay(displayprovider.DisplayBase):
     def px(self, x, y, val):
         assert 0 <= x < self.width
         assert 0 <= y < self.height
+        index = y * self.width + x
 
         if self.buffered:
-            self.buffer[y * self.width + x] = val
+            self.buffer[index] = val
         else:
+            # abort if pixel unchanged
+            if val == self.buffer[index]:
+                return
+
+            self.buffer[index] = val
             bs = [SerialDisplay.PXSET if val else SerialDisplay.PXRESET, x, y]
+            #print("sending px",bs)
             self.ser.write(bytes(bs))
 
     def show(self):
