@@ -10,5 +10,6 @@ txt_scrl = flipdotfont.TextScroller(fdd, txt, font)
 
 while True:
     txt_scrl.scrolltext()
-    time.sleep(0.01)
+    txt_scrl.fdd.show()
+    time.sleep(0.05)
 
