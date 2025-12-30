@@ -22,6 +22,8 @@ import pygame
 import pygame.time
 
 FPS = configuration.simulator['fps']
+print("FPS set to", FPS)
+
 
 class DemoBase(abc.ABC):
     def __init__(self, flipdotdisplay, fps=FPS):
@@ -105,6 +107,43 @@ class PlasmaDemo(DemoBase):
                    math.cos((y * self.s) + self.i / 4.0))
         return v > 0.3
 
+class MoireDemo(DemoBase):
+    """Moire"""
+    def __init__(self, flipdotdisplay):
+        super().__init__(flipdotdisplay)
+        self.w = flipdotdisplay.width
+        self.h = flipdotdisplay.height
+
+    def prepare(self):
+        ...
+
+    def handle_px(self, x, y):
+        t = time.time()
+
+        # center of two circles
+        cx1 = math.sin(t / 2) * self.w / 3 + self.w / 2
+        cy1 = math.sin(t / 4) * self.h / 3 + self.h / 2
+        cx2 = math.cos(t / 3) * self.w / 3 + self.w / 2
+        cy2 = math.cos(t) * self.h / 3 + self.h / 2
+
+        # calculate distance from center
+        dy = (y - cy1) * (y - cy1)
+        dy2 = (y - cy2) * (y - cy2)
+
+        # calculate distance from center
+        dx = (x - cx1) * (x - cx1)
+        dx2 = (x - cx2) * (x - cx2)
+
+        # calculate distance between two points
+        rt1 = int(math.sqrt(dx + dy))
+        rt2 = int(math.sqrt(dx2 + dy2))
+
+        # xor the two distances
+        xor = rt1 ^ rt2
+        return ((xor >> 2) & 1) == 0
+
+        #shade = ((xor >> 4) & 1) * 3
+        #return shade > 1
 
 class RotatingPlasmaDemo(DemoBase):
     """Rotating Plasma"""
@@ -502,7 +541,7 @@ def main():
     demos = [PlasmaDemo(fdd), SwirlDemo(fdd), PingPong(fdd), RandomDot(fdd),
              RotatingPlasmaDemo(fdd), GameOfLife(fdd), SnakeGame(fdd),
              FlappyDot(fdd), BinaryClock(fdd), rogueflip.Game(fdd),
-             PygameSurfaceDemo(fdd), LinesDemo(fdd)]
+             PygameSurfaceDemo(fdd), LinesDemo(fdd), MoireDemo(fdd)]
     print("\n".join([str(i) + ": " + d.__doc__ for i, d in enumerate(demos)]))
     num = int(input(">"))
     print("Running demo. CTRL-C to abort.")
