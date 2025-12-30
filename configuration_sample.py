@@ -9,6 +9,10 @@ WIDTH, HEIGHT = 28, 13
 # the medium one
 #WIDTH, HEIGHT = 126, 16
 
+# the led one
+#WIDTH, HEIGHT = 120, 7
+
+
 flipdotdisplay = {
     #"serialdevice": "spy:///dev/ttyUSB0",  # use this for debugging
     "serialdevice": "/dev/ttyUSB0",
