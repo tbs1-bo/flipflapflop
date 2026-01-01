@@ -60,6 +60,12 @@ must be installed.
 
    $ pip install sphinx sphinx-rtd-theme
 
+or if you are using poetry:
+
+.. code-block:: bash
+
+   $ poetry update --with=dev
+
 The documentation is created with sphinx and is configured in folder ``docgen``. 
 You can use ``make html`` or ``make.bat html`` to create the docucmentation
 in ``docgen/_build/html``. It will automaticall be copied to ``docs``.

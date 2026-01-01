@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>fffserial &mdash; flipflapflop 0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
@@ -81,9 +81,9 @@
 <span class="sd">communication with the device over a serial interface.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">import</span> <span class="nn">serial</span>  <span class="c1"># pip install pyserial</span>
-<span class="kn">import</span> <span class="nn">displayprovider</span>
-<span class="kn">import</span> <span class="nn">configuration</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">serial</span>  <span class="c1"># pip install pyserial</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">displayprovider</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">configuration</span>
 
 <span class="n">DEVICE</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">flipdotdisplay</span><span class="p">[</span><span class="s2">&quot;serialdevice&quot;</span><span class="p">]</span>
 <span class="n">BAUD</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">flipdotdisplay</span><span class="p">[</span><span class="s2">&quot;serialbaudrate&quot;</span><span class="p">]</span>
@@ -92,7 +92,7 @@
 
 <div class="viewcode-block" id="SerialDisplay">
 <a class="viewcode-back" href="../fdd.html#fffserial.SerialDisplay">[docs]</a>
-<span class="k">class</span> <span class="nc">SerialDisplay</span><span class="p">(</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">DisplayBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SerialDisplay</span><span class="p">(</span><span class="n">displayprovider</span><span class="o">.</span><span class="n">DisplayBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Serial Display sending commands to an arduino connected to the display.</span>
 <span class="sd">    Each command starts with a byte with a command identifier. The following</span>
@@ -119,7 +119,7 @@
 
 <div class="viewcode-block" id="SerialDisplay.__init__">
 <a class="viewcode-back" href="../fdd.html#fffserial.SerialDisplay.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">serial_device</span><span class="o">=</span><span class="s2">&quot;/dev/ttyUSB0&quot;</span><span class="p">,</span> <span class="n">baud</span><span class="o">=</span><span class="mi">9600</span><span class="p">,</span> <span class="n">buffered</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">serial_device</span><span class="o">=</span><span class="s2">&quot;/dev/ttyUSB0&quot;</span><span class="p">,</span> <span class="n">baud</span><span class="o">=</span><span class="mi">9600</span><span class="p">,</span> <span class="n">buffered</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Create serial display with given dimension. If buffered is True, all </span>
 <span class="sd">        calls to px() will write into an internal buffer until a call to </span>
@@ -139,7 +139,7 @@
 
 <div class="viewcode-block" id="SerialDisplay.led">
 <a class="viewcode-back" href="../fdd.html#fffserial.SerialDisplay.led">[docs]</a>
-    <span class="k">def</span> <span class="nf">led</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on_off</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">led</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on_off</span><span class="p">):</span>
         <span class="s1">&#39;Turn LED of the display on or off&#39;</span>
         <span class="c1"># TODO add support for brightness</span>
         <span class="k">if</span> <span class="n">on_off</span><span class="p">:</span>
@@ -152,20 +152,27 @@
 
 <div class="viewcode-block" id="SerialDisplay.px">
 <a class="viewcode-back" href="../fdd.html#fffserial.SerialDisplay.px">[docs]</a>
-    <span class="k">def</span> <span class="nf">px</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">px</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
         <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffered</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="p">[</span><span class="n">y</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># abort if pixel unchanged</span>
+            <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="p">[</span><span class="n">index</span><span class="p">]:</span>
+                <span class="k">return</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
             <span class="n">bs</span> <span class="o">=</span> <span class="p">[</span><span class="n">SerialDisplay</span><span class="o">.</span><span class="n">PXSET</span> <span class="k">if</span> <span class="n">val</span> <span class="k">else</span> <span class="n">SerialDisplay</span><span class="o">.</span><span class="n">PXRESET</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+            <span class="c1">#print(&quot;sending px&quot;,bs)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">bs</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="SerialDisplay.show">
 <a class="viewcode-back" href="../fdd.html#fffserial.SerialDisplay.show">[docs]</a>
-    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="s1">&#39;Send the content of the buffer to the display using serial interface.&#39;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffered</span><span class="p">:</span>
@@ -189,7 +196,7 @@
     
 <div class="viewcode-block" id="SerialDisplay.display_available">
 <a class="viewcode-back" href="../fdd.html#fffserial.SerialDisplay.display_available">[docs]</a>
-    <span class="k">def</span> <span class="nf">display_available</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">display_available</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">test_byte</span> <span class="o">=</span> <span class="mi">42</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">bytes</span><span class="p">([</span><span class="n">SerialDisplay</span><span class="o">.</span><span class="n">ECHO</span><span class="p">,</span> <span class="n">test_byte</span><span class="p">]))</span>
         <span class="n">bs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -204,27 +211,22 @@
 
 <div class="viewcode-block" id="SerialDisplay.close">
 <a class="viewcode-back" href="../fdd.html#fffserial.SerialDisplay.close">[docs]</a>
-    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="s1">&#39;Close the serial device&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 </div>
 
 
 
-<div class="viewcode-block" id="demo_simple">
-<a class="viewcode-back" href="../fdd.html#fffserial.demo_simple">[docs]</a>
-<span class="k">def</span> <span class="nf">demo_simple</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">demo_simple</span><span class="p">():</span>
     <span class="n">ffd</span> <span class="o">=</span> <span class="n">SerialDisplay</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">serial_device</span><span class="o">=</span><span class="n">DEVICE</span><span class="p">,</span> <span class="n">baud</span><span class="o">=</span><span class="n">BAUD</span><span class="p">,</span> <span class="n">buffered</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sending pixel&quot;</span><span class="p">)</span>
     <span class="n">ffd</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-    <span class="n">ffd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
-
+    <span class="n">ffd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="c1">#ffd.close()</span>
 
-<div class="viewcode-block" id="demo_all_onoff">
-<a class="viewcode-back" href="../fdd.html#fffserial.demo_all_onoff">[docs]</a>
-<span class="k">def</span> <span class="nf">demo_all_onoff</span><span class="p">():</span>
-    <span class="kn">import</span> <span class="nn">time</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">demo_all_onoff</span><span class="p">():</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
     <span class="n">fdd</span> <span class="o">=</span> <span class="n">SerialDisplay</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> 
                         <span class="n">serial_device</span><span class="o">=</span><span class="n">DEVICE</span><span class="p">,</span> <span class="n">baud</span><span class="o">=</span><span class="n">BAUD</span><span class="p">)</span>
@@ -244,13 +246,10 @@
         <span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="n">fdd</span><span class="o">.</span><span class="n">led</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
 
-
-<div class="viewcode-block" id="test_serial">
-<a class="viewcode-back" href="../fdd.html#fffserial.test_serial">[docs]</a>
-<span class="k">def</span> <span class="nf">test_serial</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_serial</span><span class="p">():</span>
     <span class="n">fdd</span> <span class="o">=</span> <span class="n">SerialDisplay</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> 
         <span class="c1"># using a serial dummy device for debugging</span>
         <span class="c1"># https://pythonhosted.org/pyserial/url_handlers.html#loop</span>
@@ -268,22 +267,18 @@
         <span class="k">assert</span> <span class="n">fdd</span><span class="o">.</span><span class="n">buffer</span><span class="p">[</span><span class="mi">10</span> <span class="o">*</span> <span class="n">fdd</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span>
     <span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-    <span class="n">fdd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+    <span class="n">fdd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 
-
-<div class="viewcode-block" id="demo">
-<a class="viewcode-back" href="../fdd.html#fffserial.demo">[docs]</a>
-<span class="k">def</span> <span class="nf">demo</span><span class="p">():</span>
-    <span class="kn">import</span> <span class="nn">demos</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">demo</span><span class="p">():</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">demos</span>
     <span class="n">ffd</span> <span class="o">=</span> <span class="n">SerialDisplay</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">configuration</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">,</span> 
                         <span class="n">serial_device</span><span class="o">=</span><span class="n">DEVICE</span><span class="p">,</span> <span class="n">baud</span><span class="o">=</span><span class="n">BAUD</span><span class="p">,</span> <span class="n">buffered</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">demo</span> <span class="o">=</span> <span class="n">demos</span><span class="o">.</span><span class="n">RotatingPlasmaDemo</span><span class="p">(</span><span class="n">ffd</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">demo</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
     <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-        <span class="n">ffd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
-
+        <span class="n">ffd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="c1">#demo()</span>

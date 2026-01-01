@@ -1,4 +1,7 @@
-#!/bin/sh
+#!/bin/bash
+
+# exit on error
+set -e
 
 # This script will install the necessary packages and the flipflapflop project 
 # on a Raspberry Pi.
