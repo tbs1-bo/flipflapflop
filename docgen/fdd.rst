@@ -43,7 +43,7 @@ seperately to one GPIO port on the Raspberry Pi. ::
    :special-members:
 
 Module ``virtual_display``
--------------------------
+--------------------------
 
 .. automodule:: virtual_display
    :members:
