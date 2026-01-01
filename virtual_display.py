@@ -53,7 +53,11 @@ class VirtualDisplay(displayprovider.DisplayBase):
         assert 0 <= y < self.height, "Pixel y out of bounds"
         assert val in (True, False), "Pixel value must be True or False"
 
-        display, (x_offset, y_offset) = self._display_at(x, y)
+        display_pos = self._display_at(x, y)
+        if display_pos is None:
+            return  # no display at this position
+        
+        display, (x_offset, y_offset) = display_pos
         if display is not None:
             dx = x - x_offset
             dy = y - y_offset
@@ -68,13 +72,29 @@ class VirtualDisplay(displayprovider.DisplayBase):
         for display in self.xy2display.values():
             display.clear()
 
+    def print(self):
+        "Print the virtual display to console for debugging purposes."
+
+        displays = list(self.xy2display.values())
+        for y in range(self.height):
+            for x in range(self.width):                
+                display_pos = self._display_at(x, y)                
+                if display_pos is None:
+                    print(".", end="")
+                else:
+                    display, _ = display_pos
+                    idx = displays.index(display)
+                    print(idx, end="")
+
+            print()
+
 def test_virtual_display():
     from displayprovider import DisplayBase
     
     """
-    1111222222
-    1111222222
-    1111222222
+    1111.22222
+    1111.22222
+    1111.22222
     3333333333
     3333333333
     3333333333
@@ -82,12 +102,14 @@ def test_virtual_display():
     vd = VirtualDisplay(10, 6)
 
     d1 = DisplayBase(4, 3)
-    d2 = DisplayBase(6, 3)
+    d2 = DisplayBase(5, 3)
     d3 = DisplayBase(10, 3)
 
     vd.add_display(d1, 0, 0)
-    vd.add_display(d2, 4, 0)
+    vd.add_display(d2, 5, 0)
     vd.add_display(d3, 0, 3)
+
+    vd.print()
 
     # set some pixels
     vd.px(0, 0, True)
