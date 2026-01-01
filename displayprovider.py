@@ -21,12 +21,23 @@ class DisplayBase:
     def __init__(self, width=4, height=3):
         self.width = width
         self.height = height
+        self.buffer = [False] * (width * height)
 
     def px(self, x, y, val):
-        pass
+        "Set pixel at (x,y) to val (True/False)"
+        assert 0 <= x < self.width, "Pixel x out of bounds"
+        assert 0 <= y < self.height, "Pixel y out of bounds"
+        assert val in (True, False), "Pixel value must be True or False"
+
+        index = y * self.width + x
+        self.buffer[index] = val
 
     def show(self):
-        pass
+        "Draw to console for debugging purposes."
+        for y in range(self.height):
+            for x in range(self.width):
+                print("#" if self.buffer[y * self.width + x] else ".", end="")
+            print()
 
     def clear(self):
         "Set all pixels to false."
