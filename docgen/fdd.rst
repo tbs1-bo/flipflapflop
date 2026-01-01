@@ -42,6 +42,14 @@ seperately to one GPIO port on the Raspberry Pi. ::
    :undoc-members:
    :special-members:
 
+Module ``virtual_display``
+-------------------------
+
+.. automodule:: virtual_display
+   :members:
+   :undoc-members:
+   :exclude-members: test_virtual_display
+
 Module ``util``
 ---------------
 
