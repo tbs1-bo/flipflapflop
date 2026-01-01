@@ -5,6 +5,18 @@ class VirtualDisplay(displayprovider.DisplayBase):
     Virtual display that can hold multiple smaller displays.
     Smaller displays can be combined into a larger virtual display by
     specifying the offset of each smaller display within the virtual display.
+
+    E.g. three displays of size 4x3, 5x3, and 10x3 can be combined into a
+    virtual display of size 10x6 by placing the first display at (0,0) in the 
+    top left corner, the second display at (5,0), and the third display 
+    at (0,3).
+
+        1111.22222
+        1111.22222
+        1111.22222
+        3333333333
+        3333333333
+        3333333333
     """
     def __init__(self, width, height):
         """
