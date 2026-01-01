@@ -37,7 +37,11 @@ class VirtualDisplay(displayprovider.DisplayBase):
         self.xy2display[(x_offset, y_offset)] = display
 
     def _display_at(self, x, y):
-        "Return display placed at given coordinates in virtual display."
+        """
+        Return display placed at given coordinates in virtual display and the 
+        offset of the display within the virtual display. 
+        Return None if no display is present.
+        """
         for (x_offset, y_offset), display in self.xy2display.items():
             if x_offset <= x < x_offset + display.width and \
                y_offset <= y < y_offset + display.height:
