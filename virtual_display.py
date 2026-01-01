@@ -11,6 +11,8 @@ class VirtualDisplay(displayprovider.DisplayBase):
     top left corner, the second display at (5,0), and the third display 
     at (0,3).
 
+    ::
+    
         1111.22222
         1111.22222
         1111.22222
@@ -18,6 +20,7 @@ class VirtualDisplay(displayprovider.DisplayBase):
         3333333333
         3333333333
     """
+
     def __init__(self, width, height):
         """
         Create virtual display with given dimension.
@@ -64,7 +67,8 @@ class VirtualDisplay(displayprovider.DisplayBase):
             display.px(dx, dy, val)
 
     def show(self):
-        "Show all displays within the virtual display."
+        "Update all displays within the virtual display."
+
         for display in self.xy2display.values():
             display.show()
 
