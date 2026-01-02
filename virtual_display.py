@@ -76,7 +76,7 @@ class VirtualDisplay(displayprovider.DisplayBase):
         for display in self.xy2display.values():
             display.clear()
 
-    def print(self):
+    def print_layout(self):
         "Print the virtual display to console for debugging purposes."
 
         displays = list(self.xy2display.values())
@@ -91,6 +91,9 @@ class VirtualDisplay(displayprovider.DisplayBase):
                     print(idx, end="")
 
             print()
+        
+        for i, d in enumerate(displays):
+            print(f"{i}: {d.__class__.__name__} ({d.width}x{d.height})")
 
 def test_virtual_display():
     from displayprovider import DisplayBase
@@ -113,7 +116,7 @@ def test_virtual_display():
     vd.add_display(d2, 5, 0)
     vd.add_display(d3, 0, 3)
 
-    vd.print()
+    vd.print_layout()
 
     # set some pixels
     vd.px(0, 0, True)
