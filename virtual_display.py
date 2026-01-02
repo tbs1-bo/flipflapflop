@@ -62,6 +62,7 @@ class VirtualDisplay(displayprovider.DisplayBase):
         
         display, (x_offset, y_offset) = display_pos
         if display is not None:
+            # calculate local coordinates within the display            
             dx = x - x_offset
             dy = y - y_offset
             display.px(dx, dy, val)
