@@ -53,7 +53,7 @@ class SerialDisplay(displayprovider.DisplayBase):
         self.buffered = buffered        
         self.buffer = [False] * (width * height)
         if not self.display_available():
-            print("WARNING: display not available")
+            print("WARNING: display not answering on echo message!")
 
     def led(self, on_off):
         'Turn LED of the display on or off'
