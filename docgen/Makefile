@@ -58,6 +58,7 @@ html:
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 	@echo "Copy changed files to ..\docs."
 	rsync -avz $(BUILDDIR)/html/* ../docs
+	rsync -avz --exclude=README.md ../webdemo/ ../docs/webdemo/
 
 .PHONY: dirhtml
 dirhtml:

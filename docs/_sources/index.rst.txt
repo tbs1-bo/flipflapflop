@@ -24,10 +24,18 @@ Anzeige.
 
 .. image:: ../media/display_in_action.jpg
 
-Kleine runde Plättchen mit unterschiedlichen Farben auf den Seiten sind so 
+Kleine runde Plättchen mit unterschiedlichen Farben auf den Seiten sind so
 gelagert, dass ein Strom genutzt werden kann, um sie durch einen Magneten
-kippen zu lassen. Damit kann dann ein Bild oder Text auf dem Display 
+kippen zu lassen. Damit kann dann ein Bild oder Text auf dem Display
 dargestellt werden.
+
+Web-Demo im Browser
+--------------------
+
+Ganz ohne Installation lassen sich einige der Demos aus ``demos.py`` direkt
+im Browser auf einer virtuellen Flipdot-Anzeige ausprobieren:
+`Web-Demo öffnen <webdemo/index.html>`_. Der Quellcode dazu liegt im
+Repository unter ``webdemo/``.
 
 Demo-Video
 ----------

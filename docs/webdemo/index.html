@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FlipFlapFlop – Virtuelle Flipdot-Anzeige</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #14161a;
+    --panel: #1d2025;
+    --border: #2c3038;
+    --text: #e6e6e6;
+    --muted: #9aa0a8;
+    --accent: #ffb703;
+    --dot-off: #23262b;
+    --dot-off-border: #33373f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 3rem;
+  }
+
+  header {
+    text-align: center;
+    max-width: 640px;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin: 0 0 .4rem;
+  }
+
+  header p {
+    color: var(--muted);
+    font-size: .9rem;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .layout {
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    width: 100%;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    align-items: flex-end;
+  }
+
+  .control {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    font-size: .85rem;
+  }
+
+  .control label {
+    color: var(--muted);
+  }
+
+  select, input[type=number] {
+    background: #101215;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: .4rem .5rem;
+    font-size: .9rem;
+  }
+
+  input[type=number] {
+    width: 5.5rem;
+  }
+
+  .custom-size {
+    display: none;
+    gap: .5rem;
+    align-items: center;
+  }
+
+  .custom-size.active {
+    display: flex;
+  }
+
+  button#toggle {
+    background: var(--accent);
+    color: #1a1200;
+    border: none;
+    border-radius: 6px;
+    padding: .5rem 1.4rem;
+    font-weight: 600;
+    font-size: .95rem;
+    cursor: pointer;
+  }
+
+  button#toggle:active {
+    transform: translateY(1px);
+  }
+
+  .fps-value {
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stage {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  canvas {
+    background: #000;
+    display: block;
+    border-radius: 6px;
+  }
+
+  .demo-desc {
+    font-size: .8rem;
+    color: var(--muted);
+    margin-top: .6rem;
+  }
+
+  footer {
+    margin-top: 1.5rem;
+    font-size: .8rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  footer a {
+    color: var(--accent);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>FlipFlapFlop &ndash; Virtuelle Flipdot-Anzeige</h1>
+  <p>
+    Diese Seite spielt Demos des
+    <a href="https://github.com/tbs1-bo/flipflapflop" style="color:var(--accent)">flipflapflop</a>-Projekts
+    auf einer virtuellen Flipdot-Anzeige ab &ndash; komplett im Browser, ohne Server
+    und ohne echte Hardware.
+  </p>
+</header>
+
+<div class="layout">
+
+  <div class="panel">
+    <div class="controls">
+
+      <div class="control">
+        <label for="size-select">Anzeigegröße</label>
+        <select id="size-select">
+          <option value="small">Klein (28&times;13)</option>
+          <option value="medium">Mittel (126&times;16)</option>
+          <option value="led">LED (120&times;7)</option>
+          <option value="custom">Benutzerdefiniert&hellip;</option>
+        </select>
+      </div>
+
+      <div class="control custom-size" id="custom-size">
+        <input type="number" id="custom-width" min="2" max="200" value="28"> &times;
+        <input type="number" id="custom-height" min="2" max="100" value="13">
+      </div>
+
+      <div class="control">
+        <label for="demo-select">Demo</label>
+        <select id="demo-select"></select>
+      </div>
+
+      <div class="control">
+        <label for="fps-range">Geschwindigkeit (<span class="fps-value" id="fps-value">30</span> fps)</label>
+        <input type="range" id="fps-range" min="1" max="60" value="30">
+      </div>
+
+      <div class="control">
+        <label>&nbsp;</label>
+        <button id="toggle">Start</button>
+      </div>
+
+    </div>
+    <p class="demo-desc" id="demo-desc"></p>
+  </div>
+
+  <div class="stage">
+    <canvas id="fdd"></canvas>
+  </div>
+
+</div>
+
+<footer>
+  Nachbildung der Demos aus <code>demos.py</code> in JavaScript &middot;
+  Quelle und echte Hardware-Ansteuerung im
+  <a href="https://github.com/tbs1-bo/flipflapflop">flipflapflop-Repository</a>
+</footer>
+
+<script>
+"use strict";
+
+/* ---- Demo-Implementierungen -------------------------------------------
+   Portiert aus demos.py. Jede Demo liefert ein Objekt mit
+     prepare()   – einmal pro Frame, darf internen Zustand veraendern
+     px(x, y)    – liefert true/false fuer den Pixel, darf keinen
+                   Zustand veraendern (Spiegelbild von handle_px)
+------------------------------------------------------------------------ */
+
+const DEMOS = {
+
+  plasma: {
+    label: "Plasma",
+    desc: "Plasma-Effekt aus ueberlagerten Sinus-/Kosinuskurven.",
+    create() {
+      let i = 0, s = 1;
+      return {
+        prepare() { i += 2; s = Math.sin(i / 50) * 2 + 6; },
+        px(x, y) {
+          const v = 0.3 + 0.3 * Math.sin(x * s + i / 4) * Math.cos(y * s + i / 4);
+          return v > 0.3;
+        }
+      };
+    }
+  },
+
+  moire: {
+    label: "Moire",
+    desc: "Zwei wandernde Kreismittelpunkte erzeugen ein Moire-Muster.",
+    create(width, height) {
+      return {
+        prepare() {},
+        px(x, y) {
+          const t = Date.now() / 1000;
+          const cx1 = Math.sin(t / 2) * width / 3 + width / 2;
+          const cy1 = Math.sin(t / 4) * height / 3 + height / 2;
+          const cx2 = Math.cos(t / 3) * width / 3 + width / 2;
+          const cy2 = Math.cos(t) * height / 3 + height / 2;
+
+          const dy = (y - cy1) * (y - cy1);
+          const dy2 = (y - cy2) * (y - cy2);
+          const dx = (x - cx1) * (x - cx1);
+          const dx2 = (x - cx2) * (x - cx2);
+
+          const rt1 = Math.floor(Math.sqrt(dx + dy));
+          const rt2 = Math.floor(Math.sqrt(dx2 + dy2));
+
+          const xor = rt1 ^ rt2;
+          return ((xor >> 2) & 1) === 0;
+        }
+      };
+    }
+  },
+
+  rotatingPlasma: {
+    label: "Rotating Plasma",
+    desc: "Plasma-Variante, die um das Zentrum zu rotieren scheint.",
+    create() {
+      let current = Date.now() / 1000;
+      return {
+        prepare() { current = Date.now() / 1000; },
+        px(x, y) {
+          let v = Math.sin(0.5 * x * Math.sin(current / 2) +
+                            0.5 * y * Math.cos(current / 3) + current);
+          v = (v + 1.0) / 2.0;
+          return v > 0.5;
+        }
+      };
+    }
+  },
+
+  swirl: {
+    label: "Swirl",
+    desc: "Rotierender Strudel um die Mitte der Anzeige.",
+    create(width, height) {
+      function swirlVal(x, y, step) {
+        x -= width / 2.0;
+        y -= height / 2.0;
+        const dist = Math.sqrt(x * x + y * y);
+        const angle = (step / 10.0) + dist / 1.5;
+        const s = Math.sin(angle), c = Math.cos(angle);
+        const xs = x * c - y * s;
+        const ys = x * s + y * c;
+        const r = Math.abs(xs + ys);
+        return Math.max(0.0, 0.7 - Math.min(1.0, r / 8.0));
+      }
+      let timestep = Math.sin(Date.now() / 1000 / 18) * 1500;
+      return {
+        prepare() { timestep = Math.sin(Date.now() / 1000 / 18) * 1500; },
+        px(x, y) { return swirlVal(x, y, timestep) > 0.2; }
+      };
+    }
+  },
+
+  pingpong: {
+    label: "PingPong",
+    desc: "Ein einzelner Punkt prallt an den Raendern der Anzeige ab.",
+    create(width, height) {
+      let vel = [1, 1];
+      let pos = [0, Math.floor(height / 2)];
+      return {
+        prepare() {
+          if (pos[0] + vel[0] > width || pos[0] + vel[0] < 0) vel[0] = -vel[0];
+          if (pos[1] + vel[1] > height || pos[1] + vel[1] < 0) vel[1] = -vel[1];
+          pos = [pos[0] + vel[0], pos[1] + vel[1]];
+        },
+        px(x, y) { return x === pos[0] && y === pos[1]; }
+      };
+    }
+  },
+
+  randomdot: {
+    label: "Random Dots",
+    desc: "Zufaellig ein-/ausgeschaltete Pixel.",
+    create() {
+      return { prepare() {}, px() { return Math.random() < 0.5; } };
+    }
+  },
+
+  gameoflife: {
+    label: "Game of Life",
+    desc: "Conway's Game of Life, startet mit einer zufaelligen Belegung.",
+    create(width, height) {
+      const MAX_ITERATIONS = 100;
+      let cells = new Set();
+      let iterations = 0;
+
+      const key = (x, y) => x + "," + y;
+
+      function neighbours(cx, cy) {
+        const res = [];
+        for (let i = -1; i <= 1; i++) {
+          for (let j = -1; j <= 1; j++) {
+            if (i !== 0 || j !== 0) res.push([cx + i, cy + j]);
+          }
+        }
+        return res;
+      }
+
+      function aliveNeighbours(cx, cy) {
+        let n = 0;
+        for (const [nx, ny] of neighbours(cx, cy)) {
+          if (cells.has(key(nx, ny))) n++;
+        }
+        return n;
+      }
+
+      function reset() {
+        cells = new Set();
+        iterations = 0;
+        const total = Math.floor(width * height / 2);
+        for (let i = 0; i < total; i++) {
+          const x = Math.floor(Math.random() * width);
+          const y = Math.floor(Math.random() * height);
+          cells.add(key(x, y));
+        }
+      }
+
+      function iterate() {
+        const newBoard = new Set();
+        for (const cellKey of cells) {
+          const [cx, cy] = cellKey.split(",").map(Number);
+          const alive = aliveNeighbours(cx, cy);
+          if (alive === 2 || alive === 3) newBoard.add(cellKey);
+          for (const [nx, ny] of neighbours(cx, cy)) {
+            if (aliveNeighbours(nx, ny) === 3) newBoard.add(key(nx, ny));
+          }
+        }
+        return newBoard;
+      }
+
+      reset();
+      return {
+        prepare() {
+          cells = iterate();
+          iterations++;
+          if (iterations > MAX_ITERATIONS) reset();
+        },
+        px(x, y) { return cells.has(key(x, y)); }
+      };
+    }
+  },
+
+  binaryclock: {
+    label: "Binary Clock",
+    desc: "Uhrzeit (Stunde/Minute/Sekunde) binaer, je eine Zeile pro Wert.",
+    create() {
+      const offset = [1, 1];
+      let pixels = [];
+
+      function addPixels(num, y, out) {
+        let x = offset[0];
+        const bits = num.toString(2).padStart(7, "0");
+        for (const c of bits) {
+          if (c === "1") out.push(x + "," + (offset[1] + y));
+          x++;
+        }
+      }
+
+      return {
+        prepare() {
+          const out = [];
+          const now = new Date();
+          [now.getHours(), now.getMinutes(), now.getSeconds()].forEach((t, i) => addPixels(t, i, out));
+          pixels = new Set(out);
+        },
+        px(x, y) { return pixels.has(x + "," + y); }
+      };
+    }
+  },
+
+  lines: {
+    label: "Lines",
+    desc: "Eine Linie laeuft abwechselnd horizontal und vertikal ueber die Anzeige.",
+    create(width, height) {
+      let t = 0;
+      let horizontal = true;
+      return {
+        prepare() {
+          t++;
+          const maxval = horizontal ? width : height;
+          if (t > maxval) { t = 0; horizontal = !horizontal; }
+        },
+        px(x, y) { return horizontal ? t === x : t === y; }
+      };
+    }
+  }
+
+};
+
+/* ---- UI / Rendering ---------------------------------------------------- */
+
+const SIZE_PRESETS = {
+  small:  { w: 28,  h: 13 },
+  medium: { w: 126, h: 16 },
+  led:    { w: 120, h: 7  },
+};
+
+const sizeSelect = document.getElementById("size-select");
+const customSize = document.getElementById("custom-size");
+const customWidth = document.getElementById("custom-width");
+const customHeight = document.getElementById("custom-height");
+const demoSelect = document.getElementById("demo-select");
+const demoDesc = document.getElementById("demo-desc");
+const fpsRange = document.getElementById("fps-range");
+const fpsValue = document.getElementById("fps-value");
+const toggleBtn = document.getElementById("toggle");
+const stage = document.querySelector(".stage");
+const canvas = document.getElementById("fdd");
+const ctx = canvas.getContext("2d");
+
+for (const [key, demo] of Object.entries(DEMOS)) {
+  const opt = document.createElement("option");
+  opt.value = key;
+  opt.textContent = demo.label;
+  demoSelect.appendChild(opt);
+}
+
+let width = SIZE_PRESETS.small.w;
+let height = SIZE_PRESETS.small.h;
+let demoInstance = null;
+let running = false;
+let lastFrameTime = 0;
+let fps = parseInt(fpsRange.value, 10);
+
+function currentDemoKey() {
+  return demoSelect.value;
+}
+
+function createDemo() {
+  demoInstance = DEMOS[currentDemoKey()].create(width, height);
+  demoDesc.textContent = DEMOS[currentDemoKey()].desc;
+}
+
+function resizeCanvas() {
+  const available = Math.min(stage.clientWidth - 32, 900);
+  let cell = Math.floor(available / width);
+  cell = Math.max(4, Math.min(cell, 26));
+  canvas.width = cell * width;
+  canvas.height = cell * height;
+  canvas.dataset.cell = cell;
+}
+
+function render() {
+  const cell = Number(canvas.dataset.cell) || 10;
+  ctx.fillStyle = "#000";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const r = cell * 0.42;
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const on = demoInstance.px(x, y);
+      const cx = x * cell + cell / 2;
+      const cy = y * cell + cell / 2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      if (on) {
+        ctx.fillStyle = "#ffb703";
+      } else {
+        ctx.fillStyle = "#23262b";
+      }
+      ctx.fill();
+    }
+  }
+}
+
+function applySize() {
+  if (sizeSelect.value === "custom") {
+    width = Math.max(2, parseInt(customWidth.value, 10) || 28);
+    height = Math.max(2, parseInt(customHeight.value, 10) || 13);
+  } else {
+    const preset = SIZE_PRESETS[sizeSelect.value];
+    width = preset.w;
+    height = preset.h;
+  }
+  resizeCanvas();
+  createDemo();
+  render();
+}
+
+sizeSelect.addEventListener("change", () => {
+  customSize.classList.toggle("active", sizeSelect.value === "custom");
+  applySize();
+});
+
+customWidth.addEventListener("change", applySize);
+customHeight.addEventListener("change", applySize);
+
+demoSelect.addEventListener("change", () => {
+  createDemo();
+  render();
+});
+
+fpsRange.addEventListener("input", () => {
+  fps = parseInt(fpsRange.value, 10);
+  fpsValue.textContent = fps;
+});
+
+toggleBtn.addEventListener("click", () => {
+  running = !running;
+  toggleBtn.textContent = running ? "Pause" : "Start";
+});
+
+window.addEventListener("resize", () => {
+  resizeCanvas();
+  render();
+});
+
+function loop(ts) {
+  if (running) {
+    const interval = 1000 / fps;
+    if (ts - lastFrameTime >= interval) {
+      lastFrameTime = ts;
+      demoInstance.prepare();
+      render();
+    }
+  }
+  requestAnimationFrame(loop);
+}
+
+applySize();
+requestAnimationFrame(loop);
+</script>
+
+</body>
+</html>

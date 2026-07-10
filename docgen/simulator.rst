@@ -69,3 +69,13 @@ pyxel must be installed.::
    :members:
    :undoc-members:
    :exclude-members: test_flipdot_sim, main
+
+Simulator (browser version)
+----------------------------
+
+Without installing anything, a subset of the demos can be run directly in
+the browser on a virtual display: `open the web demo <webdemo/index.html>`_.
+It is a self-contained, static HTML/JS reimplementation of the simpler,
+purely pixel-based demos from ``demos.py`` (Plasma, Moire, Swirl, PingPong,
+Game of Life, Binary Clock, Lines, ...). The source is in the repository
+under ``webdemo/``.
