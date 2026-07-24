@@ -11,7 +11,11 @@ import configuration
 DEVICE = configuration.flipdotdisplay["serialdevice"]
 BAUD = configuration.flipdotdisplay["serialbaudrate"]
 
-# TODO handle serial errors
+# Errors raised by pyserial when the connection is lost (cable unplugged,
+# arduino reset, ...). Caught around every write/read so a lost connection
+# does not permanently kill whatever thread is driving the display.
+SERIAL_ERRORS = (serial.SerialException, OSError)
+
 
 class SerialDisplay(displayprovider.DisplayBase):
     """
@@ -48,12 +52,56 @@ class SerialDisplay(displayprovider.DisplayBase):
         assert width < 128 and height < 128, "Serial display dimension is too big!"
         super().__init__(width, height)
         # TODO add support for auto configuring dimensions
-        print('open serial device', serial_device, "Baudrate", baud)      
-        self.ser = serial.serial_for_url(serial_device, baudrate=baud, timeout=1)
-        self.buffered = buffered        
+        self.serial_device = serial_device
+        self.baud = baud
+        self._open_serial()
+        self.buffered = buffered
         self.buffer = [False] * (width * height)
         if not self.display_available():
             print("WARNING: display not answering on echo message!")
+
+    def _open_serial(self):
+        'Open (or reopen) the configured serial device.'
+        print('open serial device', self.serial_device, "Baudrate", self.baud)
+        self.ser = serial.serial_for_url(self.serial_device, baudrate=self.baud, timeout=1)
+
+    def _reconnect(self):
+        'Try to close and reopen the serial connection after an error.'
+        try:
+            self.ser.close()
+        except Exception:
+            pass
+        try:
+            self._open_serial()
+            return True
+        except Exception as e:
+            print("WARNING: reconnect to", self.serial_device, "failed:", e)
+            return False
+
+    def _safe_write(self, data):
+        'Write bytes to the serial device, reconnecting once on failure.'
+        try:
+            self.ser.write(data)
+        except SERIAL_ERRORS as e:
+            print("WARNING: serial write failed:", e)
+            if self._reconnect():
+                try:
+                    self.ser.write(data)
+                except SERIAL_ERRORS as e2:
+                    print("WARNING: serial write failed after reconnect:", e2)
+
+    def _safe_read(self, size):
+        'Read bytes from the serial device, reconnecting once on failure.'
+        try:
+            return self.ser.read(size)
+        except SERIAL_ERRORS as e:
+            print("WARNING: serial read failed:", e)
+            if self._reconnect():
+                try:
+                    return self.ser.read(size)
+                except SERIAL_ERRORS as e2:
+                    print("WARNING: serial read failed after reconnect:", e2)
+            return b""
 
     def led(self, on_off):
         'Turn LED of the display on or off'
@@ -63,7 +111,7 @@ class SerialDisplay(displayprovider.DisplayBase):
         else:
             bs = [SerialDisplay.LED_BRIGTHNESS, 0]
 
-        self.ser.write(bs)
+        self._safe_write(bytes(bs))
 
     def px(self, x, y, val):
         assert 0 <= x < self.width
@@ -80,7 +128,7 @@ class SerialDisplay(displayprovider.DisplayBase):
             self.buffer[index] = val
             bs = [SerialDisplay.PXSET if val else SerialDisplay.PXRESET, x, y]
             #print("sending px",bs)
-            self.ser.write(bytes(bs))
+            self._safe_write(bytes(bs))
 
     def show(self):
         'Send the content of the buffer to the display using serial interface.'
@@ -101,12 +149,12 @@ class SerialDisplay(displayprovider.DisplayBase):
             byte += '0' * (8 - len(byte))
             byte_sequence.append(int(byte, base=2))
    
-        self.ser.write(bytes(byte_sequence))
-    
+        self._safe_write(bytes(byte_sequence))
+
     def display_available(self):
         test_byte = 42
-        self.ser.write(bytes([SerialDisplay.ECHO, test_byte]))
-        bs = self.ser.read(2)
+        self._safe_write(bytes([SerialDisplay.ECHO, test_byte]))
+        bs = self._safe_read(2)
         # TODO firmware should not return a string
         try:
             return len(bs) == 2 and str(bs, encoding="UTF8") == str(test_byte)

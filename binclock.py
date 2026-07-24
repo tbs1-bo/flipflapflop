@@ -27,20 +27,25 @@ class BinClock:
 
         while runtime==0 or time.time() - start_time < runtime:
             if self.visible:
-                t = time.localtime()
-                ihour = t[3]
-                imin = t[4]
-                isec = t[5]
-                bhour = bin(ihour+64)[3:]
-                bmin = bin(imin+64)[3:]
-                bsec = bin(isec+64)[3:]
-                self.clear()
-                for x in range(6):
-                    self.digit(bhour[x], x, 0)
-                    self.digit(bmin[x], x, 1)
-                    # self.digit(bsec[x], x, 2)
-                self.draw_seconds_bar(isec, imin)
-                self.fdd.show()
+                try:
+                    t = time.localtime()
+                    ihour = t[3]
+                    imin = t[4]
+                    isec = t[5]
+                    bhour = bin(ihour+64)[3:]
+                    bmin = bin(imin+64)[3:]
+                    bsec = bin(isec+64)[3:]
+                    self.clear()
+                    for x in range(6):
+                        self.digit(bhour[x], x, 0)
+                        self.digit(bmin[x], x, 1)
+                        # self.digit(bsec[x], x, 2)
+                    self.draw_seconds_bar(isec, imin)
+                    self.fdd.show()
+                except Exception as e:
+                    # keep the clock thread alive even if a single update
+                    # to the display fails (e.g. lost serial connection).
+                    print("WARNING: clock update failed:", e)
             time.sleep(0.2)
 
     def draw_seconds_bar(self, seconds, minutes):
