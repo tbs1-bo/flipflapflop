@@ -72,6 +72,12 @@ in ``docgen/_build/html``. It will automaticall be copied to ``docs``.
 After pushing to github it will be available 
 `there <https://tbs1-bo.github.io/flipflapflop/>`_.
 
+Code Conventions
+----------------
+
+Open tasks in the code are marked with ``#TODO``, known problems with
+``#FIXME``, and deliberate unclean workarounds with ``#HACK``.
+
 Class Diagram
 -------------
 
