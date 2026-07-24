@@ -45,7 +45,7 @@ class DisplayServer:
         >>> th = threading.Thread(target=ds.start)
         >>> th.setDaemon(True)
         >>> th.start()
-        Starting server for dimension 4 x 3 on 0.0.0.0 at port 10101
+        Starting display server for dimension 4 x 3 on 0.0.0.0 at port 10101
 
     Now we can start a client and send some pixels to the server.
 
@@ -55,8 +55,15 @@ class DisplayServer:
         >>> cl.px(2, 3, True)
         >>> cl.show()
         Listening on 0.0.0.0 at port 10101
+        ....
+        ....
+        ....
 
-    The output lines after show() are coming from the server.
+    The output lines after show() are coming from the server: once it has
+    processed the request it prints its 4x3 display (unchanged here, since
+    the client and server displays differ in size). Because show() waits for
+    the server's acknowledgement before returning, this output is guaranteed
+    to have been printed already.
 
     """
     def __init__(self, display):
@@ -139,6 +146,10 @@ class RemoteDisplay(displayprovider.DisplayBase):
             sock.connect((self.host, self.port))
             payload = self._buffer_to_payload()
             sock.sendall(payload)
+            # Wait for the server's acknowledgement, bounded so a server-side
+            # error (which leaves the request unanswered) can't hang show() forever.
+            sock.settimeout(5)
+            sock.recv(1024)
 
     def _buffer_to_payload(self):
         payload = ""
