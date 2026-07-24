@@ -30,7 +30,8 @@ jobs:
         poetry update
     - name: Install apt packages
       run: |
-        sudo apt install mosquitto libsdl2-dev
+        sudo apt-get update
+        sudo apt-get install mosquitto libsdl2-dev
     - name: Run tests
       run: |
         poetry run ./tests.sh
