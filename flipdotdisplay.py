@@ -147,4 +147,3 @@ class FlipDotDisplay(displayprovider.DisplayBase):
 
     def led(self, on_off):
         pass
-        # TODO led support for flipdotdisplay - or not?
