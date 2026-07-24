@@ -78,9 +78,9 @@ class FlipDotSim(displayprovider.DisplayBase):
         pygame.quit()
 
     def led(self, on_off):
-        'does nothing'
-        # TODO led support for simulator #10
-        pass
+        'Reflect the LED state in the simulator window title.'
+        state = "ON" if on_off else "OFF"
+        pygame.display.set_caption(f"FlipDot Simulator - LED: {state}")
 
 
 def test_flipdot_sim():
