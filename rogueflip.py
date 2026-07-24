@@ -84,17 +84,6 @@ class Game:
 
         self.fdd.show()
 
-    def __handle_px(self, x, y): # TODO unused -> remove
-        x_, y_ = self.window_top_left[0] + x, self.window_top_left[1] + y
-        if self.player.pos == [x_, y_]:
-            return self.player.draw()
-
-        for coin in self.coins:
-            if coin.pos == [x_, y_]:
-                return coin.draw()
-
-        return self.world.is_wall(x_, y_)
-
     def update(self):
         self.handle_input()
         if self.game_paused:
