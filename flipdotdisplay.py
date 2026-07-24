@@ -135,7 +135,7 @@ class FlipDotDisplay(displayprovider.DisplayBase):
                     a = a + 0b10000000
                 else:
                     a = a + 0b01100000
-                try:  # TODO Remove this hack
+                try:  # WONT FIX (deprecated class) Remove this hack
                     self.ioexp.write_value('A', a)
                 except OSError:
                     print("OSError during write to IOExpander")
