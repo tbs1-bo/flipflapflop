@@ -124,7 +124,7 @@
 <span class="sd">        &gt;&gt;&gt; th = threading.Thread(target=ds.start)</span>
 <span class="sd">        &gt;&gt;&gt; th.setDaemon(True)</span>
 <span class="sd">        &gt;&gt;&gt; th.start()</span>
-<span class="sd">        Starting server for dimension 4 x 3 on 0.0.0.0 at port 10101</span>
+<span class="sd">        Starting display server for dimension 4 x 3 on 0.0.0.0 at port 10101</span>
 
 <span class="sd">    Now we can start a client and send some pixels to the server.</span>
 
@@ -134,8 +134,15 @@
 <span class="sd">        &gt;&gt;&gt; cl.px(2, 3, True)</span>
 <span class="sd">        &gt;&gt;&gt; cl.show()</span>
 <span class="sd">        Listening on 0.0.0.0 at port 10101</span>
+<span class="sd">        ....</span>
+<span class="sd">        ....</span>
+<span class="sd">        ....</span>
 
-<span class="sd">    The output lines after show() are coming from the server.</span>
+<span class="sd">    The output lines after show() are coming from the server: once it has</span>
+<span class="sd">    processed the request it prints its 4x3 display (unchanged here, since</span>
+<span class="sd">    the client and server displays differ in size). Because show() waits for</span>
+<span class="sd">    the server&#39;s acknowledgement before returning, this output is guaranteed</span>
+<span class="sd">    to have been printed already.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display</span><span class="p">):</span>
@@ -231,7 +238,11 @@
         <span class="k">with</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span> <span class="k">as</span> <span class="n">sock</span><span class="p">:</span>
             <span class="n">sock</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">))</span>
             <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_to_payload</span><span class="p">()</span>
-            <span class="n">sock</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span></div>
+            <span class="n">sock</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+            <span class="c1"># Wait for the server&#39;s acknowledgement, bounded so a server-side</span>
+            <span class="c1"># error (which leaves the request unanswered) can&#39;t hang show() forever.</span>
+            <span class="n">sock</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">sock</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_buffer_to_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

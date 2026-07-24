@@ -131,7 +131,7 @@ started directly.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">th</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">th</span><span class="o">.</span><span class="n">setDaemon</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">th</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-<span class="go">Starting server for dimension 4 x 3 on 0.0.0.0 at port 10101</span>
+<span class="go">Starting display server for dimension 4 x 3 on 0.0.0.0 at port 10101</span>
 </pre></div>
 </div>
 <p>Now we can start a client and send some pixels to the server.</p>
@@ -141,9 +141,16 @@ started directly.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cl</span><span class="o">.</span><span class="n">px</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="go">Listening on 0.0.0.0 at port 10101</span>
+<span class="go">....</span>
+<span class="go">....</span>
+<span class="go">....</span>
 </pre></div>
 </div>
-<p>The output lines after show() are coming from the server.</p>
+<p>The output lines after show() are coming from the server: once it has
+processed the request it prints its 4x3 display (unchanged here, since
+the client and server displays differ in size). Because show() waits for
+the server’s acknowledgement before returning, this output is guaranteed
+to have been printed already.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="net.DisplayServer.handle_request">
 <span class="sig-name descname"><span class="pre">handle_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/net.html#DisplayServer.handle_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#net.DisplayServer.handle_request" title="Link to this definition"></a></dt>
