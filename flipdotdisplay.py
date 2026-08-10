@@ -1,5 +1,5 @@
 """
-ATTENTION: The following implementation of a flipdotdisplay was the first 
+DEPRECATED: The following implementation of a flipdotdisplay was the first 
 attempt that used a portexpander to control the display. It was replaced by a 
 arduino based solution that is more reliable and faster. The code is still here 
 for reference but is no longer supported.
