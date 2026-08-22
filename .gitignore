@@ -32,8 +32,6 @@ godot_client/export/
 ressources/gamejamdo_2020-05/iidir/
 ressources/gamejamdo_2020-05/ii/
 
-poetry.lock
-
 # test cache
 .pytest_cache/
 
