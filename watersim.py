@@ -143,8 +143,8 @@ class WaterSim:
     """
 
     FILL_LEVEL = 0.4
-    GRAVITY = 40.0
-    WIND_ACCEL = 30.0
+    GRAVITY = 60.0      # default: 40
+    WIND_ACCEL = 80.0   # default: 30
     WIND_WAVE_LENGTH = 10.0
     PARTICLE_RADIUS = 0.3
     FLIP_RATIO = 0.9
