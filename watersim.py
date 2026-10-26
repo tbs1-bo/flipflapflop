@@ -28,7 +28,13 @@ class ForceSource:
 
 class GustForce(ForceSource):
     """Random gusts: calm phases alternate with gusts of random direction
-    and strength that swell and subside smoothly."""
+    and strength that swell and subside smoothly.
+
+    calm: range (min, max) of the duration of calm phases in seconds.
+    gust: range (min, max) of the duration of a gust in seconds.
+    strength: range (min, max) of the peak strength of a gust (0..1).
+        The direction is chosen randomly.
+    """
 
     def __init__(self, calm=(1.0, 4.0), gust=(1.0, 3.0), strength=(0.4, 1.0)):
         self.calm = calm
@@ -59,18 +65,68 @@ class WaterSim:
     """FLIP water simulation in a closed basin. Particles carry the water,
     a staggered grid with one cell per display pixel makes the water
     incompressible. All lengths are measured in cells (pixels), time in
-    seconds. y points upwards in the simulation."""
+    seconds. y points upwards in the simulation.
 
-    FILL_LEVEL = 0.4         # initial water level relative to display height
+    Arguments:
+
+    fdd: the display to draw on.
+    force_source: ForceSource providing the wind (default: GustForce).
+    fps: frame rate of the display. The speed of the simulation does not
+        depend on it.
+
+    Water and motion:
+
+    FILL_LEVEL: initial water level relative to the display height.
+    GRAVITY: gravity in pixels/s². Sets the pace of the whole simulation:
+        higher means fast, restless sloshing, lower means slow motion.
+        Keep it rather low for the slow mechanics of flipdots.
+    FLIP_RATIO: blend of two methods. 0: pure PIC, viscous like honey,
+        waves die out quickly. 1: pure FLIP, very lively but the water
+        jitters. 0.9 is the value used in Ten Minute Physics.
+
+    Wind:
+
+    WIND_ACCEL: acceleration of the surface particles at full wind
+        (force ±1). Close to GRAVITY gives strong splashes, much lower
+        only waves.
+    WIND_WAVE_LENGTH: distance in pixels between the spots where the wind
+        blows stronger. The uneven wind creates waves: smaller values give
+        short choppy waves, larger values a long swell.
+
+    Numerics (accuracy versus computing time):
+
+    PARTICLE_RADIUS: particle radius in cells, determines the number of
+        particles. Smaller gives more particles, a denser water body and
+        more computing time. Larger gives fewer particles and more holes.
+    PRESSURE_ITERS: iterations of the pressure solver per step, which keeps
+        the water incompressible. Fewer is faster (first thing to reduce
+        on a Raspberry Pi) but the water gets a bit mushy.
+    OVER_RELAXATION: speeds up the pressure solver. Valid range 1..2;
+        below 1.5 it converges slowly, 2 and above it becomes unstable.
+    PUSH_ITERS: how often per step overlapping particles are pushed apart.
+        More gives an even distribution and less flickering in the water.
+    MAX_PER_CELL: maximum number of particles per cell considered when
+        searching neighbours. A technical limit for the numpy arrays,
+        usually left unchanged.
+    SUBSTEP: length of one simulation step (4 steps per frame at 10 fps).
+        Smaller is more stable in strong wind but costs computing time.
+        Larger is faster but particles may tunnel through the water.
+
+    Tuning hints: for calmer motion lower GRAVITY and WIND_ACCEL together,
+    for more splashes raise WIND_ACCEL. If the Raspberry Pi is too slow,
+    first lower PRESSURE_ITERS to 15-20, then raise SUBSTEP to 1/30.
+    """
+
+    FILL_LEVEL = 0.4
     GRAVITY = 40.0
-    WIND_ACCEL = 30.0        # acceleration of surface particles at full wind
-    WIND_WAVE_LENGTH = 10.0  # wind is not uniform, this creates waves
+    WIND_ACCEL = 30.0
+    WIND_WAVE_LENGTH = 10.0
     PARTICLE_RADIUS = 0.3
-    FLIP_RATIO = 0.9         # 0: PIC (viscous), 1: FLIP (lively, noisy)
+    FLIP_RATIO = 0.9
     PRESSURE_ITERS = 30
     OVER_RELAXATION = 1.9
     PUSH_ITERS = 2
-    MAX_PER_CELL = 8         # particles per hash cell considered for pushing
+    MAX_PER_CELL = 8
     SUBSTEP = 1 / 40
 
     def __init__(self, fdd, force_source=None, fps=10):
