@@ -26,6 +26,31 @@ class ForceSource:
         return 0.0
 
 
+class ConstantForce(ForceSource):
+    "Constant wind, mainly for testing."
+
+    def __init__(self, force):
+        self.force = force
+
+    def get_force(self, t):
+        return self.force
+
+
+class MouseForce(ForceSource):
+    """Wind controlled by the mouse in the pygame simulator window. While a
+    mouse button is pressed, the wind blows away from the cursor: the
+    closer the cursor is to the left or right edge, the stronger the wind."""
+
+    def get_force(self, t):
+        import pygame
+        surface = pygame.display.get_surface()
+        if surface is None or not any(pygame.mouse.get_pressed()):
+            return 0.0
+        half = surface.get_width() / 2
+        x, _y = pygame.mouse.get_pos()
+        return max(-1.0, min(1.0, (half - x) / half))
+
+
 class GustForce(ForceSource):
     """Random gusts: calm phases alternate with gusts of random direction
     and strength that swell and subside smoothly.
@@ -368,31 +393,6 @@ class WaterSim:
             delay = 1 / self.fps - (time.time() - frame_start)
             if delay > 0:
                 time.sleep(delay)
-
-
-class ConstantForce(ForceSource):
-    "Constant wind, mainly for testing."
-
-    def __init__(self, force):
-        self.force = force
-
-    def get_force(self, t):
-        return self.force
-
-
-class MouseForce(ForceSource):
-    """Wind controlled by the mouse in the pygame simulator window. While a
-    mouse button is pressed, the wind blows away from the cursor: the
-    closer the cursor is to the left or right edge, the stronger the wind."""
-
-    def get_force(self, t):
-        import pygame
-        surface = pygame.display.get_surface()
-        if surface is None or not any(pygame.mouse.get_pressed()):
-            return 0.0
-        half = surface.get_width() / 2
-        x, _y = pygame.mouse.get_pos()
-        return max(-1.0, min(1.0, (half - x) / half))
 
 
 def test_particles_stay_inside():
