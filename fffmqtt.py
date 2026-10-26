@@ -81,16 +81,16 @@ class MqttDisplay(displayprovider.DisplayBase):
     A Display that sends all data into a topic of an MQTT broker.
 
     >>> import fffmqtt
-    >>> fdd = fffmqtt.MqttDisplay(width=2,height=3, 
+    >>> fdd = fffmqtt.MqttDisplay(width=2,height=3,  # doctest: +SKIP
     ...     broker='test.mosquitto.org', topic='display')
     connecting to broker test.mosquitto.org
 
-    >>> fdd.clear()
-    >>> fdd.px(1,1,True)
+    >>> fdd.clear()  # doctest: +SKIP
+    >>> fdd.px(1,1,True)  # doctest: +SKIP
 
     The next line finally sends all data to the topic inside the broker.
 
-    >>> fdd.show()
+    >>> fdd.show()  # doctest: +SKIP
     '''
     def __init__(self, width, height, broker, topic):
         '''A display that connects to a broker and publishes pixel data
