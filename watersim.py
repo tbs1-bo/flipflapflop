@@ -25,7 +25,7 @@ class ForceSource:
     A sensor can be attached by implementing get_force()."""
 
     def get_force(self, t):
-        "Return the wind force at time t (in seconds)."
+        "Return the wind force at simulation time t (in seconds)."
         return 0.0
 
 
@@ -100,7 +100,8 @@ class WaterSim:
     fdd: the display to draw on.
     force_source: ForceSource providing the wind (default: GustForce).
     fps: frame rate of the display. The speed of the simulation does not
-        depend on it.
+        depend on it, as long as the computation keeps up with real time.
+        Otherwise water and wind run equally in slow motion.
 
     Water and motion:
 
@@ -381,7 +382,7 @@ class WaterSim:
 
     def one_cycle(self):
         "Simulate and draw one frame."
-        force = self.force_source.get_force(time.time())
+        force = self.force_source.get_force(self.t)
         steps = max(1, round(1 / self.fps / self.SUBSTEP))
         for _ in range(steps):
             self.step(1 / self.fps / steps, force)
