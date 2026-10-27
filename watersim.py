@@ -8,6 +8,9 @@ https://matthias-research.github.io/pages/tenMinutePhysics/
 
 The wind is provided by a ForceSource. By default random gusts are used.
 Start with --mouse to blow with the mouse in the simulator window.
+
+Demo: https://tube.tchncs.de/w/hSJ98E9Snyfzgvqm8XURpL or
+https://youtu.be/3KN7t8kdw9g
 """
 import math
 import random
