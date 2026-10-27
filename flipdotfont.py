@@ -126,7 +126,6 @@ def test_text_scroller():
 def demo_text_lower():
     print("starting text scoller")
     import displayprovider
-    import time
     fdd = displayprovider.get_display()
     print("using display", fdd)
     txt = TextScroller(fdd, "", small_font())

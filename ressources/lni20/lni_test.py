@@ -1,5 +1,5 @@
 from urllib.request import urlopen
-from time import sleep, time
+from time import sleep
 
 API = 'http://flipflapflop.online/page'
 width, height = 28, 13

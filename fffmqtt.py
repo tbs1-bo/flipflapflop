@@ -218,7 +218,6 @@ def discover_mqtt_broker(timeout=5):
 
     # https://github.com/jstasiak/python-zeroconf/blob/master/README.rst
     from zeroconf import ServiceBrowser, Zeroconf
-    import zeroconf
 
     # helper class
     class OneServiceFinder:

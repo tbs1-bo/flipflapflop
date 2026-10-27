@@ -2358,7 +2358,7 @@ version = "3.32"
 description = "Loads tiled tmx maps"
 optional = false
 python-versions = ">=3.7"
-groups = ["main", "dev"]
+groups = ["main"]
 files = [
     {file = "PyTMX-3.32-py3-none-any.whl", hash = "sha256:4da4c01133dfcb2746cb4e7f46ea1aef21d56119ab044f8f77b9906dea5fbccb"},
     {file = "PyTMX-3.32.tar.gz", hash = "sha256:858fd8338f8e7de0e7967604f008022c26735ab98780b2c5d94d2e2c2f5809ca"},
@@ -3556,4 +3556,4 @@ ifaddr = ">=0.1.7"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.14"
-content-hash = "ca1ee80de339bea7a3336fd521bae807b9b76394e9997efa62638547ac3c2c22"
+content-hash = "4a5391165874f09343092bae269cacc5a5fa68d2c350448f58e1da9981d2b963"
