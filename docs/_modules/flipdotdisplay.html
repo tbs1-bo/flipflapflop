@@ -75,8 +75,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for flipdotdisplay</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">ATTENTION: The following implementation of a flipdotdisplay was the first </span>
+<span></span><span class="sd">"""</span>
+<span class="sd">DEPRECATED: The following implementation of a flipdotdisplay was the first </span>
 <span class="sd">attempt that used a portexpander to control the display. It was replaced by a </span>
 <span class="sd">arduino based solution that is more reliable and faster. The code is still here </span>
 <span class="sd">for reference but is no longer supported.</span>
@@ -113,7 +113,7 @@
 
 <span class="sd">A list of default GPIO pins for the modules is 14, 15, 18, 23, 24.</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">RPi.GPIO</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">GPIO</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">MCP23017</span>
@@ -127,9 +127,9 @@
 <div class="viewcode-block" id="FlipDotDisplay.__init__">
 <a class="viewcode-back" href="../fdd.html#flipdotdisplay.FlipDotDisplay.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span> <span class="o">=</span> <span class="mh">0x20</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">module</span> <span class="o">=</span> <span class="p">[</span><span class="mi">18</span><span class="p">]):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a display connected via a port expander on the given </span>
+<span class="w">        </span><span class="sd">"""Create a display connected via a port expander on the given </span>
 <span class="sd">        I²C-address. The given module list contains GPIO-ports that connect</span>
-<span class="sd">        the RaspberryPi with the the module in the display.&quot;&quot;&quot;</span>
+<span class="sd">        the RaspberryPi with the the module in the display."""</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
         <span class="n">GPIO</span><span class="o">.</span><span class="n">setmode</span><span class="p">(</span><span class="n">GPIO</span><span class="o">.</span><span class="n">BCM</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">module</span><span class="p">:</span>
@@ -137,10 +137,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">pulsewidth</span> <span class="o">=</span> <span class="mf">0.0001</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">module</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span> <span class="o">=</span> <span class="n">MCP23017</span><span class="o">.</span><span class="n">Portexpander</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">config_inout</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mb">0b00000000</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">config_inout</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mb">0b11100000</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">config_inout</span><span class="p">(</span><span class="s1">'A'</span><span class="p">,</span> <span class="mb">0b00000000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">config_inout</span><span class="p">(</span><span class="s1">'B'</span><span class="p">,</span> <span class="mb">0b11100000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">'A'</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">'B'</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">oldbuffer</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
@@ -153,9 +153,9 @@
 <div class="viewcode-block" id="FlipDotDisplay.px">
 <a class="viewcode-back" href="../fdd.html#flipdotdisplay.FlipDotDisplay.px">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">px</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Write a pixel at (x|y) into the buffer.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
         <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span></div>
@@ -164,48 +164,48 @@
 <div class="viewcode-block" id="FlipDotDisplay.flipdot">
 <a class="viewcode-back" href="../fdd.html#flipdotdisplay.FlipDotDisplay.flipdot">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">flipdot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Immediately flip the dot at (x|y) to the given value.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Immediately flip the dot at (x|y) to the given value."""</span>
         <span class="n">mod</span> <span class="o">=</span> <span class="n">x</span> <span class="o">//</span> <span class="mi">28</span>                   <span class="c1"># module number</span>
         <span class="n">col</span> <span class="o">=</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">28</span>                    <span class="c1"># column of current module</span>
         <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">//</span><span class="mi">7</span><span class="o">&lt;&lt;</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="o">%</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">1</span>         <span class="c1"># address of row (y) -&gt; bank A of I/O-Expander</span>
         <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">col</span><span class="o">//</span><span class="mi">7</span><span class="o">&lt;&lt;</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">col</span><span class="o">%</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">1</span>     <span class="c1"># address of column  -&gt; bank B of I/O-Expander</span>
         <span class="k">if</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
             <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mb">0b10000000</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">'A'</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">'B'</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mb">0b01100000</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">'A'</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">'B'</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
         <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">[</span><span class="n">mod</span><span class="p">],</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">HIGH</span><span class="p">)</span>    <span class="c1"># create a short pulse to enable module</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pulsewidth</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">'A'</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">)</span>
         <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">[</span><span class="n">mod</span><span class="p">],</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">LOW</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="FlipDotDisplay.printbuffer">
 <a class="viewcode-back" href="../fdd.html#flipdotdisplay.FlipDotDisplay.printbuffer">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">printbuffer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Print the buffer onto the terminal.</span>
-<span class="sd">        &quot;&quot;&quot;</span> 
+<span class="sd">        """</span> 
         <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">"O"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="FlipDotDisplay.show_deprecated">
 <a class="viewcode-back" href="../fdd.html#flipdotdisplay.FlipDotDisplay.show_deprecated">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">show_deprecated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fullbuffer</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Show the current buffer on the flip dot display.</span>
 <span class="sd">        Set the fullbuffer-flag to show the whole buffer on the display and </span>
 <span class="sd">        not only the changes.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1">#self.printbuffer()</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
@@ -217,28 +217,28 @@
 <div class="viewcode-block" id="FlipDotDisplay.show">
 <a class="viewcode-back" href="../fdd.html#flipdotdisplay.FlipDotDisplay.show">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Maybe a bit faster than show(True)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
             <span class="n">mod</span> <span class="o">=</span> <span class="n">x</span> <span class="o">//</span> <span class="mi">28</span>
             <span class="n">col</span> <span class="o">=</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">28</span>
             <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">col</span><span class="o">//</span><span class="mi">7</span><span class="o">&lt;&lt;</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">col</span><span class="o">%</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">'B'</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
                 <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">//</span><span class="mi">7</span><span class="o">&lt;&lt;</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="o">%</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">1</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]:</span>
                     <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mb">0b10000000</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mb">0b01100000</span>
-                <span class="k">try</span><span class="p">:</span>  <span class="c1"># TODO Remove this hack</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>  <span class="c1"># WONT FIX (deprecated class) Remove this hack</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ioexp</span><span class="o">.</span><span class="n">write_value</span><span class="p">(</span><span class="s1">'A'</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;OSError during write to IOExpander&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">"OSError during write to IOExpander"</span><span class="p">)</span>
 
                 <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">[</span><span class="n">mod</span><span class="p">],</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">HIGH</span><span class="p">)</span>
                 <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pulsewidth</span><span class="p">)</span>
-                <span class="c1">#self.ioexp.write_value(&#39;A&#39;, 0x00)</span>
+                <span class="c1">#self.ioexp.write_value('A', 0x00)</span>
                 <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">[</span><span class="n">mod</span><span class="p">],</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">LOW</span><span class="p">)</span></div>
 
 
@@ -248,7 +248,6 @@
         <span class="k">pass</span></div>
 </div>
 
-        <span class="c1"># TODO led support for flipdotdisplay - or not?</span>
 </pre></div>
 
            </div>

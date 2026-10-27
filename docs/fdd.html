@@ -54,8 +54,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.PICTURE"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.PICTURE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.PXRESET"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.PXRESET</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.PXSET"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.PXSET</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.__annotate_func__"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.__annotate_func__</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.__annotations_cache__"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.__annotations_cache__</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.__firstlineno__"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.__firstlineno__</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.__init__"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fffserial.SerialDisplay.__module__"><code class="docutils literal notranslate"><span class="pre">SerialDisplay.__module__</span></code></a></li>
@@ -71,8 +69,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-flipdotdisplay">Module <code class="docutils literal notranslate"><span class="pre">flipdotdisplay</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.__annotate_func__"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.__annotate_func__</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.__annotations_cache__"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.__annotations_cache__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.__annotations__"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.__annotations__</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.__firstlineno__"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.__firstlineno__</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.__init__"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.__module__"><code class="docutils literal notranslate"><span class="pre">FlipDotDisplay.__module__</span></code></a></li>
@@ -210,18 +207,8 @@ bytes are the command parameters.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="fffserial.SerialDisplay.__annotate_func__">
-<span class="sig-name descname"><span class="pre">__annotate_func__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#fffserial.SerialDisplay.__annotate_func__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="fffserial.SerialDisplay.__annotations_cache__">
-<span class="sig-name descname"><span class="pre">__annotations_cache__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#fffserial.SerialDisplay.__annotations_cache__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="fffserial.SerialDisplay.__firstlineno__">
-<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></em><a class="headerlink" href="#fffserial.SerialDisplay.__firstlineno__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#fffserial.SerialDisplay.__firstlineno__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -239,7 +226,7 @@ show() will send the data.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="fffserial.SerialDisplay.__static_attributes__">
-<span class="sig-name descname"><span class="pre">__static_attributes__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('buffer',</span> <span class="pre">'buffered',</span> <span class="pre">'ser')</span></em><a class="headerlink" href="#fffserial.SerialDisplay.__static_attributes__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__static_attributes__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('baud',</span> <span class="pre">'buffer',</span> <span class="pre">'buffered',</span> <span class="pre">'ser',</span> <span class="pre">'serial_device')</span></em><a class="headerlink" href="#fffserial.SerialDisplay.__static_attributes__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -289,7 +276,7 @@ seperately to one GPIO port on the Raspberry Pi.</p>
     +++---------[one wire per module]--------+----+-----+
 </pre></div>
 </div>
-<p id="module-1">ATTENTION: The following implementation of a flipdotdisplay was the first 
+<p id="module-1">DEPRECATED: The following implementation of a flipdotdisplay was the first 
 attempt that used a portexpander to control the display. It was replaced by a 
 arduino based solution that is more reliable and faster. The code is still here 
 for reference but is no longer supported.</p>
@@ -326,13 +313,8 @@ display with <a class="reference internal" href="#flipdotdisplay.FlipDotDisplay.
 <dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flipdotdisplay.</span></span><span class="sig-name descname"><span class="pre">FlipDotDisplay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">13</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[18]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flipdotdisplay.html#FlipDotDisplay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay" title="Link to this definition"></a></dt>
 <dd><dl class="py attribute">
-<dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay.__annotate_func__">
-<span class="sig-name descname"><span class="pre">__annotate_func__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.__annotate_func__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay.__annotations_cache__">
-<span class="sig-name descname"><span class="pre">__annotations_cache__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.__annotations_cache__" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="flipdotdisplay.FlipDotDisplay.__annotations__">
+<span class="sig-name descname"><span class="pre">__annotations__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#flipdotdisplay.FlipDotDisplay.__annotations__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -472,9 +454,9 @@ demos.PygameSurfaceDemo.</p>
 <dd><p>Draw text on a display.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">net</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">util</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">RemoteDisplay</span><span class="p">(</span><span class="s2">&quot;taylorpi.local&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">RemoteDisplay</span><span class="p">(</span><span class="s2">"taylorpi.local"</span><span class="p">)</span>
 <span class="go">Remote display will send data to taylorpi.local on port 10101</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">util</span><span class="o">.</span><span class="n">draw_text_on_fdd</span><span class="p">(</span><span class="s2">&quot;Hallo&quot;</span><span class="p">,</span> <span class="s2">&quot;Arial&quot;</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="n">fdd</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">util</span><span class="o">.</span><span class="n">draw_text_on_fdd</span><span class="p">(</span><span class="s2">"Hallo"</span><span class="p">,</span> <span class="s2">"Arial"</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="n">fdd</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fdd</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -515,7 +497,7 @@ is shown in the following.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">flipdotsim</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fds</span> <span class="o">=</span> <span class="n">flipdotsim</span><span class="o">.</span><span class="n">FlipDotSim</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="n">fds</span><span class="p">,</span> <span class="s2">&quot;Hello world.&quot;</span><span class="p">,</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">flipdotfont</span><span class="o">.</span><span class="n">TextScroller</span><span class="p">(</span><span class="n">fds</span><span class="p">,</span> <span class="s2">"Hello world."</span><span class="p">,</span> 
 <span class="gp">... </span>                                <span class="n">flipdotfont</span><span class="o">.</span><span class="n">big_font</span><span class="p">())</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">t</span><span class="o">.</span><span class="n">scrolltext</span><span class="p">()</span>

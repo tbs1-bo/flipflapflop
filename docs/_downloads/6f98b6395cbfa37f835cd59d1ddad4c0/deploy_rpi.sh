@@ -22,7 +22,7 @@ echo "installing flipflapflop"
 cd $HOME
 git clone --depth 1 https://github.com/tbs1-bo/flipflapflop.git
 cd flipflapflop
-$HOME/.local/bin/poetry update
+$HOME/.local/bin/poetry install
 make configuration.py
 
 echo "add systemd service"

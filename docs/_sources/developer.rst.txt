@@ -18,6 +18,15 @@ and its dependencies::
   $ cd flipflapflop
   $ poetry install
 
+The dependencies are split into two groups:
+
+- the main dependencies are needed to run the software, e.g. on the Pi.
+- the optional ``dev`` group contains tools for development: pytest,
+  pylint, sphinx and jupyterlab. It is not installed by default. Install
+  it with::
+
+    $ poetry install --with dev
+
 The deployment scenario described here relies on a Raspberry Pi that acts as an 
 access point. To setup a Pi this way you can follow the `instructions from raspberrypi.org 
 <https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md>`_. We
@@ -64,7 +73,7 @@ or if you are using poetry:
 
 .. code-block:: bash
 
-   $ poetry update --with=dev
+   $ poetry install --with dev
 
 The documentation is created with sphinx and is configured in folder ``docgen``. 
 You can use ``make html`` or ``make.bat html`` to create the docucmentation
