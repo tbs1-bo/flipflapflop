@@ -8,12 +8,17 @@ https://matthias-research.github.io/pages/tenMinutePhysics/
 
 The wind is provided by a ForceSource. By default random gusts are used.
 Start with --mouse to blow with the mouse in the simulator window.
+Start with --web to change the parameters and the wind at runtime in the
+browser (http://<host>:5001).
 
 Demo: https://tube.tchncs.de/w/hSJ98E9Snyfzgvqm8XURpL or
 https://youtu.be/3KN7t8kdw9g
 """
+import functools
 import math
+import queue
 import random
+import threading
 import time
 
 import numpy as np
@@ -144,6 +149,10 @@ class WaterSim:
     Tuning hints: for calmer motion lower GRAVITY and WIND_ACCEL together,
     for more splashes raise WIND_ACCEL. If the Raspberry Pi is too slow,
     first lower PRESSURE_ITERS to 15-20, then raise SUBSTEP to 1/30.
+
+    All parameters, the wind source and the ranges of the gusts can be
+    changed at runtime with set_param(), from another thread with
+    queue_param() (see serve_controls()).
     """
 
     FILL_LEVEL = 0.4
@@ -158,10 +167,82 @@ class WaterSim:
     MAX_PER_CELL = 8
     SUBSTEP = 1 / 40
 
+    # parameters for set_param(): (name, min, max, step, needs_reset),
+    # an integer step makes an integer parameter
+    PARAMS = (
+        ('FILL_LEVEL', 0.05, 0.95, 0.05, True),
+        ('PARTICLE_RADIUS', 0.2, 0.6, 0.05, True),
+        ('GRAVITY', 0.0, 200.0, 5.0, False),
+        ('WIND_ACCEL', 0.0, 300.0, 5.0, False),
+        ('WIND_WAVE_LENGTH', 2.0, 50.0, 1.0, False),
+        ('FLIP_RATIO', 0.0, 1.0, 0.05, False),
+        ('PRESSURE_ITERS', 1, 100, 1, False),
+        ('OVER_RELAXATION', 1.0, 1.99, 0.01, False),
+        ('PUSH_ITERS', 0, 10, 1, False),
+        ('MAX_PER_CELL', 1, 32, 1, False),
+        ('SUBSTEP', 0.005, 0.1, 0.005, False),
+        ('fps', 1, 30, 1, False),
+        # strength of ConstantForce
+        ('wind_force', -1.0, 1.0, 0.05, False),
+        # ranges of GustForce, see there
+        ('calm_min', 0.0, 20.0, 0.5, False),
+        ('calm_max', 0.0, 20.0, 0.5, False),
+        ('gust_min', 0.1, 20.0, 0.5, False),
+        ('gust_max', 0.1, 20.0, 0.5, False),
+        ('strength_min', 0.0, 1.0, 0.05, False),
+        ('strength_max', 0.0, 1.0, 0.05, False),
+    )
+
+    # short explanations of the parameters, e.g. as tooltips in a UI
+    PARAM_HELP = {
+        'wind': "Source of the wind: random gusts, constant wind, "
+                "mouse in the simulator window or no wind.",
+        'FILL_LEVEL': "Initial water level relative to the display height. "
+                      "Restarts the simulation.",
+        'PARTICLE_RADIUS': "Particle radius in cells. Smaller gives more "
+                           "particles, denser water and more computing time. "
+                           "Restarts the simulation.",
+        'GRAVITY': "Gravity in pixels/s². Higher means fast, restless "
+                   "sloshing, lower means slow motion.",
+        'WIND_ACCEL': "Acceleration of the surface at full wind. Close to "
+                      "GRAVITY gives strong splashes, much lower only waves.",
+        'WIND_WAVE_LENGTH': "Distance in pixels between stronger wind spots. "
+                            "Small: short choppy waves, large: long swell.",
+        'FLIP_RATIO': "0: viscous like honey, waves die out quickly. "
+                      "1: very lively but the water jitters.",
+        'PRESSURE_ITERS': "Iterations of the pressure solver per step. Fewer "
+                          "is faster but the water gets mushy.",
+        'OVER_RELAXATION': "Speeds up the pressure solver. Below 1.5 it "
+                           "converges slowly, near 2 it becomes unstable.",
+        'PUSH_ITERS': "How often overlapping particles are pushed apart per "
+                      "step. More gives less flickering.",
+        'MAX_PER_CELL': "Maximum number of particles per cell considered "
+                        "when searching neighbours. Usually left unchanged.",
+        'SUBSTEP': "Length of one simulation step in seconds. Smaller is "
+                   "more stable in strong wind but costs computing time.",
+        'fps': "Frame rate of the display.",
+        'wind_force': "Strength of the constant wind, negative blows to the "
+                      "left. Only for wind 'constant'.",
+        'calm_min': "Minimum duration of calm phases in seconds (gusts).",
+        'calm_max': "Maximum duration of calm phases in seconds (gusts).",
+        'gust_min': "Minimum duration of a gust in seconds (gusts).",
+        'gust_max': "Maximum duration of a gust in seconds (gusts).",
+        'strength_min': "Minimum peak strength of a gust (gusts).",
+        'strength_max': "Maximum peak strength of a gust (gusts).",
+    }
+
     def __init__(self, fdd, force_source=None, fps=10):
         self.fdd = fdd
-        self.force_source = force_source or GustForce()
+        # wind sources to choose from with set_param('wind', name)
+        self.force_sources = {'gust': GustForce(), 'constant': ConstantForce(0.5),
+                              'mouse': MouseForce(), 'none': ForceSource()}
+        for name, source in self.force_sources.items():
+            if type(source) is type(force_source):
+                self.force_sources[name] = force_source
+        self.force_source = force_source or self.force_sources['gust']
         self.fps = fps
+        # changes from other threads, applied between two frames
+        self.updates = queue.Queue()
         self.width = fdd.width
         self.height = fdd.height
         # grid with a solid border of one cell around the display area
@@ -200,6 +281,75 @@ class WaterSim:
         self.parity = (i + j) % 2
         self.t = 0.0
         self._update_cell_types()
+
+    def _param(self, name):
+        "Return target object and attribute name (and range index) of a parameter."
+        if name == 'wind_force':
+            return self.force_sources['constant'], 'force', None
+        if name.endswith(('_min', '_max')):
+            attr, end = name.rsplit('_', 1)
+            return self.force_sources['gust'], attr, int(end == 'max')
+        return self, name, None
+
+    def get_param(self, name):
+        if name == 'wind':
+            return next((n for n, s in self.force_sources.items()
+                         if s is self.force_source), 'custom')
+        target, attr, index = self._param(name)
+        value = getattr(target, attr)
+        return value if index is None else value[index]
+
+    def check_param(self, name, value):
+        """Return the value of a parameter clamped to its range. Raise
+        KeyError for unknown names and ValueError for invalid values."""
+        if name == 'wind':
+            if value not in self.force_sources:
+                raise ValueError(f"unknown wind source: {value}")
+            return value
+        limits = {p[0]: p[1:] for p in self.PARAMS}
+        lo, hi, step, _needs_reset = limits[name]
+        value = float(value)
+        if math.isnan(value):
+            raise ValueError("invalid value: nan")
+        value = min(max(value, lo), hi)
+        return int(round(value)) if isinstance(step, int) else value
+
+    def set_param(self, name, value):
+        """Change a parameter (see PARAMS) or the wind source ('wind': one
+        of force_sources). Parameters that change the water restart the
+        simulation."""
+        value = self.check_param(name, value)
+        if name == 'wind':
+            self.force_source = self.force_sources[value]
+            return
+        target, attr, index = self._param(name)
+        if index is not None:
+            limits = list(getattr(target, attr))
+            limits[index] = value
+            value = tuple(limits)
+        setattr(target, attr, value)
+        if any(p[0] == name and p[4] for p in self.PARAMS):
+            self.reset()
+
+    def queue_param(self, name, value):
+        "Thread safe set_param(), applied before the next frame."
+        self.check_param(name, value)
+        self.updates.put(functools.partial(self.set_param, name, value))
+
+    def queue_reset(self):
+        "Thread safe reset(), applied before the next frame."
+        self.updates.put(self.reset)
+
+    def get_params(self):
+        "Current values and ranges of all parameters, e.g. for a UI."
+        return {
+            'wind': self.get_param('wind'),
+            'wind_sources': list(self.force_sources),
+            'help': self.PARAM_HELP,
+            'params': [{'name': name, 'min': lo, 'max': hi, 'step': step,
+                        'reset': needs_reset, 'value': self.get_param(name)}
+                       for name, lo, hi, step, needs_reset in self.PARAMS],
+        }
 
     def step(self, dt, force):
         "Advance the simulation by dt seconds with the given wind force."
@@ -382,6 +532,8 @@ class WaterSim:
 
     def one_cycle(self):
         "Simulate and draw one frame."
+        while not self.updates.empty():
+            self.updates.get()()
         force = self.force_source.get_force(self.t)
         steps = max(1, round(1 / self.fps / self.SUBSTEP))
         for _ in range(steps):
@@ -397,6 +549,106 @@ class WaterSim:
             delay = 1 / self.fps - (time.time() - frame_start)
             if delay > 0:
                 time.sleep(delay)
+
+
+CONTROL_PAGE = """<!doctype html>
+<html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Water simulation</title>
+<style>
+body { font-family: sans-serif; max-width: 40em; margin: 0 auto; padding: 1em; }
+label { display: block; margin-top: 0.8em; }
+label[title] { cursor: help; }
+input[type=range] { width: 100%; }
+.reset { color: #a50; }
+</style></head><body>
+<h1>Water simulation</h1>
+<label>Wind <select id="wind"></select></label>
+<div id="params"></div>
+<p><button id="reset">Reset</button>
+<span class="reset">orange</span>: changing restarts the simulation</p>
+<script>
+function send(url, data) {
+    fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)});
+}
+fetch('params').then(r => r.json()).then(state => {
+    const wind = document.getElementById('wind');
+    for (const name of state.wind_sources) wind.add(new Option(name, name));
+    wind.value = state.wind;
+    wind.parentElement.title = state.help.wind;
+    wind.onchange = () => send('params', {wind: wind.value});
+    const params = document.getElementById('params');
+    for (const p of state.params) {
+        const label = document.createElement('label');
+        if (p.reset) label.className = 'reset';
+        label.title = state.help[p.name] || '';
+        const value = document.createElement('span');
+        const input = document.createElement('input');
+        Object.assign(input, {type: 'range', min: p.min, max: p.max,
+                              step: p.step, value: p.value});
+        value.textContent = p.value;
+        input.oninput = () => { value.textContent = input.value; };
+        input.onchange = () => send('params', {[p.name]: Number(input.value)});
+        label.append(p.name + ' ', value, input);
+        params.append(label);
+    }
+});
+document.getElementById('reset').onclick = () => send('reset', {});
+</script></body></html>
+"""
+
+
+def create_control_app(sim):
+    """Flask app to change the parameters of a running WaterSim:
+
+    GET /: page with sliders for all parameters.
+    GET /params: current values and ranges as JSON (see get_params()).
+    POST /params: JSON object {name: value, ...} with the changes.
+    POST /reset: restart the simulation.
+    """
+    from flask import Flask, jsonify, request
+
+    app = Flask(__name__)
+
+    @app.get('/')
+    def index():
+        return CONTROL_PAGE
+
+    @app.get('/params')
+    def get_params():
+        return jsonify(sim.get_params())
+
+    @app.post('/params')
+    def set_params():
+        data = request.get_json(silent=True)
+        if not isinstance(data, dict):
+            return jsonify(error="expected a JSON object"), 400
+        try:
+            for name, value in data.items():
+                sim.check_param(name, value)
+        except (KeyError, ValueError, TypeError) as e:
+            return jsonify(error=f"{name}: {e}"), 400
+        for name, value in data.items():
+            sim.queue_param(name, value)
+        return jsonify(ok=True)
+
+    @app.post('/reset')
+    def reset():
+        sim.queue_reset()
+        return jsonify(ok=True)
+
+    return app
+
+
+def serve_controls(sim, host='0.0.0.0', port=5001):
+    "Serve the control page (see create_control_app()) in a background thread."
+    app = create_control_app(sim)
+    thread = threading.Thread(
+        target=app.run, kwargs=dict(host=host, port=port, use_reloader=False),
+        daemon=True)
+    thread.start()
+    return thread
 
 
 def test_particles_stay_inside():
@@ -436,6 +688,65 @@ def test_mouse_force_without_window():
     assert MouseForce().get_force(0) == 0.0
 
 
+def test_set_param():
+    import displayprovider
+    sim = WaterSim(displayprovider.DisplayBase(28, 13))
+    sim.set_param('GRAVITY', 1000)
+    assert sim.GRAVITY == 200.0
+    assert WaterSim.GRAVITY == 60.0
+    sim.set_param('PRESSURE_ITERS', 12.6)
+    assert sim.PRESSURE_ITERS == 13
+    sim.set_param('strength_max', 0.5)
+    assert sim.force_sources['gust'].strength == (0.4, 0.5)
+    sim.set_param('wind', 'constant')
+    sim.set_param('wind_force', -0.3)
+    assert sim.force_source.get_force(0) == -0.3
+    assert sim.get_param('wind') == 'constant'
+    for name, value in (('UNKNOWN', 1), ('GRAVITY', 'x'), ('GRAVITY', 'nan'),
+                        ('wind', 'storm')):
+        try:
+            sim.set_param(name, value)
+            assert False, name
+        except (KeyError, ValueError):
+            pass
+
+
+def test_set_param_resets():
+    import displayprovider
+    sim = WaterSim(displayprovider.DisplayBase(28, 13))
+    count = len(sim.pos)
+    sim.set_param('PARTICLE_RADIUS', 0.5)
+    assert len(sim.pos) < count
+
+
+def test_updates_applied_in_cycle():
+    import displayprovider
+    sim = WaterSim(displayprovider.DisplayBase(28, 13))
+    sim.queue_param('GRAVITY', 10)
+    assert sim.GRAVITY == 60.0
+    sim.one_cycle()
+    assert sim.GRAVITY == 10.0
+
+
+def test_control_app():
+    import displayprovider
+    sim = WaterSim(displayprovider.DisplayBase(28, 13))
+    client = create_control_app(sim).test_client()
+    assert client.get('/').status_code == 200
+    params = client.get('/params').get_json()
+    assert params['wind'] == 'gust'
+    assert set(params['help']) == {p['name'] for p in params['params']} | {'wind'}
+    assert {'name': 'GRAVITY', 'min': 0.0, 'max': 200.0, 'step': 5.0,
+            'reset': False, 'value': 60.0} in params['params']
+    assert client.post('/params', json={'GRAVITY': 20, 'wind': 'none'}).status_code == 200
+    assert client.post('/params', json={'UNKNOWN': 1}).status_code == 400
+    assert client.post('/params', json={'GRAVITY': 'x'}).status_code == 400
+    assert client.post('/reset').status_code == 200
+    sim.one_cycle()
+    assert sim.GRAVITY == 20.0
+    assert sim.get_param('wind') == 'none'
+
+
 def test_watersim():
     import flipdotsim
     for w, h in ((28, 13), (126, 16)):
@@ -446,17 +757,33 @@ def test_watersim():
 
 
 def main():
-    import sys
+    import argparse
     import displayprovider
+    parser = argparse.ArgumentParser(
+        description="Water simulation with wind for the flipdot display.")
+    parser.add_argument(
+        "--mouse", action="store_true",
+        help="blow with the mouse in the simulator window instead of random gusts")
+    parser.add_argument(
+        "--web", action="store_true",
+        help="change the parameters and the wind at runtime in the browser "
+             "(http://<host>:5001)")
+    args = parser.parse_args()
     fdd = displayprovider.get_display()
     force_source = None
-    if "--mouse" in sys.argv:
+    if args.mouse:
         force_source = MouseForce()
         print("Mouse control: hold a mouse button in the simulator window.")
         print("The wind blows away from the cursor, stronger near the edges.")
     else:
         print("Random gusts. Start with --mouse to blow with the mouse.")
-    WaterSim(fdd, force_source).run()
+    sim = WaterSim(fdd, force_source)
+    if args.web:
+        serve_controls(sim)
+        print("Change the parameters at http://<host>:5001")
+    else:
+        print("Start with --web to change the parameters in the browser.")
+    sim.run()
 
 
 if __name__ == "__main__":
