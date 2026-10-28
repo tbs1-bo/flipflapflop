@@ -27,7 +27,7 @@ jobs:
       uses: snok/install-poetry@v1    
     - name: Install dependencies
       run: |
-        poetry install --with dev
+        poetry install --with dev --no-root
     - name: Install apt packages
       run: |
         sudo apt-get update
