@@ -8,8 +8,8 @@ https://matthias-research.github.io/pages/tenMinutePhysics/
 
 The wind is provided by a ForceSource. By default random gusts are used.
 Start with --mouse to blow with the mouse in the simulator window.
-Start with --web to change the parameters and the wind at runtime in the
-browser (http://<host>:5001).
+Start with --web to change the parameters, the wind and the display (size,
+serial device, baud rate) at runtime in the browser (http://<host>:5001).
 
 Demo: https://tube.tchncs.de/w/hSJ98E9Snyfzgvqm8XURpL or
 https://youtu.be/3KN7t8kdw9g
@@ -18,6 +18,7 @@ import functools
 import math
 import queue
 import random
+import sys
 import threading
 import time
 
@@ -94,6 +95,12 @@ class GustForce(ForceSource):
 FLUID, AIR, SOLID = 0, 1, 2
 
 
+def _is_pygame_sim(fdd):
+    "True if fdd is a pygame simulator window (without importing pygame)."
+    flipdotsim = sys.modules.get('flipdotsim')
+    return flipdotsim is not None and isinstance(fdd, flipdotsim.FlipDotSim)
+
+
 class WaterSim:
     """FLIP water simulation in a closed basin. Particles carry the water,
     a staggered grid with one cell per display pixel makes the water
@@ -153,6 +160,12 @@ class WaterSim:
     All parameters, the wind source and the ranges of the gusts can be
     changed at runtime with set_param(), from another thread with
     queue_param() (see serve_controls()).
+
+    display_factory: optional callable factory(width=, height=,
+        serial_device=, baud=) returning a new display (e.g.
+        displayprovider.get_display). If given, the display can be replaced
+        at runtime with set_display(), from another thread with
+        queue_display().
     """
 
     FILL_LEVEL = 0.4
@@ -193,6 +206,11 @@ class WaterSim:
         ('strength_max', 0.0, 1.0, 0.05, False),
     )
 
+    # display settings for set_display(): (name, min, max) for integers,
+    # the serial coordinates must fit into 7 bits
+    DISPLAY_LIMITS = (('width', 1, 127), ('height', 1, 127))
+    BAUDRATES = (9600, 19200, 38400, 57600, 115200, 230400)
+
     # short explanations of the parameters, e.g. as tooltips in a UI
     PARAM_HELP = {
         'wind': "Source of the wind: random gusts, constant wind, "
@@ -229,10 +247,20 @@ class WaterSim:
         'gust_max': "Maximum duration of a gust in seconds (gusts).",
         'strength_min': "Minimum peak strength of a gust (gusts).",
         'strength_max': "Maximum peak strength of a gust (gusts).",
+        'width': "Width of the display in pixels. Recreates the display.",
+        'height': "Height of the display in pixels. Recreates the display.",
+        'serial_device': "Serial device of the Arduino, e.g. /dev/ttyUSB0. "
+                         "Falls back to the simulator if not available.",
+        'baud': "Baud rate of the serial connection.",
     }
 
-    def __init__(self, fdd, force_source=None, fps=10):
+    def __init__(self, fdd, force_source=None, fps=10, display_factory=None):
         self.fdd = fdd
+        self.display_factory = display_factory
+        self.display_settings = {
+            'width': fdd.width, 'height': fdd.height,
+            'serial_device': getattr(fdd, 'serial_device', '/dev/ttyUSB0'),
+            'baud': getattr(fdd, 'baud', 115200)}
         # wind sources to choose from with set_param('wind', name)
         self.force_sources = {'gust': GustForce(), 'constant': ConstantForce(0.5),
                               'mouse': MouseForce(), 'none': ForceSource()}
@@ -340,9 +368,64 @@ class WaterSim:
         "Thread safe reset(), applied before the next frame."
         self.updates.put(self.reset)
 
+    def check_display(self, settings):
+        """Return the display settings (see display_settings) completed with
+        the current values and clamped to their ranges. Raise KeyError for
+        unknown names and ValueError for invalid values."""
+        if self.display_factory is None:
+            raise ValueError("display can not be changed")
+        result = dict(self.display_settings)
+        limits = {name: (lo, hi) for name, lo, hi in self.DISPLAY_LIMITS}
+        for name, value in settings.items():
+            if name in limits:
+                lo, hi = limits[name]
+                value = min(max(int(value), lo), hi)
+            elif name == 'serial_device':
+                value = str(value).strip()
+                if not value:
+                    raise ValueError("empty serial device")
+            elif name == 'baud':
+                value = int(value)
+                if value not in self.BAUDRATES:
+                    raise ValueError(f"unsupported baud rate: {value}")
+            else:
+                raise KeyError(name)
+            result[name] = value
+        return result
+
+    def set_display(self, settings):
+        """Replace the display with a new one from display_factory and
+        restart the simulation. Must be called from the thread running the
+        simulation (pygame), use queue_display() from other threads."""
+        settings = self.check_display(settings)
+        old = self.fdd
+        # pygame.quit() and a new window lose the mouse on macOS, so the
+        # simulator is kept open and its window resized by the new one
+        keep = _is_pygame_sim(old)
+        if not keep and hasattr(old, 'close'):
+            old.close()  # e.g. free the serial port before reopening it
+        self.fdd = self.display_factory(**settings)
+        if keep and not _is_pygame_sim(self.fdd):
+            old.close()
+        self.display_settings = settings
+        self.width = self.fdd.width
+        self.height = self.fdd.height
+        self.nx = self.width + 2
+        self.ny = self.height + 2
+        self.reset()
+
+    def queue_display(self, settings):
+        "Thread safe set_display(), applied before the next frame."
+        self.check_display(settings)
+        self.updates.put(functools.partial(self.set_display, dict(settings)))
+
     def get_params(self):
         "Current values and ranges of all parameters, e.g. for a UI."
         return {
+            'display': dict(self.display_settings,
+                            changeable=self.display_factory is not None,
+                            type=type(self.fdd).__name__,
+                            baudrates=list(self.BAUDRATES)),
             'wind': self.get_param('wind'),
             'wind_sources': list(self.force_sources),
             'help': self.PARAM_HELP,
@@ -561,8 +644,19 @@ label { display: block; margin-top: 0.8em; }
 label[title] { cursor: help; }
 input[type=range] { width: 100%; }
 .reset { color: #a50; }
+fieldset { margin-top: 1em; }
+fieldset label { display: inline-block; margin-right: 1em; }
+input[type=number] { width: 5em; }
 </style></head><body>
 <h1>Water simulation</h1>
+<fieldset id="display" hidden><legend>Display (<span id="type"></span>)</legend>
+<label id="width_l">width <input id="width" type="number" min="1" max="127"></label>
+<label id="height_l">height <input id="height" type="number" min="1" max="127"></label>
+<label id="serial_device_l">serial device <input id="serial_device"></label>
+<label id="baud_l">baud <select id="baud"></select></label>
+<p><button id="apply">Apply</button>
+<span class="reset">recreates the display and restarts the simulation</span></p>
+</fieldset>
 <label>Wind <select id="wind"></select></label>
 <div id="params"></div>
 <p><button id="reset">Reset</button>
@@ -572,7 +666,26 @@ function send(url, data) {
     fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(data)});
 }
+const fields = ['width', 'height', 'serial_device', 'baud'];
 fetch('params').then(r => r.json()).then(state => {
+    const display = state.display;
+    if (display.changeable) {
+        const baud = document.getElementById('baud');
+        for (const b of display.baudrates) baud.add(new Option(b, b));
+        for (const name of fields) {
+            document.getElementById(name).value = display[name];
+            document.getElementById(name + '_l').title = state.help[name];
+        }
+        document.getElementById('type').textContent = display.type;
+        document.getElementById('display').hidden = false;
+    }
+    document.getElementById('apply').onclick = () => {
+        const data = {};
+        for (const name of fields) data[name] = document.getElementById(name).value;
+        fetch('display', {method: 'POST', headers: {'Content-Type': 'application/json'},
+                          body: JSON.stringify(data)})
+            .then(() => setTimeout(() => location.reload(), 1000));
+    };
     const wind = document.getElementById('wind');
     for (const name of state.wind_sources) wind.add(new Option(name, name));
     wind.value = state.wind;
@@ -606,6 +719,8 @@ def create_control_app(sim):
     GET /params: current values and ranges as JSON (see get_params()).
     POST /params: JSON object {name: value, ...} with the changes.
     POST /reset: restart the simulation.
+    POST /display: JSON object with display settings (see
+        WaterSim.check_display()), recreates the display.
     """
     from flask import Flask, jsonify, request
 
@@ -636,6 +751,17 @@ def create_control_app(sim):
     @app.post('/reset')
     def reset():
         sim.queue_reset()
+        return jsonify(ok=True)
+
+    @app.post('/display')
+    def set_display():
+        data = request.get_json(silent=True)
+        if not isinstance(data, dict):
+            return jsonify(error="expected a JSON object"), 400
+        try:
+            sim.queue_display(data)
+        except (KeyError, ValueError, TypeError) as e:
+            return jsonify(error=str(e)), 400
         return jsonify(ok=True)
 
     return app
@@ -735,16 +861,61 @@ def test_control_app():
     assert client.get('/').status_code == 200
     params = client.get('/params').get_json()
     assert params['wind'] == 'gust'
-    assert set(params['help']) == {p['name'] for p in params['params']} | {'wind'}
+    assert params['display']['changeable'] is False
+    assert set(params['help']) == {p['name'] for p in params['params']} | {
+        'wind', 'width', 'height', 'serial_device', 'baud'}
     assert {'name': 'GRAVITY', 'min': 0.0, 'max': 200.0, 'step': 5.0,
             'reset': False, 'value': 60.0} in params['params']
     assert client.post('/params', json={'GRAVITY': 20, 'wind': 'none'}).status_code == 200
     assert client.post('/params', json={'UNKNOWN': 1}).status_code == 400
     assert client.post('/params', json={'GRAVITY': 'x'}).status_code == 400
     assert client.post('/reset').status_code == 200
+    assert client.post('/display', json={'width': 20}).status_code == 400
     sim.one_cycle()
     assert sim.GRAVITY == 20.0
     assert sim.get_param('wind') == 'none'
+
+
+def dummy_display_factory(width, height, serial_device, baud):
+    import displayprovider
+    return displayprovider.DisplayBase(width, height)
+
+
+def test_set_display():
+    import displayprovider
+    sim = WaterSim(displayprovider.DisplayBase(28, 13),
+                   display_factory=dummy_display_factory)
+    sim.queue_display({'width': 20, 'height': 300})
+    assert sim.width == 28
+    sim.one_cycle()
+    assert (sim.fdd.width, sim.fdd.height) == (20, 127)
+    assert sim.pixels().shape == (127, 20)
+    assert sim.display_settings['baud'] == 115200
+    for _ in range(20):
+        sim.step(sim.SUBSTEP, 1.0)
+    assert (sim.pos[:, 0] <= sim.nx - 1).all()
+    for settings in ({'width': 'x'}, {'baud': 1234}, {'serial_device': ' '},
+                     {'unknown': 1}):
+        try:
+            sim.check_display(settings)
+            assert False, settings
+        except (KeyError, ValueError):
+            pass
+
+
+def test_control_app_display():
+    import displayprovider
+    sim = WaterSim(displayprovider.DisplayBase(28, 13),
+                   display_factory=dummy_display_factory)
+    client = create_control_app(sim).test_client()
+    assert client.get('/params').get_json()['display']['changeable'] is True
+    assert client.post('/display', json={'width': 'x'}).status_code == 400
+    assert client.post('/display', json=[1]).status_code == 400
+    assert client.post('/display', json={'width': 30, 'serial_device': '/dev/ttyACM0',
+                                         'baud': 9600}).status_code == 200
+    sim.one_cycle()
+    display = client.get('/params').get_json()['display']
+    assert (display['width'], display['serial_device'], display['baud']) == (30, '/dev/ttyACM0', 9600)
 
 
 def test_watersim():
@@ -758,6 +929,7 @@ def test_watersim():
 
 def main():
     import argparse
+    import configuration
     import displayprovider
     parser = argparse.ArgumentParser(
         description="Water simulation with wind for the flipdot display.")
@@ -766,8 +938,8 @@ def main():
         help="blow with the mouse in the simulator window instead of random gusts")
     parser.add_argument(
         "--web", action="store_true",
-        help="change the parameters and the wind at runtime in the browser "
-             "(http://<host>:5001)")
+        help="change the parameters, the wind and the display at runtime in "
+             "the browser (http://<host>:5001)")
     args = parser.parse_args()
     fdd = displayprovider.get_display()
     force_source = None
@@ -777,7 +949,10 @@ def main():
         print("The wind blows away from the cursor, stronger near the edges.")
     else:
         print("Random gusts. Start with --mouse to blow with the mouse.")
-    sim = WaterSim(fdd, force_source)
+    sim = WaterSim(fdd, force_source, display_factory=displayprovider.get_display)
+    sim.display_settings.update(
+        serial_device=configuration.flipdotdisplay['serialdevice'],
+        baud=configuration.flipdotdisplay['serialbaudrate'])
     if args.web:
         serve_controls(sim)
         print("Change the parameters at http://<host>:5001")

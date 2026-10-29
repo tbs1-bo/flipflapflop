@@ -49,14 +49,21 @@ class DisplayBase:
         "Turn LED of the display on (True) or off (False)"
         pass
 
-def get_display(width=configuration.WIDTH, height=configuration.HEIGHT, fallback=Fallback.SIMULATOR):
+def get_display(width=configuration.WIDTH, height=configuration.HEIGHT, fallback=Fallback.SIMULATOR,
+                serial_device=None, baud=None):
+    """Create a display. serial_device and baud default to the values in
+    configuration.flipdotdisplay."""
     print("Creating display with width", width, "and height", height)
+    if serial_device is None:
+        serial_device = configuration.flipdotdisplay['serialdevice']
+    if baud is None:
+        baud = configuration.flipdotdisplay['serialbaudrate']
     try:
         import fffserial
         return fffserial.SerialDisplay(
             width=width, height=height, 
-            serial_device=configuration.flipdotdisplay['serialdevice'],
-            baud=configuration.flipdotdisplay['serialbaudrate'],
+            serial_device=serial_device,
+            baud=baud,
             buffered=configuration.flipdotdisplay['buffered'])
 
     except Exception as e:
